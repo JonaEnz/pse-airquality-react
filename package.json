@@ -18,9 +18,12 @@
     "react-scripts": "3.4.1",
     "typescript": "^3.7.5"
   },
+  "homepage": "https://jonaenz.github.io/pse-airquality-react",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
