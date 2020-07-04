@@ -35,11 +35,11 @@ export class Feature {
         return Language.getText(this.descriptionId);
     }
 
-    public getReleatedScale(): Scale {
+    public getRelatedScale(): Scale {
         return this.scale;
     }
 
-    public getRealeatedWeblink(): string {
+    public getRelatedWeblink(): string {
         return Language.getText(this.relatedWeblinkId);
     }
 
@@ -56,9 +56,7 @@ export class Feature {
     }
 
     public isLimitExceeded(observation: Observation): boolean {
-        return observation.getValue > this.limit;
+        return observation.getValue() > this.limit;
     }
-
-
 
 }
