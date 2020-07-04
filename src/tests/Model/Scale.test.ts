@@ -1,4 +1,4 @@
-import { Scale } from "../Model/Scale";
+import { Scale } from "../../Model/Scale";
 var scale: Scale;
 test("Create new scale without linear transition", () => {
   scale = new Scale(false, {

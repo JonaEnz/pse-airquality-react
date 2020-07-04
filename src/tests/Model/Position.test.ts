@@ -1,4 +1,4 @@
-import { Position } from "../Model/Position";
+import { Position } from "../../Model/Position";
 
 var pos = new Position(0, 0);
 

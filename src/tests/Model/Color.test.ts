@@ -1,4 +1,4 @@
-import { Color } from "../Model/Color";
+import { Color } from "../../Model/Color";
 
 var colorFromNumbers = new Color(0, 0, 0); //Should throw no errors
 test("toColor() with (0, 0, 0)", () => {
