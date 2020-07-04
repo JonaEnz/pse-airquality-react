@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.523f09c5.chunk.css",
-    "main.js": "/static/js/main.4726a66b.chunk.js",
-    "main.js.map": "/static/js/main.4726a66b.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.bf76a6d1.js",
-    "runtime-main.js.map": "/static/js/runtime-main.bf76a6d1.js.map",
-    "static/js/2.968220f9.chunk.js": "/static/js/2.968220f9.chunk.js",
-    "static/js/2.968220f9.chunk.js.map": "/static/js/2.968220f9.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.d09abe65c747d7c893a4273115dbf7ec.js": "/precache-manifest.d09abe65c747d7c893a4273115dbf7ec.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.523f09c5.chunk.css.map": "/static/css/main.523f09c5.chunk.css.map",
-    "static/js/2.968220f9.chunk.js.LICENSE.txt": "/static/js/2.968220f9.chunk.js.LICENSE.txt",
-    "static/media/logo.svg": "/static/media/logo.ee7cd8ed.svg"
+    "main.css": "/pse-airquality-react/static/css/main.523f09c5.chunk.css",
+    "main.js": "/pse-airquality-react/static/js/main.6dd26d4a.chunk.js",
+    "main.js.map": "/pse-airquality-react/static/js/main.6dd26d4a.chunk.js.map",
+    "runtime-main.js": "/pse-airquality-react/static/js/runtime-main.56fb4d4d.js",
+    "runtime-main.js.map": "/pse-airquality-react/static/js/runtime-main.56fb4d4d.js.map",
+    "static/js/2.968220f9.chunk.js": "/pse-airquality-react/static/js/2.968220f9.chunk.js",
+    "static/js/2.968220f9.chunk.js.map": "/pse-airquality-react/static/js/2.968220f9.chunk.js.map",
+    "index.html": "/pse-airquality-react/index.html",
+    "precache-manifest.96088e1ac029bd742399ba76853e6062.js": "/pse-airquality-react/precache-manifest.96088e1ac029bd742399ba76853e6062.js",
+    "service-worker.js": "/pse-airquality-react/service-worker.js",
+    "static/css/main.523f09c5.chunk.css.map": "/pse-airquality-react/static/css/main.523f09c5.chunk.css.map",
+    "static/js/2.968220f9.chunk.js.LICENSE.txt": "/pse-airquality-react/static/js/2.968220f9.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/pse-airquality-react/static/media/logo.ee7cd8ed.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.bf76a6d1.js",
+    "static/js/runtime-main.56fb4d4d.js",
     "static/js/2.968220f9.chunk.js",
     "static/css/main.523f09c5.chunk.css",
-    "static/js/main.4726a66b.chunk.js"
+    "static/js/main.6dd26d4a.chunk.js"
   ]
 }
