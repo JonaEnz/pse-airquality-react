@@ -6,6 +6,8 @@ import { Viewport } from "../Model/Viewport";
 import { MapController } from "../Controller/MapController";
 import { MapPin } from "../Model/MapPin";
 import { Polygon } from "../Model/Polygon";
+import { Position } from "../Model/Position";
+import { Color } from "../Model/Color";
 
 interface State {
   selectedStation: ObservationStation | null;
@@ -20,7 +22,13 @@ export class MapPage extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.state = { selectedStation: null, pins: [], polygons: [] };
+    this.state = {
+      selectedStation: null,
+      pins: [
+        new MapPin("pin1", new Position(49, 8.5), 10, new Color(255, 0, 0)),
+      ],
+      polygons: [],
+    };
     this.mapController = new MapController();
   }
 

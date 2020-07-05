@@ -3,9 +3,14 @@ import { Viewport } from "../Model/Viewport";
 import { MapPin } from "../Model/MapPin";
 import { Polygon } from "../Model/Polygon";
 
-import { Map as LeafletMap, TileLayer } from "react-leaflet";
+import {
+  Map as LeafletMap,
+  TileLayer,
+  Marker,
+  Polygon as LeafletPolygon,
+} from "react-leaflet";
 import { Position } from "../Model/Position";
-
+require("leaflet-iconmaterial");
 interface State {
   center: Position;
   zoom: number;
@@ -26,6 +31,21 @@ export class Map extends React.Component<Props, State> {
       zoom: 8,
     };
   }
+
+  private getIconFromMapPin(pin: MapPin): L.Icon {
+    // Custom icons with colors
+    //TODO: Add warning if limit is reached?
+    // @ts-ignore
+    var busIcon = L.IconMaterial.icon({
+      icon: "", // Name of Material icon
+      iconColor: "", // Material icon color (could be rgba, hex, html name...)
+      markerColor: pin.getColor().getHex(), // Marker fill color
+      outlineColor: "black", // Marker outline color
+      outlineWidth: 1, // Marker outline width
+    });
+    return busIcon;
+  }
+
   render() {
     return (
       <div>
@@ -37,6 +57,17 @@ export class Map extends React.Component<Props, State> {
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          {this.props.pins.map((pin) => (
+            <Marker
+              position={pin.getPosition().getCoordinates()}
+              icon={this.getIconFromMapPin(pin)}
+            />
+          ))}
+          {/*
+          {this.props.polygons.map((polygon) => (
+            <LeafletPolygon positions={polygon}/>
+          ))}
+          */}
         </LeafletMap>
       </div>
     );
