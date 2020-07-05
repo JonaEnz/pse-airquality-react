@@ -3,10 +3,11 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { MapPage } from "./View/MapPage";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MapPage />
   </React.StrictMode>,
   document.getElementById("root")
 );
