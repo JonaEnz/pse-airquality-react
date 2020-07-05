@@ -55,9 +55,10 @@ export class MapPage extends React.Component<Props, State> {
     return (
       <Map
         onViewportChange={() => {}}
-        handlePopup={() => {}}
+        handlePopup={(pin) => this.onStationSelected(pin)}
         pins={this.state.pins}
         polygons={this.state.polygons}
+        selectedStation={this.state.selectedStation}
       />
     );
   }

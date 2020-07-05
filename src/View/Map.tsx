@@ -8,8 +8,12 @@ import {
   TileLayer,
   Marker,
   Polygon as LeafletPolygon,
+  Viewport as LeafletViewport,
+  Popup,
 } from "react-leaflet";
 import { Position } from "../Model/Position";
+import { StationInfo } from "./StationInfo";
+import { ObservationStation } from "../Model/ObservationStation";
 require("leaflet-iconmaterial");
 interface State {
   center: Position;
@@ -21,6 +25,7 @@ interface Props {
   handlePopup: (pin: MapPin) => void;
   pins: MapPin[];
   polygons: Polygon[];
+  selectedStation: ObservationStation | null;
 }
 
 export class Map extends React.Component<Props, State> {
@@ -46,12 +51,24 @@ export class Map extends React.Component<Props, State> {
     return busIcon;
   }
 
+  private onViewportChange(viewport: LeafletViewport) {
+    this.props.onViewportChange(this.viewportLeafletToModel(viewport));
+  }
+
+  private viewportLeafletToModel(viewport: LeafletViewport): Viewport {
+    return new Viewport(
+      new Position(viewport.center?.[0] ?? 0, viewport.center?.[1] ?? 0),
+      viewport.zoom ?? 0
+    );
+  }
+
   render() {
     return (
       <div>
         <LeafletMap
           center={this.state.center.getCoordinates()}
           zoom={this.state.zoom}
+          onViewportChange={(v) => this.onViewportChange(v)}
         >
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -61,7 +78,15 @@ export class Map extends React.Component<Props, State> {
             <Marker
               position={pin.getPosition().getCoordinates()}
               icon={this.getIconFromMapPin(pin)}
-            />
+            >
+              <Popup onOpen={() => this.props.handlePopup(pin)}>
+                {this.props.selectedStation ? (
+                  <StationInfo station={this.props.selectedStation} />
+                ) : (
+                  <p>No station selected</p>
+                )}
+              </Popup>
+            </Marker>
           ))}
           {/*
           {this.props.polygons.map((polygon) => (
