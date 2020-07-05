@@ -52,7 +52,7 @@ export class Feature {
     return Language.getText(this.relatedWeblinkId);
   }
 
-  public getDrawableDiagramms(): void {}
+  public getDrawableDiagrams(observationStation: ObservationStation): Diagram[] { }
 
   public getLimit(): number {
     return this.limit;
