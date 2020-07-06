@@ -11,7 +11,7 @@ export default class NavBar extends React.Component {
                 <AppBar position="static">
                     <Toolbar>
                         <Typography variant="h6">
-                            SmartAqNet
+                            SmartAQnet
                     </Typography>
                     </Toolbar>
                 </AppBar>
