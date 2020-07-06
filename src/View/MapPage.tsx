@@ -9,6 +9,7 @@ import { Polygon } from "../Model/Polygon";
 import { Position } from "../Model/Position";
 import { Color } from "../Model/Color";
 import { Observation } from "../Model/Observation";
+import FeatureSelect from "./FeatureSelect";
 
 interface State {
   selectedStation: ObservationStation | null;
@@ -59,13 +60,16 @@ export class MapPage extends React.Component<Props, State> {
 
   render() {
     return (
-      <Map
-        onViewportChange={() => {}}
-        handlePopup={(pin) => this.onStationSelected(pin)}
-        pins={this.state.pins}
-        polygons={this.state.polygons}
-        lastObservation={this.state.lastObservation}
-      />
+      <div>
+        <Map
+          onViewportChange={() => {}}
+          handlePopup={(pin) => this.onStationSelected(pin)}
+          pins={this.state.pins}
+          polygons={this.state.polygons}
+          lastObservation={this.state.lastObservation}
+        />
+        <FeatureSelect />
+      </div>
     );
   }
 }
