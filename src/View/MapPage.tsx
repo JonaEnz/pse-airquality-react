@@ -11,6 +11,9 @@ import { Color } from "../Model/Color";
 import { Observation } from "../Model/Observation";
 import FeatureSelect from "./FeatureSelect";
 import Search from "./Search";
+import Legend from "./Legend";
+import { Box } from "@material-ui/core";
+import { Scale } from "../Model/Scale";
 
 interface State {
   selectedStation: ObservationStation | null;
@@ -71,6 +74,13 @@ export class MapPage extends React.Component<Props, State> {
           lastObservation={this.state.lastObservation}
         />
         <FeatureSelect />
+        <Legend
+          min={1}
+          max={20}
+          scale={
+            new Scale(false, { 0: "#000000", 5: "#FFFFFF", 10: "#ABCFAA" })
+          }
+        />
       </div>
     );
   }
