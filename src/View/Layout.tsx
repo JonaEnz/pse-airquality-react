@@ -15,10 +15,10 @@ function Layout() {
         <div className="App">
             <Router>
                 <Switch>
-                    <Route exact path="/" component={MapPage} />
-                    <Route exact path="/detail/:id" component={DetailPage} />
-                    <Route exact ptah="/about" component={AboutPage} />
-                    <Route exact path="/privacy-policy" component={PrivacyPolicyPage} />
+                    <Route exact path="/pse-airquality-react/" component={MapPage} />
+                    <Route exact path="/pse-airquality-react/detail/:id" component={DetailPage} />
+                    <Route exact path="/pse-airquality-react/about" component={AboutPage} />
+                    <Route exact path="/pse-airquality-react/privacy-policy" component={PrivacyPolicyPage} />
                     {/* If no url pattern matches an error page is shown */}
                     <Route>
                         {/* Todo: Error message sollte in mehreren Sprachen abrufbar sein */}
