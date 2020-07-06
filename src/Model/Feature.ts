@@ -1,6 +1,8 @@
 import { Scale } from "./Scale";
 import { Observation } from "./Observation";
+import { ObservationStation } from "./ObservationStation";
 import { Language } from "../Controller/Storage/Language";
+import Diagram from "../View/Diagram";
 
 export class Feature {
   private id: string;
@@ -52,7 +54,11 @@ export class Feature {
     return Language.getText(this.relatedWeblinkId);
   }
 
-  public getDrawableDiagrams(observationStation: ObservationStation): Diagram[] { }
+  //Todo: implement Method
+  public getDrawableDiagrams(observationStation: ObservationStation): Diagram[] {
+    var diagrams: Diagram[] = new Array();
+    return diagrams;
+  }
 
   public getLimit(): number {
     return this.limit;
