@@ -4,7 +4,7 @@ import DetailPage from './DetailPage';
 import ErrorPage from './ErrorPage';
 import AboutPage from './AboutPage';
 import PrivacyPolicyPage from './PrivacyPolicyPage';
-import NavBar from './LayoutComponents/NavBar'
+import PageMenu from './LayoutComponents/PageMenu'
 import {
     BrowserRouter as Router,
     Switch,
@@ -14,7 +14,7 @@ import {
 function Layout() {
     return (
         <div className="App">
-            <NavBar />
+            <PageMenu />
             <Router>
                 <Switch>
                     <Route exact path="/pse-airquality-react/" component={MapPage} />
