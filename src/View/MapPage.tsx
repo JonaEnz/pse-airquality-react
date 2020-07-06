@@ -10,6 +10,7 @@ import { Position } from "../Model/Position";
 import { Color } from "../Model/Color";
 import { Observation } from "../Model/Observation";
 import FeatureSelect from "./FeatureSelect";
+import Search from "./Search";
 
 interface State {
   selectedStation: ObservationStation | null;
@@ -61,6 +62,7 @@ export class MapPage extends React.Component<Props, State> {
   render() {
     return (
       <div>
+        <Search />
         <Map
           onViewportChange={() => {}}
           handlePopup={(pin) => this.onStationSelected(pin)}
