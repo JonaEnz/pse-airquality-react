@@ -14,6 +14,7 @@ import {
 import { Position } from "../Model/Position";
 import { StationInfo } from "./StationInfo";
 import { ObservationStation } from "../Model/ObservationStation";
+import { Observation } from "../Model/Observation";
 require("leaflet-iconmaterial");
 interface State {
   center: Position;
@@ -25,7 +26,7 @@ interface Props {
   handlePopup: (pin: MapPin) => void;
   pins: MapPin[];
   polygons: Polygon[];
-  selectedStation: ObservationStation | null;
+  lastObservation: Observation | null;
 }
 
 export class Map extends React.Component<Props, State> {
@@ -80,8 +81,8 @@ export class Map extends React.Component<Props, State> {
               icon={this.getIconFromMapPin(pin)}
             >
               <Popup onOpen={() => this.props.handlePopup(pin)}>
-                {this.props.selectedStation ? (
-                  <StationInfo station={this.props.selectedStation} />
+                {this.props.lastObservation ? (
+                  <StationInfo lastObservation={this.props.lastObservation} />
                 ) : (
                   <p>No station selected</p>
                 )}

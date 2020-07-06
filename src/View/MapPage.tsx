@@ -8,9 +8,11 @@ import { MapPin } from "../Model/MapPin";
 import { Polygon } from "../Model/Polygon";
 import { Position } from "../Model/Position";
 import { Color } from "../Model/Color";
+import { Observation } from "../Model/Observation";
 
 interface State {
   selectedStation: ObservationStation | null;
+  lastObservation: Observation | null;
   pins: MapPin[];
   polygons: Polygon[];
 }
@@ -24,6 +26,7 @@ export class MapPage extends React.Component<Props, State> {
     super(props);
     this.state = {
       selectedStation: null,
+      lastObservation: null,
       pins: [
         new MapPin("pin1", new Position(49, 8.5), 10, new Color(255, 0, 0)),
       ],
@@ -32,8 +35,11 @@ export class MapPage extends React.Component<Props, State> {
     this.mapController = new MapController();
   }
 
-  selectStation(station: ObservationStation) {
-    this.setState({ selectedStation: station });
+  selectObservation(observation: Observation) {
+    this.setState({
+      selectedStation: observation.getObservationStation(),
+      lastObservation: observation,
+    });
   }
 
   getValueAt(position: Position, feature: Feature): number {
@@ -47,8 +53,8 @@ export class MapPage extends React.Component<Props, State> {
   }
 
   onStationSelected(pin: MapPin) {
-    var station = this.mapController.handlePopup(pin);
-    this.selectStation(station); // set Station for Popup
+    var observation = this.mapController.handlePopup(pin);
+    this.selectObservation(observation); // set Observation (and station) for Popup
   }
 
   render() {
@@ -58,7 +64,7 @@ export class MapPage extends React.Component<Props, State> {
         handlePopup={(pin) => this.onStationSelected(pin)}
         pins={this.state.pins}
         polygons={this.state.polygons}
-        selectedStation={this.state.selectedStation}
+        lastObservation={this.state.lastObservation}
       />
     );
   }

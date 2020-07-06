@@ -12,6 +12,10 @@ export class Scale {
 
   getColor(value: number): Color {
     var keys = Object.keys(this.dict);
+    if (keys.length === 0) {
+      //Empty Scale
+      return Color.getColorFromHex("#AAAAAA");
+    }
     for (let index = 0; index < keys.length - 1; index++) {
       if (parseInt(keys[index]) <= value && parseInt(keys[index + 1]) > value) {
         if (this.linearTransition) {
