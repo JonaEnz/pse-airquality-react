@@ -1,13 +1,14 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Drawer, List, ListItem, ListItemText } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import LanguageMenu from './LanguageMenu';
 
 interface IProps {
 
 }
 
 interface IState {
-    open?: boolean;
+    open: boolean;
 }
 
 export default class PageMenu extends React.Component<IProps, IState> {
@@ -18,7 +19,7 @@ export default class PageMenu extends React.Component<IProps, IState> {
         this.toogleDrawer = this.toogleDrawer.bind(this);
     }
 
-    toogleDrawer() {
+    private toogleDrawer() {
         const toogle = !this.state.open;
         this.setState({ open: toogle });
     }
@@ -31,9 +32,14 @@ export default class PageMenu extends React.Component<IProps, IState> {
                         <Typography variant="h6">
                             SmartAQnet
                         </Typography>
-                        <IconButton style={{ marginLeft: 'auto' }} onClick={this.toogleDrawer}>
-                            <MenuIcon style={{ color: 'white' }} />
-                        </IconButton>
+                        <div style={{ marginLeft: 'auto' }}>
+                            <LanguageMenu />
+                        </div>
+                        <div>
+                            <IconButton style={{ float: 'right' }} onClick={this.toogleDrawer}>
+                                <MenuIcon style={{ color: 'white' }} />
+                            </IconButton>
+                        </div>
                     </Toolbar>
                 </AppBar>
                 <Drawer anchor="right" open={this.state.open} onClose={this.toogleDrawer}>
