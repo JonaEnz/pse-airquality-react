@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import InfoIcon from '@material-ui/icons/Info';
 import SecurityIcon from '@material-ui/icons/Security';
@@ -10,6 +10,7 @@ import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 interface IPageMenuProps {
+    language: Language;
 }
 
 interface IPageMenuState {
@@ -22,7 +23,7 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
 
     constructor(props: IPageMenuProps) {
         super(props);
-        this.language = Language.getInstance()
+        this.language = props.language;
         this.state = { open: false };
         this.toogleDrawer = this.toogleDrawer.bind(this);
     }
@@ -41,31 +42,33 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
                             SmartAQnet
                         </Typography>
                         <div style={{ marginLeft: 'auto' }}>
-                            <LanguageMenu />
+
+                            <LanguageMenu language={this.language} />
+
                         </div>
                         <div>
                             <IconButton style={{ float: 'right' }} onClick={this.toogleDrawer}>
-                                <MenuIcon style={{ color: 'white' }} />
+                                <MenuIcon />
                             </IconButton>
                         </div>
                     </Toolbar>
                 </AppBar>
-                <Drawer anchor="right" open={this.state.open} onClose={this.toogleDrawer}>
+                <SwipeableDrawer anchor="right" open={this.state.open} onOpen={this.toogleDrawer} onClose={this.toogleDrawer}>
                     <div style={{ width: 250 }}>
                         <List>
-                            <ListItem button component={Link} to='/pse-airquality-react/about'>
+                            <ListItem button onClick={this.toogleDrawer} component={Link} to='/pse-airquality-react/privacy-policy'>
                                 <ListItemIcon>
                                     <SecurityIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="Privacy Policy" />
                             </ListItem>
-                            <ListItem button component={Link} to='/pse-airquality-react/about'>
+                            <ListItem button onClick={this.toogleDrawer} component={Link} to='/pse-airquality-react/about'>
                                 <ListItemIcon>
                                     <InfoIcon />
                                 </ListItemIcon>
                                 <ListItemText primary={this.language.getText("about")} />
                             </ListItem>
-                            <ListItem button component='a' href='https://www.smartaq.net'>
+                            <ListItem button onClick={this.toogleDrawer} component='a' href='https://www.smartaq.net'>
                                 <ListItemIcon>
                                     <ExitToAppIcon />
                                 </ListItemIcon>
@@ -73,7 +76,7 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
                             </ListItem>
                         </List>
                     </div>
-                </Drawer>
+                </SwipeableDrawer>
             </Fragment>
         );
     }

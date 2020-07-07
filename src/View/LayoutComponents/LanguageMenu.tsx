@@ -9,7 +9,7 @@ interface IState {
 }
 
 interface IProps {
-
+    language: Language;
 }
 
 export default class LanguageMenu extends React.Component<IProps, IState> {
@@ -20,7 +20,7 @@ export default class LanguageMenu extends React.Component<IProps, IState> {
 
     constructor(props: IProps) {
         super(props)
-        this.language = Language.getInstance();
+        this.language = props.language;
         this.state = {
             selectedLang: this.language.getSelectedLanguage(),
             anchorEl: null
@@ -53,7 +53,7 @@ export default class LanguageMenu extends React.Component<IProps, IState> {
         let list: JSX.Element[] = [];
         this.availableLanguages.forEach((lang: string, id: string) => {
             list.push(
-                <MenuItem onClick={(e) => this.handleMenuItemClick(e, id)} selected={false}>
+                <MenuItem onClick={(e) => this.handleMenuItemClick(e, id)} selected={id == this.language.getSelectedLanguageId()}>
                     {lang}
                 </MenuItem>
             )
@@ -68,7 +68,7 @@ export default class LanguageMenu extends React.Component<IProps, IState> {
                 <Button onClick={this.handleClick} color='inherit' startIcon={<Translate />} endIcon={<ExpandMore />} aria-controls="simple-menu" aria-haspopup="true">
                     {this.state.selectedLang}
                 </Button>
-                <Menu open={Boolean(this.state.anchorEl)} anchorEl={this.state.anchorEl}>
+                <Menu open={Boolean(this.state.anchorEl)} anchorEl={this.state.anchorEl} onClose={this.handleClose}>
                     {this.langList()}
                 </Menu>
             </div>

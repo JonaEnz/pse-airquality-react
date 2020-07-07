@@ -44,6 +44,10 @@ export default class Language {
         return this.selectedLang.name;
     }
 
+    public getSelectedLanguageId(): string {
+        return this.selectedLang.id;
+    }
+
     public changeLanguage(languageID: string): void {
         let find: Lang | undefined = this.languages.find((e) => e.id == languageID);
         if (find != undefined) {
