@@ -1,6 +1,4 @@
 import React from 'react';
-import { Fragment } from 'react';
-import { render } from '@testing-library/react';
 
 export default class PrivacyPolicyPage extends React.Component<IPrivacyPolicyPageProps, IPrivacyPolicyPageState> {
     constructor(props: IPrivacyPolicyPageProps) {
