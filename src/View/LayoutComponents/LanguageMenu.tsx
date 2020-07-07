@@ -14,18 +14,26 @@ interface IProps {
 
 export default class LanguageMenu extends React.Component<IProps, IState> {
 
-    private availableLanguages: string[];
+    private availableLanguages: Map<string, string>;
     private ref: any;
+    private language: Language;
 
     constructor(props: IProps) {
         super(props)
+        this.language = Language.getInstance();
         this.state = {
-            selectedLang: Language.getSelectedLanguage(),
+            selectedLang: this.language.getSelectedLanguage(),
             anchorEl: null
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        this.availableLanguages = Language.getAvailabeleLanguages();
+
+        this.availableLanguages = this.language.getAvailabeleLanguages();
+    }
+
+    isSelectedLang(lang: string): boolean {
+        //return lang === this.state.selectedLang;
+        return false;
     }
 
     handleClick(event: React.MouseEvent<HTMLButtonElement>): void {
@@ -36,6 +44,23 @@ export default class LanguageMenu extends React.Component<IProps, IState> {
         this.setState({ anchorEl: null })
     }
 
+    handleMenuItemClick(event: React.MouseEvent<HTMLElement>, id: string): void {
+        this.language.changeLanguage(id);
+        this.setState({ anchorEl: null, selectedLang: this.language.getSelectedLanguage() })
+    }
+
+    langList(): JSX.Element[] {
+        let list: JSX.Element[] = [];
+        this.availableLanguages.forEach((lang: string, id: string) => {
+            list.push(
+                <MenuItem onClick={(e) => this.handleMenuItemClick(e, id)} selected={false}>
+                    {lang}
+                </MenuItem>
+            )
+        });
+        return list;
+    }
+
     render(): JSX.Element {
 
         return (
@@ -44,11 +69,7 @@ export default class LanguageMenu extends React.Component<IProps, IState> {
                     {this.state.selectedLang}
                 </Button>
                 <Menu open={Boolean(this.state.anchorEl)} anchorEl={this.state.anchorEl}>
-                    {this.availableLanguages.map((lang, index) =>
-                        <MenuItem onClick={this.handleClose} >
-                            {lang}
-                        </MenuItem>
-                    )}
+                    {this.langList()}
                 </Menu>
             </div>
         );
