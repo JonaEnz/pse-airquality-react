@@ -10,6 +10,7 @@ import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 interface IPageMenuProps {
+    language: Language;
 }
 
 interface IPageMenuState {
@@ -22,7 +23,7 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
 
     constructor(props: IPageMenuProps) {
         super(props);
-        this.language = Language.getInstance()
+        this.language = props.language;
         this.state = { open: false };
         this.toogleDrawer = this.toogleDrawer.bind(this);
     }
@@ -41,11 +42,13 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
                             SmartAQnet
                         </Typography>
                         <div style={{ marginLeft: 'auto' }}>
-                            <LanguageMenu />
+
+                            <LanguageMenu language={this.language} />
+
                         </div>
                         <div>
                             <IconButton style={{ float: 'right' }} onClick={this.toogleDrawer}>
-                                <MenuIcon style={{ color: 'white' }} />
+                                <MenuIcon />
                             </IconButton>
                         </div>
                     </Toolbar>

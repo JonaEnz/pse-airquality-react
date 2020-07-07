@@ -9,7 +9,7 @@ interface IState {
 }
 
 interface IProps {
-
+    language: Language;
 }
 
 export default class LanguageMenu extends React.Component<IProps, IState> {
@@ -20,7 +20,7 @@ export default class LanguageMenu extends React.Component<IProps, IState> {
 
     constructor(props: IProps) {
         super(props)
-        this.language = Language.getInstance();
+        this.language = props.language;
         this.state = {
             selectedLang: this.language.getSelectedLanguage(),
             anchorEl: null
