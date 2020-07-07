@@ -1,9 +1,7 @@
 import React from "react";
 import {
   TextField,
-  Grid,
   Paper,
-  InputBase,
   IconButton,
   Divider,
   Theme,
@@ -11,7 +9,7 @@ import {
 import SearchIcon from "@material-ui/icons/Search";
 import LocationIcon from "@material-ui/icons/LocationOn";
 import { Language } from "../Controller/Storage/Language";
-import { withStyles, makeStyles, createStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/styles";
 
 const styles = (theme: Theme) => ({
   root: {
@@ -37,24 +35,40 @@ interface Props {
   classes: any;
 }
 
-interface State {}
+interface State {
+  searchTerm: string;
+}
 
 class Search extends React.Component<Props, State> {
-  search() {}
+  constructor(props: Props) {
+    super(props);
+    this.state = { searchTerm: "" };
+  }
+  search() {
+    console.log(this.state.searchTerm);
+  }
 
   locationClick() {}
 
   render() {
     return (
-      <Paper component="form" className={this.props.classes.root}>
+      <Paper className={this.props.classes.root}>
         <TextField
           type="search"
           variant="outlined"
           className={this.props.classes.input}
           label={Language.getText("Suche")}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              this.search();
+            }
+          }}
+          onChange={(e) => {
+            this.setState({ searchTerm: e.target.value });
+          }}
+          value={this.state.searchTerm}
         />
         <IconButton
-          type="submit"
           onClick={() => this.search()}
           className={this.props.classes.iconButton}
         >

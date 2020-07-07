@@ -12,7 +12,6 @@ import { Observation } from "../Model/Observation";
 import FeatureSelect from "./FeatureSelect";
 import Search from "./Search";
 import Legend from "./Legend";
-import { Box } from "@material-ui/core";
 import { Scale } from "../Model/Scale";
 
 interface State {
@@ -29,15 +28,13 @@ export class MapPage extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    this.mapController = new MapController();
     this.state = {
       selectedStation: null,
       lastObservation: null,
-      pins: [
-        new MapPin("pin1", new Position(49, 8.5), 10, new Color(255, 0, 0)),
-      ],
-      polygons: [],
+      pins: this.mapController.getPins(),
+      polygons: this.mapController.getPolygons(),
     };
-    this.mapController = new MapController();
   }
 
   selectObservation(observation: Observation) {
@@ -67,7 +64,9 @@ export class MapPage extends React.Component<Props, State> {
       <div>
         <Search />
         <Map
-          onViewportChange={() => {}}
+          onViewportChange={(viewport) => {
+            this.onViewportChange(viewport);
+          }}
           handlePopup={(pin) => this.onStationSelected(pin)}
           pins={this.state.pins}
           polygons={this.state.polygons}

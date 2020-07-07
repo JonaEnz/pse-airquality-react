@@ -13,7 +13,6 @@ import {
 } from "react-leaflet";
 import { Position } from "../Model/Position";
 import { StationInfo } from "./StationInfo";
-import { ObservationStation } from "../Model/ObservationStation";
 import { Observation } from "../Model/Observation";
 require("leaflet-iconmaterial");
 interface State {
@@ -30,8 +29,12 @@ interface Props {
 }
 
 export class Map extends React.Component<Props, State> {
+  nextViewport: LeafletViewport | null;
+  lock: boolean;
   constructor(props: Props) {
     super(props);
+    this.lock = false;
+    this.nextViewport = null;
     this.state = {
       center: new Position(49, 8.4),
       zoom: 8,
@@ -53,7 +56,21 @@ export class Map extends React.Component<Props, State> {
   }
 
   private onViewportChange(viewport: LeafletViewport) {
+    this.nextViewport = viewport;
+    if (!this.lock) {
+      this.lock = true;
+      setTimeout(
+        () => this.updateViewport(this.nextViewport as LeafletViewport),
+        250
+      );
+    }
+  }
+
+  private updateViewport(viewport: LeafletViewport) {
     this.props.onViewportChange(this.viewportLeafletToModel(viewport));
+    console.log(viewport);
+    this.setState({ zoom: this.state.zoom });
+    this.lock = false;
   }
 
   private viewportLeafletToModel(viewport: LeafletViewport): Viewport {

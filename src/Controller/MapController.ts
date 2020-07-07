@@ -5,6 +5,8 @@ import { Position } from "../Model/Position";
 import { Observation } from "../Model/Observation";
 import { Feature } from "../Model/Feature";
 import { Scale } from "../Model/Scale";
+import { Color } from "../Model/Color";
+import { Polygon } from "../Model/Polygon";
 
 export class MapController {
   selectedFeature: Feature = new Feature(
@@ -35,4 +37,23 @@ export class MapController {
   }
 
   handleViewportChange(viewport: Viewport) {}
+
+  getPins(): MapPin[] {
+    return [
+      new MapPin(
+        "pin1",
+        new Position(49, 8.5),
+        10,
+        new Color(
+          Math.floor(255 * Math.random()),
+          Math.floor(255 * Math.random()),
+          Math.floor(255 * Math.random())
+        )
+      ),
+    ];
+  }
+
+  getPolygons(): Polygon[] {
+    return [];
+  }
 }

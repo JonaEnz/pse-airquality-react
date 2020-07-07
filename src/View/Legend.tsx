@@ -1,7 +1,6 @@
 import React from "react";
 import { Scale } from "../Model/Scale";
-import { Button, Box, withStyles, Theme } from "@material-ui/core";
-import { Color } from "../Model/Color";
+import { Box } from "@material-ui/core";
 
 interface Props {
   scale: Scale;
@@ -20,17 +19,15 @@ function getStyleFromScale(scale: Scale, min: number, max: number) {
       "%, ";
   }
   grad = grad.slice(0, -2) + ")";
-  console.log(grad);
   return {
     background: grad,
-    height: "200px",
+    height: "80px",
+    width: "40px",
   };
 }
 
 function Legend(props: Props) {
-  return (
-    <Button style={getStyleFromScale(props.scale, props.min, props.max)} />
-  );
+  return <Box style={getStyleFromScale(props.scale, props.min, props.max)} />;
 }
 
 export default Legend;
