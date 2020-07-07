@@ -3,22 +3,18 @@
         {
             "id": "de-de",
             "name": "deutsch",
-            "strings": [
-                {
-                    "stringId": "about",
-                    "text": "Über"
-                }
-            ]
+            "strings": {
+                "about": "Über",
+                "privacyPolicy": "Datenschutzerklärung"
+            }
         },
         {
             "id": "en-us",
             "name": "english",
-            "strings": [
-                {
-                    "stringId": "about",
-                    "text": "About"
-                }
-            ]
+            "strings": {
+                "about": "About",
+                "privacyPolicy": "Privacy Policy"
+            }
         }
     ]
 }

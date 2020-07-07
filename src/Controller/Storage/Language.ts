@@ -3,12 +3,11 @@ import * as languageData from './languages.json';
 interface Lang {
     id: string;
     name: string;
-    strings: LangString[];
+    strings: Strings;
 }
 
-interface LangString {
-    stringId: string;
-    text: string;
+interface Strings {
+    [id: string]: string;
 }
 
 export default class Language {
@@ -33,11 +32,12 @@ export default class Language {
     }
 
     public getText(id: string): string {
-        let find: LangString | undefined = this.selectedLang.strings.find((e) => e.stringId == id);
-        if (find == undefined) {
-            return "undefined";
+        let text: string = this.selectedLang.strings[id];
+        if (text == "" || text == null) {
+            alert("There is no string with id: " + id + " in " + this.selectedLang.name + ".");
+            return "STRING MISSING";
         }
-        return find.text;
+        return text;
     }
 
     public getSelectedLanguage(): string {
