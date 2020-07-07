@@ -1,0 +1,24 @@
+{
+    "languages": [
+        {
+            "id": "de-de",
+            "name": "deutsch",
+            "strings": [
+                {
+                    "stringId": "about",
+                    "text": "Über"
+                }
+            ]
+        },
+        {
+            "id": "en-us",
+            "name": "english",
+            "strings": [
+                {
+                    "stringId": "about",
+                    "text": "About"
+                }
+            ]
+        }
+    ]
+}
