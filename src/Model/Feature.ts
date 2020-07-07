@@ -1,7 +1,7 @@
 import { Scale } from "./Scale";
 import { Observation } from "./Observation";
 import { ObservationStation } from "./ObservationStation";
-import { Language } from "../Controller/Storage/Language";
+import Language from "../Controller/Storage/Language";
 import Diagram from "../View/Diagram";
 
 export class Feature {
