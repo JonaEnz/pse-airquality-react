@@ -60,7 +60,7 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
                                 <ListItemIcon>
                                     <SecurityIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="Privacy Policy" />
+                                <ListItemText primary={this.language.getText("privacyPolicy")} />
                             </ListItem>
                             <ListItem button onClick={this.toogleDrawer} component={Link} to='/pse-airquality-react/about'>
                                 <ListItemIcon>
