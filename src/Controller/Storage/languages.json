@@ -1,0 +1,32 @@
+{
+    "languages": [
+        {
+            "id": "de-de",
+            "name": "deutsch",
+            "strings": {
+                "exampleId": "Beispieltext"
+            }
+        },
+        {
+            "id": "en-us",
+            "name": "english",
+            "strings": {
+                "exampleId": "sample text"
+            }
+        },
+        {
+            "id": "fr-fr",
+            "name": "français",
+            "strings": {
+                "exampleId": "exemple de texte"
+            }
+        },
+        {
+            "id": "es-es",
+            "name": "español",
+            "strings": {
+                "exampleId": "texto de muestra"
+            }
+        }
+    ]
+}
