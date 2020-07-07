@@ -63,7 +63,7 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
                                 <ListItemIcon>
                                     <InfoIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="About" />
+                                <ListItemText primary={this.language.getText("about")} />
                             </ListItem>
                             <ListItem button component='a' href='https://www.smartaq.net'>
                                 <ListItemIcon>
