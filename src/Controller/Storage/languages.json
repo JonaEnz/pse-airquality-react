@@ -3,30 +3,22 @@
         {
             "id": "de-de",
             "name": "deutsch",
-            "strings": {
-                "exampleId": "Beispieltext"
-            }
+            "strings": [
+                {
+                    "stringId": "about",
+                    "text": "Über"
+                }
+            ]
         },
         {
             "id": "en-us",
             "name": "english",
-            "strings": {
-                "exampleId": "sample text"
-            }
-        },
-        {
-            "id": "fr-fr",
-            "name": "français",
-            "strings": {
-                "exampleId": "exemple de texte"
-            }
-        },
-        {
-            "id": "es-es",
-            "name": "español",
-            "strings": {
-                "exampleId": "texto de muestra"
-            }
+            "strings": [
+                {
+                    "stringId": "about",
+                    "text": "About"
+                }
+            ]
         }
     ]
 }
