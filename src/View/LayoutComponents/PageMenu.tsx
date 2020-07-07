@@ -2,6 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Drawer, List, ListItem, ListItemText } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import LanguageMenu from './LanguageMenu';
+import Language from '../../Controller/Storage/Language';
 
 interface IProps {
 
@@ -13,8 +14,11 @@ interface IState {
 
 export default class PageMenu extends React.Component<IProps, IState> {
 
+    private language: Language;
+
     constructor(props: IProps) {
         super(props);
+        this.language = Language.getInstance()
         this.state = { open: false };
         this.toogleDrawer = this.toogleDrawer.bind(this);
     }
@@ -46,7 +50,7 @@ export default class PageMenu extends React.Component<IProps, IState> {
                     <div style={{ width: 250 }}>
                         <List>
                             <ListItem button>
-                                <ListItemText primary="test" />
+                                <ListItemText primary={this.language.getText("exampleID")} />
                             </ListItem>
                         </List>
                     </div>
