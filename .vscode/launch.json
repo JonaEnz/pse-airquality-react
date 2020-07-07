@@ -5,12 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
+      "type": "edge",
       "request": "launch",
-      "name": "Launch Program",
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\start",
-      "outFiles": ["${workspaceFolder}/**/*.js"]
+      "name": "Launch edge on localhost:3000",
+      "url": "http://localhost:3000/pse-airquality-react",
+      "webRoot": "${workspaceFolder}"
     },
     {
       "command": "npm test",

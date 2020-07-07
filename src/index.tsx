@@ -1,13 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import './index.css';
+import "./index.css";
 import "typeface-roboto";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { MapPage } from "./View/MapPage/MapPage";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import purple from "@material-ui/core/colors/purple";
+import green from "@material-ui/core/colors/green";
+import Layout from "./View/Layout";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: green[500],
+    },
+    secondary: {
+      main: purple[500],
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <Layout />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
