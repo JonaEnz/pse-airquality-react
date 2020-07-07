@@ -33,7 +33,7 @@ export default class Language {
 
     public getText(id: string): string {
         let text: string = this.selectedLang.strings[id];
-        if (text == "" || text == null) {
+        if (text === "" || text == null) {
             alert("There is no string with id: " + id + " in " + this.selectedLang.name + ".");
             return "STRING MISSING";
         }
@@ -49,8 +49,8 @@ export default class Language {
     }
 
     public changeLanguage(languageID: string): void {
-        let find: Lang | undefined = this.languages.find((e) => e.id == languageID);
-        if (find != undefined) {
+        let find: Lang | undefined = this.languages.find((e) => e.id === languageID);
+        if (find !== undefined) {
             this.selectedLang = find;
         }
     }

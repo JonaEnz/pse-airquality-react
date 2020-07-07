@@ -53,7 +53,7 @@ export default class LanguageMenu extends React.Component<IProps, IState> {
         let list: JSX.Element[] = [];
         this.availableLanguages.forEach((lang: string, id: string) => {
             list.push(
-                <MenuItem onClick={(e) => this.handleMenuItemClick(e, id)} selected={id == this.language.getSelectedLanguageId()}>
+                <MenuItem onClick={(e) => this.handleMenuItemClick(e, id)} selected={id === this.language.getSelectedLanguageId()}>
                     {lang}
                 </MenuItem>
             )
