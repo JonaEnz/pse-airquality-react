@@ -1,6 +1,16 @@
 import React from "react";
 import { Scale } from "../../Model/Scale";
-import { Box } from "@material-ui/core";
+import { Box, Grid, Typography } from "@material-ui/core";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    box: {
+      padding: theme.spacing(1),
+      width: "50px",
+    },
+  })
+);
 
 interface Props {
   scale: Scale;
@@ -27,7 +37,16 @@ function getStyleFromScale(scale: Scale, min: number, max: number) {
 }
 
 function Legend(props: Props) {
-  return <Box style={getStyleFromScale(props.scale, props.min, props.max)} />;
+  const classes = useStyles();
+  return (
+    <Box className={classes.box} border={1}>
+      <Grid container direction="column">
+        <Typography variant="body2">{props.min}</Typography>
+        <Box style={getStyleFromScale(props.scale, props.min, props.max)} />
+        <Typography variant="body2">{props.max}</Typography>
+      </Grid>
+    </Box>
+  );
 }
 
 export default Legend;

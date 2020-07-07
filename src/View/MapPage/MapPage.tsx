@@ -84,10 +84,10 @@ export class MapPage extends React.Component<Props, State> {
         />
         <FeatureSelect />
         <Legend
-          min={1}
-          max={20}
+          min={0}
+          max={15}
           scale={
-            new Scale(false, { 0: "#000000", 5: "#FFFFFF", 10: "#ABCFAA" })
+            new Scale(false, { 0: "#EEC000", 5: "#90B000", 10: "#FFFF00" })
           }
         />
       </div>

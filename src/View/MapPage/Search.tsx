@@ -36,7 +36,7 @@ const styles = (theme: Theme) => ({
 
 const geonames = new Geonames({
   username: "reactairqualityrea",
-  lan: "en",
+  lan: "de",
   encoding: "JSON",
 });
 
@@ -114,7 +114,7 @@ class Search extends React.Component<Props, State> {
           label={Language.getText("Suche")}
           onKeyPress={(e) => {
             if (e.key === "Enter") {
-              this.search();
+              this.search(); //Enter key was pressed, search for this.state.searchTerm
             }
           }}
           onChange={(e) => {
