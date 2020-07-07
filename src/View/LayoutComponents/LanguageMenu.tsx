@@ -68,7 +68,7 @@ export default class LanguageMenu extends React.Component<IProps, IState> {
                 <Button onClick={this.handleClick} color='inherit' startIcon={<Translate />} endIcon={<ExpandMore />} aria-controls="simple-menu" aria-haspopup="true">
                     {this.state.selectedLang}
                 </Button>
-                <Menu open={Boolean(this.state.anchorEl)} anchorEl={this.state.anchorEl}>
+                <Menu open={Boolean(this.state.anchorEl)} anchorEl={this.state.anchorEl} onClose={this.handleClose}>
                     {this.langList()}
                 </Menu>
             </div>
