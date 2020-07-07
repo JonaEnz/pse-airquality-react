@@ -65,8 +65,19 @@ class Search extends React.Component<Props, State> {
         });
     }
   }
-  search() {
+  async search() {
     var search = this.state.searchTerm;
+    var response = await fetch(
+      "https://nominatim.openstreetmap.org/search?format=json&q=" + search
+    );
+    var json = await response.json();
+    if (json.length === 0) {
+      return; //No location found
+    }
+    var position = new Position(json[0].lat, json[0].lon);
+    this.props.onSearch(position);
+    /*
+
     // promise
     geonames
       .search({ q: search }) //get continents
@@ -76,6 +87,7 @@ class Search extends React.Component<Props, State> {
         this.props.onSearch(position);
       })
       .catch((err: any) => console.error(err));
+      */
   }
 
   locationClick() {
