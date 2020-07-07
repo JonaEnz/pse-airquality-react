@@ -10,6 +10,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import LocationIcon from "@material-ui/icons/LocationOn";
 import { Language } from "../Controller/Storage/Language";
 import { withStyles } from "@material-ui/styles";
+//@ts-ignore
+import Geonames from "geonames.js";
+import { Position } from "../Model/Position";
 
 const styles = (theme: Theme) => ({
   root: {
@@ -31,8 +34,15 @@ const styles = (theme: Theme) => ({
   },
 });
 
+const geonames = new Geonames({
+  username: "reactairqualityrea",
+  lan: "en",
+  encoding: "JSON",
+});
+
 interface Props {
   classes: any;
+  onSearch(position: Position): void;
 }
 
 interface State {
@@ -45,7 +55,16 @@ class Search extends React.Component<Props, State> {
     this.state = { searchTerm: "" };
   }
   search() {
-    console.log(this.state.searchTerm);
+    var search = this.state.searchTerm;
+    // promise
+    geonames
+      .search({ q: search }) //get continents
+      .then((resp: any) => {
+        var firstResult = resp.geonames[0];
+        var position = new Position(firstResult.lat, firstResult.lng);
+        this.props.onSearch(position);
+      })
+      .catch((err: any) => console.error(err));
   }
 
   locationClick() {}

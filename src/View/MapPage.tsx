@@ -59,10 +59,20 @@ export class MapPage extends React.Component<Props, State> {
     this.selectObservation(observation); // set Observation (and station) for Popup
   }
 
+  onSearch(pos: Position) {
+    //TODO: Imple
+    this.state.pins.push(
+      new MapPin("Suchergebnis", pos, 10, new Color(100, 100, 100))
+    );
+    this.setState({
+      pins: this.state.pins,
+    });
+  }
+
   render() {
     return (
       <div>
-        <Search />
+        <Search onSearch={(pos) => this.onSearch(pos)} />
         <Map
           onViewportChange={(viewport) => {
             this.onViewportChange(viewport);
