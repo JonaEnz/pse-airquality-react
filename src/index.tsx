@@ -8,6 +8,7 @@ import { MapPage } from "./View/MapPage/MapPage";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import purple from "@material-ui/core/colors/purple";
 import green from "@material-ui/core/colors/green";
+import Layout from "./View/Layout";
 
 const theme = createMuiTheme({
   palette: {
@@ -23,7 +24,7 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <MapPage />
+      <Layout />
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")

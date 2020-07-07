@@ -9,7 +9,7 @@ import {
   Grid,
   Box,
 } from "@material-ui/core";
-import { Language } from "../../Controller/Storage/Language";
+import Language from "../../Controller/Storage/Language";
 import { makeStyles } from "@material-ui/styles";
 
 interface State {}
@@ -57,7 +57,7 @@ export class StationInfo extends React.Component<Props, State> {
           variant="contained"
           color="primary"
         >
-          {Language.getText("Weitere Informationen")}
+          {"Weitere Informationen"}
         </Button>
       </Container>
     );

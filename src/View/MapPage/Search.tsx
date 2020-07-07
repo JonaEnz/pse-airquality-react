@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import LocationIcon from "@material-ui/icons/LocationOn";
-import { Language } from "../../Controller/Storage/Language";
+import Language from "../../Controller/Storage/Language";
 import { withStyles } from "@material-ui/styles";
 //@ts-ignore
 import Geonames from "geonames.js";
@@ -111,7 +111,7 @@ class Search extends React.Component<Props, State> {
           type="search"
           variant="outlined"
           className={this.props.classes.input}
-          label={Language.getText("Suche")}
+          label={"Suche"}
           onKeyPress={(e) => {
             if (e.key === "Enter") {
               this.search(); //Enter key was pressed, search for this.state.searchTerm
