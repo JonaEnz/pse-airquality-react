@@ -3,7 +3,12 @@ import * as languageData from './languages.json';
 interface Lang {
   id: string;
   name: string;
-  strings: any;
+  strings: LangString[];
+}
+
+interface LangString {
+  stringId: string;
+  text: string;
 }
 
 export default class Language {
@@ -28,8 +33,11 @@ export default class Language {
   }
 
   public getText(id: string): string {
-
-    return id;
+    let find: LangString | undefined = this.selectedLang.strings.find((e) => e.stringId == id);
+    if (find == undefined) {
+      return "undefined";
+    }
+    return find.text;
   }
 
   public getSelectedLanguage(): string {
