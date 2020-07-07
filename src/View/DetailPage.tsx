@@ -5,46 +5,18 @@ import { Grid } from '@material-ui/core';
 
 import ObservationStationProfile from './ObservationStationProfile';
 import DataProvider from '../Controller/DataProvider'
+import { ObservationStation } from '../Model/ObservationStation';
 
 export default class DetailPage extends React.Component<IDetailPageProps, IDetailPageState> {
+
+    //the corresponding observation station to this page
+    observationStation: ObservationStation;
 
     constructor(props: IDetailPageProps) {
         super(props);
 
-    }
-
-    styles = {
-        root: {
-            height: '100%'
-        },
-        content: {
-            alignItems: 'center',
-            display: 'flex'
-        },
-        title: {
-            fontWeight: 700
-        },
-        avatar: {
-            backgroundColor: '#ffffff',
-            height: 56,
-            width: 56
-        },
-        icon: {
-            height: 32,
-            width: 32
-        },
-        difference: {
-            marginTop: '20px',
-            display: 'flex',
-            alignItems: 'center'
-        },
-        differenceIcon: {
-            color: '#000000'
-        },
-        differenceValue: {
-            color: '#000000',
-            marginRight: '10px'
-        }
+        //request the model data to the given observation station id
+        this.observationStation = DataProvider.getObservationStation(this.props.id);
     }
 
     render() {
@@ -55,9 +27,7 @@ export default class DetailPage extends React.Component<IDetailPageProps, IDetai
                         <ObservationStationProfile observationStation={} />
                     </Grid>
                 </Grid>
-
             </Fragment>
-
         );
     }
 
