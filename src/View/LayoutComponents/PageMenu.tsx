@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import InfoIcon from '@material-ui/icons/Info';
 import SecurityIcon from '@material-ui/icons/Security';
@@ -53,7 +53,7 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
                         </div>
                     </Toolbar>
                 </AppBar>
-                <Drawer anchor="right" open={this.state.open} onClose={this.toogleDrawer}>
+                <SwipeableDrawer anchor="right" open={this.state.open} onOpen={this.toogleDrawer} onClose={this.toogleDrawer}>
                     <div style={{ width: 250 }}>
                         <List>
                             <ListItem button onClick={this.toogleDrawer} component={Link} to='/pse-airquality-react/privacy-policy'>
@@ -76,7 +76,7 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
                             </ListItem>
                         </List>
                     </div>
-                </Drawer>
+                </SwipeableDrawer>
             </Fragment>
         );
     }
