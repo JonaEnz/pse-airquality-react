@@ -60,7 +60,7 @@ export class MapPage extends React.Component<Props, State> {
   }
 
   onSearch(pos: Position) {
-    //TODO: Imple
+    //TODO: Implement real functionality
     this.state.pins.push(
       new MapPin("Suchergebnis", pos, 10, new Color(100, 100, 100))
     );

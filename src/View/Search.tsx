@@ -67,7 +67,17 @@ class Search extends React.Component<Props, State> {
       .catch((err: any) => console.error(err));
   }
 
-  locationClick() {}
+  locationClick() {
+    if ("geolocation" in navigator) {
+      console.log("Available");
+      navigator.geolocation.getCurrentPosition((res) => {
+        var position = new Position(res.coords.latitude, res.coords.longitude);
+        this.props.onSearch(position);
+      });
+    } else {
+      console.log("Not Available");
+    }
+  }
 
   render() {
     return (
