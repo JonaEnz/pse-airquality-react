@@ -1,18 +1,18 @@
 import React from "react";
-import { ObservationStation } from "../Model/ObservationStation";
+import { ObservationStation } from "../../Model/ObservationStation";
 import { Map } from "./Map";
-import { Feature } from "../Model/Feature";
-import { Viewport } from "../Model/Viewport";
-import { MapController } from "../Controller/MapController";
-import { MapPin } from "../Model/MapPin";
-import { Polygon } from "../Model/Polygon";
-import { Position } from "../Model/Position";
-import { Color } from "../Model/Color";
-import { Observation } from "../Model/Observation";
+import { Feature } from "../../Model/Feature";
+import { Viewport } from "../../Model/Viewport";
+import { MapController } from "../../Controller/MapController";
+import { MapPin } from "../../Model/MapPin";
+import { Polygon } from "../../Model/Polygon";
+import { Position } from "../../Model/Position";
+import { Color } from "../../Model/Color";
+import { Observation } from "../../Model/Observation";
 import FeatureSelect from "./FeatureSelect";
 import Search from "./Search";
 import Legend from "./Legend";
-import { Scale } from "../Model/Scale";
+import { Scale } from "../../Model/Scale";
 
 interface State {
   selectedStation: ObservationStation | null;

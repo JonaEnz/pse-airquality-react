@@ -1,6 +1,6 @@
 import React from "react";
-import { ObservationStation } from "../Model/ObservationStation";
-import { Observation } from "../Model/Observation";
+import { ObservationStation } from "../../Model/ObservationStation";
+import { Observation } from "../../Model/Observation";
 import {
   Button,
   Container,
@@ -9,7 +9,7 @@ import {
   Grid,
   Box,
 } from "@material-ui/core";
-import { Language } from "../Controller/Storage/Language";
+import { Language } from "../../Controller/Storage/Language";
 import { makeStyles } from "@material-ui/styles";
 
 interface State {}

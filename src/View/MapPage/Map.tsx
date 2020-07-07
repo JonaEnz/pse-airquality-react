@@ -1,7 +1,7 @@
 import React from "react";
-import { Viewport } from "../Model/Viewport";
-import { MapPin } from "../Model/MapPin";
-import { Polygon } from "../Model/Polygon";
+import { Viewport } from "../../Model/Viewport";
+import { MapPin } from "../../Model/MapPin";
+import { Polygon } from "../../Model/Polygon";
 
 import {
   Map as LeafletMap,
@@ -11,9 +11,9 @@ import {
   Viewport as LeafletViewport,
   Popup,
 } from "react-leaflet";
-import { Position } from "../Model/Position";
+import { Position } from "../../Model/Position";
 import { StationInfo } from "./StationInfo";
-import { Observation } from "../Model/Observation";
+import { Observation } from "../../Model/Observation";
 require("leaflet-iconmaterial");
 interface State {
   center: Position;

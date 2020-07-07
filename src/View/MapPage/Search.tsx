@@ -8,11 +8,11 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import LocationIcon from "@material-ui/icons/LocationOn";
-import { Language } from "../Controller/Storage/Language";
+import { Language } from "../../Controller/Storage/Language";
 import { withStyles } from "@material-ui/styles";
 //@ts-ignore
 import Geonames from "geonames.js";
-import { Position } from "../Model/Position";
+import { Position } from "../../Model/Position";
 
 const styles = (theme: Theme) => ({
   root: {
@@ -47,12 +47,23 @@ interface Props {
 
 interface State {
   searchTerm: string;
+  locationEnabled: boolean;
 }
 
 class Search extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { searchTerm: "" };
+    this.state = { searchTerm: "", locationEnabled: true };
+    if ("geolocation" in navigator) {
+      navigator.permissions
+        .query({ name: "geolocation" })
+        .then((status: PermissionStatus) => {
+          if (status.state === "denied") {
+            //If permission was denied, disable button
+            this.setState({ locationEnabled: false });
+          }
+        });
+    }
   }
   search() {
     var search = this.state.searchTerm;
@@ -70,12 +81,26 @@ class Search extends React.Component<Props, State> {
   locationClick() {
     if ("geolocation" in navigator) {
       console.log("Available");
-      navigator.geolocation.getCurrentPosition((res) => {
-        var position = new Position(res.coords.latitude, res.coords.longitude);
-        this.props.onSearch(position);
-      });
+      navigator.geolocation.getCurrentPosition(
+        (res) => {
+          //Get position
+          var position = new Position(
+            res.coords.latitude,
+            res.coords.longitude
+          );
+          this.props.onSearch(position);
+          this.setState({ locationEnabled: true });
+        },
+        (err) => {
+          //Location denied
+          console.log("Location denied.");
+          this.setState({ locationEnabled: false });
+        }
+      );
     } else {
+      //Browser doesn't support geolocation
       console.log("Not Available");
+      this.setState({ locationEnabled: false });
     }
   }
 
@@ -111,6 +136,7 @@ class Search extends React.Component<Props, State> {
           color="primary"
           onClick={() => this.locationClick()}
           className={this.props.classes.iconButton}
+          disabled={!this.state.locationEnabled}
         >
           <LocationIcon />
         </IconButton>

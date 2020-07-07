@@ -1,5 +1,5 @@
 import React from "react";
-import { Scale } from "../Model/Scale";
+import { Scale } from "../../Model/Scale";
 import { Box } from "@material-ui/core";
 
 interface Props {
