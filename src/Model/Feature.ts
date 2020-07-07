@@ -1,6 +1,8 @@
 import { Scale } from "./Scale";
 import { Observation } from "./Observation";
-import { Language } from "../Controller/Storage/Language";
+import { ObservationStation } from "./ObservationStation";
+import Language from "../Controller/Storage/Language";
+import Diagram from "../View/Diagram";
 
 export class Feature {
   private id: string;
@@ -37,11 +39,13 @@ export class Feature {
   }
 
   public getName(): string {
-    return Language.getText(this.nameId);
+    //return Language.getText(this.nameId);
+    return "";
   }
 
   public getDescription(): string {
-    return Language.getText(this.descriptionId);
+    //return Language.getText(this.descriptionId);
+    return "";
   }
 
   public getRelatedScale(): Scale {
@@ -49,10 +53,15 @@ export class Feature {
   }
 
   public getRelatedWeblink(): string {
-    return Language.getText(this.relatedWeblinkId);
+    //return Language.getText(this.relatedWeblinkId);
+    return "";
   }
 
-  public getDrawableDiagramms(): void {}
+  //Todo: implement Method
+  public getDrawableDiagrams(observationStation: ObservationStation): Diagram[] {
+    var diagrams: Diagram[] = new Array();
+    return diagrams;
+  }
 
   public getLimit(): number {
     return this.limit;
