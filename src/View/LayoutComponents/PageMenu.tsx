@@ -56,19 +56,19 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
                 <Drawer anchor="right" open={this.state.open} onClose={this.toogleDrawer}>
                     <div style={{ width: 250 }}>
                         <List>
-                            <ListItem button component={Link} to='/pse-airquality-react/about'>
+                            <ListItem button onClick={this.toogleDrawer} component={Link} to='/pse-airquality-react/privacy-policy'>
                                 <ListItemIcon>
                                     <SecurityIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="Privacy Policy" />
                             </ListItem>
-                            <ListItem button component={Link} to='/pse-airquality-react/about'>
+                            <ListItem button onClick={this.toogleDrawer} component={Link} to='/pse-airquality-react/about'>
                                 <ListItemIcon>
                                     <InfoIcon />
                                 </ListItemIcon>
                                 <ListItemText primary={this.language.getText("about")} />
                             </ListItem>
-                            <ListItem button component='a' href='https://www.smartaq.net'>
+                            <ListItem button onClick={this.toogleDrawer} component='a' href='https://www.smartaq.net'>
                                 <ListItemIcon>
                                     <ExitToAppIcon />
                                 </ListItemIcon>
