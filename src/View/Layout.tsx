@@ -11,11 +11,12 @@ import {
     Route,
 } from "react-router-dom";
 
+
 function Layout() {
     return (
         <div className="App">
-            <PageMenu />
             <Router>
+                <PageMenu />
                 <Switch>
                     <Route exact path="/pse-airquality-react/" component={MapPage} />
                     <Route exact path="/pse-airquality-react/detail/:id" component={DetailPage} />
