@@ -27,8 +27,7 @@ export class StationInfo extends React.Component<Props, State> {
   openDetails() {
     //TODO: Remove hardcoded value
     window.location.href =
-      "/details?id=" +
-      this.props.lastObservation.getObservationStation().getId();
+      "detail/" + this.props.lastObservation.getObservationStation().getId();
   }
 
   render() {

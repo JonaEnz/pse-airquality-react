@@ -1,3 +1,4 @@
+import "./Map.css";
 import React from "react";
 import { Viewport } from "../../Model/Viewport";
 import { MapPin } from "../../Model/MapPin";
@@ -45,14 +46,15 @@ export class Map extends React.Component<Props, State> {
     // Custom icons with colors
     //TODO: Add warning if limit is reached?
     // @ts-ignore
-    var busIcon = L.IconMaterial.icon({
+    var icon = L.IconMaterial.icon({
       icon: "", // Name of Material icon
       iconColor: "", // Material icon color (could be rgba, hex, html name...)
       markerColor: pin.getColor().getHex(), // Marker fill color
       outlineColor: "black", // Marker outline color
       outlineWidth: 1, // Marker outline width
     });
-    return busIcon;
+    (icon as L.Icon).options.iconAnchor = [-100, -100];
+    return icon;
   }
 
   private onViewportChange(viewport: LeafletViewport) {
