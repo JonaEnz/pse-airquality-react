@@ -12,6 +12,8 @@ import {
 import Language from "../../Controller/Storage/Language";
 import { makeStyles } from "@material-ui/styles";
 
+let language: Language = Language.getInstance();
+
 interface State {}
 interface Props {
   lastObservation: Observation;
@@ -57,7 +59,7 @@ export class StationInfo extends React.Component<Props, State> {
           variant="contained"
           color="primary"
         >
-          {"Weitere Informationen"}
+          {language.getText("stationInfoButton")}
         </Button>
       </Container>
     );

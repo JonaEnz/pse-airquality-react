@@ -13,6 +13,10 @@ import FeatureSelect from "./FeatureSelect";
 import Search from "./Search";
 import Legend from "./Legend";
 import { Scale } from "../../Model/Scale";
+import { Box, Theme } from "@material-ui/core";
+import { withStyles } from "@material-ui/styles";
+
+const styles = (theme: Theme) => ({});
 
 interface State {
   selectedStation: ObservationStation | null;
@@ -21,9 +25,11 @@ interface State {
   polygons: Polygon[];
 }
 
-interface Props {}
+interface Props {
+  classes: any;
+}
 
-export class MapPage extends React.Component<Props, State> {
+class MapPage extends React.Component<Props, State> {
   mapController: MapController;
 
   constructor(props: Props) {
@@ -71,7 +77,7 @@ export class MapPage extends React.Component<Props, State> {
 
   render() {
     return (
-      <div>
+      <Box>
         <Search onSearch={(pos) => this.onSearch(pos)} />
         <Map
           onViewportChange={(viewport) => {
@@ -83,14 +89,18 @@ export class MapPage extends React.Component<Props, State> {
           lastObservation={this.state.lastObservation}
         />
         <FeatureSelect />
-        <Legend
-          min={0}
-          max={15}
-          scale={
-            new Scale(false, { 0: "#EEC000", 5: "#90B000", 10: "#FFFF00" })
-          }
-        />
-      </div>
+        <Box style={{ float: "right" }}>
+          <Legend
+            min={0}
+            max={15}
+            scale={
+              new Scale(false, { 0: "#EEC000", 5: "#90B000", 10: "#FFFF00" })
+            }
+          />
+        </Box>
+      </Box>
     );
   }
 }
+
+export default withStyles(styles)(MapPage);
