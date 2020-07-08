@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Diagram from './Diagram';
 import { IDiagramProps } from './Diagram';
 
