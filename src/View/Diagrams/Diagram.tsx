@@ -2,8 +2,8 @@ import React from 'react';
 import { Fragment } from 'react'
 
 import { Grid, Card } from '@material-ui/core';
-import { ObservationStation } from '../Model/ObservationStation';
-import { Feature } from '../Model/Feature';
+import { ObservationStation } from '../../Model/ObservationStation';
+import { Feature } from '../../Model/Feature';
 
 export default class Diagram extends React.Component<IDiagramProps, IDiagramState> {
     constructor(props: IDiagramProps) {
