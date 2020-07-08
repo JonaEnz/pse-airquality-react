@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from '@material-ui/core';
+import { Card, createStyles, WithStyles } from '@material-ui/core';
 
 import { Position } from '../Model/Position';
 

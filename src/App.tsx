@@ -2,12 +2,22 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import DetailPage from './View/DetailPage';
-import { Grid } from '@material-ui/core';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors'
 
 function App() {
+
+  const theme = createMuiTheme({
+    palette: {
+      primary: green,
+    }
+  });
+
   return (
     <div className="App">
-      <DetailPage id='1893' />
+      <MuiThemeProvider theme={theme}>
+        <DetailPage id='1893' />
+      </MuiThemeProvider>
     </div>
   );
 }

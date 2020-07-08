@@ -1,5 +1,4 @@
 import React from 'react';
-import './DetailPage.css';
 import {
     Card,
 } from '@material-ui/core';
