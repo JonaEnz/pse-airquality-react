@@ -1,5 +1,6 @@
 import { Position } from './Position';
 import { Feature } from './Feature';
+import Diagram from '../View/Diagrams/Diagram';
 
 export class ObservationStation {
     private id: string;
@@ -36,8 +37,17 @@ export class ObservationStation {
         return this.availableFeatures;
     }
 
-    public getDiagramms(): void {
+    public getDiagrams(): Diagram[] {
+        var diagrams: Diagram[] = [];
 
+        this.availableFeatures.forEach(feature => {
+            let featureDiagrams = feature.getDrawableDiagrams(this);
+            featureDiagrams.forEach(featureDiagram => {
+                diagrams.push(featureDiagram);
+            });
+        });
+
+        return diagrams;
     }
 
     public hasFeature(feature: Feature): boolean {
