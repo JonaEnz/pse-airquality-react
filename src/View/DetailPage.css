@@ -1,3 +1,9 @@
 body {
     background-color: #f4f6f8;
 }
+
+.main_container{
+    background-color: blue;
+    padding-top: 20px;
+
+}
