@@ -1,10 +1,14 @@
+import React from 'react';
+
 import { Scale } from "./Scale";
 import { Observation } from "./Observation";
 import { ObservationStation } from "./ObservationStation";
 import { Language } from "../Controller/Storage/Language";
-import Diagram from "../View/Diagram";
+import Diagram from "../View/Diagrams/Diagram";
+import DiagramFactory from '../Controller/DiagramFactory';
 
 export class Feature {
+
   private id: string;
   private nameId: string;
   private descriptionId: string;
@@ -54,10 +58,15 @@ export class Feature {
     return Language.getText(this.relatedWeblinkId);
   }
 
-  //Todo: implement Method
   public getDrawableDiagrams(observationStation: ObservationStation): Diagram[] {
-    var diagrams: Diagram[] = new Array();
-    return diagrams;
+    var drawableDiagrams: Diagram[] = [];
+
+    this.drawableDiagramIds.forEach(id => {
+      let diagram = DiagramFactory.getDiagram(id, observationStation, this);
+      drawableDiagrams.push(diagram);
+    });
+
+    return drawableDiagrams;
   }
 
   public getLimit(): number {
