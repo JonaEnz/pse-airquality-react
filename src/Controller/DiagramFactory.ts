@@ -1,8 +1,8 @@
-import Diagram from '../View/Diagram';
-import { IDiagramProps } from '../View/Diagram';
-import FeatureHistoryLineChart from '../View/FeatureHistoryLineChart';
-import YearComparisonLineChart from '../View/YearComparisonLineChart';
-import ComparisonToLastYearPieChart from '../View/ComparisonToLastYearPieChart';
+import Diagram from '../View/Diagrams/Diagram';
+import { IDiagramProps } from '../View/Diagrams/Diagram';
+import FeatureHistoryLineChart from '../View/Diagrams/FeatureHistoryLineChart';
+import YearComparisonLineChart from '../View/Diagrams/YearComparisonLineChart';
+import ComparisonToLastYearPieChart from '../View/Diagrams/ComparisonToLastYearPieChart';
 import { ObservationStation } from '../Model/ObservationStation';
 import { Feature } from '../Model/Feature';
 
