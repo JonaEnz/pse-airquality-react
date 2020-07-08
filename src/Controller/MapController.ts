@@ -7,53 +7,88 @@ import { Feature } from "../Model/Feature";
 import { Scale } from "../Model/Scale";
 import { Color } from "../Model/Color";
 import { Polygon } from "../Model/Polygon";
+import MapConfiguration from "./MapConfiguration";
+import MapConfigurationMemory from "./Storage/MapConfigurationMemory";
 
 export class MapController {
-  selectedFeature: Feature = new Feature(
-    "featureId",
-    "featureName",
-    "",
-    new Scale(false, {}),
-    "weblink",
-    20,
-    "°C",
-    []
-  );
+    private config: MapConfiguration;
+    private viewport: Viewport;
+    private selectedFeature: Feature;
 
-  handlePopup(pin: MapPin): Observation {
-    var station = new ObservationStation(
-      pin.getId(),
-      pin.getId(),
-      "desc1",
-      pin.getPosition(),
-      []
-    );
-    return new Observation(
-      station,
-      this.selectedFeature,
-      15,
-      new Date(Date.now())
-    );
-  }
+    constructor() {
+        var mcm = MapConfigurationMemory.load();
+        this.config = mcm[0];
+        this.viewport = mcm[1];
+        this.selectedFeature = this.config.getFeatures()[0]; //TODO: Support more then one feature
+        if (!this.selectedFeature) {
+            throw Error("Bad Configuration");
+        }
+    }
 
-  handleViewportChange(viewport: Viewport) {}
+    handlePopup(pin: MapPin): Observation {
+        //TODO: Rework
+        var station = new ObservationStation(
+            pin.getId(),
+            pin.getId(),
+            "desc1",
+            pin.getPosition(),
+            []
+        );
+        return new Observation(
+            station,
+            this.selectedFeature,
+            15,
+            new Date(Date.now())
+        );
+    }
 
-  getPins(): MapPin[] {
-    return [
-      new MapPin(
-        "pin1",
-        new Position(49, 8.5),
-        10,
-        new Color(
-          Math.floor(255 * Math.random()),
-          Math.floor(255 * Math.random()),
-          Math.floor(255 * Math.random())
-        )
-      ),
-    ];
-  }
+    private save() {
+        MapConfigurationMemory.save(this.config, this.viewport);
+    }
 
-  getPolygons(): Polygon[] {
-    return [];
-  }
+    handleViewportChange(viewport: Viewport) {
+        this.viewport = viewport;
+        this.save();
+    }
+
+    getPins(): MapPin[] {
+        return this.config.getPins(this.viewport, this.selectedFeature);
+    }
+
+    getPolygons(): Polygon[] {
+        return this.config.getPolygons(this.viewport, this.selectedFeature);
+    }
+
+    getScale(): Scale {
+        return this.config.getScale();
+    }
+
+    changeFeature(feature: Feature) {
+        this.selectedFeature = feature;
+    }
+
+    onConfigurationChange(conf: MapConfiguration) {
+        this.config = conf;
+        this.save();
+    }
+
+    async search(searchTerm: string) {
+        if (searchTerm.length === 0) {
+            return; //No search possible
+        }
+
+        var response = await fetch(
+            "https://nominatim.openstreetmap.org/search?format=json&q=" +
+                encodeURIComponent(searchTerm)
+        );
+        var json = await response.json();
+        if (json.length === 0) {
+            return; //No location found
+        }
+        this.updateCurrentPosition(new Position(json[0].lat, json[0].lon));
+    }
+
+    updateCurrentPosition(position: Position) {
+        this.viewport.setCenter(position);
+    }
 }
