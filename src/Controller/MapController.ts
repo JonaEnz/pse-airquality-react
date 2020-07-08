@@ -22,16 +22,16 @@ export class MapController {
 
   handlePopup(pin: MapPin): Observation {
     var station = new ObservationStation(
-      "id1",
-      "name1",
+      pin.getId(),
+      pin.getId(),
       "desc1",
-      new Position(49, 8.4),
+      pin.getPosition(),
       []
     );
     return new Observation(
       station,
       this.selectedFeature,
-      10,
+      15,
       new Date(Date.now())
     );
   }

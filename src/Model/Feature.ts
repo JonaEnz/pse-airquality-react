@@ -4,6 +4,8 @@ import { ObservationStation } from "./ObservationStation";
 import Language from "../Controller/Storage/Language";
 import Diagram from "../View/Diagram";
 
+let language = Language.getInstance();
+
 export class Feature {
   private id: string;
   private nameId: string;
@@ -40,12 +42,12 @@ export class Feature {
 
   public getName(): string {
     //return Language.getText(this.nameId);
-    return "";
+    return this.nameId;
   }
 
   public getDescription(): string {
     //return Language.getText(this.descriptionId);
-    return "";
+    return this.descriptionId;
   }
 
   public getRelatedScale(): Scale {
@@ -58,8 +60,10 @@ export class Feature {
   }
 
   //Todo: implement Method
-  public getDrawableDiagrams(observationStation: ObservationStation): Diagram[] {
-    var diagrams: Diagram[] = new Array();
+  public getDrawableDiagrams(
+    observationStation: ObservationStation
+  ): Diagram[] {
+    var diagrams: Diagram[] = [];
     return diagrams;
   }
 
