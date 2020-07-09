@@ -2,6 +2,8 @@ import MapConfiguration from "../MapConfiguration";
 import { Viewport } from "../../Model/Viewport";
 import { Position } from "../../Model/Position";
 import TestConfiguration from "../TestConfiguration";
+import { Feature } from "../../Model/Feature";
+import { Scale } from "../../Model/Scale";
 
 const LOCALSTORAGE_MAPCONF = "mapconf";
 
@@ -9,19 +11,64 @@ export default class MapConfigurationMemory {
     static save(conf: MapConfiguration, view: Viewport) {
         localStorage.setItem(
             LOCALSTORAGE_MAPCONF,
-            JSON.stringify([conf, view])
+            JSON.stringify({
+                type: conf.constructor.name,
+                conf: conf,
+                view: view,
+            })
         );
     }
 
     static load(): [MapConfiguration, Viewport] {
         var ls = localStorage.getItem(LOCALSTORAGE_MAPCONF);
-        if (ls && (JSON.parse(ls) as [MapConfiguration, Viewport])) {
+        if (
+            ls &&
+            (JSON.parse(ls) as {
+                type: string;
+                conf: MapConfiguration;
+                view: Viewport;
+            })
+        ) {
             //return configuration if it exists
-            return JSON.parse(ls) as [MapConfiguration, Viewport];
+            var obj = JSON.parse(ls) as {
+                type: string;
+                conf: any;
+                view: any;
+            };
+            //TODO: Fix this
+            var view = new Viewport(
+                new Position(
+                    obj.view.center.latitude,
+                    obj.view.center.longitude
+                ),
+                obj.view.zoom
+            );
+            var feature = new Feature(
+                "",
+                "",
+                "",
+                new Scale(false, { 0: "#FFFFFF", 20: "#000000" }),
+                "",
+                10,
+                "",
+                []
+            );
+            return [new TestConfiguration(feature), view];
         }
         //TODO: Get default data elsewhere.
         return [
-            new TestConfiguration(),
+            new TestConfiguration(
+                new Feature(
+                    "",
+                    "",
+                    "",
+                    new Scale(false, { 0: "#FFFFFF", 20: "#000000" }),
+                    "",
+                    10,
+                    "",
+                    []
+                )
+            ),
             new Viewport(new Position(49, 8.4), 5),
         ];
     }

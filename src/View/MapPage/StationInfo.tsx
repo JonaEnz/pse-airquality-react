@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import Language from "../../Controller/Storage/Language";
 import { makeStyles } from "@material-ui/styles";
+import FeatureInfo from "./FeatureInfo";
 
 let language: Language = Language.getInstance();
 
@@ -34,7 +35,7 @@ export class StationInfo extends React.Component<Props, State> {
     render() {
         var station = this.props.lastObservation.getObservationStation();
         return (
-            <Grid alignContent="center" direction="column">
+            <Grid alignContent="center" direction="column" spacing={5}>
                 <Typography variant="h4" color="secondary">
                     {station.getName()}
                 </Typography>
@@ -43,6 +44,11 @@ export class StationInfo extends React.Component<Props, State> {
                 </Typography>
                 <Typography variant="h6">
                     <Grid container direction="row" spacing={2}>
+                        <Grid item xs>
+                            <FeatureInfo
+                                feature={this.props.lastObservation.getFeature()}
+                            />
+                        </Grid>
                         <Grid item xs>
                             {this.props.lastObservation.getFeature().getName() +
                                 ":"}

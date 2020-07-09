@@ -7,6 +7,13 @@ import { Feature } from "../Model/Feature";
 import { Color } from "../Model/Color";
 
 export default class TestConfiguration extends MapConfiguration {
+    private feature: Feature;
+
+    constructor(feature: Feature) {
+        super();
+        this.feature = feature;
+    }
+
     getPins(view: Viewport): MapPin[] {
         return [
             new MapPin(
@@ -31,17 +38,13 @@ export default class TestConfiguration extends MapConfiguration {
     }
 
     getFeatures(): Feature[] {
-        return [
-            new Feature(
-                "",
-                "",
-                "",
-                new Scale(false, { 0: "#FFFFFF", 20: "#000000" }),
-                "",
-                10,
-                "",
-                []
-            ),
-        ];
+        return [this.feature];
+    }
+
+    setFeatures(features: Feature[]) {
+        if (features.length === 0) {
+            return; //no elements in array
+        }
+        this.feature = features[0];
     }
 }

@@ -13,15 +13,13 @@ import MapConfigurationMemory from "./Storage/MapConfigurationMemory";
 export class MapController {
     private config: MapConfiguration;
     private viewport: Viewport;
-    private selectedFeature: Feature;
 
     constructor() {
         var mcm = MapConfigurationMemory.load();
         this.config = mcm[0];
         this.viewport = mcm[1];
-        this.selectedFeature = this.config.getFeatures()[0]; //TODO: Support more then one feature
-        if (!this.selectedFeature) {
-            throw Error("Bad Configuration");
+        if (this.config.getFeatures().length === 0) {
+            throw Error("Invalid MapConfiguration");
         }
     }
 
@@ -36,7 +34,7 @@ export class MapController {
         );
         return new Observation(
             station,
-            this.selectedFeature,
+            this.config.getFeatures()[0],
             15,
             new Date(Date.now())
         );
@@ -46,17 +44,21 @@ export class MapController {
         MapConfigurationMemory.save(this.config, this.viewport);
     }
 
+    getViewport(): Viewport {
+        return this.viewport;
+    }
+
     handleViewportChange(viewport: Viewport) {
         this.viewport = viewport;
         this.save();
     }
 
     getPins(): MapPin[] {
-        return this.config.getPins(this.viewport, this.selectedFeature);
+        return this.config.getPins(this.viewport);
     }
 
     getPolygons(): Polygon[] {
-        return this.config.getPolygons(this.viewport, this.selectedFeature);
+        return this.config.getPolygons(this.viewport);
     }
 
     getScale(): Scale {
@@ -64,7 +66,7 @@ export class MapController {
     }
 
     changeFeature(feature: Feature) {
-        this.selectedFeature = feature;
+        //TODO
     }
 
     onConfigurationChange(conf: MapConfiguration) {
@@ -90,5 +92,6 @@ export class MapController {
 
     updateCurrentPosition(position: Position) {
         this.viewport.setCenter(position);
+        console.log(position);
     }
 }

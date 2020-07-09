@@ -15,6 +15,7 @@ import Legend from "./Legend";
 import { Scale } from "../../Model/Scale";
 import { Box, Theme } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
+import FeatureInfo from "./FeatureInfo";
 
 const styles = (theme: Theme) => ({});
 
@@ -23,6 +24,7 @@ interface State {
     lastObservation: Observation | null;
     pins: MapPin[];
     polygons: Polygon[];
+    viewport: Viewport;
 }
 
 interface Props {
@@ -40,6 +42,7 @@ class MapPage extends React.Component<Props, State> {
             lastObservation: null,
             pins: this.mapController.getPins(),
             polygons: this.mapController.getPolygons(),
+            viewport: this.mapController.getViewport(),
         };
     }
 
@@ -57,7 +60,7 @@ class MapPage extends React.Component<Props, State> {
     onViewportChange(viewport: Viewport) {
         this.mapController.handleViewportChange(viewport);
         //Update Page
-        this.setState({ selectedStation: this.state.selectedStation });
+        this.setState({ viewport: viewport });
     }
 
     onStationSelected(pin: MapPin) {
@@ -88,13 +91,13 @@ class MapPage extends React.Component<Props, State> {
                 <Search
                     onSearch={(term) => this.onSearch(term)}
                     updatePosition={(pos) => {
-                        this.mapController.updateCurrentPosition(pos);
-                        this.setState({
-                            selectedStation: this.state.selectedStation,
-                        });
+                        var view = this.state.viewport;
+                        view.setCenter(pos);
+                        this.onViewportChange(view);
                     }}
                 />
                 <Map
+                    viewport={this.state.viewport}
                     onViewportChange={(viewport) => {
                         this.onViewportChange(viewport);
                     }}
@@ -103,7 +106,7 @@ class MapPage extends React.Component<Props, State> {
                     polygons={this.state.polygons}
                     lastObservation={this.state.lastObservation}
                 />
-                <FeatureSelect />
+                <FeatureSelect onConfigurationChange={() => {}} />
                 <Box style={{ float: "right" }}>
                     <Legend
                         min={min}

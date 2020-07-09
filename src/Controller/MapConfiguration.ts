@@ -5,8 +5,8 @@ import { Feature } from "../Model/Feature";
 import { Scale } from "../Model/Scale";
 
 export default abstract class MapConfiguration {
-    abstract getPins(view: Viewport, feature: Feature): MapPin[];
-    abstract getPolygons(view: Viewport, feature: Feature): Polygon[];
+    abstract getPins(view: Viewport): MapPin[];
+    abstract getPolygons(view: Viewport): Polygon[];
     abstract getScale(): Scale;
     abstract getFeatures(): Feature[];
 }
