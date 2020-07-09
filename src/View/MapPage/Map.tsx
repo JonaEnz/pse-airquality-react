@@ -15,6 +15,7 @@ import {
 import { Position } from "../../Model/Position";
 import { StationInfo } from "./StationInfo";
 import { Observation } from "../../Model/Observation";
+import { ObservationStation } from "../../Model/ObservationStation";
 require("leaflet-iconmaterial");
 interface State {
     viewport: Viewport;
@@ -81,6 +82,16 @@ export class Map extends React.Component<Props, State> {
         );
     }
 
+    private getPositionsFromPolygon(
+        polygon: Polygon
+    ): { lat: number; lng: number }[] {
+        return polygon
+            .getStations()
+            .map((obsSt: ObservationStation) =>
+                obsSt.getPosition().getCoordinates()
+            );
+    }
+
     render() {
         return (
             <div>
@@ -111,11 +122,12 @@ export class Map extends React.Component<Props, State> {
                             </Popup>
                         </Marker>
                     ))}
-                    {/*
-          {this.props.polygons.map((polygon) => (
-            <LeafletPolygon positions={polygon}/>
-          ))}
-          */}
+                    {this.props.polygons.map((polygon) => (
+                        <LeafletPolygon
+                            positions={this.getPositionsFromPolygon(polygon)}
+                            color={polygon.getColor().getHex()}
+                        />
+                    ))}
                 </LeafletMap>
             </div>
         );
