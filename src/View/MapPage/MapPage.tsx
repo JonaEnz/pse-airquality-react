@@ -16,6 +16,8 @@ import { Scale } from "../../Model/Scale";
 import { Box, Theme } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import FeatureInfo from "./FeatureInfo";
+import StationConfiguration from "../../Controller/StationConfiguration";
+import MockDataProvider from "../../Controller/FROST/MockDataProvider";
 
 const styles = (theme: Theme) => ({});
 
@@ -37,6 +39,12 @@ class MapPage extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.mapController = new MapController();
+        //TEST
+        var feature = MockDataProvider.mockFeature();
+        this.mapController.onConfigurationChange(
+            new StationConfiguration(feature)
+        );
+
         this.state = {
             selectedStation: null,
             lastObservation: null,
@@ -60,7 +68,11 @@ class MapPage extends React.Component<Props, State> {
     onViewportChange(viewport: Viewport) {
         this.mapController.handleViewportChange(viewport);
         //Update Page
-        this.setState({ viewport: viewport });
+        this.setState({
+            viewport: viewport,
+            pins: this.mapController.getPins(),
+            polygons: this.mapController.getPolygons(),
+        });
     }
 
     onStationSelected(pin: MapPin) {

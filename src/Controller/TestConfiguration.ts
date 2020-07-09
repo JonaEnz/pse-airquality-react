@@ -7,6 +7,7 @@ import { Feature } from "../Model/Feature";
 import { Color } from "../Model/Color";
 import { ObservationStation } from "../Model/ObservationStation";
 import { Position } from "../Model/Position";
+import { Observation } from "../Model/Observation";
 
 export default class TestConfiguration extends MapConfiguration {
     private feature: Feature;
@@ -31,7 +32,34 @@ export default class TestConfiguration extends MapConfiguration {
         ];
     }
 
+    private async getLatestObservationMock(
+        station: ObservationStation,
+        feature: Feature
+    ): Promise<Observation> {
+        return new Observation(
+            station,
+            feature,
+            Math.random() * 50,
+            new Date(Date.now())
+        );
+    }
+
+    private async getPolygonColor(polygon: Polygon): Promise<Color> {
+        var stations = polygon.getStations();
+        var values = [];
+        for (let index = 0; index < stations.length; index++) {
+            var v = await this.getLatestObservationMock(
+                stations[index],
+                this.feature
+            );
+            values.push(v.getValue());
+        }
+        var avgValue = values.reduce((acc, c) => acc + c, 0) / values.length;
+        return this.getScale().getColor(avgValue);
+    }
+
     getPolygons(view: Viewport): Polygon[] {
+        //TODO: Use actual polygon color this.getPolygonColor()
         return [
             new Polygon(
                 [
