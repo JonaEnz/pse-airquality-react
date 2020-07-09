@@ -52,7 +52,6 @@ export class Map extends React.Component<Props, State> {
             outlineColor: "black", // Marker outline color
             outlineWidth: 1, // Marker outline width
         });
-        (icon as L.Icon).options.iconAnchor = [-100, -100];
         return icon;
     }
 
