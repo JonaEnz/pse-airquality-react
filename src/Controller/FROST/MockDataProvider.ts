@@ -26,7 +26,7 @@ export default class MockDataProvider {
             "descId",
             scale,
             "weblink",
-            20,
+            100,
             "uoM",
             []
         );

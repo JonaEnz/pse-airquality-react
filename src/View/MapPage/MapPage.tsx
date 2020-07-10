@@ -18,6 +18,7 @@ import { withStyles } from "@material-ui/styles";
 import FeatureInfo from "./FeatureInfo";
 import StationConfiguration from "../../Controller/StationConfiguration";
 import MockDataProvider from "../../Controller/FROST/MockDataProvider";
+import NearConfiguration from "../../Controller/NearConfiguration";
 
 const styles = (theme: Theme) => ({});
 
@@ -40,10 +41,10 @@ class MapPage extends React.Component<Props, State> {
         super(props);
         this.mapController = new MapController();
         //TEST
-        var feature = MockDataProvider.mockFeature();
+        /*var feature = MockDataProvider.mockFeature();
         this.mapController.onConfigurationChange(
-            new StationConfiguration(feature)
-        );
+            new NearConfiguration(feature)
+        );*/
 
         this.state = {
             selectedStation: null,
@@ -58,6 +59,13 @@ class MapPage extends React.Component<Props, State> {
         this.setState({
             selectedStation: observation.getObservationStation(),
             lastObservation: observation,
+        });
+    }
+
+    update() {
+        this.setState({
+            pins: this.mapController.getPins(),
+            polygons: this.mapController.getPolygons(),
         });
     }
 
@@ -118,7 +126,12 @@ class MapPage extends React.Component<Props, State> {
                     polygons={this.state.polygons}
                     lastObservation={this.state.lastObservation}
                 />
-                <FeatureSelect onConfigurationChange={() => {}} />
+                <FeatureSelect
+                    onConfigurationChange={(conf) => {
+                        this.mapController.onConfigurationChange(conf);
+                        this.update();
+                    }}
+                />
                 <Box style={{ float: "right" }}>
                     <Legend
                         min={min}

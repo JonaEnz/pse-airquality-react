@@ -21,6 +21,7 @@ import MapConfiguration from "../../Controller/MapConfiguration";
 import { Feature } from "../../Model/Feature";
 import { Scale } from "../../Model/Scale";
 import TestConfiguration from "../../Controller/TestConfiguration";
+import NearConfiguration from "../../Controller/NearConfiguration";
 interface Props {
     onConfigurationChange(mapConfig: MapConfiguration): void;
 }
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function FeatureSelect(props: Props) {
     const TEST_CONFIG = "TestConfiguration";
-    const DEFAULT_CONFIG = TEST_CONFIG;
+    const NEAR_CONFIG = "NearConfiguration";
     const classes = useStyles();
     const [open, setOpen] = useState<HTMLImageElement | null>(null);
     const [feature, setFeature] = useState<Feature | null>(
@@ -72,7 +73,10 @@ export default function FeatureSelect(props: Props) {
                 var testConf = new TestConfiguration(feature); //Create new config
                 props.onConfigurationChange(testConf);
                 break;
-
+            case NEAR_CONFIG:
+                var nearConf = new NearConfiguration(feature); //Create new config
+                props.onConfigurationChange(nearConf);
+                break;
             default:
                 break;
         }
@@ -86,7 +90,11 @@ export default function FeatureSelect(props: Props) {
             new Feature("", "", "", new Scale(false, {}), "", 10, "", [])
         );
         if (feature) {
-            changeConfig(config ?? DEFAULT_CONFIG, feature);
+            if (config) {
+                changeConfig(config, feature);
+            } else {
+                throw new Error("No config selected");
+            }
         }
     };
 
@@ -97,7 +105,7 @@ export default function FeatureSelect(props: Props) {
             return; //A feature has to be selected, should never happen.
         }
         changeConfig(event.target.value as string, feature);
-        window.location.reload(); //Reload with new config
+        //window.location.reload(); //Reload with new config
     };
 
     return (
@@ -122,10 +130,13 @@ export default function FeatureSelect(props: Props) {
                             <InputLabel>{"Style"}</InputLabel>
                             <Select
                                 onChange={handleConfigChange}
-                                value={config ?? DEFAULT_CONFIG}
+                                value={config ?? ""}
                             >
                                 <MenuItem value={TEST_CONFIG}>
                                     {TEST_CONFIG}
+                                </MenuItem>
+                                <MenuItem value={NEAR_CONFIG}>
+                                    {NEAR_CONFIG}
                                 </MenuItem>
                             </Select>
                         </FormControl>

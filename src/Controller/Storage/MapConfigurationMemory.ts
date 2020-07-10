@@ -4,6 +4,7 @@ import { Position } from "../../Model/Position";
 import TestConfiguration from "../TestConfiguration";
 import { Feature } from "../../Model/Feature";
 import { Scale } from "../../Model/Scale";
+import NearConfiguration from "../NearConfiguration";
 
 const LOCALSTORAGE_MAPCONF = "mapconf";
 
@@ -53,7 +54,11 @@ export default class MapConfigurationMemory {
                 "",
                 []
             );
-            return [new TestConfiguration(feature), view];
+            if (obj.type === "TestConfiguration") {
+                return [new TestConfiguration(feature), view];
+            } else {
+                return [new NearConfiguration(feature), view];
+            }
         }
         //TODO: Get default data elsewhere.
         return [

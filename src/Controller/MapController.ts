@@ -9,6 +9,8 @@ import { Color } from "../Model/Color";
 import { Polygon } from "../Model/Polygon";
 import MapConfiguration from "./MapConfiguration";
 import MapConfigurationMemory from "./Storage/MapConfigurationMemory";
+import NearConfiguration from "./NearConfiguration";
+import MockDataProvider from "./FROST/MockDataProvider";
 
 export class MapController {
     private config: MapConfiguration;
@@ -17,6 +19,8 @@ export class MapController {
     constructor() {
         var mcm = MapConfigurationMemory.load();
         this.config = mcm[0];
+        //TODO: Fix MapConfigMemory
+        this.config = new NearConfiguration(MockDataProvider.mockFeature());
         this.viewport = mcm[1];
         if (this.config.getFeatures().length === 0) {
             throw Error("Invalid MapConfiguration");
