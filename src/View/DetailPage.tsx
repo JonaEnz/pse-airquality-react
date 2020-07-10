@@ -39,7 +39,8 @@ export default class DetailPage extends React.Component<IDetailPageProps, IDetai
                             <LocationMap position={this.observationStation.getPosition()} />
                         </Grid>
                     </Hidden>
-                    {this.observationStation.getDiagrams().map(diagram => diagram.render())}
+                    {/* Get the diagrams of this observation station and wrap them in a Grid */}
+                    {this.observationStation.getDiagrams().map(diagram => <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>{diagram.render()}</Grid>)}
                 </Grid>
                 <Fragment>
 
