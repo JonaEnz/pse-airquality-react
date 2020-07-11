@@ -7,18 +7,12 @@ import { MapController } from "../../Controller/MapController";
 import { MapPin } from "../../Model/MapPin";
 import { Polygon } from "../../Model/Polygon";
 import { Position } from "../../Model/Position";
-import { Color } from "../../Model/Color";
 import { Observation } from "../../Model/Observation";
 import FeatureSelect from "./FeatureSelect";
 import Search from "./Search";
 import Legend from "./Legend";
-import { Scale } from "../../Model/Scale";
 import { Box, Theme } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
-import FeatureInfo from "./FeatureInfo";
-import StationConfiguration from "../../Controller/StationConfiguration";
-import MockDataProvider from "../../Controller/FROST/MockDataProvider";
-import NearConfiguration from "../../Controller/NearConfiguration";
 
 const styles = (theme: Theme) => ({});
 

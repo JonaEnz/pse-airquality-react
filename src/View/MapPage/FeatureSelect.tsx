@@ -24,6 +24,7 @@ import TestConfiguration from "../../Controller/TestConfiguration";
 import NearConfiguration from "../../Controller/NearConfiguration";
 import StationConfiguration from "../../Controller/StationConfiguration";
 import PolygonConfiguration from "../../Controller/MapPage/PolygonConfiguration";
+import FeatureProvider from "../../Controller/FeatureProvider";
 interface Props {
     onConfigurationChange(mapConfig: MapConfiguration): void;
 }
@@ -49,7 +50,7 @@ export default function FeatureSelect(props: Props) {
     const [open, setOpen] = useState<HTMLImageElement | null>(null);
     const [feature, setFeature] = useState<Feature | null>(
         new Feature(
-            "",
+            "featureId",
             "",
             "",
             new Scale(false, { 0: "#FFFFFF", 20: "#000000" }),
@@ -97,9 +98,10 @@ export default function FeatureSelect(props: Props) {
     const handleFeatureChange = (
         event: React.ChangeEvent<{ value: unknown }>
     ) => {
-        //TODO: FeatureProvider
         setFeature(
-            new Feature("", "", "", new Scale(false, {}), "", 10, "", [])
+            FeatureProvider.getInstance().getFeature(
+                event.target.value as string
+            ) //Feature Id
         );
         if (feature) {
             if (config) {
@@ -135,14 +137,16 @@ export default function FeatureSelect(props: Props) {
                                 value={feature?.getName() ?? ""}
                             >
                                 <MenuItem>Features here when</MenuItem>
-                                <MenuItem>FeatureProvider exists</MenuItem>
+                                <MenuItem>
+                                    FeatureProvider getFeatures()
+                                </MenuItem>
                             </Select>
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <InputLabel>{"Style"}</InputLabel>
                             <Select
                                 onChange={handleConfigChange}
-                                value={config ?? ""}
+                                value={config ?? "ERROR"}
                             >
                                 <MenuItem value={POLY_CONFIG}>
                                     {POLY_CONFIG}

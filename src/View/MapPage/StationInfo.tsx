@@ -1,16 +1,7 @@
 import React from "react";
-import { ObservationStation } from "../../Model/ObservationStation";
 import { Observation } from "../../Model/Observation";
-import {
-    Button,
-    Container,
-    Typography,
-    TextField,
-    Grid,
-    Box,
-} from "@material-ui/core";
+import { Button, Typography, Grid } from "@material-ui/core";
 import Language from "../../Controller/Storage/Language";
-import { makeStyles } from "@material-ui/styles";
 import FeatureInfo from "./FeatureInfo";
 
 let language: Language = Language.getInstance();
@@ -20,15 +11,13 @@ interface Props {
     lastObservation: Observation;
 }
 
-export class StationInfo extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-    }
+const DETAIL_PATH = "detail/";
 
+export class StationInfo extends React.Component<Props, State> {
     openDetails() {
         //TODO: Remove hardcoded value
         window.location.href =
-            "detail/" +
+            DETAIL_PATH +
             this.props.lastObservation.getObservationStation().getId();
     }
 

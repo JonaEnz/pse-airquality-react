@@ -53,9 +53,9 @@ export class Scale {
     }
 
     private getLinearTransition(lowerIndex: number, value: number): Color {
-        var a = [parseInt(Object.keys(this.dict)[lowerIndex]), ""]; // lower value
+        var a = [Number(Object.keys(this.dict)[lowerIndex]), ""]; // lower value
         a[1] = this.dict[a[0] as number]; //Hex-Color of lower value
-        var b = [parseInt(Object.keys(this.dict)[lowerIndex + 1]), ""]; //higher value
+        var b = [Number(Object.keys(this.dict)[lowerIndex + 1]), ""]; //higher value
         b[1] = this.dict[b[0] as number]; //Hex-Color of higher value
         var colorA = Color.getColorFromHex(a[1] as string).getRGB();
         var colorB = Color.getColorFromHex(b[1] as string).getRGB();

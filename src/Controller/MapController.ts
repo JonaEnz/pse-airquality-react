@@ -23,7 +23,6 @@ export class MapController {
         if (useMemory) {
             var mcm = MapConfigurationMemory.load();
             this.config = mcm[0];
-            //TODO: Fix MapConfigMemory
             this.viewport = mcm[1];
         } else {
             this.viewport = new Viewport(
@@ -38,19 +37,10 @@ export class MapController {
     }
 
     handlePopup(pin: MapPin): Observation {
-        //TODO: Rework
-        var station = new ObservationStation(
-            pin.getId(),
-            pin.getId(),
-            "desc1",
-            pin.getPosition(),
-            []
-        );
-        return new Observation(
+        var station = MockDataProvider.getStation(pin.getId());
+        return MockDataProvider.getLatestObservation(
             station,
-            this.config.getFeatures()[0],
-            15,
-            new Date(Date.now())
+            this.config.getFeatures()[0]
         );
     }
 

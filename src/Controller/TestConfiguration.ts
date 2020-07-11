@@ -59,7 +59,6 @@ export default class TestConfiguration extends MapConfiguration {
     }
 
     getPolygons(view: Viewport): Polygon[] {
-        //TODO: Use actual polygon color this.getPolygonColor()
         return [
             new Polygon(
                 [

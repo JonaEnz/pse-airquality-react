@@ -39,7 +39,6 @@ export default class MapConfigurationMemory {
                 feature: string;
                 view: any;
             };
-            //TODO: Fix this
             var view = new Viewport(
                 new Position(
                     obj.view.center.latitude,

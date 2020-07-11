@@ -6,6 +6,8 @@ import { Scale } from "../../Model/Scale";
 import { Color } from "../../Model/Color";
 
 export default class MockDataProvider {
+    private static stations: { [key: string]: ObservationStation } = {};
+
     private static randomColor(): Color {
         return new Color(
             Math.random() * 255,
@@ -31,9 +33,10 @@ export default class MockDataProvider {
             []
         );
     }
-    private static mockStation(center: Position) {
-        return new ObservationStation(
-            "mockId",
+    private static mockStation(center: Position): ObservationStation {
+        var id = Math.floor(Math.random() * 10000).toString();
+        var station = new ObservationStation(
+            id,
             "mockName",
             "mockDesc",
             new Position(
@@ -42,6 +45,8 @@ export default class MockDataProvider {
             ),
             []
         );
+        MockDataProvider.stations[station.getId()] = station;
+        return station;
     }
     private static mockObservations(center: Position): Observation[] {
         var count = Math.floor(Math.random() * 9) + 2;
@@ -101,6 +106,6 @@ export default class MockDataProvider {
     }
 
     static getStation(id: string): ObservationStation {
-        throw new Error("Not implemented.");
+        return MockDataProvider.stations[id];
     }
 }
