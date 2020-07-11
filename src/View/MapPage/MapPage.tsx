@@ -34,6 +34,9 @@ interface Props {
     classes: any;
 }
 
+const DEFAULT_MIN = 0;
+const DEFAULT_MAX = 100;
+
 class MapPage extends React.Component<Props, State> {
     mapController: MapController;
 
@@ -93,19 +96,35 @@ class MapPage extends React.Component<Props, State> {
         this.setState({ selectedStation: this.state.selectedStation });
     }
 
-    render() {
+    getMin(): number {
         var min = Math.min.apply(
             Math,
             this.state.pins.map((p) => {
                 return p.getValue();
             })
         );
+        if (!isFinite(min)) {
+            min = DEFAULT_MIN;
+        }
+        return min;
+    }
+
+    getMax(): number {
         var max = Math.max.apply(
             Math,
             this.state.pins.map((p) => {
                 return p.getValue();
             })
         );
+        if (!isFinite(max)) {
+            max = DEFAULT_MAX;
+        }
+        return max;
+    }
+
+    render() {
+        var min = this.getMin();
+        var max = this.getMax();
         return (
             <Box>
                 <Search

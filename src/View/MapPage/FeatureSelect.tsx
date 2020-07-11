@@ -22,6 +22,8 @@ import { Feature } from "../../Model/Feature";
 import { Scale } from "../../Model/Scale";
 import TestConfiguration from "../../Controller/TestConfiguration";
 import NearConfiguration from "../../Controller/NearConfiguration";
+import StationConfiguration from "../../Controller/StationConfiguration";
+import PolygonConfiguration from "../../Controller/MapPage/PolygonConfiguration";
 interface Props {
     onConfigurationChange(mapConfig: MapConfiguration): void;
 }
@@ -41,6 +43,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function FeatureSelect(props: Props) {
     const TEST_CONFIG = "TestConfiguration";
     const NEAR_CONFIG = "NearConfiguration";
+    const POLY_CONFIG = "PolygonConfiguration";
+    const STATION_CONFIG = "StationConfiguration";
     const classes = useStyles();
     const [open, setOpen] = useState<HTMLImageElement | null>(null);
     const [feature, setFeature] = useState<Feature | null>(
@@ -76,6 +80,14 @@ export default function FeatureSelect(props: Props) {
             case NEAR_CONFIG:
                 var nearConf = new NearConfiguration(feature); //Create new config
                 props.onConfigurationChange(nearConf);
+                break;
+            case POLY_CONFIG:
+                var polyConf = new PolygonConfiguration(feature); //Create new config
+                props.onConfigurationChange(polyConf);
+                break;
+            case STATION_CONFIG:
+                var stationConf = new StationConfiguration(feature); //Create new config
+                props.onConfigurationChange(stationConf);
                 break;
             default:
                 break;
@@ -132,8 +144,11 @@ export default function FeatureSelect(props: Props) {
                                 onChange={handleConfigChange}
                                 value={config ?? ""}
                             >
-                                <MenuItem value={TEST_CONFIG}>
-                                    {TEST_CONFIG}
+                                <MenuItem value={POLY_CONFIG}>
+                                    {POLY_CONFIG}
+                                </MenuItem>
+                                <MenuItem value={STATION_CONFIG}>
+                                    {STATION_CONFIG}
                                 </MenuItem>
                                 <MenuItem value={NEAR_CONFIG}>
                                     {NEAR_CONFIG}

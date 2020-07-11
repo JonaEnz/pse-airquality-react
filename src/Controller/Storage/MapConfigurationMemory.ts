@@ -5,6 +5,9 @@ import TestConfiguration from "../TestConfiguration";
 import { Feature } from "../../Model/Feature";
 import { Scale } from "../../Model/Scale";
 import NearConfiguration from "../NearConfiguration";
+import FeatureProvider from "../FeatureProvider";
+import PolygonConfiguration from "../MapPage/PolygonConfiguration";
+import StationConfiguration from "../StationConfiguration";
 
 const LOCALSTORAGE_MAPCONF = "mapconf";
 
@@ -14,7 +17,7 @@ export default class MapConfigurationMemory {
             LOCALSTORAGE_MAPCONF,
             JSON.stringify({
                 type: conf.constructor.name,
-                conf: conf,
+                feature: conf.getFeatures()[0].getId(),
                 view: view,
             })
         );
@@ -26,14 +29,14 @@ export default class MapConfigurationMemory {
             ls &&
             (JSON.parse(ls) as {
                 type: string;
-                conf: MapConfiguration;
+                feature: string;
                 view: Viewport;
             })
         ) {
             //return configuration if it exists
             var obj = JSON.parse(ls) as {
                 type: string;
-                conf: any;
+                feature: string;
                 view: any;
             };
             //TODO: Fix this
@@ -44,20 +47,15 @@ export default class MapConfigurationMemory {
                 ),
                 obj.view.zoom
             );
-            var feature = new Feature(
-                "",
-                "",
-                "",
-                new Scale(false, { 0: "#FFFFFF", 20: "#000000" }),
-                "",
-                10,
-                "",
-                []
-            );
-            if (obj.type === "TestConfiguration") {
-                return [new TestConfiguration(feature), view];
-            } else {
+            var feature = FeatureProvider.getInstance().getFeature(obj.feature);
+            if (obj.type === "NearConfiguration") {
                 return [new NearConfiguration(feature), view];
+            } else if (obj.type === "PolygonConfiguration") {
+                return [new PolygonConfiguration(feature), view];
+            } else if (obj.type === "StationConfiguration") {
+                return [new StationConfiguration(feature), view];
+            } else {
+                return [new TestConfiguration(feature), view];
             }
         }
         //TODO: Get default data elsewhere.
