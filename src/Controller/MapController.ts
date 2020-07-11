@@ -5,7 +5,6 @@ import { Position } from "../Model/Position";
 import { Observation } from "../Model/Observation";
 import { Feature } from "../Model/Feature";
 import { Scale } from "../Model/Scale";
-import { Color } from "../Model/Color";
 import { Polygon } from "../Model/Polygon";
 import MapConfiguration from "./MapConfiguration";
 import MapConfigurationMemory from "./Storage/MapConfigurationMemory";
