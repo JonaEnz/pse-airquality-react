@@ -21,7 +21,6 @@ export default class DetailPage extends React.Component<IDetailPageProps, IDetai
 
     styles = {
         main_container: {
-            backgroundColor: 'red',
             paddingTop: '20px',
         },
     }
