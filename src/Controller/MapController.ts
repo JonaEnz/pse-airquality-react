@@ -10,6 +10,7 @@ import MapConfiguration from "./MapConfiguration";
 import MapConfigurationMemory from "./Storage/MapConfigurationMemory";
 import NearConfiguration from "./NearConfiguration";
 import MockDataProvider from "./FROST/MockDataProvider";
+import PolygonConfiguration from "./MapPage/PolygonConfiguration";
 
 export class MapController {
     private config: MapConfiguration;
@@ -30,7 +31,7 @@ export class MapController {
                 this.DEFAULT_ZOOM
             );
         }
-        this.config = new NearConfiguration(MockDataProvider.mockFeature());
+        this.config = new PolygonConfiguration(MockDataProvider.mockFeature());
         if (this.config.getFeatures().length === 0) {
             throw Error("Invalid MapConfiguration");
         }
