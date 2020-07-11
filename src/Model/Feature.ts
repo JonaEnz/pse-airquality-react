@@ -17,6 +17,7 @@ export class Feature {
   private limit: number;
   private unitOfMeasurement: string;
   private drawableDiagramIds: string[];
+  private iconName: string;
 
   constructor(
     id: string,
@@ -26,7 +27,8 @@ export class Feature {
     relatedWeblinkId: string,
     limit: number,
     unitOfMeasurement: string,
-    drawableDiagramIds: string[]
+    drawableDiagramIds: string[],
+    iconName: string,
   ) {
     this.id = id;
     this.nameId = nameId;
@@ -36,6 +38,7 @@ export class Feature {
     this.limit = limit;
     this.unitOfMeasurement = unitOfMeasurement;
     this.drawableDiagramIds = drawableDiagramIds;
+    this.iconName = iconName;
   }
 
   public getId(): string {
@@ -79,5 +82,9 @@ export class Feature {
 
   public isLimitExceeded(observation: Observation): boolean {
     return observation.getValue() > this.limit;
+  }
+
+  public getIconName(): string {
+    return this.iconName;
   }
 }
