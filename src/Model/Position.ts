@@ -4,6 +4,11 @@ export class Position {
     private longitude: number;
 
     constructor(latitude: number, longitude: number) {
+        if (Math.abs(latitude) >= 90 || Math.abs(longitude) >= 180) {
+            throw new Error(
+                "Not valid coordinates: " + latitude + "°N, " + longitude + "°O"
+            );
+        }
         this.latitude = latitude;
         this.longitude = longitude;
     }

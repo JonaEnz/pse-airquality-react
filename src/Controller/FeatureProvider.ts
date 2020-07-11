@@ -29,10 +29,11 @@ export default class FeatureProvider {
 
     private getFeatureById(featureId: string): Feature | null {
         var json = require(this.path + featureId + ".json");
-        if (!json || !JSON.parse(json)) {
+
+        if (!json) {
             return null; //Failed to read file
         }
-        var definition = JSON.parse(json) as FeatureDefinition;
+        var definition = json as FeatureDefinition;
         return new Feature(
             definition.id,
             definition.nameId,

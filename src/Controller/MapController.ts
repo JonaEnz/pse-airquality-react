@@ -15,12 +15,22 @@ export class MapController {
     private config: MapConfiguration;
     private viewport: Viewport;
 
-    constructor() {
-        var mcm = MapConfigurationMemory.load();
-        this.config = mcm[0];
-        //TODO: Fix MapConfigMemory
+    private DEFAULT_POSITION: Position = new Position(49, 8.4);
+    private DEFAULT_ZOOM: number = 5;
+
+    constructor(useMemory: boolean = true) {
+        if (useMemory) {
+            var mcm = MapConfigurationMemory.load();
+            this.config = mcm[0];
+            //TODO: Fix MapConfigMemory
+            this.viewport = mcm[1];
+        } else {
+            this.viewport = new Viewport(
+                this.DEFAULT_POSITION,
+                this.DEFAULT_ZOOM
+            );
+        }
         this.config = new NearConfiguration(MockDataProvider.mockFeature());
-        this.viewport = mcm[1];
         if (this.config.getFeatures().length === 0) {
             throw Error("Invalid MapConfiguration");
         }
