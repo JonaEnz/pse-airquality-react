@@ -1,0 +1,8 @@
+import {Chart, ChartRenderer} from "react-google-charts";
+
+render() { 
+       return (
+           <Chart 
+           points={points}
+
+       )
