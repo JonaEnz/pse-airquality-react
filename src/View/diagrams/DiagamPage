@@ -1,7 +1,14 @@
 import {Chart, ChartRenderer} from "react-google-charts";
 
 var timespan[:string];
-setData = [Day1, Day2, Day3, Day4]
+timespan = [Day1, Day2, Day3, Day4]
+
+setData = =>{
+let types = {
+Higher: 0,
+Avarage:365,
+Below: 0,
+}}
 
 render() { 
        return (
