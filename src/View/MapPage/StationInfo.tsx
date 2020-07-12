@@ -15,7 +15,6 @@ const DETAIL_PATH = "detail/";
 
 export class StationInfo extends React.Component<Props, State> {
     openDetails() {
-        //TODO: Remove hardcoded value
         window.location.href =
             DETAIL_PATH +
             this.props.lastObservation.getObservationStation().getId();

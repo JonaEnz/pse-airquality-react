@@ -19,7 +19,8 @@ const styles = (theme: Theme) => ({
         padding: "2px 4px",
         display: "flex",
         alignItems: "center",
-        width: 400,
+        width: "100%",
+        maxWidth: "500px",
     },
     input: {
         marginLeft: theme.spacing(1),

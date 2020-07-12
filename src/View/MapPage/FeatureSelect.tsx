@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import {
-    Button,
     Avatar,
-    useTheme,
     Card,
     CardContent,
     FormControl,
@@ -11,15 +9,9 @@ import {
     MenuItem,
 } from "@material-ui/core";
 import LayersIcon from "@material-ui/icons/Layers";
-import {
-    withStyles,
-    createStyles,
-    Theme,
-    makeStyles,
-} from "@material-ui/core/styles";
+import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import MapConfiguration from "../../Controller/MapConfiguration";
 import { Feature } from "../../Model/Feature";
-import { Scale } from "../../Model/Scale";
 import TestConfiguration from "../../Controller/TestConfiguration";
 import NearConfiguration from "../../Controller/NearConfiguration";
 import StationConfiguration from "../../Controller/StationConfiguration";
@@ -57,10 +49,6 @@ export default function FeatureSelect(props: Props) {
         setOpen(open ? null : event.currentTarget);
     };
 
-    const getSelectedFeature = (): Feature | null => {
-        return feature;
-    };
-
     const changeConfig = (conf: string, feature: Feature) => {
         console.log(conf);
         setConfig(conf);
@@ -89,14 +77,12 @@ export default function FeatureSelect(props: Props) {
     const handleFeatureChange = (
         event: React.ChangeEvent<{ value: unknown }>
     ) => {
-        //TODO: Fix issue #5
-        /*setFeature(
-            
+        setFeature(
             FeatureProvider.getInstance().getFeature(
                 event.target.value as string
             ) //Feature Id
         );
-        */
+
         if (feature) {
             if (config) {
                 changeConfig(config, feature);

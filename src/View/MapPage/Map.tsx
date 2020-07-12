@@ -44,7 +44,7 @@ export class Map extends React.Component<Props, State> {
 
     private getIconFromMapPin(pin: MapPin): L.Icon {
         // Custom icons with colors
-        //TODO: Add warning if limit is reached?
+        //TODO: Add warning if limit is reached? (requires design change)
         // @ts-ignore
         var icon = L.IconMaterial.icon({
             icon: "", // Name of Material icon
