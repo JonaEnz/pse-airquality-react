@@ -5,15 +5,15 @@ import fs from "fs";
 export default class FeatureProvider {
     private static PATH = "../Jsons/";
     private path: string;
+    private context: any;
     private features: { [id: string]: Feature };
     private static instance: FeatureProvider | null = null;
 
     constructor(path: string) {
         this.path = path;
         this.features = {};
-        //var jsonFiles = fs.readdirSync(path);
-        //TODO: Implement featureConfig
-        this.addFeature(require("../Jsons/MockFeature.json"));
+        this.context = require.context("../Jsons/", true);
+        //this.addFeature(b(test));
     }
 
     static getInstance(): FeatureProvider {
@@ -57,10 +57,7 @@ export default class FeatureProvider {
     }
 
     private getFeatureById(featureId: string): Feature | null {
-        //TODO
-        return null;
-
-        var json = require(this.path + featureId + ".json");
+        var json = this.context("./" + featureId + ".json");
 
         if (!json) {
             return null; //Failed to read file

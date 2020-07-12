@@ -1,5 +1,4 @@
 import { MapPin } from "../Model/MapPin";
-import { ObservationStation } from "../Model/ObservationStation";
 import { Viewport } from "../Model/Viewport";
 import { Position } from "../Model/Position";
 import { Observation } from "../Model/Observation";
@@ -8,7 +7,6 @@ import { Scale } from "../Model/Scale";
 import { Polygon } from "../Model/Polygon";
 import MapConfiguration from "./MapConfiguration";
 import MapConfigurationMemory from "./Storage/MapConfigurationMemory";
-import NearConfiguration from "./NearConfiguration";
 import MockDataProvider from "./FROST/MockDataProvider";
 import PolygonConfiguration from "./MapPage/PolygonConfiguration";
 

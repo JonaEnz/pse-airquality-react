@@ -10,6 +10,10 @@ import PolygonConfiguration from "../MapPage/PolygonConfiguration";
 import StationConfiguration from "../StationConfiguration";
 
 const LOCALSTORAGE_MAPCONF = "mapconf";
+const DEFAULT_CONF = new StationConfiguration(
+    FeatureProvider.getInstance().getFeature("MockFeature")
+);
+const DEFAULT_VIEWPORT = new Viewport(new Position(49, 8.4), 7);
 
 export default class MapConfigurationMemory {
     static save(conf: MapConfiguration, view: Viewport) {
@@ -57,21 +61,6 @@ export default class MapConfigurationMemory {
                 return [new TestConfiguration(feature), view];
             }
         }
-        //TODO: Get default data elsewhere.
-        return [
-            new TestConfiguration(
-                new Feature(
-                    "",
-                    "",
-                    "",
-                    new Scale(false, { 0: "#FFFFFF", 20: "#000000" }),
-                    "",
-                    10,
-                    "",
-                    []
-                )
-            ),
-            new Viewport(new Position(49, 8.4), 5),
-        ];
+        return [DEFAULT_CONF, DEFAULT_VIEWPORT];
     }
 }
