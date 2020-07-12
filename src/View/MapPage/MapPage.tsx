@@ -37,11 +37,6 @@ class MapPage extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.mapController = new MapController();
-        //TEST
-        /*var feature = MockDataProvider.mockFeature();
-        this.mapController.onConfigurationChange(
-            new NearConfiguration(feature)
-        );*/
 
         this.state = {
             selectedStation: null,

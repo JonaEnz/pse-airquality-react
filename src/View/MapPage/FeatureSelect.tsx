@@ -98,11 +98,14 @@ export default function FeatureSelect(props: Props) {
     const handleFeatureChange = (
         event: React.ChangeEvent<{ value: unknown }>
     ) => {
-        setFeature(
+        //TODO: Fix issue #5
+        /*setFeature(
+            
             FeatureProvider.getInstance().getFeature(
                 event.target.value as string
             ) //Feature Id
         );
+        */
         if (feature) {
             if (config) {
                 changeConfig(config, feature);

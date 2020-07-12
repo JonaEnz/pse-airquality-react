@@ -23,8 +23,8 @@ export default class MockDataProvider {
         }
         var scale = new Scale(true, colors);
         return new Feature(
-            "featureId",
-            "featureId",
+            "MockFeature",
+            "nameId",
             "descId",
             scale,
             "weblink",

@@ -2,7 +2,7 @@ import { Feature } from "../Model/Feature";
 import { Scale } from "../Model/Scale";
 
 export default class FeatureProvider {
-    private static PATH = "../../Jsons/";
+    private static PATH = "../Jsons/";
     private path: string;
     private features: { [id: string]: Feature };
     private static instance: FeatureProvider | null = null;
