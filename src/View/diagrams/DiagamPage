@@ -8,7 +8,9 @@ let types = {
 Higher: 0,
 Avarage:365,
 Below: 0,
-}}
+}
+
+let output = [['Reference', 'Observation']]
 
 render() { 
        return (
