@@ -1,5 +1,6 @@
 import { Feature } from "../Model/Feature";
 import { Scale } from "../Model/Scale";
+import fs from "fs";
 
 export default class FeatureProvider {
     private static PATH = "../Jsons/";
@@ -10,6 +11,9 @@ export default class FeatureProvider {
     constructor(path: string) {
         this.path = path;
         this.features = {};
+        //var jsonFiles = fs.readdirSync(path);
+        //TODO: Implement featureConfig
+        this.addFeature(require("../Jsons/MockFeature.json"));
     }
 
     static getInstance(): FeatureProvider {
@@ -17,6 +21,22 @@ export default class FeatureProvider {
             this.instance = new FeatureProvider(this.PATH);
         }
         return this.instance;
+    }
+
+    private addFeature(definition: FeatureDefinition) {
+        if (definition) {
+            var f = new Feature(
+                definition.id,
+                definition.nameId,
+                definition.descriptionId,
+                new Scale(true, definition.defaultScale),
+                definition.webLinkId,
+                definition.limit,
+                definition.unitOfMeasurement,
+                definition.diagrams
+            );
+            this.features[f.getId()] = f;
+        }
     }
 
     getFeature(featureId: string): Feature {
@@ -37,6 +57,9 @@ export default class FeatureProvider {
     }
 
     private getFeatureById(featureId: string): Feature | null {
+        //TODO
+        return null;
+
         var json = require(this.path + featureId + ".json");
 
         if (!json) {

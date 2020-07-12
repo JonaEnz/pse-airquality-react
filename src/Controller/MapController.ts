@@ -29,8 +29,10 @@ export class MapController {
                 this.DEFAULT_POSITION,
                 this.DEFAULT_ZOOM
             );
+            this.config = new PolygonConfiguration(
+                MockDataProvider.mockFeature()
+            );
         }
-        this.config = new PolygonConfiguration(MockDataProvider.mockFeature());
         if (this.config.getFeatures().length === 0) {
             throw Error("Invalid MapConfiguration");
         }

@@ -49,16 +49,7 @@ export default function FeatureSelect(props: Props) {
     const classes = useStyles();
     const [open, setOpen] = useState<HTMLImageElement | null>(null);
     const [feature, setFeature] = useState<Feature | null>(
-        new Feature(
-            "featureId",
-            "",
-            "",
-            new Scale(false, { 0: "#FFFFFF", 20: "#000000" }),
-            "",
-            10,
-            "",
-            []
-        )
+        FeatureProvider.getInstance().getFeature("MockFeature")
     );
     const [config, setConfig] = useState<string | null>(null);
 
