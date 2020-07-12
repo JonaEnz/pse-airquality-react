@@ -7,100 +7,149 @@ import { MapController } from "../../Controller/MapController";
 import { MapPin } from "../../Model/MapPin";
 import { Polygon } from "../../Model/Polygon";
 import { Position } from "../../Model/Position";
-import { Color } from "../../Model/Color";
 import { Observation } from "../../Model/Observation";
 import FeatureSelect from "./FeatureSelect";
 import Search from "./Search";
 import Legend from "./Legend";
-import { Scale } from "../../Model/Scale";
 import { Box, Theme } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 
 const styles = (theme: Theme) => ({});
 
 interface State {
-  selectedStation: ObservationStation | null;
-  lastObservation: Observation | null;
-  pins: MapPin[];
-  polygons: Polygon[];
+    selectedStation: ObservationStation | null;
+    lastObservation: Observation | null;
+    pins: MapPin[];
+    polygons: Polygon[];
+    viewport: Viewport;
 }
 
 interface Props {
-  classes: any;
+    classes: any;
 }
 
+const DEFAULT_MIN = 0;
+const DEFAULT_MAX = 100;
+
 class MapPage extends React.Component<Props, State> {
-  mapController: MapController;
+    mapController: MapController;
 
-  constructor(props: Props) {
-    super(props);
-    this.mapController = new MapController();
-    this.state = {
-      selectedStation: null,
-      lastObservation: null,
-      pins: this.mapController.getPins(),
-      polygons: this.mapController.getPolygons(),
-    };
-  }
+    constructor(props: Props) {
+        super(props);
+        this.mapController = new MapController();
 
-  selectObservation(observation: Observation) {
-    this.setState({
-      selectedStation: observation.getObservationStation(),
-      lastObservation: observation,
-    });
-  }
+        this.state = {
+            selectedStation: null,
+            lastObservation: null,
+            pins: this.mapController.getPins(),
+            polygons: this.mapController.getPolygons(),
+            viewport: this.mapController.getViewport(),
+        };
+    }
 
-  getValueAt(position: Position, feature: Feature): number {
-    throw Error("Not implemented.");
-  }
+    selectObservation(observation: Observation) {
+        this.setState({
+            selectedStation: observation.getObservationStation(),
+            lastObservation: observation,
+        });
+    }
 
-  onViewportChange(viewport: Viewport) {
-    this.mapController.handleViewportChange(viewport);
-    //Update Page
-    this.setState({ selectedStation: this.state.selectedStation });
-  }
+    update() {
+        this.setState({
+            pins: this.mapController.getPins(),
+            polygons: this.mapController.getPolygons(),
+        });
+    }
 
-  onStationSelected(pin: MapPin) {
-    var observation = this.mapController.handlePopup(pin);
-    this.selectObservation(observation); // set Observation (and station) for Popup
-  }
+    getValueAt(position: Position, feature: Feature): number {
+        throw Error("Not implemented.");
+    }
 
-  onSearch(pos: Position) {
-    //TODO: Implement real functionality
-    this.state.pins.push(
-      new MapPin("Suchergebnis", pos, 10, new Color(100, 100, 100))
-    );
-    this.setState({
-      pins: this.state.pins,
-    });
-  }
+    onViewportChange(viewport: Viewport) {
+        this.mapController.handleViewportChange(viewport);
+        //Update Page
+        this.setState({
+            viewport: viewport,
+            pins: this.mapController.getPins(),
+            polygons: this.mapController.getPolygons(),
+        });
+    }
 
-  render() {
-    return (
-      <Box>
-        <Search onSearch={(pos) => this.onSearch(pos)} />
-        <Map
-          onViewportChange={(viewport) => {
-            this.onViewportChange(viewport);
-          }}
-          handlePopup={(pin) => this.onStationSelected(pin)}
-          pins={this.state.pins}
-          polygons={this.state.polygons}
-          lastObservation={this.state.lastObservation}
-        />
-        <FeatureSelect />
-        <Box style={{ float: "right" }}>
-          <Legend
-            min={0}
-            max={15}
-            scale={
-              new Scale(false, { 0: "#EEC000", 5: "#90B000", 10: "#FFFF00" })
-            }
-          />
-        </Box>
-      </Box>
-    );
-  }
+    onStationSelected(pin: MapPin) {
+        var observation = this.mapController.handlePopup(pin);
+        this.selectObservation(observation); // set Observation (and station) for Popup
+    }
+
+    onSearch(term: string) {
+        this.mapController.search(term);
+        this.setState({ selectedStation: this.state.selectedStation });
+    }
+
+    getMin(): number {
+        var min = Math.min.apply(
+            Math,
+            this.state.pins.map((p) => {
+                return p.getValue();
+            })
+        );
+        if (!isFinite(min)) {
+            min = DEFAULT_MIN;
+        }
+        return min;
+    }
+
+    getMax(): number {
+        var max = Math.max.apply(
+            Math,
+            this.state.pins.map((p) => {
+                return p.getValue();
+            })
+        );
+        if (!isFinite(max)) {
+            max = DEFAULT_MAX;
+        }
+        return max;
+    }
+
+    render() {
+        var min = this.getMin();
+        var max = this.getMax();
+        return (
+            <Box>
+                <Search
+                    onSearch={(term) => this.onSearch(term)}
+                    updatePosition={(pos) => {
+                        var view = this.state.viewport;
+                        view.setCenter(pos);
+                        this.onViewportChange(view);
+                    }}
+                />
+                <Map
+                    viewport={this.state.viewport}
+                    onViewportChange={(viewport) => {
+                        this.onViewportChange(viewport);
+                    }}
+                    handlePopup={(pin) => this.onStationSelected(pin)}
+                    pins={this.state.pins}
+                    polygons={this.state.polygons}
+                    lastObservation={this.state.lastObservation}
+                />
+                <FeatureSelect
+                    onConfigurationChange={(conf) => {
+                        this.mapController.onConfigurationChange(conf);
+                        this.update();
+                    }}
+                />
+                <Box style={{ float: "right" }}>
+                    <Legend
+                        min={min}
+                        max={max}
+                        scale={this.mapController.getScale()}
+                    />
+                </Box>
+            </Box>
+        );
+    }
 }
 
 export default withStyles(styles)(MapPage);
