@@ -17,6 +17,12 @@ Below: 0,
 
 let output = [['Reference', 'Observation']]
 
+this.props.reference.map(value => types.value++)
+
+for (let key in types) {
+    output.push(key, types[key])
+}
+
 render() { 
        return (
            <Chart 
