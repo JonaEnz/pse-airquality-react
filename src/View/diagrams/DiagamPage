@@ -1,6 +1,6 @@
 import Chart from "react-google-charts";
 
-class PieChart extends React.Component {
+class LineChart extends React.Component {
 constructor(props){
    super(props); 
 }
@@ -10,16 +10,25 @@ render() {
       <Chart 
         width={500}
         height={300}
-        chartType="PieChart"
+        chartType="LineChart"
         loader={<div>Loading Chart</div>}
         data{[
-         ['Tasks', 'Hours per Day'],
-         ['This', 45],
-         ['That', 20],
-         ['Other', 60],
+         ['Date', 'Measured value'],
+         [new Date(2020, 1, 10), 15],
+         [new Date(2020, 2, 10), 12],
+         [new Date(2020, 3, 10), 9],
+         [new Date(2020, 4, 10), 18],
+         [new Date(2020, 5, 10), 18],
+         [new Date(2020, 6, 10), 15],
+         [new Date(2020, 7, 10), 21],
         ]}
        options={{
-           title:  'Whatever Chart',
+           title:  'Development',
+           hAxis: {
+               title: 'Date',
+           },title: 'Aerosol rate'
+           vAxis: {
+           },
        }}
        rootProps={{ 'data-testid': '1'}}
  />
