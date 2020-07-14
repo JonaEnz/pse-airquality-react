@@ -9,7 +9,7 @@ import {
 
 import { ObservationStation } from '../Model/ObservationStation';
 import ObservationItem from './ObservationItem';
-import DataProvider from '../Controller/DataProvider';
+import MockDataProvider from '../Controller/MockDataProvider';
 import { Color } from '../Model/Color';
 import { Observation } from '../Model/Observation';
 
@@ -22,7 +22,7 @@ export default class ObservationStationProfile extends React.Component<IObservat
         super(props);
         this.observationStation = this.props.observationStation;
         this.state = {
-            latestObservations: DataProvider.getLatestObservations(this.observationStation),
+            latestObservations: this.getLatestObservations(),
         }
     }
 
@@ -63,6 +63,20 @@ export default class ObservationStationProfile extends React.Component<IObservat
         '#9e9e9e',
         '#607d8b',
     ];
+
+
+    //returns the latest observation for each feature of this observation station
+    private getLatestObservations() {
+        var features = this.observationStation.getFeatures();
+        var observations = new Array<Observation>();
+
+        features.forEach(feature => {
+            let observation = MockDataProvider.getLatestObservation(this.observationStation, feature);
+            observations.push(observation);
+        });
+
+        return observations;
+    }
 
     //returns a random color from the above ones
     private getRandomColor() {

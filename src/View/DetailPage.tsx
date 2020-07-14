@@ -3,8 +3,8 @@ import { Fragment } from 'react';
 import { Grid } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 
+import MockDataProvider from '../Controller/MockDataProvider';
 import ObservationStationProfile from './ObservationStationProfile';
-import DataProvider from '../Controller/DataProvider'
 import { ObservationStation } from '../Model/ObservationStation';
 import LocationMap from './LocationMap';
 
@@ -16,7 +16,7 @@ export default class DetailPage extends React.Component<IDetailPageProps, IDetai
     constructor(props: IDetailPageProps) {
         super(props);
         //request the model data to the given observation station id
-        this.observationStation = DataProvider.getObservationStation(this.props.id);
+        this.observationStation = MockDataProvider.getStation(this.props.id);
     }
 
     styles = {
