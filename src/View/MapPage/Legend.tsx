@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
         box: {
             padding: theme.spacing(1),
             width: "50px",
+            backgroundColor: "white"
         },
     })
 );

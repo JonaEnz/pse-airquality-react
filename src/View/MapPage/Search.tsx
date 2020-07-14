@@ -16,6 +16,7 @@ import Language from "../../Controller/Storage/Language";
 
 const styles = (theme: Theme) => ({
     root: {
+        margin: "5px 5px",
         padding: "2px 4px",
         display: "flex",
         alignItems: "center",
