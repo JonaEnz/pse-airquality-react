@@ -1,5 +1,6 @@
 import { FrostResult } from "../../Model/FrostResult";
 import FrostFactory from "./FrostFactory";
+import QueryBuilder from "./QueryBuilder";
 
 
 export default class FrostServer {
@@ -17,11 +18,10 @@ export default class FrostServer {
         this.url = url;
     }
 
-    public async request(ff: FrostFactory, options: any): Promise<FrostResult<T>> {
-
-        let req: string = ""; //the request string should be assigned here
-        const json = await fetch(this.url + req).then(response => response.json());
-        const result: FrostResult = ff.getConverter().convert(json)
+    public async request<T>(ff: FrostFactory<T>, options: any): Promise<FrostResult<T>> {
+        let req: string = ff.getQueryBuilder().getQuery(options);
+        const json: any = await fetch(this.url + req).then(response => response.json());
+        const result: FrostResult<T> = ff.getConverter().convert(json)
         return result;
     }
 }
