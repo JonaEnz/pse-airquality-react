@@ -43,7 +43,7 @@ export default function FeatureSelect(props: Props) {
     const [feature, setFeature] = useState<Feature | null>(
         FeatureProvider.getInstance().getFeature("MockFeature")
     );
-    const [config, setConfig] = useState<string | null>(null);
+    const [config, setConfig] = useState<string | null>(STATION_CONFIG);
 
     const handleClick = (event: React.MouseEvent<HTMLImageElement>) => {
         setOpen(open ? null : event.currentTarget);
@@ -116,17 +116,20 @@ export default function FeatureSelect(props: Props) {
                                 onChange={handleFeatureChange}
                                 value={feature?.getName() ?? ""}
                             >
-                                <MenuItem>Features here when</MenuItem>
-                                <MenuItem>
-                                    FeatureProvider getFeatures()
-                                </MenuItem>
+                                {FeatureProvider.getInstance()
+                                    .listAllFeatures()
+                                    .map((f) => (
+                                        <MenuItem value={f.getId()}>
+                                            {f.getName()}
+                                        </MenuItem>
+                                    ))}
                             </Select>
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <InputLabel>{"Style"}</InputLabel>
                             <Select
                                 onChange={handleConfigChange}
-                                value={config ?? "ERROR"}
+                                value={config ?? ""}
                             >
                                 <MenuItem value={POLY_CONFIG}>
                                     {POLY_CONFIG}

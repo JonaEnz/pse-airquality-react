@@ -38,6 +38,13 @@ export default class FeatureProvider {
         }
     }
 
+    //Returns all loaded features
+    listAllFeatures(): Feature[] {
+        return Object.keys(this.features).map((key) => {
+            return this.features[key];
+        });
+    }
+
     getFeature(featureId: string): Feature {
         if (Object.keys(this.features).includes(featureId)) {
             return this.features[featureId];
@@ -56,6 +63,7 @@ export default class FeatureProvider {
     }
 
     private getFeatureById(featureId: string): Feature | null {
+        featureId = featureId.replace(/:/g, "");
         var json = this.context("./" + featureId + ".json");
 
         if (!json) {
