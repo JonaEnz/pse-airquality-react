@@ -27,26 +27,33 @@ class FHLCConfigurationOption implements IConfigurationOption {
 }
 
 export default class FeatureHistoryLineChartController implements IDiagramController {
-    //this controller controls a line chart
+    //support line charts
     private static readonly chartType = ChartType.LINE_CHART;
-    //configuration is enabled
+
+    //enable configuration
     private static readonly isConfigutable = true;
+
     //configuration options
     private static readonly configurationOptions = [
-        //option that displays history of the last 24 hours
+        //last 24 hours
         new FHLCConfigurationOption('last_24_hours', new Timespan(24 * 60 * 60 * 1000), 24, { type: 'date', label: 'Day' }),
-        //option that displays history of the last 7 days
-        new FHLCConfigurationOption('last_7_days', new Timespan(7 * 24 * 60 * 60 * 1000), 7 * 24, { type: 'date', label: 'Day' }),
-        //option that displays history of the last 31 days
-        new FHLCConfigurationOption('last_31_days', new Timespan(31 * 7 * 24 * 60 * 60 * 1000), 31 * 7 * 24, { type: 'date', label: 'Day' }),
+        //last 7 days
+        new FHLCConfigurationOption('last_7_days', new Timespan(7 * 24 * 60 * 60 * 1000), 12, { type: 'date', label: 'Day' }),
+        //last 31 days
+        new FHLCConfigurationOption('last_31_days', new Timespan(31 * 24 * 60 * 60 * 1000), 6, { type: 'date', label: 'Day' }),
+        //last year
+        new FHLCConfigurationOption('last_year', new Timespan(365 * 24 * 60 * 60 * 1000), 1, { type: 'date', label: 'Day' }),
     ];
+
     //default configuration option
     private static readonly defaultConfigurationOption = FeatureHistoryLineChartController.configurationOptions[0];
-    //display options
+
+    // options for the graphical appearence
     private static readonly graphicsOptions = {};
 
-
+    //concerning observation station
     observationStation: ObservationStation;
+    //concerning feature
     feature: Feature;
     yAxisLabel: string;
 
@@ -87,10 +94,14 @@ export default class FeatureHistoryLineChartController implements IDiagramContro
 
     //return data to display
     getData(configurationOptionName: string): any[][] {
+        //get option object
         var configurationOption: FHLCConfigurationOption = this.getFHLCConfigurationOption(configurationOptionName);
+
+        //get timespan
         var end: Date = new Date(Date.now());
         var start: Date = configurationOption.timespan.getStart(end);
 
+        //get mock observations
         var observations = MockDataProvider.getObservations(
             this.observationStation,
             start,
@@ -107,7 +118,7 @@ export default class FeatureHistoryLineChartController implements IDiagramContro
             ],
         ];
 
-        //extract values from opbservations and add index as time value
+        //extract values and timestamps from observations
         observations.forEach(observation => {
             let timestamp = observation.getTimeStamp();
             let value = observation.getValue();
@@ -117,12 +128,20 @@ export default class FeatureHistoryLineChartController implements IDiagramContro
         return data;
     }
 
+    //get configuration option by name
     private getFHLCConfigurationOption(name: string): FHLCConfigurationOption {
-        for (let i = 0; i < FeatureHistoryLineChartController.length; i++) {
-            if (name === FeatureHistoryLineChartController.configurationOptions[i].getName()) {
-                return FeatureHistoryLineChartController.configurationOptions[i];
+        var options = FeatureHistoryLineChartController.configurationOptions;
+
+        for (let i = 0; i < options.length; i++) {
+
+            //if option matches return it
+            if (options[i].getName() === name) {
+                return options[i];
             }
+
         }
+
+        //no option matches, throw an error
         throw new Error(`${name} is an invalid configuration option for a diagram of type FeatureHistoryLineChart`);
     }
 }
