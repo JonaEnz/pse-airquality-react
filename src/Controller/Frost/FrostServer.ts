@@ -21,7 +21,7 @@ export default class FrostServer {
     public async request<T>(ff: FrostFactory<T>, options: any): Promise<FrostResult<T>> {
         let req: string = ff.getQueryBuilder().getQuery(options);
         const json: any = await fetch(this.url + req).then(response => response.json());
-        const result: FrostResult<T> = ff.getConverter().convert(json)
-        return result;
+        const result: T = ff.getConverter().convert(json)
+        return new FrostResult<T>(result, true, "");
     }
 }
