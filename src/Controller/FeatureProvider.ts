@@ -1,6 +1,5 @@
 import { Feature } from "../Model/Feature";
 import { Scale } from "../Model/Scale";
-import fs from "fs";
 
 export default class FeatureProvider {
     private static PATH = "../Jsons/";

@@ -9,8 +9,6 @@ import {
 import SearchIcon from "@material-ui/icons/Search";
 import LocationIcon from "@material-ui/icons/LocationOn";
 import { withStyles } from "@material-ui/styles";
-//@ts-ignore
-import Geonames from "geonames.js";
 import { Position } from "../../Model/Position";
 import Language from "../../Controller/Storage/Language";
 
@@ -34,12 +32,6 @@ const styles = (theme: Theme) => ({
         height: 28,
         margin: 4,
     },
-});
-
-const geonames = new Geonames({
-    username: "reactairqualityrea",
-    lan: "de",
-    encoding: "JSON",
 });
 
 let language = Language.getInstance();

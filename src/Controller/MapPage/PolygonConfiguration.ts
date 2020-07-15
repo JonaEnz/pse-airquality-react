@@ -7,9 +7,7 @@ import { Polygon } from "../../Model/Polygon";
 import MockDataProvider from "../FROST/MockDataProvider";
 //@ts-ignore
 import Delaunay from "delaunay-triangulation";
-import { ObservationStation } from "../../Model/ObservationStation";
 import { Position } from "../../Model/Position";
-import { Color } from "../../Model/Color";
 import { Observation } from "../../Model/Observation";
 
 export default class PolygonConfiguration extends MapConfiguration {

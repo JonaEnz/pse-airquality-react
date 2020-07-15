@@ -7,7 +7,8 @@ import { Feature } from "../Model/Feature";
 import MockDataProvider from "./FROST/MockDataProvider";
 import { Observation } from "../Model/Observation";
 import { ObservationStation } from "../Model/ObservationStation";
-import { strict } from "assert";
+
+const SAMPLE_SCALE = 20;
 
 export default class NearConfiguration extends MapConfiguration {
     private selectedFeature: Feature;
@@ -44,9 +45,9 @@ export default class NearConfiguration extends MapConfiguration {
 
         var sc: { [key: number]: string } = {};
         // Sample 10 times between 0 => min and limit of feature => max
-        for (let index = 0; index < 10; index++) {
-            var key = Math.floor(min + (max - min) * (index / 10));
-            var val = this.selectedFeature.getLimit() * (index / 10);
+        for (let index = 0; index < SAMPLE_SCALE; index++) {
+            var key = Math.floor(min + (max - min) * (index / SAMPLE_SCALE));
+            var val = this.selectedFeature.getLimit() * (index / SAMPLE_SCALE);
             sc[key] = this.selectedFeature
                 .getRelatedScale()
                 .getColor(val)

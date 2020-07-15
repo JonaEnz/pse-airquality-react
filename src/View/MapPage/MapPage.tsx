@@ -142,7 +142,7 @@ class MapPage extends React.Component<Props, State> {
                 />
                 <Box
                     zIndex={1000}
-                    style={{ position: "absolute", bottom: "5%", right: "5%" }}
+                    style={{ position: "absolute", bottom: "7%", right: "5%" }}
                 >
                     <Legend
                         min={min}

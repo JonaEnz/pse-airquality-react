@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
         box: {
             padding: theme.spacing(1),
             width: "50px",
-            backgroundColor: "white"
+            backgroundColor: "white",
         },
     })
 );
@@ -42,11 +42,15 @@ function Legend(props: Props) {
     return (
         <Box className={classes.box} border={1}>
             <Grid container direction="column">
-                <Typography variant="body2">{props.max}</Typography>
+                <Typography variant="body2">
+                    {Math.floor(props.max * 10) / 10}
+                </Typography>
                 <Box
                     style={getStyleFromScale(props.scale, props.min, props.max)}
                 />
-                <Typography variant="body2">{props.min}</Typography>
+                <Typography variant="body2">
+                    {Math.floor(props.min * 10) / 10}
+                </Typography>
             </Grid>
         </Box>
     );

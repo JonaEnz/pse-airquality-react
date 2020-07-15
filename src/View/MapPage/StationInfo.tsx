@@ -33,11 +33,6 @@ export class StationInfo extends React.Component<Props, State> {
                 <Typography variant="h6">
                     <Grid container direction="row" spacing={2}>
                         <Grid item xs>
-                            <FeatureInfo
-                                feature={this.props.lastObservation.getFeature()}
-                            />
-                        </Grid>
-                        <Grid item xs>
                             {this.props.lastObservation.getFeature().getName() +
                                 ":"}
                         </Grid>
@@ -47,7 +42,9 @@ export class StationInfo extends React.Component<Props, State> {
                                 display="inline"
                                 color="primary"
                             >
-                                {this.props.lastObservation.getValue()}{" "}
+                                {Math.floor(
+                                    this.props.lastObservation.getValue() * 100
+                                ) / 100}{" "}
                                 {this.props.lastObservation
                                     .getFeature()
                                     .getUnitOfMeasurement()}
@@ -55,11 +52,14 @@ export class StationInfo extends React.Component<Props, State> {
                         </Grid>
                     </Grid>
                 </Typography>
+                <FeatureInfo
+                    feature={this.props.lastObservation.getFeature()}
+                />
                 <Button
                     onClick={() => this.openDetails()}
                     variant="contained"
                     color="primary"
-                    style={{ minWidth: "250px" }}
+                    style={{ minWidth: "300px" }}
                 >
                     {language.getText("stationInfoButton")}
                 </Button>
