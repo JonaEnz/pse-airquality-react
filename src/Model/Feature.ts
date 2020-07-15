@@ -6,6 +6,7 @@ import { ObservationStation } from "./ObservationStation";
 import { Language } from "../Controller/Storage/Language";
 import Diagram from "../View/Diagrams/Diagram";
 import DiagramFactory from '../Controller/DiagramFactory';
+import IDiagramController from '../Controller/DiagramController';
 
 export class Feature {
 
@@ -16,7 +17,7 @@ export class Feature {
   private relatedWeblinkId: string;
   private limit: number;
   private unitOfMeasurement: string;
-  private drawableDiagramIds: string[];
+  private controllerIds: string[];
   private iconName: string;
 
   constructor(
@@ -27,7 +28,7 @@ export class Feature {
     relatedWeblinkId: string,
     limit: number,
     unitOfMeasurement: string,
-    drawableDiagramIds: string[],
+    controllerIds: string[],
     iconName: string,
   ) {
     this.id = id;
@@ -37,7 +38,7 @@ export class Feature {
     this.relatedWeblinkId = relatedWeblinkId;
     this.limit = limit;
     this.unitOfMeasurement = unitOfMeasurement;
-    this.drawableDiagramIds = drawableDiagramIds;
+    this.controllerIds = controllerIds;
     this.iconName = iconName;
   }
 
@@ -61,15 +62,15 @@ export class Feature {
     return Language.getText(this.relatedWeblinkId);
   }
 
-  public getDrawableDiagrams(observationStation: ObservationStation): Diagram[] {
-    var drawableDiagrams: Diagram[] = [];
+  public getDiagramController(observationStation: ObservationStation): IDiagramController[] {
+    var diagramController = new Array<IDiagramController>();
 
-    this.drawableDiagramIds.forEach(id => {
-      let diagram = DiagramFactory.getDiagram(id, observationStation, this);
-      drawableDiagrams.push(diagram);
+    this.controllerIds.forEach(id => {
+      let controller = DiagramFactory.getDiagramController(id, observationStation, this);
+      diagramController.push(controller);
     });
 
-    return drawableDiagrams;
+    return diagramController;
   }
 
   public getLimit(): number {
