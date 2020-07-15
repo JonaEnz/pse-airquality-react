@@ -4,6 +4,7 @@ import { ObservationStation } from "../Model/ObservationStation";
 import { Position } from "../Model/Position";
 import { Scale } from "../Model/Scale";
 import { Color } from "../Model/Color";
+import DiagramFactory from "./DiagramFactory";
 
 export default class MockDataProvider {
     private static stations: { [key: string]: ObservationStation } = {};
@@ -30,7 +31,7 @@ export default class MockDataProvider {
             "weblink",
             100,
             "uoM",
-            [],
+            ['FeatureHistoryLineChart'],
             ''
         );
     }
@@ -49,6 +50,7 @@ export default class MockDataProvider {
         MockDataProvider.stations[station.getId()] = station;
         return station;
     }
+
     private static mockObservations(center: Position): Observation[] {
         var count = Math.floor(Math.random() * 9) + 2;
         var obs = [];
@@ -90,9 +92,27 @@ export default class MockDataProvider {
         start: Date,
         end: Date,
         feature: Feature,
-        frequency?: Date
+        //how many observations per day are expected
+        frequency: number
     ): Observation[] {
-        throw new Error("Not implemented.");
+        var timespan = end.valueOf() - start.valueOf();
+        var numberOfDays = timespan / 1000 / 60 / 60 / 24;
+        var intervall = timespan / (numberOfDays * frequency);
+        var numberOfObservations = timespan / intervall;
+
+        var observations = new Array<Observation>();
+        for (let i = 0; i < numberOfObservations; i++) {
+            observations.push(
+                new Observation(
+                    station,
+                    feature,
+                    Math.round(Math.random() * 100),
+                    new Date(start.valueOf() + i * intervall)
+                )
+            );
+        }
+
+        return observations;
     }
 
     static getObservationStations(
@@ -107,6 +127,16 @@ export default class MockDataProvider {
     }
 
     static getStation(id: string): ObservationStation {
-        return MockDataProvider.stations[id];
+        return new ObservationStation(
+            id,
+            'mockName',
+            'mockDesc',
+            new Position(0, 0),
+            [
+                this.mockFeature(),
+                this.mockFeature(),
+                this.mockFeature(),
+            ]
+        );
     }
 }

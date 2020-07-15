@@ -1,36 +1,34 @@
-import Diagram from '../View/Diagrams/Diagram';
-import { IDiagramProps } from '../View/Diagrams/Diagram';
-import FeatureHistoryLineChart from '../View/Diagrams/FeatureHistoryLineChart';
-import YearComparisonLineChart from '../View/Diagrams/YearComparisonLineChart';
-import ComparisonToLastYearPieChart from '../View/Diagrams/ComparisonToLastYearPieChart';
+import Diagram, { IDiagramProps } from '../View/Diagrams/Diagram';
 import { ObservationStation } from '../Model/ObservationStation';
 import { Feature } from '../Model/Feature';
+import FeatureHistoryLineChartController from './FeatureHistoryLineChartController';
+import IDiagramController from './DiagramController';
 
 
 export default class DiagramFactory {
 
     //Returns a diagram object of a type specified by the 'id' parameter
     static getDiagram(id: string, observationStation: ObservationStation, feature: Feature): Diagram {
-        var diagram: Diagram;
-        var props: IDiagramProps = {
-            observationStation: observationStation,
-            feature: feature,
-        }
+        var controller: IDiagramController;
 
         switch (id) {
             case 'FeatureHistoryLineChart':
-                diagram = new FeatureHistoryLineChart(props);
+                controller = new FeatureHistoryLineChartController(observationStation, feature);
                 break;
-            case 'YearComparisonLineChart':
-                diagram = new YearComparisonLineChart(props);
+            /* case 'YearComparisonLineChart':
+                controller = new FeatureHistoryLineChartController(observationStation, feature);
                 break;
             case 'ComparisonToLastYearPieChart':
-                diagram = new ComparisonToLastYearPieChart(props);
-                break;
+                controller = new FeatureHistoryLineChartController(observationStation, feature);
+                break; */
             default:
                 throw new Error('Diagram type not supported!');
         }
 
-        return diagram;
+        var props: IDiagramProps = {
+            controller: controller,
+        }
+
+        return new Diagram(props);
     }
 }
