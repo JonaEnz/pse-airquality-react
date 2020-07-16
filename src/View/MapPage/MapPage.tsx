@@ -85,8 +85,9 @@ class MapPage extends React.Component<Props, State> {
     }
 
     onStationSelected(pin: MapPin) {
-        var observation = this.mapController.handlePopup(pin);
-        this.selectObservation(observation); // set Observation (and station) for Popup
+        this.mapController.handlePopup(pin).then((o) => {
+            this.selectObservation(o); // set Observation (and station) for Popup
+        });
     }
 
     onSearch(term: string) {

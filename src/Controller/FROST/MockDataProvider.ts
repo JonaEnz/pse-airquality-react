@@ -72,15 +72,32 @@ export default class MockDataProvider {
         return this.mockObservations(center);
     }
 
-    static getLatestObservation(
+    static async getLatestObservation(
         station: ObservationStation,
         feature: Feature
-    ): Observation {
+    ): Promise<Observation> {
+        //TODO: Catch Mock Feature
+        var q =
+            "https://api.smartaq.net/v1.0/Datastreams?" +
+            "$select=@iot.id" +
+            "&$filter=Thing/@iot.id eq '{stationId}' and " +
+            "ObservedProperty/@iot.id eq '{featureId}'" +
+            "&$expand=Observations(" +
+            "$top=1;$orderby=phenomenonTime desc;$select=result,phenomenonTime)";
+        q = q
+            .replace(/{featureId}/g, feature.getId())
+            .replace(/{stationId}/g, station.getId());
+        var res: IGetLatestObservation[] = (await (await fetch(q)).json())
+            .value;
+        console.log(res);
+        if (!res || res.length === 0) {
+            return new Observation(station, feature, -1, new Date(Date.now()));
+        }
         return new Observation(
             station,
             feature,
-            Math.random() * 100,
-            new Date(Date.now())
+            res[0].Observations[0].result,
+            new Date(res[0].Observations[0].phenomenonTime)
         );
     }
 
@@ -146,6 +163,15 @@ interface IGetObservationStations {
             location: {
                 coordinates: [number, number, number];
             };
+        }
+    ];
+}
+
+interface IGetLatestObservation {
+    Observations: [
+        {
+            phenomenonTime: string;
+            result: number;
         }
     ];
 }

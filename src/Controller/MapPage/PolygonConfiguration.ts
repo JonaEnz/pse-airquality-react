@@ -31,15 +31,23 @@ export default class PolygonConfiguration extends MapConfiguration {
             [key: string]: Observation;
         } = {};
         var vertices: Delaunay.Point[] = [];
+        var promises: Promise<Observation>[] = [];
         obsStations.forEach((station) => {
-            var observation = MockDataProvider.getLatestObservation(
-                station,
-                this.selectedFeature
+            promises.push(
+                MockDataProvider.getLatestObservation(
+                    station,
+                    this.selectedFeature
+                )
             );
             var pos = station.getPosition().getCoordinates();
             vertices.push(new Delaunay.Point(pos.lat, pos.lng));
-            stations[station.getPosition().getString()] = observation;
         });
+
+        var observations = await Promise.all(promises);
+
+        for (let index = 0; index < observations.length; index++) {
+            stations[index] = observations[index];
+        }
 
         var tris = Delaunay.triangulate(vertices);
         var polys: Polygon[] = [];
