@@ -18,12 +18,12 @@ export default class PolygonConfiguration extends MapConfiguration {
         this.selectedFeature = feature;
     }
 
-    getPins(view: Viewport): MapPin[] {
+    async getPins(view: Viewport): Promise<MapPin[]> {
         return [];
     }
 
-    getPolygons(view: Viewport): Polygon[] {
-        var obsStations = MockDataProvider.getObservationStations(
+    async getPolygons(view: Viewport): Promise<Polygon[]> {
+        var obsStations = await MockDataProvider.getObservationStations(
             view.getCenter(),
             view.getRadius()
         );

@@ -57,11 +57,11 @@ export class MapController {
         this.save();
     }
 
-    getPins(): MapPin[] {
+    async getPins(): Promise<MapPin[]> {
         return this.config.getPins(this.viewport);
     }
 
-    getPolygons(): Polygon[] {
+    async getPolygons(): Promise<Polygon[]> {
         return this.config.getPolygons(this.viewport);
     }
 

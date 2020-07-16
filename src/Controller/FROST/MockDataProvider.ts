@@ -91,21 +91,61 @@ export default class MockDataProvider {
         feature: Feature,
         frequency?: Date
     ): Observation[] {
-        throw new Error("Not implemented.");
+        throw new Error("Not implemented");
     }
 
-    static getObservationStations(
+    static async getObservationStations(
         middle: Position,
         radius: number
-    ): ObservationStation[] {
-        var obs = [];
-        for (let index = 0; index < 7; index++) {
-            obs.push(this.mockStation(middle));
-        }
+    ): Promise<ObservationStation[]> {
+        var query =
+            "https://api.smartaq.net/v1.0/Things?$filter=geo.distance(Locations/location,geography'POINT({lon} {lat})') lt {radius} and overlaps(Datastreams/phenomenonTime,(now() sub duration'P1d'))&$expand=Locations($select=location)";
+        console.log(
+            query
+                .replace(/{lon}/g, middle.getLongitude().toString())
+                .replace(/{lat}/g, middle.getLatitude().toString())
+                .replace(/{radius}/g, radius.toString())
+        );
+        var response = await (
+            await fetch(
+                query
+                    .replace(/{lon}/g, middle.getLongitude().toString())
+                    .replace(/{lat}/g, middle.getLatitude().toString())
+                    .replace(/{radius}/g, radius.toString())
+            )
+        ).json();
+        var obs: ObservationStation[] = [];
+        response.value.forEach((element: IGetObservationStations) => {
+            var o = new ObservationStation(
+                element["@iot.id"],
+                element.name,
+                element.description,
+                new Position(
+                    element.Locations[0].location.coordinates[1],
+                    element.Locations[0].location.coordinates[0]
+                ),
+                []
+            );
+            obs.push(o);
+            MockDataProvider.stations[o.getId()] = o;
+        });
         return obs;
     }
 
     static getStation(id: string): ObservationStation {
         return MockDataProvider.stations[id];
     }
+}
+
+interface IGetObservationStations {
+    "@iot.id": string;
+    name: string;
+    description: string;
+    Locations: [
+        {
+            location: {
+                coordinates: [number, number, number];
+            };
+        }
+    ];
 }

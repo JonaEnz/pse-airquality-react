@@ -41,10 +41,11 @@ class MapPage extends React.Component<Props, State> {
         this.state = {
             selectedStation: null,
             lastObservation: null,
-            pins: this.mapController.getPins(),
-            polygons: this.mapController.getPolygons(),
             viewport: this.mapController.getViewport(),
+            pins: [],
+            polygons: [],
         };
+        this.update();
     }
 
     selectObservation(observation: Observation) {
@@ -55,9 +56,13 @@ class MapPage extends React.Component<Props, State> {
     }
 
     update() {
-        this.setState({
-            pins: this.mapController.getPins(),
-            polygons: this.mapController.getPolygons(),
+        var pinPromise = this.mapController.getPins();
+        var polyPromsie = this.mapController.getPolygons();
+        Promise.all([pinPromise, polyPromsie]).then((pinPoly) => {
+            this.setState({
+                pins: pinPoly[0],
+                polygons: pinPoly[1],
+            });
         });
     }
 
@@ -68,10 +73,14 @@ class MapPage extends React.Component<Props, State> {
     onViewportChange(viewport: Viewport) {
         this.mapController.handleViewportChange(viewport);
         //Update Page
-        this.setState({
-            viewport: viewport,
-            pins: this.mapController.getPins(),
-            polygons: this.mapController.getPolygons(),
+        var pinPromise = this.mapController.getPins();
+        var polyPromsie = this.mapController.getPolygons();
+        Promise.all([pinPromise, polyPromsie]).then((pinPoly) => {
+            this.setState({
+                viewport: viewport,
+                pins: pinPoly[0],
+                polygons: pinPoly[1],
+            });
         });
     }
 

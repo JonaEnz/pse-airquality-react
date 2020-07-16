@@ -56,8 +56,8 @@ export default class NearConfiguration extends MapConfiguration {
         return new Scale(true, sc);
     }
 
-    getPins(view: Viewport): MapPin[] {
-        var obs = MockDataProvider.getObservationStations(
+    async getPins(view: Viewport): Promise<MapPin[]> {
+        var obs = await MockDataProvider.getObservationStations(
             view.getCenter(),
             view.getZoom()
         );
@@ -75,7 +75,8 @@ export default class NearConfiguration extends MapConfiguration {
         });
         return pins;
     }
-    getPolygons(view: Viewport): Polygon[] {
+
+    async getPolygons(view: Viewport): Promise<Polygon[]> {
         return [];
     }
     getScale(): Scale {

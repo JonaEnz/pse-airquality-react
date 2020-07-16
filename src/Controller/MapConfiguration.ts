@@ -17,8 +17,8 @@ export default abstract class MapConfiguration {
             this.getScale().getColor(value)
         );
     }
-    abstract getPins(view: Viewport): MapPin[];
-    abstract getPolygons(view: Viewport): Polygon[];
+    abstract async getPins(view: Viewport): Promise<MapPin[]>;
+    abstract async getPolygons(view: Viewport): Promise<Polygon[]>;
     abstract getScale(): Scale;
     abstract getFeatures(): Feature[];
 }

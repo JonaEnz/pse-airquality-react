@@ -92,10 +92,12 @@ example:
 https://api.smartaq.net/v1.0/Things?
 $filter=geo.distance(Locations/location,geography'POINT(10.9 48.36)') lt 2 and 
 overlaps(Datastreams/phenomenonTime,(now() sub duration'P1d'))
+&$expand=Locations($select=location)
 
 https://api.smartaq.net/v1.0/Things?
 $filter=geo.distance(Locations/location,geography'POINT({middle.lon} {middle.lat})') lt {radius} and 
 overlaps(Datastreams/phenomenonTime,(now() sub duration'P1d'))
+&$expand=Locations($select=location)
 
 ////
 getStation(id)

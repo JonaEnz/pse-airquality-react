@@ -78,7 +78,7 @@ export class Map extends React.Component<Props, State> {
     private viewportLeafletToModel(viewport: LeafletViewport): Viewport {
         return new Viewport(
             new Position(viewport.center?.[0] ?? 0, viewport.center?.[1] ?? 0),
-            viewport.zoom ?? 0
+            viewport.zoom ?? 5
         );
     }
 
