@@ -17,7 +17,7 @@ $select=@iot.id,name
 overlaps(phenomenonTime,(now() sub duration'P1d')) and 
 ObservedProperty/@iot.id eq 'saqn:op:mcpm2p5'
 &$expand=Thing($select=name,@iot.id;$expand=Locations($select=location)),
-Observations($select=result;$filter=
+Observations($select=result,phenomenonTime;$filter=
 phenomenonTime gt now() sub duration'P1D';$orderby=phenomenonTime desc;$top=1
 )
 

@@ -64,12 +64,54 @@ export default class MockDataProvider {
         return obs;
     }
 
-    static getLatestObservations(
+    static async getLatestObservations(
         center: Position,
         radius: number,
         feature: Feature
-    ): Observation[] {
-        return this.mockObservations(center);
+    ): Promise<Observation[]> {
+        var q =
+            "https://api.smartaq.net/v1.0/Datastreams?" +
+            "$select=@iot.id,name" +
+            "&$filter=geo.distance(Thing/Locations/location,geography'POINT({lon} {lat})') lt {radius} and " +
+            "overlaps(phenomenonTime,(now() sub duration'P1d')) and " +
+            "ObservedProperty/@iot.id eq '{featureId}'" +
+            "&$expand=Thing($select=name,@iot.id;$expand=Locations($select=location))," +
+            "Observations($select=result,phenomenonTime;$filter=" +
+            "phenomenonTime gt now() sub duration'P1D';$orderby=phenomenonTime desc;$top=1" +
+            ")";
+        q = q
+            .replace(/{lon}/g, center.getLongitude().toString())
+            .replace(/{lat}/g, center.getLatitude().toString())
+            .replace(/{radius}/g, radius.toString())
+            .replace(/{featureId}/g, feature.getId());
+        var json = await (await fetch(q)).json();
+        var result: IGetLatestObs[] = json.value;
+        var observations: Observation[] = [];
+        result.forEach((element) => {
+            if (element.Observations.length !== 0) {
+                var o = new Observation(
+                    new ObservationStation(
+                        element.Thing["@iot.id"],
+                        element.Thing.name,
+                        "descHere", //TODO: Description
+                        new Position(
+                            element.Thing.Locations[0].location.coordinates[1],
+                            element.Thing.Locations[0].location.coordinates[0]
+                        ),
+                        [] //TODO: Features
+                    ),
+                    feature,
+                    element.Observations[0].result ?? -1,
+                    new Date(element.Observations[0].phenomenonTime)
+                );
+                observations.push(o);
+                MockDataProvider.stations[
+                    o.getObservationStation().getId()
+                ] = o.getObservationStation();
+            }
+        });
+
+        return observations;
     }
 
     static async getLatestObservation(
@@ -174,4 +216,23 @@ interface IGetLatestObservation {
             result: number;
         }
     ];
+}
+
+interface IGetLatestObs {
+    "@iot.id": string;
+    Thing: {
+        "@iot.id": string;
+        Locations: [
+            {
+                location: {
+                    coordinates: [number, number];
+                };
+            }
+        ];
+        name: string;
+    };
+    Observations: {
+        result: number;
+        phenomenonTime: string;
+    }[];
 }

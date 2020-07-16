@@ -15,12 +15,14 @@ export default class StationConfiguration extends MapConfiguration {
     }
 
     async getPins(view: Viewport): Promise<MapPin[]> {
-        var obs = await MockDataProvider.getObservationStations(
+        var latestObs = await MockDataProvider.getLatestObservations(
             view.getCenter(),
-            view.getZoom()
+            view.getZoom(),
+            this.selectedFeature
         );
-        //var latestObs = MockDataProvider.getLatestObservations(view.getCenter(), view.getZoom(), this.selectedFeature);
-        return obs.map((o) => this.buildMapPin(o, Math.random() * 100));
+        return latestObs.map((o) =>
+            this.buildMapPin(o.getObservationStation(), o.getValue())
+        );
     }
 
     async getPolygons(view: Viewport): Promise<Polygon[]> {
