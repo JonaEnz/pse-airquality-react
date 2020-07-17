@@ -77,15 +77,14 @@ export default function FeatureSelect(props: Props) {
     const handleFeatureChange = (
         event: React.ChangeEvent<{ value: unknown }>
     ) => {
-        setFeature(
-            FeatureProvider.getInstance().getFeature(
-                event.target.value as string
-            ) //Feature Id
-        );
+        var f = FeatureProvider.getInstance().getFeature(
+            event.target.value as string
+        ); //Feature Id
+        setFeature(f);
 
-        if (feature) {
+        if (f) {
             if (config) {
-                changeConfig(config, feature);
+                changeConfig(config, f);
             } else {
                 throw new Error("No config selected");
             }
@@ -114,7 +113,7 @@ export default function FeatureSelect(props: Props) {
                             <InputLabel>{"Feature"}</InputLabel>
                             <Select
                                 onChange={handleFeatureChange}
-                                value={feature?.getName() ?? ""}
+                                value={feature?.getId() ?? ""}
                             >
                                 {FeatureProvider.getInstance()
                                     .listAllFeatures()

@@ -23,27 +23,15 @@ export default class PolygonConfiguration extends MapConfiguration {
     }
 
     async getPolygons(view: Viewport): Promise<Polygon[]> {
-        var obsStations = await MockDataProvider.getObservationStations(
+        var observations = await MockDataProvider.getLatestObservations(
             view.getCenter(),
-            view.getRadius()
+            view.getRadius(),
+            this.selectedFeature
         );
         var stations: {
             [key: string]: Observation;
         } = {};
         var vertices: Delaunay.Point[] = [];
-        var promises: Promise<Observation>[] = [];
-        obsStations.forEach((station) => {
-            promises.push(
-                MockDataProvider.getLatestObservation(
-                    station,
-                    this.selectedFeature
-                )
-            );
-            var pos = station.getPosition().getCoordinates();
-            vertices.push(new Delaunay.Point(pos.lat, pos.lng));
-        });
-
-        var observations = await Promise.all(promises);
 
         for (let index = 0; index < observations.length; index++) {
             stations[

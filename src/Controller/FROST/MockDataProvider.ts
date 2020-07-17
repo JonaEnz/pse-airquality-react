@@ -78,7 +78,8 @@ export default class MockDataProvider {
             "&$filter=geo.distance(Thing/Locations/location,geography'POINT({lon} {lat})') lt {radius} and " +
             "overlaps(phenomenonTime,(now() sub duration'P1d')) and " +
             "ObservedProperty/@iot.id eq '{featureId}'" +
-            "&$expand=Thing($select=name,@iot.id;$expand=Locations($select=location))," +
+            "&$expand=Thing($select=name,@iot.id;$expand=Locations($select=location)," +
+            "Datastreams($select=name)/ObservedProperty($select=@iot.id))," +
             "Observations($select=result,phenomenonTime;$filter=" +
             "phenomenonTime gt now() sub duration'P1D';$orderby=phenomenonTime desc;$top=1" +
             ")";
@@ -92,16 +93,25 @@ export default class MockDataProvider {
         var observations: Observation[] = [];
         result.forEach((element) => {
             if (element.Observations.length !== 0) {
+                var features: Feature[] = element.Thing.Datastreams.flatMap(
+                    (d) => {
+                        var f = FeatureProvider.getInstance().getFeature(
+                            d.ObservedProperty["@iot.id"]
+                        );
+                        return f ?? [];
+                    }
+                );
+
                 var o = new Observation(
                     new ObservationStation(
                         element.Thing["@iot.id"],
                         element.Thing.name,
-                        "descHere", //TODO: Description
+                        element.Thing["@iot.id"] + "_desc",
                         new Position(
                             element.Thing.Locations[0].location.coordinates[1],
                             element.Thing.Locations[0].location.coordinates[0]
                         ),
-                        [] //TODO: Features
+                        features
                     ),
                     feature,
                     element.Observations[0].result ?? -1,
@@ -252,6 +262,11 @@ interface IGetLatestObs {
             }
         ];
         name: string;
+        Datastreams: {
+            ObservedProperty: {
+                "@iot.id": string;
+            };
+        }[];
     };
     Observations: {
         result: number;

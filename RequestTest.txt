@@ -16,7 +16,9 @@ $select=@iot.id,name
 &$filter=geo.distance(Thing/Locations/location,geography'POINT(8.4 49)') lt 3 and 
 overlaps(phenomenonTime,(now() sub duration'P1d')) and 
 ObservedProperty/@iot.id eq 'saqn:op:mcpm2p5'
-&$expand=Thing($select=name,@iot.id;$expand=Locations($select=location)),
+&$expand=Thing($select=name,@iot.id;$expand=Locations($select=location)
+,Datastreams($select=name)/ObservedProperty($select=@iot.id)
+),
 Observations($select=result,phenomenonTime;$filter=
 phenomenonTime gt now() sub duration'P1D';$orderby=phenomenonTime desc;$top=1
 )
