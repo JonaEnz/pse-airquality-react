@@ -45,7 +45,7 @@ export default class FeatureProvider {
         });
     }
 
-    getFeature(featureId: string): Feature {
+    getFeature(featureId: string): Feature | undefined {
         if (Object.keys(this.features).includes(featureId)) {
             return this.features[featureId];
         } else {
@@ -55,17 +55,19 @@ export default class FeatureProvider {
                 this.features[featureId] = f;
                 return f;
             } else {
-                throw new Error(
-                    "Failed at reading definition for " + featureId
-                );
+                console.log("Failed to read, " + featureId, ".");
+                return undefined;
             }
         }
     }
 
     private getFeatureById(featureId: string): Feature | null {
         featureId = featureId.replace(/:/g, "");
-        var json = this.context("./" + featureId + ".json");
-
+        try {
+            var json = this.context("./" + featureId + ".json");
+        } catch {
+            return null;
+        }
         if (!json) {
             return null; //Failed to read file
         }

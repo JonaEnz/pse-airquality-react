@@ -40,8 +40,8 @@ export default function FeatureSelect(props: Props) {
     const STATION_CONFIG = "StationConfiguration";
     const classes = useStyles();
     const [open, setOpen] = useState<HTMLImageElement | null>(null);
-    const [feature, setFeature] = useState<Feature | null>(
-        FeatureProvider.getInstance().getFeature("MockFeature")
+    const [feature, setFeature] = useState<Feature | undefined>(
+        FeatureProvider.getInstance().listAllFeatures()[0]
     );
     const [config, setConfig] = useState<string | null>(STATION_CONFIG);
 

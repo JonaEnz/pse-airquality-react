@@ -4,9 +4,12 @@ import { ObservationStation } from "../../Model/ObservationStation";
 import { Position } from "../../Model/Position";
 import { Scale } from "../../Model/Scale";
 import { Color } from "../../Model/Color";
+import FeatureProvider from "../FeatureProvider";
+import { isNullOrUndefined } from "util";
 
 export default class MockDataProvider {
     private static stations: { [key: string]: ObservationStation } = {};
+    private static gOSsPromise: Promise<any>;
 
     private static randomColor(): Color {
         return new Color(
@@ -131,7 +134,7 @@ export default class MockDataProvider {
             .replace(/{stationId}/g, station.getId());
         var res: IGetLatestObservation[] = (await (await fetch(q)).json())
             .value;
-        console.log(res);
+        //console.log(res);
         if (!res || res.length === 0) {
             return new Observation(station, feature, -1, new Date(Date.now()));
         }
@@ -158,23 +161,37 @@ export default class MockDataProvider {
         radius: number
     ): Promise<ObservationStation[]> {
         var query =
-            "https://api.smartaq.net/v1.0/Things?$filter=geo.distance(Locations/location,geography'POINT({lon} {lat})') lt {radius} and overlaps(Datastreams/phenomenonTime,(now() sub duration'P1d'))&$expand=Locations($select=location)";
+            "https://api.smartaq.net/v1.0/Things?" +
+            "$filter=geo.distance(Locations/location,geography'POINT({lon} {lat})') " +
+            "lt {radius} " +
+            "and overlaps(Datastreams/phenomenonTime,(now() sub duration'P1d'))" +
+            "&$expand=Locations($select=location)," +
+            "Datastreams($select=name)/ObservedProperty($select=@iot.id)";
         console.log(
             query
                 .replace(/{lon}/g, middle.getLongitude().toString())
                 .replace(/{lat}/g, middle.getLatitude().toString())
                 .replace(/{radius}/g, radius.toString())
         );
-        var response = await (
-            await fetch(
-                query
-                    .replace(/{lon}/g, middle.getLongitude().toString())
-                    .replace(/{lat}/g, middle.getLatitude().toString())
-                    .replace(/{radius}/g, radius.toString())
-            )
-        ).json();
+        MockDataProvider.gOSsPromise = fetch(
+            query
+                .replace(/{lon}/g, middle.getLongitude().toString())
+                .replace(/{lat}/g, middle.getLatitude().toString())
+                .replace(/{radius}/g, radius.toString())
+        );
+        var response = await (await MockDataProvider.gOSsPromise).json();
         var obs: ObservationStation[] = [];
         response.value.forEach((element: IGetObservationStations) => {
+            var features: Feature[] = element.Datastreams.flatMap((d) => {
+                var f = FeatureProvider.getInstance().getFeature(
+                    d.ObservedProperty["@iot.id"]
+                );
+                if (!isNullOrUndefined(f)) {
+                    return f as Feature;
+                } else {
+                    return [];
+                }
+            });
             var o = new ObservationStation(
                 element["@iot.id"],
                 element.name,
@@ -183,7 +200,7 @@ export default class MockDataProvider {
                     element.Locations[0].location.coordinates[1],
                     element.Locations[0].location.coordinates[0]
                 ),
-                []
+                features
             );
             obs.push(o);
             MockDataProvider.stations[o.getId()] = o;
@@ -207,6 +224,11 @@ interface IGetObservationStations {
             };
         }
     ];
+    Datastreams: {
+        ObservedProperty: {
+            "@iot.id": string;
+        };
+    }[];
 }
 
 interface IGetLatestObservation {

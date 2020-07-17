@@ -46,7 +46,12 @@ export default class PolygonConfiguration extends MapConfiguration {
         var observations = await Promise.all(promises);
 
         for (let index = 0; index < observations.length; index++) {
-            stations[index] = observations[index];
+            stations[
+                observations[index]
+                    .getObservationStation()
+                    .getPosition()
+                    .getString()
+            ] = observations[index];
         }
 
         var tris = Delaunay.triangulate(vertices);

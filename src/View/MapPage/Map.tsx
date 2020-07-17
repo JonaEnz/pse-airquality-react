@@ -62,7 +62,7 @@ export class Map extends React.Component<Props, State> {
             this.lock = true;
             setTimeout(
                 () => this.updateViewport(this.nextViewport as LeafletViewport),
-                250
+                300
             );
         }
     }

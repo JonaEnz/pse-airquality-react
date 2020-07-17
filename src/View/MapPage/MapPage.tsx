@@ -73,15 +73,10 @@ class MapPage extends React.Component<Props, State> {
     onViewportChange(viewport: Viewport) {
         this.mapController.handleViewportChange(viewport);
         //Update Page
-        var pinPromise = this.mapController.getPins();
-        var polyPromsie = this.mapController.getPolygons();
-        Promise.all([pinPromise, polyPromsie]).then((pinPoly) => {
-            this.setState({
-                viewport: viewport,
-                pins: pinPoly[0],
-                polygons: pinPoly[1],
-            });
+        this.setState({
+            viewport: viewport,
         });
+        this.update();
     }
 
     onStationSelected(pin: MapPin) {
