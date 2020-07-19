@@ -2,22 +2,18 @@ import { Feature } from "../Model/Feature";
 import { Scale } from "../Model/Scale";
 
 export default class FeatureProvider {
-    private static PATH = "../Jsons/";
-    private path: string;
     private context: any;
     private features: { [id: string]: Feature };
     private static instance: FeatureProvider | null = null;
 
-    constructor(path: string) {
-        this.path = path;
+    constructor() {
         this.features = {};
         this.context = require.context("../Jsons/", true);
-        //this.addFeature(b(test));
     }
 
     static getInstance(): FeatureProvider {
         if (!this.instance) {
-            this.instance = new FeatureProvider(this.PATH);
+            this.instance = new FeatureProvider();
         }
         return this.instance;
     }

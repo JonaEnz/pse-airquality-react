@@ -18,7 +18,6 @@ const styles = (theme: Theme) => ({});
 
 interface State {
     selectedStation: ObservationStation | null;
-    lastObservation: Observation | null;
     pins: MapPin[];
     polygons: Polygon[];
     viewport: Viewport;
@@ -40,7 +39,6 @@ class MapPage extends React.Component<Props, State> {
 
         this.state = {
             selectedStation: null,
-            lastObservation: null,
             viewport: this.mapController.getViewport(),
             pins: [],
             polygons: [],
@@ -51,7 +49,6 @@ class MapPage extends React.Component<Props, State> {
     selectObservation(observation: Observation) {
         this.setState({
             selectedStation: observation.getObservationStation(),
-            lastObservation: observation,
         });
     }
 
@@ -79,10 +76,10 @@ class MapPage extends React.Component<Props, State> {
         this.update();
     }
 
-    onStationSelected(pin: MapPin) {
-        this.mapController.handlePopup(pin).then((o) => {
-            this.selectObservation(o); // set Observation (and station) for Popup
-        });
+    async onStationSelected(pin: MapPin): Promise<Observation> {
+        var promise = this.mapController.handlePopup(pin);
+        promise.then((o) => this.selectObservation(o));
+        return promise;
     }
 
     onSearch(term: string) {
@@ -137,7 +134,6 @@ class MapPage extends React.Component<Props, State> {
                     handlePopup={(pin) => this.onStationSelected(pin)}
                     pins={this.state.pins}
                     polygons={this.state.polygons}
-                    lastObservation={this.state.lastObservation}
                 />
                 <FeatureSelect
                     onConfigurationChange={(conf) => {

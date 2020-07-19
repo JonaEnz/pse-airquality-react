@@ -16,18 +16,19 @@ import { Position } from "../../Model/Position";
 import { StationInfo } from "./StationInfo";
 import { Observation } from "../../Model/Observation";
 import { ObservationStation } from "../../Model/ObservationStation";
+import Language from "../../Controller/Storage/Language";
 require("leaflet-iconmaterial");
 interface State {
     viewport: Viewport;
+    lastObservation: Observation | null;
 }
 
 interface Props {
     onViewportChange: (viewport: Viewport) => void;
-    handlePopup: (pin: MapPin) => void;
+    handlePopup: (pin: MapPin) => Promise<Observation>;
     viewport: Viewport;
     pins: MapPin[];
     polygons: Polygon[];
-    lastObservation: Observation | null;
 }
 
 export class Map extends React.Component<Props, State> {
@@ -39,6 +40,7 @@ export class Map extends React.Component<Props, State> {
         this.nextViewport = null;
         this.state = {
             viewport: this.props.viewport,
+            lastObservation: null,
         };
     }
 
@@ -82,6 +84,11 @@ export class Map extends React.Component<Props, State> {
         );
     }
 
+    private async handlePopup(pin: MapPin) {
+        var observation = await this.props.handlePopup(pin);
+        this.setState({ lastObservation: observation });
+    }
+
     private getPositionsFromPolygon(
         polygon: Polygon
     ): { lat: number; lng: number }[] {
@@ -109,15 +116,19 @@ export class Map extends React.Component<Props, State> {
                             position={pin.getPosition().getCoordinates()}
                             icon={this.getIconFromMapPin(pin)}
                         >
-                            <Popup onOpen={() => this.props.handlePopup(pin)}>
-                                {this.props.lastObservation ? (
+                            <Popup onOpen={() => this.handlePopup(pin)}>
+                                {this.state.lastObservation ? (
                                     <StationInfo
                                         lastObservation={
-                                            this.props.lastObservation
+                                            this.state.lastObservation
                                         }
                                     />
                                 ) : (
-                                    <p>No station selected</p>
+                                    <p>
+                                        {Language.getInstance().getText(
+                                            "loading"
+                                        )}
+                                    </p>
                                 )}
                             </Popup>
                         </Marker>
