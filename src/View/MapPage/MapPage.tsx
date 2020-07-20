@@ -46,12 +46,14 @@ class MapPage extends React.Component<Props, State> {
         this.update();
     }
 
-    selectObservation(observation: Observation) {
+    // Set station as source for the StationInfo Popup
+    changePopupStation(station: ObservationStation) {
         this.setState({
-            selectedStation: observation.getObservationStation(),
+            selectedStation: station,
         });
     }
 
+    // Reload Pins and Polygons
     update() {
         var pinPromise = this.mapController.getPins();
         var polyPromsie = this.mapController.getPolygons();
@@ -64,7 +66,29 @@ class MapPage extends React.Component<Props, State> {
     }
 
     getValueAt(position: Position, feature: Feature): number {
-        throw Error("Not implemented.");
+        // Get pins sorted by distance
+        var sortedPins = this.state.pins.sort((a, b) => {
+            return (
+                a.getPosition().getDistance(position) -
+                b.getPosition().getDistance(position)
+            );
+        });
+        var dis = 0; //Distance of nearest station to position
+        var disSum = 0;
+        if (sortedPins.length !== 0) {
+            dis = sortedPins[0].getPosition().getDistance(position);
+        }
+        var value = 0;
+        for (let i = 0; i <= 2; i++) {
+            //nearest 3 stations (if they exist)
+            if (sortedPins.length > i) {
+                var temp =
+                    dis / sortedPins[i].getPosition().getDistance(position); //Inverse of distance in comparison to nearest station
+                disSum += temp;
+                value += sortedPins[i].getValue() * temp; //Value, nearest with weight 1.
+            }
+        }
+        return value / (disSum === 0 ? 1 : disSum); //Catch division by zero (empty pin list)
     }
 
     onViewportChange(viewport: Viewport) {
@@ -78,7 +102,7 @@ class MapPage extends React.Component<Props, State> {
 
     async onStationSelected(pin: MapPin): Promise<Observation> {
         var promise = this.mapController.handlePopup(pin);
-        promise.then((o) => this.selectObservation(o));
+        promise.then((o) => this.changePopupStation(o.getObservationStation()));
         return promise;
     }
 

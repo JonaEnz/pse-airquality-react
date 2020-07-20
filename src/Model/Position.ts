@@ -13,6 +13,13 @@ export class Position {
         this.longitude = longitude;
     }
 
+    getDistance(pos: Position): number {
+        return Math.sqrt(
+            Math.pow(this.latitude - pos.getLatitude(), 2) +
+                Math.pow(this.longitude - pos.getLongitude(), 2)
+        );
+    }
+
     getCoordinates(): { lat: number; lng: number } {
         var lat = this.latitude;
         var lng = this.longitude;
