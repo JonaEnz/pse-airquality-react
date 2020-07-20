@@ -31,7 +31,7 @@ export default class MockDataProvider {
             "weblink",
             100,
             "uoM",
-            ['FeatureHistoryLineChart'],
+            ['YearComparisonLineChart', 'FeatureHistoryLineChart', 'ComparisonToLastYearPieChart'],
             ''
         );
     }
@@ -95,21 +95,23 @@ export default class MockDataProvider {
         //how many observations per day are expected
         frequency: number
     ): Observation[] {
-        var timespan = end.valueOf() - start.valueOf();
-        var numberOfDays = timespan / 1000 / 60 / 60 / 24;
-        var intervall = timespan / (numberOfDays * frequency);
-        var numberOfObservations = timespan / intervall;
+        let date = start;
+        let observations = new Array<Observation>();
 
-        var observations = new Array<Observation>();
-        for (let i = 0; i < numberOfObservations; i++) {
-            observations.push(
-                new Observation(
-                    station,
-                    feature,
-                    Math.round(Math.random() * 100),
-                    new Date(start.valueOf() + i * intervall)
-                )
-            );
+        if (frequency <= 1) {
+            while (date.valueOf() < end.valueOf()) {
+                date = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1 / frequency);
+                let value = Math.random() * 100;
+                let observation = new Observation(station, feature, value, date);
+                observations.push(observation);
+            }
+        } else if (frequency > 1) {
+            while (date.valueOf() < end.valueOf()) {
+                date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours() + 24 / frequency);
+                let value = Math.random() * 100;
+                let observation = new Observation(station, feature, value, date);
+                observations.push(observation);
+            }
         }
 
         return observations;
