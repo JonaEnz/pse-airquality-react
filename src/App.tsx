@@ -1,5 +1,6 @@
 import React from "react";
-import logo from "./logo.svg";
+import Layout from "./View/Layout";
+
 import "./App.css";
 import DetailPage from './View/DetailPage';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -15,9 +16,7 @@ function App() {
 
   return (
     <div className="App">
-      <MuiThemeProvider theme={theme}>
-        <DetailPage id='1893' />
-      </MuiThemeProvider>
+      <Layout />
     </div>
   );
 }

@@ -3,10 +3,12 @@ import React from 'react';
 import { Scale } from "./Scale";
 import { Observation } from "./Observation";
 import { ObservationStation } from "./ObservationStation";
-import { Language } from "../Controller/Storage/Language";
+import Language from "../Controller/Storage/Language";
 import Diagram from "../View/Diagrams/Diagram";
 import DiagramFactory from '../Controller/DiagramFactory';
 import IDiagramController from '../Controller/DiagramController';
+
+let language = Language.getInstance();
 
 export class Feature {
 
@@ -47,11 +49,13 @@ export class Feature {
   }
 
   public getName(): string {
-    return Language.getText(this.nameId);
+    //return Language.getText(this.nameId);
+    return this.nameId;
   }
 
   public getDescription(): string {
-    return Language.getText(this.descriptionId);
+    //return Language.getText(this.descriptionId);
+    return this.descriptionId;
   }
 
   public getRelatedScale(): Scale {
@@ -59,7 +63,8 @@ export class Feature {
   }
 
   public getRelatedWeblink(): string {
-    return Language.getText(this.relatedWeblinkId);
+    //return Language.getText(this.relatedWeblinkId);
+    return this.relatedWeblinkId;
   }
 
   public getDiagramController(observationStation: ObservationStation): IDiagramController[] {

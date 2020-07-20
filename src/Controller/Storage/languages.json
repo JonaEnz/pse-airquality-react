@@ -1,0 +1,24 @@
+{
+  "languages": [
+    {
+      "id": "de-de",
+      "name": "Deutsch",
+      "strings": {
+        "about": "Über",
+        "privacyPolicy": "Datenschutzerklärung",
+        "stationInfoButton": "Mehr Informationen",
+        "search": "Suche"
+      }
+    },
+    {
+      "id": "en-us",
+      "name": "English",
+      "strings": {
+        "about": "About",
+        "privacyPolicy": "Privacy Policy",
+        "stationInfoButton": "More details",
+        "search": "Search"
+      }
+    }
+  ]
+}

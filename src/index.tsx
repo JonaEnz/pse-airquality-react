@@ -1,14 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import "typeface-roboto";
 import * as serviceWorker from "./serviceWorker";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import purple from "@material-ui/core/colors/purple";
+import green from "@material-ui/core/colors/green";
+import Layout from "./View/Layout";
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: green[500],
+        },
+        secondary: {
+            main: purple[500],
+        },
+    },
+});
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
+    <React.StrictMode>
+        <ThemeProvider theme={theme}>
+            <Layout />
+        </ThemeProvider>
+    </React.StrictMode>,
+    document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
