@@ -16,7 +16,7 @@
         "1050": "#f63c09",
         "2147483647": "#ff0000"
     },
-    "webLinkId": "https://de.wikipedia.org/wiki/Luftdruck",
+    "webLinkId": "pascalLink",
     "limit": 1050,
     "diagrams": []
 }

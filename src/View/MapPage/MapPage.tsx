@@ -13,7 +13,6 @@ import Search from "./Search";
 import Legend from "./Legend";
 import { Box, Theme } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
-import { Color } from "../../Model/Color";
 
 const styles = (theme: Theme) => ({});
 
@@ -102,6 +101,7 @@ class MapPage extends React.Component<Props, State> {
     }
 
     async onStationSelected(pin: MapPin): Promise<Observation> {
+        this.setState({ selectedStation: null });
         var promise = this.mapController.handlePopup(pin);
         promise.then((o) => this.changePopupStation(o.getObservationStation()));
         return promise;

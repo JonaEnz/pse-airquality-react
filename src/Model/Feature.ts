@@ -41,13 +41,13 @@ export class Feature {
     }
 
     public getName(): string {
-        //return Language.getText(this.nameId);
-        return this.nameId;
+        return language.getText(this.nameId);
+        //return this.nameId;
     }
 
     public getDescription(): string {
-        //return Language.getText(this.descriptionId);
-        return this.descriptionId;
+        return language.getText(this.descriptionId);
+        //return this.descriptionId;
     }
 
     public getRelatedScale(): Scale {
@@ -55,8 +55,8 @@ export class Feature {
     }
 
     public getRelatedWeblink(): string {
-        //return Language.getText(this.relatedWeblinkId);
-        return this.relatedWeblinkId;
+        return language.getText(this.relatedWeblinkId);
+        //return this.relatedWeblinkId;
     }
 
     //Todo: implement Method

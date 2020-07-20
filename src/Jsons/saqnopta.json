@@ -16,7 +16,7 @@
         "40": "#f63c09",
         "2147483647": "#ff0000"
     },
-    "webLinkId": "https://de.wikipedia.org/wiki/Temperatur",
+    "webLinkId": "tempLink",
     "limit": 40,
     "diagrams": []
 }

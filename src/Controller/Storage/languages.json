@@ -9,7 +9,17 @@
                 "stationInfoButton": "Mehr Informationen",
                 "search": "Suche",
                 "loading": "Laden ...",
-                "Error404": "Fehler 404: Die angeforderte Seite existiert nicht."
+                "Error404": "Fehler 404: Die angeforderte Seite existiert nicht.",
+                "mockFeatureName": "Mock Feature",
+                "PNC2.5Desc": "Feinstaub mit Größe von 2.5 µm",
+                "PNC2.5Name": "Feinstaub",
+                "PNC2.5Link": "TODO",
+                "AirPressureName": "Luftdruck",
+                "pascalDef": "Luftdruck in Pascal",
+                "pascalLink": "TODO",
+                "temperatureName": "Temperatur",
+                "temperatureDesc": "Umgebungstemperatur in °C",
+                "tempLink": "TODO"
             }
         },
         {
@@ -21,7 +31,17 @@
                 "stationInfoButton": "More details",
                 "search": "Search",
                 "loading": "Loading ...",
-                "Error404": "Error 404: This page doesn't exist."
+                "Error404": "Error 404: This page doesn't exist.",
+                "mockFeatureName": "Mock Feature",
+                "PNC2.5Desc": "Particulate matter with diameter 2.5µm",
+                "PNC2.5Name": "Particulate matter",
+                "PNC2.5Link": "TODO",
+                "AirPressureName": "Air Pressure",
+                "pascalDef": "Air Pressure in pascal",
+                "pascalLink": "TODO",
+                "temperatureName": "Temperature",
+                "temperatureDesc": "Temperature in °C",
+                "tempLink": "TODO"
             }
         }
     ]
