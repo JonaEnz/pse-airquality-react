@@ -49,6 +49,24 @@ export default class Diagram extends React.Component<IDiagramProps, IDiagramStat
         );
     }
 
+    //renders the configuration form of this diagram
+    renderDiagramConfiguration() {
+        //if configuration is enabled return slect form with configuration options
+        if (this.controller.isConfigurable()) {
+            return (
+                <Grid item>
+                    <Select
+                        value={this.state.configurationOption}
+                        onChange={this.handleConfigurationChange}
+                    >
+                        {this.renderConfigurationOptions()}
+                    </Select>
+                </Grid>
+            );
+            //not configurable return empty string
+        } else return ('');
+    }
+
     //render component
     render() {
         return (
@@ -58,14 +76,7 @@ export default class Diagram extends React.Component<IDiagramProps, IDiagramStat
                         <Grid item>
                             <Typography variant='subtitle1'>{this.controller.feature.getName()}</Typography>
                         </Grid>
-                        <Grid item>
-                            <Select
-                                value={this.state.configurationOption}
-                                onChange={this.handleConfigurationChange}
-                            >
-                                {this.renderConfigurationOptions()}
-                            </Select>
-                        </Grid>
+                        {this.renderDiagramConfiguration()}
                     </Grid>
                 </div>
                 <Divider />
@@ -73,6 +84,7 @@ export default class Diagram extends React.Component<IDiagramProps, IDiagramStat
                     width={this.styles.diagram.width}
                     height={this.styles.diagram.height}
                     chartType={this.controller.getChartType()}
+                    options={this.controller.getGraphicsOptions()}
                     loader={
                         <Grid container justify='center' alignContent='center' style={this.styles.diagram}>
                             <CircularProgress />
