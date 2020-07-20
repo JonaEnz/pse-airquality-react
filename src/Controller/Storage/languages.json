@@ -8,7 +8,8 @@
                 "privacyPolicy": "Datenschutzerklärung",
                 "stationInfoButton": "Mehr Informationen",
                 "search": "Suche",
-                "loading": "Laden ..."
+                "loading": "Laden ...",
+                "Error404": "Fehler 404: Die angeforderte Seite existiert nicht."
             }
         },
         {
@@ -19,7 +20,8 @@
                 "privacyPolicy": "Privacy Policy",
                 "stationInfoButton": "More details",
                 "search": "Search",
-                "loading": "Loading ..."
+                "loading": "Loading ...",
+                "Error404": "Error 404: This page doesn't exist."
             }
         }
     ]

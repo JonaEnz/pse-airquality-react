@@ -131,7 +131,9 @@ export default class MockDataProvider {
         station: ObservationStation,
         feature: Feature
     ): Promise<Observation> {
-        //TODO: Catch Mock Feature
+        if (feature.getId() === "MockFeature") {
+            return this.mockObservations(station.getPosition())[0];
+        }
         var q =
             "https://api.smartaq.net/v1.0/Datastreams?" +
             "$select=@iot.id" +
