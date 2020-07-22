@@ -2,7 +2,8 @@ import { Scale } from "./Scale";
 import { Observation } from "./Observation";
 import { ObservationStation } from "./ObservationStation";
 import Language from "../Controller/Storage/Language";
-import Diagram from "../View/Diagram";
+import DiagramFactory from '../Controller/DiagramController/DiagramFactory';
+import IDiagramController from '../Controller/DiagramController/DiagramController';
 
 let language = Language.getInstance();
 
@@ -15,25 +16,29 @@ export class Feature {
     private limit: number;
     private unitOfMeasurement: string;
     private drawableDiagramIds: string[];
+    private controllerIds: string[];
+    private iconName: string;
 
-    constructor(
-        id: string,
-        nameId: string,
-        descriptionId: string,
-        scale: Scale,
-        relatedWeblinkId: string,
-        limit: number,
-        unitOfMeasurement: string,
-        drawableDiagramIds: string[]
+      constructor(
+      id: string,
+      nameId: string,
+      descriptionId: string,
+      scale: Scale,
+      relatedWeblinkId: string,
+      limit: number,
+      unitOfMeasurement: string,
+      controllerIds: string[],
+      iconName: string,
     ) {
-        this.id = id;
-        this.nameId = nameId;
-        this.descriptionId = descriptionId;
-        this.scale = scale;
-        this.relatedWeblinkId = relatedWeblinkId;
-        this.limit = limit;
-        this.unitOfMeasurement = unitOfMeasurement;
-        this.drawableDiagramIds = drawableDiagramIds;
+      this.id = id;
+      this.nameId = nameId;
+      this.descriptionId = descriptionId;
+      this.scale = scale;
+      this.relatedWeblinkId = relatedWeblinkId;
+      this.limit = limit;
+      this.unitOfMeasurement = unitOfMeasurement;
+      this.controllerIds = controllerIds;
+      this.iconName = iconName;
     }
 
     public getId(): string {
@@ -50,32 +55,39 @@ export class Feature {
         //return this.descriptionId;
     }
 
-    public getRelatedScale(): Scale {
-        return this.scale;
-    }
-
     public getRelatedWeblink(): string {
         return language.getText(this.relatedWeblinkId);
         //return this.relatedWeblinkId;
     }
 
-    //Todo: implement Method
-    public getDrawableDiagrams(
-        observationStation: ObservationStation
-    ): Diagram[] {
-        var diagrams: Diagram[] = [];
-        return diagrams;
-    }
+  public getRelatedScale(): Scale {
+    return this.scale;
+  }
 
-    public getLimit(): number {
-        return this.limit;
-    }
+  public getDiagramController(observationStation: ObservationStation): IDiagramController[] {
+    var diagramController = new Array<IDiagramController>();
 
-    public getUnitOfMeasurement(): string {
-        return this.unitOfMeasurement;
-    }
+    this.controllerIds.forEach(id => {
+      let controller = DiagramFactory.getDiagramController(id, observationStation, this);
+      diagramController.push(controller);
+    });
 
-    public isLimitExceeded(observation: Observation): boolean {
-        return observation.getValue() > this.limit;
-    }
+    return diagramController;
+  }
+
+  public getLimit(): number {
+    return this.limit;
+  }
+
+  public getUnitOfMeasurement(): string {
+    return this.unitOfMeasurement;
+  }
+
+  public isLimitExceeded(observation: Observation): boolean {
+    return observation.getValue() > this.limit;
+  }
+
+  public getIconName(): string {
+    return this.iconName;
+  }
 }

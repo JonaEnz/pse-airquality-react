@@ -1,5 +1,6 @@
 import { Position } from './Position';
 import { Feature } from './Feature';
+import IDiagramController from '../Controller/DiagramController/DiagramController';
 
 export class ObservationStation {
     private id: string;
@@ -36,8 +37,17 @@ export class ObservationStation {
         return this.availableFeatures;
     }
 
-    public getDiagramms(): void {
+    public getDiagramController(): IDiagramController[] {
+        var diagramController: IDiagramController[] = [];
 
+        this.availableFeatures.forEach(feature => {
+            let featureDiagramControllerArray = feature.getDiagramController(this);
+            featureDiagramControllerArray.forEach(contr => {
+                diagramController.push(contr);
+            });
+        });
+
+        return diagramController;
     }
 
     public hasFeature(feature: Feature): boolean {

@@ -33,7 +33,8 @@ export default class MockDataProvider {
             "weblink",
             100,
             "uoM",
-            []
+            [],
+            'icon',
         );
     }
     private static mockStation(center: Position): ObservationStation {
