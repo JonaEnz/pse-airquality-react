@@ -97,7 +97,7 @@ export default class ObservationStationProfile extends React.Component<IObservat
 
     //returns the timestamp of the latest observation as a readable string
     private renderObservationDate() {
-        if (this.state.latestObservations.length != 0) {
+        if (this.state.latestObservations.length !== 0) {
             var timestamp = this.state.latestObservations[0].getTimeStamp();
 
             var year = timestamp.getFullYear();
@@ -116,8 +116,8 @@ export default class ObservationStationProfile extends React.Component<IObservat
     private getDateString(year: number, month: number, day: number, hour: number, minute: number) {
         var parameters: number[] = [year, month, day, hour, minute];
         var strParameters: string[] = parameters.map((num) => num.toString());
-        var strParameters = strParameters.map((str) => {
-            if (str.length == 1) {
+        strParameters = strParameters.map((str) => {
+            if (str.length === 1) {
                 return ('0' + str);
             } else {
                 return str;

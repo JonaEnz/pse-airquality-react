@@ -221,12 +221,12 @@ class DataTable {
     //returns whether two dates are the same except their years
     datesAreEqual(dateA: Date, dateB: Date): boolean {
         let equal: boolean =
-            (dateA.getMonth() == dateB.getMonth()) &&
-            (dateA.getDate() == dateB.getDate()) &&
-            (dateA.getHours() == dateB.getHours()) &&
-            (dateA.getMinutes() == dateB.getMinutes()) &&
-            (dateA.getSeconds() == dateB.getSeconds()) &&
-            (dateA.getMilliseconds() == dateB.getMilliseconds());
+            (dateA.getMonth() === dateB.getMonth()) &&
+            (dateA.getDate() === dateB.getDate()) &&
+            (dateA.getHours() === dateB.getHours()) &&
+            (dateA.getMinutes() === dateB.getMinutes()) &&
+            (dateA.getSeconds() === dateB.getSeconds()) &&
+            (dateA.getMilliseconds() === dateB.getMilliseconds());
         return equal;
     }
 

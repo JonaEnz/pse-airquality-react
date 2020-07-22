@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Scale } from "./Scale";
 import { Observation } from "./Observation";
 import { ObservationStation } from "./ObservationStation";
