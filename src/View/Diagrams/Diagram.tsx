@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Divider, Typography, Grid, CircularProgress, Select, MenuItem, } from '@material-ui/core';
 import Chart from "react-google-charts";
 
-import IDiagramController from '../../Controller/DiagramController';
+import IDiagramController from '../../Controller/DiagramController/DiagramController';
 
 export default class Diagram extends React.Component<IDiagramProps, IDiagramState> {
     //controller for this diagram

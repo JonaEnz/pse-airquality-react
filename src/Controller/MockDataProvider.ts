@@ -4,7 +4,7 @@ import { ObservationStation } from "../Model/ObservationStation";
 import { Position } from "../Model/Position";
 import { Scale } from "../Model/Scale";
 import { Color } from "../Model/Color";
-import DiagramFactory from "./DiagramFactory";
+import DiagramFactory from "./DiagramController/DiagramFactory";
 
 export default class MockDataProvider {
     private static stations: { [key: string]: ObservationStation } = {};

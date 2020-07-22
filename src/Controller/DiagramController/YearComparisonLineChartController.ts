@@ -1,7 +1,7 @@
-import IDiagramController, { ChartType, IConfigurationOption } from './DiagramController';
-import { ObservationStation } from '../Model/ObservationStation';
-import { Feature } from '../Model/Feature';
-import MockDataProvider from './MockDataProvider';
+import IDiagramController, { ChartType } from './DiagramController';
+import { ObservationStation } from '../../Model/ObservationStation';
+import { Feature } from '../../Model/Feature';
+import MockDataProvider from '../MockDataProvider';
 
 class YCLCCConfigurationOption {
     name: string;
@@ -15,7 +15,7 @@ class YCLCCConfigurationOption {
     }
 }
 
-export default class YearComparisonLineChartController implements IDiagramController {
+export class YearComparisonLineChartController implements IDiagramController {
     //support line charts
     private static readonly chartType = ChartType.LINE_CHART;
 
@@ -243,3 +243,4 @@ class DataTable {
         return arrayRepresentation;
     }
 }
+

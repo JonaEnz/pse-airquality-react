@@ -1,10 +1,5 @@
-import { ObservationStation } from "../Model/ObservationStation";
-import { Feature } from "../Model/Feature";
-
-export interface IConfigurationOption {
-    //returns name of the option
-    getName: () => string;
-}
+import { ObservationStation } from "../../Model/ObservationStation";
+import { Feature } from "../../Model/Feature";
 
 export default interface IDiagramController {
     observationStation: ObservationStation;

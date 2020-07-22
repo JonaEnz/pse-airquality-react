@@ -1,8 +1,8 @@
-import { ObservationStation } from '../Model/ObservationStation';
-import { Feature } from '../Model/Feature';
-import FeatureHistoryLineChartController from './FeatureHistoryLineChartController';
-import ComparisonToLastYearPieChartController from './ComparisonToLastYearPieChartController';
-import YearComparisonLineChartController from './YearComparisonLineChartController';
+import { ObservationStation } from '../../Model/ObservationStation';
+import { Feature } from '../../Model/Feature';
+import { FeatureHistoryLineChartController } from './FeatureHistoryLineChartController';
+import { ComparisonToLastYearPieChartController } from './ComparisonToLastYearPieChartController';
+import { YearComparisonLineChartController } from './YearComparisonLineChartController';
 import IDiagramController from './DiagramController';
 
 export default class DiagramFactory {

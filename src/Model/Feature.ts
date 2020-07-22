@@ -4,9 +4,8 @@ import { Scale } from "./Scale";
 import { Observation } from "./Observation";
 import { ObservationStation } from "./ObservationStation";
 import Language from "../Controller/Storage/Language";
-import Diagram from "../View/Diagrams/Diagram";
-import DiagramFactory from '../Controller/DiagramFactory';
-import IDiagramController from '../Controller/DiagramController';
+import DiagramFactory from '../Controller/DiagramController/DiagramFactory';
+import IDiagramController from '../Controller/DiagramController/DiagramController';
 
 let language = Language.getInstance();
 

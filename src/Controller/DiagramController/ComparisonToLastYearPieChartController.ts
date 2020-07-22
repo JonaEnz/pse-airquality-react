@@ -1,31 +1,23 @@
-import IDiagramController, { ChartType, IConfigurationOption } from './DiagramController';
-import { ObservationStation } from '../Model/ObservationStation';
-import { Feature } from '../Model/Feature';
-import Timespan from '../Model/Timespan';
-import MockDataProvider from './MockDataProvider';
-import { Observation } from '../Model/Observation';
+import IDiagramController, { ChartType } from './DiagramController';
+import { ObservationStation } from '../../Model/ObservationStation';
+import { Feature } from '../../Model/Feature';
+import Timespan from '../../Model/Timespan';
+import MockDataProvider from '../MockDataProvider';
 
 
-class CTLYPCConfigurationOption implements IConfigurationOption {
+class CTLYPCConfigurationOption {
     name: string;
     timespan: Timespan;
     frequency: number;
 
     constructor(name: string, timespan: Timespan, frequency: number) {
-        //unique name of configuration option
         this.name = name;
         this.timespan = timespan;
-        //how many values per day are
         this.frequency = frequency;
-    }
-
-    //returns name of the option as a string
-    getName(): string {
-        return this.name;
     }
 }
 
-export default class ComparisonToLastYearPieChartController implements IDiagramController {
+export class ComparisonToLastYearPieChartController implements IDiagramController {
     //support line charts
     private static readonly chartType = ChartType.PIE_CHART;
 
@@ -64,11 +56,11 @@ export default class ComparisonToLastYearPieChartController implements IDiagramC
     }
 
     getConfigurationOptions() {
-        return ComparisonToLastYearPieChartController.configurationOptions.map(option => option.getName());
+        return ComparisonToLastYearPieChartController.configurationOptions.map(option => option.name);
     };
 
     getDefaultConfigurationOption() {
-        return ComparisonToLastYearPieChartController.defaultConfigurationOption.getName();
+        return ComparisonToLastYearPieChartController.defaultConfigurationOption.name;
     }
 
     getData(configurationOptionName: string): any[][] {
@@ -112,7 +104,7 @@ export default class ComparisonToLastYearPieChartController implements IDiagramC
         for (let i = 0; i < options.length; i++) {
 
             //if option matches return it
-            if (options[i].getName() === name) {
+            if (options[i].name === name) {
                 return options[i];
             }
 
@@ -122,3 +114,4 @@ export default class ComparisonToLastYearPieChartController implements IDiagramC
         throw new Error(`${name} is an invalid configuration option for a diagram of type ComparisonToLastYearPieChart`);
     }
 }
+

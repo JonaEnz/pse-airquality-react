@@ -1,7 +1,6 @@
 import { Position } from './Position';
 import { Feature } from './Feature';
-import Diagram from '../View/Diagrams/Diagram';
-import IDiagramController from '../Controller/DiagramController';
+import IDiagramController from '../Controller/DiagramController/DiagramController';
 
 export class ObservationStation {
     private id: string;

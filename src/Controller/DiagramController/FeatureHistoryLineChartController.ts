@@ -1,10 +1,10 @@
-import IDiagramController, { ChartType, IConfigurationOption } from './DiagramController';
-import { ObservationStation } from '../Model/ObservationStation';
-import { Feature } from '../Model/Feature';
-import Timespan from '../Model/Timespan';
-import MockDataProvider from './MockDataProvider';
+import IDiagramController, { ChartType } from './DiagramController';
+import { ObservationStation } from '../../Model/ObservationStation';
+import { Feature } from '../../Model/Feature';
+import Timespan from '../../Model/Timespan';
+import MockDataProvider from '../MockDataProvider';
 
-class FHLCConfigurationOption implements IConfigurationOption {
+class FHLCConfigurationOption {
     name: string;
     timespan: Timespan;
     frequency: number;
@@ -12,21 +12,14 @@ class FHLCConfigurationOption implements IConfigurationOption {
     xAxis: { type: string, label: string };
 
     constructor(name: string, timespan: Timespan, frequency: number, xAxis: { type: string, label: string }) {
-        //unique name of configuration option
         this.name = name;
         this.timespan = timespan;
-        //how many values per day are
         this.frequency = frequency;
         this.xAxis = xAxis;
     }
-
-    //returns name of the option as a string
-    getName(): string {
-        return this.name;
-    }
 }
 
-export default class FeatureHistoryLineChartController implements IDiagramController {
+export class FeatureHistoryLineChartController implements IDiagramController {
     //support line charts
     private static readonly chartType = ChartType.LINE_CHART;
 
@@ -83,12 +76,12 @@ export default class FeatureHistoryLineChartController implements IDiagramContro
 
     //returns default configuration option
     getDefaultConfigurationOption(): string {
-        return FeatureHistoryLineChartController.defaultConfigurationOption.getName();
+        return FeatureHistoryLineChartController.defaultConfigurationOption.name;
     }
 
     //return names of configuration options
     getConfigurationOptions(): string[] {
-        var optionNames = FeatureHistoryLineChartController.configurationOptions.map(option => option.getName());
+        var optionNames = FeatureHistoryLineChartController.configurationOptions.map(option => option.name);
         return optionNames;
     }
 
@@ -135,7 +128,7 @@ export default class FeatureHistoryLineChartController implements IDiagramContro
         for (let i = 0; i < options.length; i++) {
 
             //if option matches return it
-            if (options[i].getName() === name) {
+            if (options[i].name === name) {
                 return options[i];
             }
 
@@ -145,3 +138,4 @@ export default class FeatureHistoryLineChartController implements IDiagramContro
         throw new Error(`${name} is an invalid configuration option for a diagram of type FeatureHistoryLineChart`);
     }
 }
+
