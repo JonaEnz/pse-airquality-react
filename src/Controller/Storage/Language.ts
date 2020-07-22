@@ -17,12 +17,14 @@ export default class Language {
   private languages: Lang[];
   private selectedLang: Lang;
 
+  //class Langunage is designed as a singleton. You can get access to the only instance via the getInstance method
   constructor() {
     this.selectedLangId = "de-de";
     this.languages = languageData.languages;
     this.selectedLang = this.languages[0];
   }
 
+  //returns the language instance
   public static getInstance(): Language {
     if (!this.languageInstance) {
       this.languageInstance = new Language();
@@ -35,15 +37,16 @@ export default class Language {
     return this.languageInstance;
   }
 
+  //returns the string that corresponds to the string id in the currently selected language
   public getText(id: string): string {
     let text: string = this.selectedLang.strings[id];
     if (text === "" || text == null) {
       alert(
         "There is no string with id: " +
-          id +
-          " in " +
-          this.selectedLang.name +
-          "."
+        id +
+        " in " +
+        this.selectedLang.name +
+        "."
       );
       return "STRING MISSING";
     }
