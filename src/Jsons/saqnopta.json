@@ -1,0 +1,22 @@
+{
+    "id": "saqn:op:ta",
+    "nameId": "temperatureName",
+    "unitOfMeasurement": "°C",
+    "descriptionId": "temperatureDesc",
+    "defaultScale": {
+        "-2147483647": "#0000ff",
+        "0": "#0993f6",
+        "5": "#11eed1",
+        "10": "#16e963",
+        "15": "#29e718",
+        "20": "#80e619",
+        "25": "#cfe718",
+        "30": "#e9b816",
+        "35": "#ee7811",
+        "40": "#f63c09",
+        "2147483647": "#ff0000"
+    },
+    "webLinkId": "tempLink",
+    "limit": 40,
+    "diagrams": []
+}

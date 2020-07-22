@@ -18,7 +18,6 @@ const styles = (theme: Theme) => ({});
 
 interface State {
     selectedStation: ObservationStation | null;
-    lastObservation: Observation | null;
     pins: MapPin[];
     polygons: Polygon[];
     viewport: Viewport;
@@ -40,29 +39,56 @@ class MapPage extends React.Component<Props, State> {
 
         this.state = {
             selectedStation: null,
-            lastObservation: null,
-            pins: this.mapController.getPins(),
-            polygons: this.mapController.getPolygons(),
             viewport: this.mapController.getViewport(),
+            pins: [],
+            polygons: [],
         };
+        this.update();
     }
 
-    selectObservation(observation: Observation) {
+    // Set station as source for the StationInfo Popup
+    changePopupStation(station: ObservationStation) {
         this.setState({
-            selectedStation: observation.getObservationStation(),
-            lastObservation: observation,
+            selectedStation: station,
         });
     }
 
+    // Reload Pins and Polygons
     update() {
-        this.setState({
-            pins: this.mapController.getPins(),
-            polygons: this.mapController.getPolygons(),
+        var pinPromise = this.mapController.getPins();
+        var polyPromsie = this.mapController.getPolygons();
+        Promise.all([pinPromise, polyPromsie]).then((pinPoly) => {
+            this.setState({
+                pins: pinPoly[0],
+                polygons: pinPoly[1],
+            });
         });
     }
 
     getValueAt(position: Position, feature: Feature): number {
-        throw Error("Not implemented.");
+        // Get pins sorted by distance
+        var sortedPins = this.state.pins.sort((a, b) => {
+            return (
+                a.getPosition().getDistance(position) -
+                b.getPosition().getDistance(position)
+            );
+        });
+        var dis = 0; //Distance of nearest station to position
+        var disSum = 0;
+        if (sortedPins.length !== 0) {
+            dis = sortedPins[0].getPosition().getDistance(position);
+        }
+        var value = 0;
+        for (let i = 0; i <= 2; i++) {
+            //nearest 3 stations (if they exist)
+            if (sortedPins.length > i) {
+                var temp =
+                    dis / sortedPins[i].getPosition().getDistance(position); //Inverse of distance in comparison to nearest station
+                disSum += temp;
+                value += sortedPins[i].getValue() * temp; //Value, nearest with weight 1.
+            }
+        }
+        return value / (disSum === 0 ? 1 : disSum); //Catch division by zero (empty pin list)
     }
 
     onViewportChange(viewport: Viewport) {
@@ -70,14 +96,15 @@ class MapPage extends React.Component<Props, State> {
         //Update Page
         this.setState({
             viewport: viewport,
-            pins: this.mapController.getPins(),
-            polygons: this.mapController.getPolygons(),
         });
+        this.update();
     }
 
-    onStationSelected(pin: MapPin) {
-        var observation = this.mapController.handlePopup(pin);
-        this.selectObservation(observation); // set Observation (and station) for Popup
+    async onStationSelected(pin: MapPin): Promise<Observation> {
+        this.setState({ selectedStation: null });
+        var promise = this.mapController.handlePopup(pin);
+        promise.then((o) => this.changePopupStation(o.getObservationStation()));
+        return promise;
     }
 
     onSearch(term: string) {
@@ -132,7 +159,6 @@ class MapPage extends React.Component<Props, State> {
                     handlePopup={(pin) => this.onStationSelected(pin)}
                     pins={this.state.pins}
                     polygons={this.state.polygons}
-                    lastObservation={this.state.lastObservation}
                 />
                 <FeatureSelect
                     onConfigurationChange={(conf) => {

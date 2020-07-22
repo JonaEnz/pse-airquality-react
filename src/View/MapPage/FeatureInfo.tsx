@@ -2,9 +2,10 @@ import React from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Button, Box } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/InfoRounded";
 import { Feature } from "../../Model/Feature";
+import Language from "../../Controller/Storage/Language";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -15,8 +16,16 @@ const useStyles = makeStyles((theme: Theme) =>
             background: theme.palette.primary.main,
             marginBottom: "10px",
         },
+        box: {
+            alignItems: "center",
+            display: "flex",
+            padding: "1px",
+        },
     })
 );
+
+let language = Language.getInstance();
+const LINK_BUTTON = "RelatedLink";
 
 interface IProps {
     feature: Feature | null | undefined;
@@ -63,9 +72,22 @@ export default function FeatureInfo(props: IProps) {
                     horizontal: "center",
                 }}
             >
-                <Typography className={classes.typography}>
-                    {props.feature?.getDescription() ?? ""}
-                </Typography>
+                <Box className={classes.box}>
+                    <Typography className={classes.typography}>
+                        {props.feature?.getDescription() ??
+                            language.getText("error")}
+                    </Typography>
+                    <Button
+                        color="secondary"
+                        variant="outlined"
+                        href={
+                            props.feature?.getRelatedWeblink() ??
+                            language.getText("error")
+                        }
+                    >
+                        {language.getText(LINK_BUTTON)}
+                    </Button>
+                </Box>
             </Popover>
         </div>
     );

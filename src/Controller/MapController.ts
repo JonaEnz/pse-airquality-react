@@ -36,8 +36,8 @@ export class MapController {
         }
     }
 
-    handlePopup(pin: MapPin): Observation {
-        var station = MockDataProvider.getStation(pin.getId());
+    async handlePopup(pin: MapPin): Promise<Observation> {
+        var station = await MockDataProvider.getStation(pin.getId());
         return MockDataProvider.getLatestObservation(
             station,
             this.config.getFeatures()[0]
@@ -57,11 +57,11 @@ export class MapController {
         this.save();
     }
 
-    getPins(): MapPin[] {
+    async getPins(): Promise<MapPin[]> {
         return this.config.getPins(this.viewport);
     }
 
-    getPolygons(): Polygon[] {
+    async getPolygons(): Promise<Polygon[]> {
         return this.config.getPolygons(this.viewport);
     }
 

@@ -2,22 +2,18 @@ import { Feature } from "../Model/Feature";
 import { Scale } from "../Model/Scale";
 
 export default class FeatureProvider {
-    private static PATH = "../Jsons/";
-    private path: string;
     private context: any;
     private features: { [id: string]: Feature };
     private static instance: FeatureProvider | null = null;
 
-    constructor(path: string) {
-        this.path = path;
+    constructor() {
         this.features = {};
         this.context = require.context("../Jsons/", true);
-        //this.addFeature(b(test));
     }
 
     static getInstance(): FeatureProvider {
         if (!this.instance) {
-            this.instance = new FeatureProvider(this.PATH);
+            this.instance = new FeatureProvider();
         }
         return this.instance;
     }
@@ -39,7 +35,14 @@ export default class FeatureProvider {
         }
     }
 
-    getFeature(featureId: string): Feature {
+    //Returns all loaded features
+    listAllFeatures(): Feature[] {
+        return Object.keys(this.features).map((key) => {
+            return this.features[key];
+        });
+    }
+
+    getFeature(featureId: string): Feature | undefined {
         if (Object.keys(this.features).includes(featureId)) {
             return this.features[featureId];
         } else {
@@ -49,16 +52,19 @@ export default class FeatureProvider {
                 this.features[featureId] = f;
                 return f;
             } else {
-                throw new Error(
-                    "Failed at reading definition for " + featureId
-                );
+                //console.log("Failed to read, " + featureId, ".");
+                return undefined;
             }
         }
     }
 
     private getFeatureById(featureId: string): Feature | null {
-        var json = this.context("./" + featureId + ".json");
-
+        featureId = featureId.replace(/:/g, "");
+        try {
+            var json = this.context("./" + featureId + ".json");
+        } catch {
+            return null;
+        }
         if (!json) {
             return null; //Failed to read file
         }

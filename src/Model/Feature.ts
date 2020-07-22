@@ -8,60 +8,60 @@ import IDiagramController from '../Controller/DiagramController/DiagramControlle
 let language = Language.getInstance();
 
 export class Feature {
+    private id: string;
+    private nameId: string;
+    private descriptionId: string;
+    private scale: Scale;
+    private relatedWeblinkId: string;
+    private limit: number;
+    private unitOfMeasurement: string;
+    private drawableDiagramIds: string[];
+    private controllerIds: string[];
+    private iconName: string;
 
-  private id: string;
-  private nameId: string;
-  private descriptionId: string;
-  private scale: Scale;
-  private relatedWeblinkId: string;
-  private limit: number;
-  private unitOfMeasurement: string;
-  private controllerIds: string[];
-  private iconName: string;
+      constructor(
+      id: string,
+      nameId: string,
+      descriptionId: string,
+      scale: Scale,
+      relatedWeblinkId: string,
+      limit: number,
+      unitOfMeasurement: string,
+      controllerIds: string[],
+      iconName: string,
+    ) {
+      this.id = id;
+      this.nameId = nameId;
+      this.descriptionId = descriptionId;
+      this.scale = scale;
+      this.relatedWeblinkId = relatedWeblinkId;
+      this.limit = limit;
+      this.unitOfMeasurement = unitOfMeasurement;
+      this.controllerIds = controllerIds;
+      this.iconName = iconName;
+    }
 
-  constructor(
-    id: string,
-    nameId: string,
-    descriptionId: string,
-    scale: Scale,
-    relatedWeblinkId: string,
-    limit: number,
-    unitOfMeasurement: string,
-    controllerIds: string[],
-    iconName: string,
-  ) {
-    this.id = id;
-    this.nameId = nameId;
-    this.descriptionId = descriptionId;
-    this.scale = scale;
-    this.relatedWeblinkId = relatedWeblinkId;
-    this.limit = limit;
-    this.unitOfMeasurement = unitOfMeasurement;
-    this.controllerIds = controllerIds;
-    this.iconName = iconName;
-  }
+    public getId(): string {
+        return this.id;
+    }
 
-  public getId(): string {
-    return this.id;
-  }
+    public getName(): string {
+        return language.getText(this.nameId);
+        //return this.nameId;
+    }
 
-  public getName(): string {
-    //return Language.getText(this.nameId);
-    return this.nameId;
-  }
+    public getDescription(): string {
+        return language.getText(this.descriptionId);
+        //return this.descriptionId;
+    }
 
-  public getDescription(): string {
-    //return Language.getText(this.descriptionId);
-    return this.descriptionId;
-  }
+    public getRelatedWeblink(): string {
+        return language.getText(this.relatedWeblinkId);
+        //return this.relatedWeblinkId;
+    }
 
   public getRelatedScale(): Scale {
     return this.scale;
-  }
-
-  public getRelatedWeblink(): string {
-    //return Language.getText(this.relatedWeblinkId);
-    return this.relatedWeblinkId;
   }
 
   public getDiagramController(observationStation: ObservationStation): IDiagramController[] {
