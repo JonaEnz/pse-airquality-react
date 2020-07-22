@@ -48,6 +48,26 @@ export class MapController {
         MapConfigurationMemory.save(this.config, this.viewport);
     }
 
+    /** 
+    private configType(conf : any) : string {
+        switch (conf.constructor.name) {
+            case "PolygonConfigutr":
+                
+                break;
+        
+            default:
+                throw new Error("Could not find configuration.")
+                break;
+        }
+    }*/
+
+    getFeatureSelectConf(): { conf: string; feature: string } {
+        var f = this.config.getFeatures()[0].getId();
+        var c = this.config.constructor.name;
+        console.log(c);
+        return { conf: c, feature: f };
+    }
+
     getViewport(): Viewport {
         return this.viewport;
     }

@@ -165,6 +165,7 @@ class MapPage extends React.Component<Props, State> {
                         this.mapController.onConfigurationChange(conf);
                         this.update();
                     }}
+                    startConf={this.mapController.getFeatureSelectConf()}
                 />
                 <Box
                     zIndex={1000}

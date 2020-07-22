@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Avatar,
     Card,
@@ -19,6 +19,7 @@ import PolygonConfiguration from "../../Controller/MapPage/PolygonConfiguration"
 import FeatureProvider from "../../Controller/FeatureProvider";
 interface Props {
     onConfigurationChange(mapConfig: MapConfiguration): void;
+    startConf?: { conf: string; feature: string };
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -49,6 +50,17 @@ export default function FeatureSelect(props: Props) {
         setOpen(open ? null : event.currentTarget);
     };
 
+    useEffect(() => {
+        if (props.startConf) {
+            //Get start values from props
+            setFeature(
+                FeatureProvider.getInstance().getFeature(
+                    props.startConf.feature
+                )
+            );
+            setConfig(props.startConf.conf);
+        }
+    }, []);
     const changeConfig = (conf: string, feature: Feature) => {
         console.log(conf);
         setConfig(conf);

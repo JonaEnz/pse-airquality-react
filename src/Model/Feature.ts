@@ -2,8 +2,8 @@ import { Scale } from "./Scale";
 import { Observation } from "./Observation";
 import { ObservationStation } from "./ObservationStation";
 import Language from "../Controller/Storage/Language";
-import DiagramFactory from '../Controller/DiagramController/DiagramFactory';
-import IDiagramController from '../Controller/DiagramController/DiagramController';
+import DiagramFactory from "../Controller/DiagramController/DiagramFactory";
+import IDiagramController from "../Controller/DiagramController/DiagramController";
 
 let language = Language.getInstance();
 
@@ -15,30 +15,29 @@ export class Feature {
     private relatedWeblinkId: string;
     private limit: number;
     private unitOfMeasurement: string;
-    private drawableDiagramIds: string[];
     private controllerIds: string[];
     private iconName: string;
 
-      constructor(
-      id: string,
-      nameId: string,
-      descriptionId: string,
-      scale: Scale,
-      relatedWeblinkId: string,
-      limit: number,
-      unitOfMeasurement: string,
-      controllerIds: string[],
-      iconName: string,
+    constructor(
+        id: string,
+        nameId: string,
+        descriptionId: string,
+        scale: Scale,
+        relatedWeblinkId: string,
+        limit: number,
+        unitOfMeasurement: string,
+        controllerIds: string[],
+        iconName: string
     ) {
-      this.id = id;
-      this.nameId = nameId;
-      this.descriptionId = descriptionId;
-      this.scale = scale;
-      this.relatedWeblinkId = relatedWeblinkId;
-      this.limit = limit;
-      this.unitOfMeasurement = unitOfMeasurement;
-      this.controllerIds = controllerIds;
-      this.iconName = iconName;
+        this.id = id;
+        this.nameId = nameId;
+        this.descriptionId = descriptionId;
+        this.scale = scale;
+        this.relatedWeblinkId = relatedWeblinkId;
+        this.limit = limit;
+        this.unitOfMeasurement = unitOfMeasurement;
+        this.controllerIds = controllerIds;
+        this.iconName = iconName;
     }
 
     public getId(): string {
@@ -60,34 +59,40 @@ export class Feature {
         //return this.relatedWeblinkId;
     }
 
-  public getRelatedScale(): Scale {
-    return this.scale;
-  }
+    public getRelatedScale(): Scale {
+        return this.scale;
+    }
 
-  public getDiagramController(observationStation: ObservationStation): IDiagramController[] {
-    var diagramController = new Array<IDiagramController>();
+    public getDiagramController(
+        observationStation: ObservationStation
+    ): IDiagramController[] {
+        var diagramController = new Array<IDiagramController>();
 
-    this.controllerIds.forEach(id => {
-      let controller = DiagramFactory.getDiagramController(id, observationStation, this);
-      diagramController.push(controller);
-    });
+        this.controllerIds.forEach((id) => {
+            let controller = DiagramFactory.getDiagramController(
+                id,
+                observationStation,
+                this
+            );
+            diagramController.push(controller);
+        });
 
-    return diagramController;
-  }
+        return diagramController;
+    }
 
-  public getLimit(): number {
-    return this.limit;
-  }
+    public getLimit(): number {
+        return this.limit;
+    }
 
-  public getUnitOfMeasurement(): string {
-    return this.unitOfMeasurement;
-  }
+    public getUnitOfMeasurement(): string {
+        return this.unitOfMeasurement;
+    }
 
-  public isLimitExceeded(observation: Observation): boolean {
-    return observation.getValue() > this.limit;
-  }
+    public isLimitExceeded(observation: Observation): boolean {
+        return observation.getValue() > this.limit;
+    }
 
-  public getIconName(): string {
-    return this.iconName;
-  }
+    public getIconName(): string {
+        return this.iconName;
+    }
 }
