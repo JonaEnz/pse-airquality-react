@@ -18,6 +18,11 @@ import { Observation } from "../../Model/Observation";
 import { ObservationStation } from "../../Model/ObservationStation";
 import Language from "../../Controller/Storage/Language";
 require("leaflet-iconmaterial");
+
+const VIEW_UPDATE_DELAY = 500; // in ms
+const DISTANCE_THRESHOLD = 0.25; // In coordinate units
+const ZOOM_THRESHOLD = 1; // In leaflet zoom
+const DEFAULT_ZOOM = 5;
 interface State {
     viewport: Viewport;
     lastObservation: Observation | null;
@@ -34,10 +39,12 @@ interface Props {
 export class Map extends React.Component<Props, State> {
     nextViewport: LeafletViewport | null;
     lock: boolean;
+    oldViewport: Viewport | null;
     constructor(props: Props) {
         super(props);
         this.lock = false;
         this.nextViewport = null;
+        this.oldViewport = null;
         this.state = {
             viewport: this.props.viewport,
             lastObservation: null,
@@ -59,28 +66,44 @@ export class Map extends React.Component<Props, State> {
     }
 
     private onViewportChange(viewport: LeafletViewport) {
-        this.nextViewport = viewport;
+        this.nextViewport = viewport; //Update new viewport
         if (!this.lock) {
-            this.lock = true;
-            setTimeout(
-                () => this.updateViewport(this.nextViewport as LeafletViewport),
-                300
-            );
+            if (!this.oldViewport) {
+                this.oldViewport = this.state.viewport; //Set viewport of last update
+            }
+            this.lock = true; //Lock update for VIEW_UPDATE_DELAY ms
+            setTimeout(() => {
+                var newView = this.viewportLeafletToModel(
+                    this.nextViewport as LeafletViewport
+                );
+                this.lock = false;
+                if (
+                    this.oldViewport &&
+                    (newView
+                        .getCenter()
+                        .getDistance(this.oldViewport?.getCenter()) >
+                        DISTANCE_THRESHOLD ||
+                        Math.abs(
+                            newView.getZoom() - this.oldViewport?.getZoom()
+                        ) >= ZOOM_THRESHOLD)
+                ) {
+                    this.updateViewport(newView); //Only update if change has been significant
+                }
+            }, VIEW_UPDATE_DELAY);
         }
     }
 
-    private updateViewport(viewport: LeafletViewport) {
-        var modelView = this.viewportLeafletToModel(viewport);
-        this.props.onViewportChange(modelView);
+    private updateViewport(viewport: Viewport) {
+        this.props.onViewportChange(viewport);
 
-        this.setState({ viewport: modelView });
-        this.lock = false;
+        this.setState({ viewport: viewport });
+        this.oldViewport = null;
     }
 
     private viewportLeafletToModel(viewport: LeafletViewport): Viewport {
         return new Viewport(
             new Position(viewport.center?.[0] ?? 0, viewport.center?.[1] ?? 0),
-            viewport.zoom ?? 5
+            viewport.zoom ?? DEFAULT_ZOOM
         );
     }
 

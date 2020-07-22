@@ -51,7 +51,7 @@ export default class FeatureProvider {
                 this.features[featureId] = f;
                 return f;
             } else {
-                console.log("Failed to read, " + featureId, ".");
+                //console.log("Failed to read, " + featureId, ".");
                 return undefined;
             }
         }
