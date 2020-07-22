@@ -1,12 +1,12 @@
 import React from "react";
-import MapPage from "./MapPage/MapPage";
-import DetailPage from "./DetailPage";
-import ErrorPage from "./ErrorPage";
-import AboutPage from "./AboutPage";
-import PrivacyPolicyPage from "./PrivacyPolicyPage";
-import PageMenu from "./LayoutComponents/PageMenu";
+import MapPage from "../MapPage/MapPage";
+import DetailPage from "./../DetailPage/DetailPage";
+import ErrorPage from "../ErrorPage";
+import AboutPage from "../AboutPage";
+import PrivacyPolicyPage from "./../PrivacyPolicyPage";
+import PageMenu from "./PageMenu";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Language from "../Controller/Storage/Language";
+import Language from "../../Controller/Storage/Language";
 
 function Layout() {
     let language: Language = Language.getInstance();

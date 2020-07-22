@@ -11,9 +11,9 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThermometerHalf } from '@fortawesome/free-solid-svg-icons'
 
-import { Color } from '../Model/Color';
-import { Observation } from '../Model/Observation';
-import { Feature } from '../Model/Feature';
+import { Color } from '../../Model/Color';
+import { Observation } from '../../Model/Observation';
+import { Feature } from '../../Model/Feature';
 
 
 export default class ObservationItem extends React.Component<IObservationItemProps, IObservationItemState> {

@@ -6,7 +6,7 @@ import { Map, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import Leaflet from 'leaflet';
 
-import { Position } from '../Model/Position';
+import { Position } from '../../Model/Position';
 
 
 

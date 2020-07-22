@@ -7,11 +7,11 @@ import {
     Grid,
 } from '@material-ui/core';
 
-import { ObservationStation } from '../Model/ObservationStation';
+import { ObservationStation } from '../../Model/ObservationStation';
 import ObservationItem from './ObservationItem';
-import MockDataProvider from '../Controller/MockDataProvider';
-import { Color } from '../Model/Color';
-import { Observation } from '../Model/Observation';
+import MockDataProvider from '../../Controller/MockDataProvider';
+import { Color } from '../../Model/Color';
+import { Observation } from '../../Model/Observation';
 
 export default class ObservationStationProfile extends React.Component<IObservationStationProfileProps, IObservationStationProfileState> {
 

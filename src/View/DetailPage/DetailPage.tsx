@@ -2,13 +2,13 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 
-import MockDataProvider from '../Controller/MockDataProvider';
+import MockDataProvider from '../../Controller/MockDataProvider';
 
-import { ObservationStation } from '../Model/ObservationStation';
+import { ObservationStation } from '../../Model/ObservationStation';
 
 import ObservationStationProfile from './ObservationStationProfile';
 import LocationMap from './LocationMap';
-import Diagram from './Diagrams/Diagram';
+import Diagram from './Diagram';
 
 export default class DetailPage extends React.Component<IDetailPageProps, IDetailPageState> {
 
