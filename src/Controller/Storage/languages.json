@@ -21,7 +21,10 @@
                 "pascalLink": "TODO",
                 "temperatureName": "Temperatur",
                 "temperatureDesc": "Umgebungstemperatur in °C",
-                "tempLink": "TODO"
+                "tempLink": "TODO",
+                "mockFeatureNameId": "mockFeatureNameIdDe",
+                "mockFeatureDescriptionId": "mockFeatureDescriptionIdDe",
+                "mockWeblinkId": "mockWeblinkIdDe"
             }
         },
         {
@@ -45,7 +48,10 @@
                 "pascalLink": "TODO",
                 "temperatureName": "Temperature",
                 "temperatureDesc": "Temperature in °C",
-                "tempLink": "TODO"
+                "tempLink": "TODO",
+                "mockFeatureNameId": "mockFeatureNameIdEn",
+                "mockFeatureDescriptionId": "mockFeatureDescriptionIdEn",
+                "mockWeblinkId": "mockWeblinkIdEn"
             }
         }
     ]

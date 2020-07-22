@@ -23,11 +23,11 @@ export default class MockDataProvider {
         }
         var scale = new Scale(true, colors);
         return new Feature(
-            "MockFeature",
-            "nameId",
-            "descId",
+            "mockFeature",
+            "mockFeatureNameId",
+            "mockFeatureDescriptionId",
             scale,
-            "weblink",
+            "mockWeblinkId",
             100,
             "uoM",
             ['YearComparisonLineChart', 'FeatureHistoryLineChart', 'ComparisonToLastYearPieChart'],
@@ -39,7 +39,7 @@ export default class MockDataProvider {
         var station = new ObservationStation(
             id,
             "mockName",
-            "mockDesc",
+            "mockDescription",
             new Position(
                 center.getLatitude() + 6 * Math.random() - 3,
                 center.getLongitude() + 6 * Math.random() - 3
@@ -132,7 +132,7 @@ export default class MockDataProvider {
             id,
             'mockName',
             'mockDesc',
-            new Position(0, 0),
+            new Position(48.369665, 10.903877),
             [
                 this.mockFeature(),
                 this.mockFeature(),
