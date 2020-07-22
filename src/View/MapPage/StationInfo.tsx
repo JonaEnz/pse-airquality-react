@@ -6,7 +6,7 @@ import FeatureInfo from "./FeatureInfo";
 
 let language: Language = Language.getInstance();
 
-interface State {}
+interface State { }
 interface Props {
     lastObservation: Observation;
 }

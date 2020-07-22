@@ -32,7 +32,8 @@ export default class FeatureProvider {
                 definition.webLinkId,
                 definition.limit,
                 definition.unitOfMeasurement,
-                definition.diagrams
+                definition.diagrams,
+                definition.icon,
             );
             this.features[f.getId()] = f;
         }
@@ -70,7 +71,8 @@ export default class FeatureProvider {
             definition.webLinkId,
             definition.limit,
             definition.unitOfMeasurement,
-            definition.diagrams
+            definition.diagrams,
+            definition.icon,
         );
     }
 }
@@ -84,4 +86,5 @@ interface FeatureDefinition {
     webLinkId: string;
     limit: number;
     diagrams: string[];
+    icon: string;
 }
