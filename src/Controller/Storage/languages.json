@@ -29,7 +29,9 @@
                 "last_24_hours": "Letzte 24 Stunden",
                 "last_7_days": "Letzte 7 Tage",
                 "last_31_days": "Letzte 31 Tage",
-                "last_year": "Letztes Jahr"
+                "last_year": "Letztes Jahr",
+                "higher": "größerer Wert",
+                "lower": "kleinerer Wert"
             }
         },
         {
@@ -61,7 +63,9 @@
                 "last_24_hours": "last 24 hours",
                 "last_7_days": "last 7 days",
                 "last_31_days": "last 31 days",
-                "last_year": "last year"
+                "last_year": "last year",
+                "higher": "higher value",
+                "lower": "lower value"
             }
         }
     ]
