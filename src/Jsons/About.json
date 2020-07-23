@@ -1,9 +1,9 @@
 {
  "languageid" : "eng",
-    "text" : "The SmartAQNet project is an open-source Github webapplication made by students of the Karlsruhe Institute of Technology. The goal of the project is to reflect many different types of measured data regarding air and air pollution in a simple, informative and user-friendly way. The data has been provided by the Smart AirQuality Network project in Augsburg (www.smartaqnet.com)."
+    "text" : "The SmartAQNet project is an open-source Github web-application made by students of the Karlsruhe Institute of Technology. The goal of the project is to reflect many different types of measured data regarding air and air pollution in a simple, informative and user-friendly way. The web-application was based on a survey done with 50 people of ages 18 to 70, in which the participants shared their expectations for an application about air quality.The data has been provided by the Smart AirQuality Network project in Augsburg (www.smartaqnet.com)."
   } 
   { "languageid" : "de",
-     "text" : "Das SmartAQNEet Projekt ist eine open-source Webanwendung auf Github, die von Informatikstudenten/-studentinnen der Karlsruher Institut der Technologie erstellt wurde. Ziel des Projektes ist es, die verschiedenen Messdaten zur Luftqualität simpel, aussagekräftig und benutzerfreundlich darzustellen. Die Messdaten stammen von der Smart AirQuality Network Projekt in Ausburg.
+     "text" : "Das SmartAQNEet Projekt ist eine open-source Webanwendung auf Github, die von Informatikstudenten/-studentinnen der Karlsruher Institut der Technologie erstellt wurde. Ziel des Projektes ist es, die verschiedenen Messdaten zur Luftqualität simpel, aussagekräftig und benutzerfreundlich darzustellen.  Die Webanwendung basiert auf eine Umfrage mit 50 Teilnehmern zwischen dem Alter von 18 und 70, in der sie ihre Erwartungen an einer solchen Applikation genannt haben. Die Messdaten stammen von der Smart AirQuality Network Projekt in Ausburg.
 }
 
 
