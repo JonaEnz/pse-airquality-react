@@ -17,7 +17,7 @@ export default class TestConfiguration extends MapConfiguration {
         this.feature = feature;
     }
 
-    getPins(view: Viewport): MapPin[] {
+    async getPins(view: Viewport): Promise<MapPin[]> {
         return [
             new MapPin(
                 view.getCenter().getString(),
@@ -58,7 +58,7 @@ export default class TestConfiguration extends MapConfiguration {
         return this.getScale().getColor(avgValue);
     }
 
-    getPolygons(view: Viewport): Polygon[] {
+    async getPolygons(view: Viewport): Promise<Polygon[]> {
         return [
             new Polygon(
                 [
