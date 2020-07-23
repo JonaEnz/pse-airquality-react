@@ -72,4 +72,9 @@ export default class Language {
     });
     return langs;
   }
+
+  public getDateString(date: Date): string {
+    let languageId = this.getSelectedLanguageId();
+    return date.toLocaleString(languageId);
+  }
 }
