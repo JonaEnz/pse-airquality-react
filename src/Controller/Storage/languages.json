@@ -25,7 +25,11 @@
                 "mockFeatureNameId": "mockFeatureNameIdDe",
                 "mockFeatureDescriptionId": "mockFeatureDescriptionIdDe",
                 "mockWeblinkId": "mockWeblinkIdDe",
-                "last_measurement": "Letzte Messung"
+                "last_measurement": "Letzte Messung",
+                "last_24_hours": "Letzte 24 Stunden",
+                "last_7_days": "Letzte 7 Tage",
+                "last_31_days": "Letzte 31 Tage",
+                "last_year": "Letztes Jahr"
             }
         },
         {
@@ -53,7 +57,11 @@
                 "mockFeatureNameId": "mockFeatureNameIdEn",
                 "mockFeatureDescriptionId": "mockFeatureDescriptionIdEn",
                 "mockWeblinkId": "mockWeblinkIdEn",
-                "last_measurement": "Last Measurement"
+                "last_measurement": "Last Measurement",
+                "last_24_hours": "last 24 hours",
+                "last_7_days": "last 7 days",
+                "last_31_days": "last 31 days",
+                "last_year": "last year"
             }
         }
     ]

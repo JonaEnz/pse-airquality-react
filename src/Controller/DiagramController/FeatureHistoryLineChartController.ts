@@ -3,16 +3,21 @@ import { ObservationStation } from '../../Model/ObservationStation';
 import { Feature } from '../../Model/Feature';
 import Timespan from '../../Model/Timespan';
 import MockDataProvider from '../MockDataProvider';
+import Language from '../Storage/Language';
 
 class FHLCConfigurationOption {
+    languageProvider: Language;
+
     name: string;
     timespan: Timespan;
     frequency: number;
     //type and label for the xAxis
     xAxis: { type: string, label: string };
 
-    constructor(name: string, timespan: Timespan, frequency: number, xAxis: { type: string, label: string }) {
-        this.name = name;
+    constructor(nameId: string, timespan: Timespan, frequency: number, xAxis: { type: string, label: string }) {
+        this.languageProvider = Language.getInstance();
+
+        this.name = this.languageProvider.getText(nameId);
         this.timespan = timespan;
         this.frequency = frequency;
         this.xAxis = xAxis;
@@ -81,6 +86,7 @@ export class FeatureHistoryLineChartController implements IDiagramController {
 
     //return names of configuration options
     getConfigurationOptions(): string[] {
+        //translate options to current language
         var optionNames = FeatureHistoryLineChartController.configurationOptions.map(option => option.name);
         return optionNames;
     }
