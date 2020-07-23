@@ -3,8 +3,4 @@
    "title" : "Datenschutzerklärung",
    "text" : "In dem Fall, dass Sie die Standortermittlung nicht erlauben erfasst diese Webapplikation keine persönliche Daten von Ihnen. In dem Fall, dass Sie Standortermittlung erlauben, wird Ihr Standort kurzfristig erfasst und dann zwischenspeichert, nach dem Schließen der Webapplikation wieder gelöscht. Weitere Daten werden nicht gespeichert.",
 }
-{  
-   "languageid" : "eng",
-   "title" : "Privacy Policy",
-   "text" : "If you don't allow the application to have access to your address, no data will be collected from you. Otherwise, your addressed will be cached until you close the application. No other personal data will be collected."
-}
+
