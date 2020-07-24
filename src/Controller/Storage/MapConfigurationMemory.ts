@@ -11,7 +11,7 @@ import { isNullOrUndefined } from "util";
 
 const LOCALSTORAGE_MAPCONF = "mapconf";
 const DEFAULT_CONF = new StationConfiguration(
-    FeatureProvider.getInstance().getFeature("MockFeature") as Feature //TODO: MockFeature has to be there or the app crashes
+    FeatureProvider.getInstance().getFeature("saqn:op:ta") as Feature
 );
 const DEFAULT_VIEWPORT = new Viewport(new Position(49, 8.4), 7);
 

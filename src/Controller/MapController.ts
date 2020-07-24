@@ -64,7 +64,6 @@ export class MapController {
     getFeatureSelectConf(): { conf: string; feature: string } {
         var f = this.config.getFeatures()[0].getId();
         var c = this.config.constructor.name;
-        console.log(c);
         return { conf: c, feature: f };
     }
 
