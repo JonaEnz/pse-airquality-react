@@ -1,26 +1,27 @@
 {
   "files": {
-    "main.css": "/pse-airquality-react/static/css/main.744837be.chunk.css",
-    "main.js": "/pse-airquality-react/static/js/main.53dea51b.chunk.js",
-    "main.js.map": "/pse-airquality-react/static/js/main.53dea51b.chunk.js.map",
+    "main.css": "/pse-airquality-react/static/css/main.91b76b42.chunk.css",
+    "main.js": "/pse-airquality-react/static/js/main.b9306775.chunk.js",
+    "main.js.map": "/pse-airquality-react/static/js/main.b9306775.chunk.js.map",
     "runtime-main.js": "/pse-airquality-react/static/js/runtime-main.56fb4d4d.js",
     "runtime-main.js.map": "/pse-airquality-react/static/js/runtime-main.56fb4d4d.js.map",
-    "static/css/2.fd84fb55.chunk.css": "/pse-airquality-react/static/css/2.fd84fb55.chunk.css",
-    "static/js/2.52ce06ea.chunk.js": "/pse-airquality-react/static/js/2.52ce06ea.chunk.js",
-    "static/js/2.52ce06ea.chunk.js.map": "/pse-airquality-react/static/js/2.52ce06ea.chunk.js.map",
+    "static/css/2.f68bf6e8.chunk.css": "/pse-airquality-react/static/css/2.f68bf6e8.chunk.css",
+    "static/js/2.4bbfa85f.chunk.js": "/pse-airquality-react/static/js/2.4bbfa85f.chunk.js",
+    "static/js/2.4bbfa85f.chunk.js.map": "/pse-airquality-react/static/js/2.4bbfa85f.chunk.js.map",
     "index.html": "/pse-airquality-react/index.html",
-    "precache-manifest.4689eed0d1b67f4247e1c0fc80011673.js": "/pse-airquality-react/precache-manifest.4689eed0d1b67f4247e1c0fc80011673.js",
+    "precache-manifest.0708ab9300184fa168d413697d9c2320.js": "/pse-airquality-react/precache-manifest.0708ab9300184fa168d413697d9c2320.js",
     "service-worker.js": "/pse-airquality-react/service-worker.js",
-    "static/css/2.fd84fb55.chunk.css.map": "/pse-airquality-react/static/css/2.fd84fb55.chunk.css.map",
-    "static/css/main.744837be.chunk.css.map": "/pse-airquality-react/static/css/main.744837be.chunk.css.map",
-    "static/js/2.52ce06ea.chunk.js.LICENSE.txt": "/pse-airquality-react/static/js/2.52ce06ea.chunk.js.LICENSE.txt",
+    "static/css/2.f68bf6e8.chunk.css.map": "/pse-airquality-react/static/css/2.f68bf6e8.chunk.css.map",
+    "static/css/main.91b76b42.chunk.css.map": "/pse-airquality-react/static/css/main.91b76b42.chunk.css.map",
+    "static/js/2.4bbfa85f.chunk.js.LICENSE.txt": "/pse-airquality-react/static/js/2.4bbfa85f.chunk.js.LICENSE.txt",
+    "static/media/marker_icon.svg": "/pse-airquality-react/static/media/marker_icon.5891ef15.svg",
     "static/media/index.css": "/pse-airquality-react/static/media/roboto-latin-900italic.ebf6d164.woff2"
   },
   "entrypoints": [
     "static/js/runtime-main.56fb4d4d.js",
-    "static/css/2.fd84fb55.chunk.css",
-    "static/js/2.52ce06ea.chunk.js",
-    "static/css/main.744837be.chunk.css",
-    "static/js/main.53dea51b.chunk.js"
+    "static/css/2.f68bf6e8.chunk.css",
+    "static/js/2.4bbfa85f.chunk.js",
+    "static/css/main.91b76b42.chunk.css",
+    "static/js/main.b9306775.chunk.js"
   ]
 }
