@@ -1,7 +1,7 @@
 {
     "id": "saqn:op:ncpm10",
     "nameId": "PNC10Name",
-    "unitOfMeasurement": "µg/m³",
+    "unitOfMeasurement": "Ø",
     "descriptionId": "PNC10Desc",
     "defaultScale": {
         "0": "#0f8a0f",

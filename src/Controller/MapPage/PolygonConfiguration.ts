@@ -40,6 +40,18 @@ export default class PolygonConfiguration extends MapConfiguration {
                     .getPosition()
                     .getString()
             ] = observations[index];
+            vertices.push(
+                new Delaunay.Point(
+                    observations[index]
+                        .getObservationStation()
+                        .getPosition()
+                        .getLatitude(),
+                    observations[index]
+                        .getObservationStation()
+                        .getPosition()
+                        .getLongitude()
+                )
+            );
         }
 
         var tris = Delaunay.triangulate(vertices);
