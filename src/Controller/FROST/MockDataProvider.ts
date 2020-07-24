@@ -7,6 +7,8 @@ import { Color } from "../../Model/Color";
 import FeatureProvider from "../FeatureProvider";
 import { isNullOrUndefined } from "util";
 
+const PNC10_ID = "saqn:op:ncpm10";
+
 export default class MockDataProvider {
     private static stations: { [key: string]: ObservationStation } = {};
     private static gOSsPromise: Promise<any>;
@@ -34,7 +36,7 @@ export default class MockDataProvider {
             100,
             "uoM",
             [],
-            'icon',
+            "icon"
         );
     }
     private static mockStation(center: Position): ObservationStation {
@@ -66,6 +68,20 @@ export default class MockDataProvider {
             );
         }
         return obs;
+    }
+
+    private static calculatePollutionIndex(results: {
+        [key: string]: string;
+    }): number {
+        if (Object.keys(results).length === 0) {
+            return 0;
+        }
+
+        var r = Object.values(results);
+
+        var a = 0;
+        r.forEach((n) => (a += parseFloat(n)));
+        return Math.sqrt(a) / r.length;
     }
 
     static async getLatestObservations(
@@ -102,6 +118,13 @@ export default class MockDataProvider {
                         return f ?? [];
                     }
                 );
+                if (feature.getId() === PNC10_ID) {
+                    element.Observations[0].result = this.calculatePollutionIndex(
+                        element.Observations[0].result as {
+                            [key: string]: string;
+                        }
+                    );
+                }
 
                 var o = new Observation(
                     new ObservationStation(
@@ -115,7 +138,7 @@ export default class MockDataProvider {
                         features
                     ),
                     feature,
-                    element.Observations[0].result ?? -1,
+                    (element.Observations[0].result as number) ?? -1,
                     new Date(element.Observations[0].phenomenonTime)
                 );
                 observations.push(o);
@@ -151,10 +174,17 @@ export default class MockDataProvider {
         if (!res || res.length === 0) {
             return new Observation(station, feature, -1, new Date(Date.now()));
         }
+        if (feature.getId() === PNC10_ID) {
+            res[0].Observations[0].result = this.calculatePollutionIndex(
+                res[0].Observations[0].result as {
+                    [key: string]: string;
+                }
+            );
+        }
         return new Observation(
             station,
             feature,
-            res[0].Observations[0].result,
+            res[0].Observations[0].result as number,
             new Date(res[0].Observations[0].phenomenonTime)
         );
     }
@@ -248,7 +278,7 @@ interface IGetLatestObservation {
     Observations: [
         {
             phenomenonTime: string;
-            result: number;
+            result: number | { [key: string]: string };
         }
     ];
 }
@@ -272,7 +302,7 @@ interface IGetLatestObs {
         }[];
     };
     Observations: {
-        result: number;
+        result: number | { [key: string]: string };
         phenomenonTime: string;
     }[];
 }
