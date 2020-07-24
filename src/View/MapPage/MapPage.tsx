@@ -7,100 +7,179 @@ import { MapController } from "../../Controller/MapController";
 import { MapPin } from "../../Model/MapPin";
 import { Polygon } from "../../Model/Polygon";
 import { Position } from "../../Model/Position";
-import { Color } from "../../Model/Color";
 import { Observation } from "../../Model/Observation";
 import FeatureSelect from "./FeatureSelect";
 import Search from "./Search";
 import Legend from "./Legend";
-import { Scale } from "../../Model/Scale";
 import { Box, Theme } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 
 const styles = (theme: Theme) => ({});
 
 interface State {
-  selectedStation: ObservationStation | null;
-  lastObservation: Observation | null;
-  pins: MapPin[];
-  polygons: Polygon[];
+    selectedStation: ObservationStation | null;
+    pins: MapPin[];
+    polygons: Polygon[];
+    viewport: Viewport;
 }
 
 interface Props {
-  classes: any;
+    classes: any;
 }
 
+const DEFAULT_MIN = 0;
+const DEFAULT_MAX = 100;
+
 class MapPage extends React.Component<Props, State> {
-  mapController: MapController;
+    mapController: MapController;
 
-  constructor(props: Props) {
-    super(props);
-    this.mapController = new MapController();
-    this.state = {
-      selectedStation: null,
-      lastObservation: null,
-      pins: this.mapController.getPins(),
-      polygons: this.mapController.getPolygons(),
-    };
-  }
+    constructor(props: Props) {
+        super(props);
+        this.mapController = new MapController();
 
-  selectObservation(observation: Observation) {
-    this.setState({
-      selectedStation: observation.getObservationStation(),
-      lastObservation: observation,
-    });
-  }
+        this.state = {
+            selectedStation: null,
+            viewport: this.mapController.getViewport(),
+            pins: [],
+            polygons: [],
+        };
+        this.update();
+    }
 
-  getValueAt(position: Position, feature: Feature): number {
-    throw Error("Not implemented.");
-  }
+    // Set station as source for the StationInfo Popup
+    changePopupStation(station: ObservationStation) {
+        this.setState({
+            selectedStation: station,
+        });
+    }
 
-  onViewportChange(viewport: Viewport) {
-    this.mapController.handleViewportChange(viewport);
-    //Update Page
-    this.setState({ selectedStation: this.state.selectedStation });
-  }
+    // Reload Pins and Polygons
+    update() {
+        var pinPromise = this.mapController.getPins();
+        var polyPromsie = this.mapController.getPolygons();
+        Promise.all([pinPromise, polyPromsie]).then((pinPoly) => {
+            this.setState({
+                pins: pinPoly[0],
+                polygons: pinPoly[1],
+            });
+        });
+    }
 
-  onStationSelected(pin: MapPin) {
-    var observation = this.mapController.handlePopup(pin);
-    this.selectObservation(observation); // set Observation (and station) for Popup
-  }
-
-  onSearch(pos: Position) {
-    //TODO: Implement real functionality
-    this.state.pins.push(
-      new MapPin("Suchergebnis", pos, 10, new Color(100, 100, 100))
-    );
-    this.setState({
-      pins: this.state.pins,
-    });
-  }
-
-  render() {
-    return (
-      <Box>
-        <Search onSearch={(pos) => this.onSearch(pos)} />
-        <Map
-          onViewportChange={(viewport) => {
-            this.onViewportChange(viewport);
-          }}
-          handlePopup={(pin) => this.onStationSelected(pin)}
-          pins={this.state.pins}
-          polygons={this.state.polygons}
-          lastObservation={this.state.lastObservation}
-        />
-        <FeatureSelect />
-        <Box style={{ float: "right" }}>
-          <Legend
-            min={0}
-            max={15}
-            scale={
-              new Scale(false, { 0: "#EEC000", 5: "#90B000", 10: "#FFFF00" })
+    getValueAt(position: Position, feature: Feature): number {
+        // Get pins sorted by distance
+        var sortedPins = this.state.pins.sort((a, b) => {
+            return (
+                a.getPosition().getDistance(position) -
+                b.getPosition().getDistance(position)
+            );
+        });
+        var dis = 0; //Distance of nearest station to position
+        var disSum = 0;
+        if (sortedPins.length !== 0) {
+            dis = sortedPins[0].getPosition().getDistance(position);
+        }
+        var value = 0;
+        for (let i = 0; i <= 2; i++) {
+            //nearest 3 stations (if they exist)
+            if (sortedPins.length > i) {
+                var temp =
+                    dis / sortedPins[i].getPosition().getDistance(position); //Inverse of distance in comparison to nearest station
+                disSum += temp;
+                value += sortedPins[i].getValue() * temp; //Value, nearest with weight 1.
             }
-          />
-        </Box>
-      </Box>
-    );
-  }
+        }
+        return value / (disSum === 0 ? 1 : disSum); //Catch division by zero (empty pin list)
+    }
+
+    onViewportChange(viewport: Viewport) {
+        this.mapController.handleViewportChange(viewport);
+        //Update Page
+        this.setState({
+            viewport: viewport,
+        });
+        this.update();
+    }
+
+    async onStationSelected(pin: MapPin): Promise<Observation> {
+        this.setState({ selectedStation: null });
+        var promise = this.mapController.handlePopup(pin);
+        promise.then((o) => this.changePopupStation(o.getObservationStation()));
+        return promise;
+    }
+
+    onSearch(term: string) {
+        this.mapController.search(term);
+        this.setState({ selectedStation: this.state.selectedStation });
+    }
+
+    getMin(): number {
+        var min = Math.min.apply(
+            Math,
+            this.state.pins.map((p) => {
+                return p.getValue();
+            })
+        );
+        if (!isFinite(min)) {
+            min = DEFAULT_MIN;
+        }
+        return min;
+    }
+
+    getMax(): number {
+        var max = Math.max.apply(
+            Math,
+            this.state.pins.map((p) => {
+                return p.getValue();
+            })
+        );
+        if (!isFinite(max)) {
+            max = DEFAULT_MAX;
+        }
+        return max;
+    }
+
+    render() {
+        var min = this.getMin();
+        var max = this.getMax();
+        return (
+            <Box>
+                <Search
+                    onSearch={(term) => this.onSearch(term)}
+                    updatePosition={(pos) => {
+                        var view = this.state.viewport;
+                        view.setCenter(pos);
+                        this.onViewportChange(view);
+                    }}
+                />
+                <Map
+                    viewport={this.state.viewport}
+                    onViewportChange={(viewport) => {
+                        this.onViewportChange(viewport);
+                    }}
+                    handlePopup={(pin) => this.onStationSelected(pin)}
+                    pins={this.state.pins}
+                    polygons={this.state.polygons}
+                />
+                <FeatureSelect
+                    onConfigurationChange={(conf) => {
+                        this.mapController.onConfigurationChange(conf);
+                        this.update();
+                    }}
+                    startConf={this.mapController.getFeatureSelectConf()}
+                />
+                <Box
+                    zIndex={1000}
+                    style={{ position: "absolute", bottom: "7%", right: "5%" }}
+                >
+                    <Legend
+                        min={min}
+                        max={max}
+                        scale={this.mapController.getScale()}
+                    />
+                </Box>
+            </Box>
+        );
+    }
 }
 
 export default withStyles(styles)(MapPage);

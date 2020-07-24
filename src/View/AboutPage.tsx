@@ -1,11 +1,10 @@
-import React from 'react';
-import { Fragment } from 'react'
+import React from "react";
+import { Fragment } from "react";
 
-export default class AboutPage extends React.Component<IAboutPageProps, IAboutPageState> {
-    constructor(props: IAboutPageProps) {
-        super(props)
-    }
-
+export default class AboutPage extends React.Component<
+    IAboutPageProps,
+    IAboutPageState
+> {
     render() {
         return (
             <Fragment>
@@ -15,6 +14,6 @@ export default class AboutPage extends React.Component<IAboutPageProps, IAboutPa
     }
 }
 
-interface IAboutPageProps { }
+interface IAboutPageProps {}
 
-interface IAboutPageState { }
+interface IAboutPageState {}

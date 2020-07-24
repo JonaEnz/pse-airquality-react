@@ -1,0 +1,10 @@
+{
+    "id": "MockFeature",
+    "nameId": "mockFeatureName",
+    "unitOfMeasurement": "°M",
+    "descriptionId": "mockDesc",
+    "defaultScale": { "0": "#AAAAAA", "10": "#124379", "100": "#217416" },
+    "webLinkId": "link",
+    "limit": 10,
+    "diagrams": []
+}
