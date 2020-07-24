@@ -7,15 +7,15 @@ let language = Language.getInstance();
 export default class AboutPage extends React.Component<
     IAboutPageProps,
     IAboutPageState
-    >{
-
+    > {
     render() {
-        return (
-            <Fragment>
+        return <Fragment>
+            <p>
                 <h1>{language.getText("about")}</h1>
-                <h3>{language.getText("aboutText")}</h3>
-            </Fragment>
-        );
+                <h4>{language.getText("aboutText")}</h4>
+            </p>
+
+        </Fragment>
     }
 }
 

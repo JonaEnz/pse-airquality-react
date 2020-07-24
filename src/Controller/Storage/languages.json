@@ -7,7 +7,7 @@
                 "about": "Über",
                 "aboutText": "Das SmartAQNEet Projekt ist eine open-source Webanwendung auf Github, die von Informatikstudenten/-studentinnen der Karlsruher Institut der Technologie erstellt wurde. Ziel des Projektes ist es, die verschiedenen Messdaten zur Luftqualität simpel, aussagekräftig und benutzerfreundlich darzustellen.  Die Webanwendung basiert auf eine Umfrage mit 50 Teilnehmern zwischen dem Alter von 18 und 70, in der sie ihre Erwartungen an einer solchen Applikation genannt haben. Die Messdaten stammen von der Smart AirQuality Network Projekt in Ausburg.",
                 "privacyPolicy": "Datenschutzerklärung",
-                "privacyPolicyText": "In dem Fall, dass Sie die Standortermittlung nicht erlauben erfasst diese Webapplikation keine persönliche Daten von Ihnen. In dem Fall, dass Sie Standortermittlung erlauben, wird Ihr Standort kurzfristig erfasst und dann zwischenspeichert, nach dem Schließen der Webapplikation wieder gelöscht. Weitere Daten werden nicht gespeichert.",
+                "privacyPolicyText": "In dem Fall, dass Sie die Standortermittlung nicht erlauben erfasst diese Webapplikation keine persönliche Daten von Ihnen. Sonst wird Ihr Standort erfasst, zwischengespeichert und nach dem Schließen der Webapplikation wieder gelöscht. Weitere Daten werden nicht gespeichert.",
                 "stationInfoButton": "Mehr Informationen",
                 "search": "Suche",
                 "loading": "Laden ...",
