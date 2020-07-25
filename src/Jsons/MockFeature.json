@@ -1,6 +1,6 @@
 {
     "id": "MockFeature",
-    "nameId": "testFeatureName",
+    "nameId": "mockFeatureName",
     "unitOfMeasurement": "°M",
     "descriptionId": "mockDesc",
     "defaultScale": { "0": "#AAAAAA", "10": "#124379", "100": "#217416" },

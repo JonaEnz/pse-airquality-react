@@ -6,10 +6,12 @@ import NearConfiguration from "../NearConfiguration";
 import FeatureProvider from "../FeatureProvider";
 import PolygonConfiguration from "../MapPage/PolygonConfiguration";
 import StationConfiguration from "../StationConfiguration";
+import { Feature } from "../../Model/Feature";
+import { isNullOrUndefined } from "util";
 
 const LOCALSTORAGE_MAPCONF = "mapconf";
 const DEFAULT_CONF = new StationConfiguration(
-    FeatureProvider.getInstance().getFeature("MockFeature")
+    FeatureProvider.getInstance().getFeature("saqn:op:ta") as Feature
 );
 const DEFAULT_VIEWPORT = new Viewport(new Position(49, 8.4), 7);
 
@@ -49,6 +51,11 @@ export default class MapConfigurationMemory {
                 obj.view.zoom
             );
             var feature = FeatureProvider.getInstance().getFeature(obj.feature);
+            if (isNullOrUndefined(feature)) {
+                throw new Error(
+                    "Feature " + obj.feature + " is not supported."
+                );
+            }
             if (obj.type === "NearConfiguration") {
                 return [new NearConfiguration(feature), view];
             } else if (obj.type === "PolygonConfiguration") {

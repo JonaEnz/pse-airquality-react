@@ -2,7 +2,8 @@ import { Scale } from "./Scale";
 import { Observation } from "./Observation";
 import { ObservationStation } from "./ObservationStation";
 import Language from "../Controller/Storage/Language";
-import Diagram from "../View/Diagram";
+import DiagramFactory from "../Controller/DiagramController/DiagramFactory";
+import IDiagramController from "../Controller/DiagramController/DiagramController";
 
 let language = Language.getInstance();
 
@@ -14,7 +15,8 @@ export class Feature {
     private relatedWeblinkId: string;
     private limit: number;
     private unitOfMeasurement: string;
-    private drawableDiagramIds: string[];
+    private controllerIds: string[];
+    private iconName: string;
 
     constructor(
         id: string,
@@ -24,7 +26,8 @@ export class Feature {
         relatedWeblinkId: string,
         limit: number,
         unitOfMeasurement: string,
-        drawableDiagramIds: string[]
+        controllerIds: string[],
+        iconName: string
     ) {
         this.id = id;
         this.nameId = nameId;
@@ -33,7 +36,8 @@ export class Feature {
         this.relatedWeblinkId = relatedWeblinkId;
         this.limit = limit;
         this.unitOfMeasurement = unitOfMeasurement;
-        this.drawableDiagramIds = drawableDiagramIds;
+        this.controllerIds = controllerIds;
+        this.iconName = iconName;
     }
 
     public getId(): string {
@@ -41,30 +45,39 @@ export class Feature {
     }
 
     public getName(): string {
-        //return Language.getText(this.nameId);
-        return this.nameId;
+        return language.getText(this.nameId);
+        //return this.nameId;
     }
 
     public getDescription(): string {
-        //return Language.getText(this.descriptionId);
-        return this.descriptionId;
+        return language.getText(this.descriptionId);
+        //return this.descriptionId;
+    }
+
+    public getRelatedWeblink(): string {
+        return language.getText(this.relatedWeblinkId);
+        //return this.relatedWeblinkId;
     }
 
     public getRelatedScale(): Scale {
         return this.scale;
     }
 
-    public getRelatedWeblink(): string {
-        //return Language.getText(this.relatedWeblinkId);
-        return this.relatedWeblinkId;
-    }
-
-    //Todo: implement Method
-    public getDrawableDiagrams(
+    public getDiagramController(
         observationStation: ObservationStation
-    ): Diagram[] {
-        var diagrams: Diagram[] = [];
-        return diagrams;
+    ): IDiagramController[] {
+        var diagramController = new Array<IDiagramController>();
+
+        this.controllerIds.forEach((id) => {
+            let controller = DiagramFactory.getDiagramController(
+                id,
+                observationStation,
+                this
+            );
+            diagramController.push(controller);
+        });
+
+        return diagramController;
     }
 
     public getLimit(): number {
@@ -77,5 +90,9 @@ export class Feature {
 
     public isLimitExceeded(observation: Observation): boolean {
         return observation.getValue() > this.limit;
+    }
+
+    public getIconName(): string {
+        return this.iconName;
     }
 }

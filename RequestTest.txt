@@ -13,11 +13,13 @@ getLatestObservations(center, radius, featureId)
 example:
 https://api.smartaq.net/v1.0/Datastreams?
 $select=@iot.id,name
-&$filter=geo.distance(Thing/Locations/location,geography'POINT(10.9 48.36)') lt 2 and 
+&$filter=geo.distance(Thing/Locations/location,geography'POINT(8.4 49)') lt 3 and 
 overlaps(phenomenonTime,(now() sub duration'P1d')) and 
 ObservedProperty/@iot.id eq 'saqn:op:mcpm2p5'
-&$expand=Thing($select=name,@iot.id;$expand=Locations($select=location)),
-Observations($select=result;$filter=
+&$expand=Thing($select=name,@iot.id;$expand=Locations($select=location)
+,Datastreams($select=name)/ObservedProperty($select=@iot.id)
+),
+Observations($select=result,phenomenonTime;$filter=
 phenomenonTime gt now() sub duration'P1D';$orderby=phenomenonTime desc;$top=1
 )
 
@@ -35,30 +37,23 @@ phenomenonTime gt now() sub duration'P1D';$orderby=phenomenonTime desc;$top=1
 
 getLatestObservation(stationId, featureId)
 
-https://api.smartaq.net/v1.0/Datastreams?
-$select=@iot.id
-&$filter=Thing/@iot.id eq '{stationId}' and 
-ObservedProperty/@iot.id eq '{featureId}'
-&$expand=Observations(
-$filter=phenomenonTime gt now() sub duration'P1D';$top=1;$orderby=phenomenonTime desc
-)
-
 example:
 https://api.smartaq.net/v1.0/Datastreams?
 $select=@iot.id
 &$filter=Thing/@iot.id eq 'saqn:t:grimm-aerosol.com:crowdsensor:SN19003' and 
 ObservedProperty/@iot.id eq 'saqn:op:mcpm2p5'
 &$expand=Observations(
-$filter=phenomenonTime gt now() sub duration'P1D';$top=1;$orderby=phenomenonTime desc
+$top=1;$orderby=phenomenonTime desc;$select=result,phenomenonTime
 )
 
+$filter=phenomenonTime gt now() sub duration'P1D';
 
-
-;$expand=Observations(
-$select=phenomenonTime,result
-;$filter=overlaps(phenomenonTime,(now() sub duration'P1D'));
-$top=1;$orderby=phenomenonTime desc
-)
+https://api.smartaq.net/v1.0/Datastreams?
+$select=@iot.id
+&$filter=Thing/@iot.id eq '{stationId}' and 
+ObservedProperty/@iot.id eq '{featureId}'
+&$expand=Observations(
+$top=1;$orderby=phenomenonTime desc;$select=result,phenomenonTime
 )
 
 /////
@@ -92,10 +87,14 @@ example:
 https://api.smartaq.net/v1.0/Things?
 $filter=geo.distance(Locations/location,geography'POINT(10.9 48.36)') lt 2 and 
 overlaps(Datastreams/phenomenonTime,(now() sub duration'P1d'))
+&$expand=Locations($select=location),
+Datastreams($select=name)/ObservedProperty($select=@iot.id)
 
 https://api.smartaq.net/v1.0/Things?
 $filter=geo.distance(Locations/location,geography'POINT({middle.lon} {middle.lat})') lt {radius} and 
 overlaps(Datastreams/phenomenonTime,(now() sub duration'P1d'))
+&$expand=Locations($select=location),
+Datastreams($select=name)/ObservedProperty($select=@iot.id)
 
 ////
 getStation(id)

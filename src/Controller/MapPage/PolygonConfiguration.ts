@@ -18,28 +18,41 @@ export default class PolygonConfiguration extends MapConfiguration {
         this.selectedFeature = feature;
     }
 
-    getPins(view: Viewport): MapPin[] {
+    async getPins(view: Viewport): Promise<MapPin[]> {
         return [];
     }
 
-    getPolygons(view: Viewport): Polygon[] {
-        var obsStations = MockDataProvider.getObservationStations(
+    async getPolygons(view: Viewport): Promise<Polygon[]> {
+        var observations = await MockDataProvider.getLatestObservations(
             view.getCenter(),
-            view.getRadius()
+            view.getRadius(),
+            this.selectedFeature
         );
         var stations: {
             [key: string]: Observation;
         } = {};
         var vertices: Delaunay.Point[] = [];
-        obsStations.forEach((station) => {
-            var observation = MockDataProvider.getLatestObservation(
-                station,
-                this.selectedFeature
+
+        for (let index = 0; index < observations.length; index++) {
+            stations[
+                observations[index]
+                    .getObservationStation()
+                    .getPosition()
+                    .getString()
+            ] = observations[index];
+            vertices.push(
+                new Delaunay.Point(
+                    observations[index]
+                        .getObservationStation()
+                        .getPosition()
+                        .getLatitude(),
+                    observations[index]
+                        .getObservationStation()
+                        .getPosition()
+                        .getLongitude()
+                )
             );
-            var pos = station.getPosition().getCoordinates();
-            vertices.push(new Delaunay.Point(pos.lat, pos.lng));
-            stations[station.getPosition().getString()] = observation;
-        });
+        }
 
         var tris = Delaunay.triangulate(vertices);
         var polys: Polygon[] = [];
