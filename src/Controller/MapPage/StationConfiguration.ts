@@ -1,12 +1,17 @@
 import MapConfiguration from "./MapConfiguration";
-import { Viewport } from "../Model/Viewport";
-import { Scale } from "../Model/Scale";
-import { Polygon } from "../Model/Polygon";
-import { MapPin } from "../Model/MapPin";
-import MockDataProvider from "./FROST/MockDataProvider";
-import { Feature } from "../Model/Feature";
+import { Viewport } from "../../Model/Viewport";
+import { Scale } from "../../Model/Scale";
+import { Polygon } from "../../Model/Polygon";
+import { MapPin } from "../../Model/MapPin";
+import MockDataProvider from "../FROST/MockDataProvider";
+import { Feature } from "../../Model/Feature";
+
+const ID = "StationConfiguration";
 
 export default class StationConfiguration extends MapConfiguration {
+    getId(): string {
+        return ID;
+    }
     private selectedFeature: Feature;
 
     constructor(feature: Feature) {

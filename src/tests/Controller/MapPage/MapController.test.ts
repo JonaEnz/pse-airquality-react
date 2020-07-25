@@ -1,4 +1,4 @@
-import { MapController } from "../../../Controller/MapController";
+import { MapController } from "../../../Controller/MapPage/MapController";
 import { Color } from "../../../Model/Color";
 
 var controller = new MapController(false); //New controller with default data

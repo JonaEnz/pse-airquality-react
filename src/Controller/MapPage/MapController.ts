@@ -1,14 +1,15 @@
-import { MapPin } from "../Model/MapPin";
-import { Viewport } from "../Model/Viewport";
-import { Position } from "../Model/Position";
-import { Observation } from "../Model/Observation";
-import { Feature } from "../Model/Feature";
-import { Scale } from "../Model/Scale";
-import { Polygon } from "../Model/Polygon";
+import { Viewport } from "../../Model/Viewport";
+import { Position } from "../../Model/Position";
+import { Observation } from "../../Model/Observation";
+import { Feature } from "../../Model/Feature";
+import { Scale } from "../../Model/Scale";
+import { Polygon } from "../../Model/Polygon";
 import MapConfiguration from "./MapConfiguration";
-import MapConfigurationMemory from "./Storage/MapConfigurationMemory";
-import MockDataProvider from "./FROST/MockDataProvider";
-import PolygonConfiguration from "./MapPage/PolygonConfiguration";
+import MapConfigurationMemory from "../Storage/MapConfigurationMemory";
+import MockDataProvider from "../FROST/MockDataProvider";
+import StationConfiguration from "./StationConfiguration";
+import FeatureProvider from "../FeatureProvider";
+import { MapPin } from "../../Model/MapPin";
 
 export class MapController {
     private config: MapConfiguration;
@@ -27,8 +28,10 @@ export class MapController {
                 this.DEFAULT_POSITION,
                 this.DEFAULT_ZOOM
             );
-            this.config = new PolygonConfiguration(
-                MockDataProvider.mockFeature()
+            this.config = new StationConfiguration(
+                FeatureProvider.getInstance().getFeature(
+                    "saqn:op:mcpm2p5"
+                ) as Feature
             );
         }
         if (this.config.getFeatures().length === 0) {
@@ -63,7 +66,7 @@ export class MapController {
 
     getFeatureSelectConf(): { conf: string; feature: string } {
         var f = this.config.getFeatures()[0].getId();
-        var c = this.config.constructor.name;
+        var c = this.config.getId();
         return { conf: c, feature: f };
     }
 

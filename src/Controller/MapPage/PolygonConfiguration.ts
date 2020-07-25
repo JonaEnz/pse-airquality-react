@@ -1,4 +1,4 @@
-import MapConfiguration from "../MapConfiguration";
+import MapConfiguration from "./MapConfiguration";
 import { Viewport } from "../../Model/Viewport";
 import { Scale } from "../../Model/Scale";
 import { Feature } from "../../Model/Feature";
@@ -10,7 +10,11 @@ import Delaunay from "delaunay-triangulation";
 import { Position } from "../../Model/Position";
 import { Observation } from "../../Model/Observation";
 
+const ID = "PolygonConfiguration";
 export default class PolygonConfiguration extends MapConfiguration {
+    getId(): string {
+        return ID;
+    }
     private selectedFeature: Feature;
 
     constructor(feature: Feature) {
