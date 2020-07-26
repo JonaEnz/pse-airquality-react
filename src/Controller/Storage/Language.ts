@@ -34,7 +34,7 @@ export default class Language {
         this.languageInstance.changeLanguage(local);
       }
     }
-    return this.languageInstance;
+    return Language.languageInstance;
   }
 
   //returns the string that corresponds to the string id in the currently selected language

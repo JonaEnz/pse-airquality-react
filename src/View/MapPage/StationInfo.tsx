@@ -6,12 +6,12 @@ import FeatureInfo from "./FeatureInfo";
 
 let language: Language = Language.getInstance();
 
-interface State { }
+interface State {}
 interface Props {
     lastObservation: Observation;
 }
 
-const DETAIL_PATH = "detail/";
+const DETAIL_PATH = "/pse-airquality-react/detail/";
 
 export class StationInfo extends React.Component<Props, State> {
     openDetails() {

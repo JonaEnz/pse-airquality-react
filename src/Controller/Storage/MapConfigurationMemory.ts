@@ -1,17 +1,17 @@
-import MapConfiguration from "../MapConfiguration";
+import MapConfiguration from "../MapPage/MapConfiguration";
 import { Viewport } from "../../Model/Viewport";
 import { Position } from "../../Model/Position";
 import TestConfiguration from "../TestConfiguration";
-import NearConfiguration from "../NearConfiguration";
+import NearConfiguration from "../MapPage/NearConfiguration";
 import FeatureProvider from "../FeatureProvider";
 import PolygonConfiguration from "../MapPage/PolygonConfiguration";
-import StationConfiguration from "../StationConfiguration";
+import StationConfiguration from "../MapPage/StationConfiguration";
 import { Feature } from "../../Model/Feature";
 import { isNullOrUndefined } from "util";
 
 const LOCALSTORAGE_MAPCONF = "mapconf";
 const DEFAULT_CONF = new StationConfiguration(
-    FeatureProvider.getInstance().getFeature("MockFeature") as Feature //TODO: MockFeature has to be there or the app crashes
+    FeatureProvider.getInstance().getFeature("saqn:op:ta") as Feature
 );
 const DEFAULT_VIEWPORT = new Viewport(new Position(49, 8.4), 7);
 

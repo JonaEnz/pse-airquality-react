@@ -10,11 +10,11 @@ import {
 } from "@material-ui/core";
 import LayersIcon from "@material-ui/icons/Layers";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import MapConfiguration from "../../Controller/MapConfiguration";
+import MapConfiguration from "../../Controller/MapPage/MapConfiguration";
 import { Feature } from "../../Model/Feature";
 import TestConfiguration from "../../Controller/TestConfiguration";
-import NearConfiguration from "../../Controller/NearConfiguration";
-import StationConfiguration from "../../Controller/StationConfiguration";
+import NearConfiguration from "../../Controller/MapPage/NearConfiguration";
+import StationConfiguration from "../../Controller/MapPage/StationConfiguration";
 import PolygonConfiguration from "../../Controller/MapPage/PolygonConfiguration";
 import FeatureProvider from "../../Controller/FeatureProvider";
 interface Props {

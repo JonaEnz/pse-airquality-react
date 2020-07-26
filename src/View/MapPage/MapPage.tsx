@@ -3,7 +3,7 @@ import { ObservationStation } from "../../Model/ObservationStation";
 import { Map } from "./Map";
 import { Feature } from "../../Model/Feature";
 import { Viewport } from "../../Model/Viewport";
-import { MapController } from "../../Controller/MapController";
+import { MapController } from "../../Controller/MapPage/MapController";
 import { MapPin } from "../../Model/MapPin";
 import { Polygon } from "../../Model/Polygon";
 import { Position } from "../../Model/Position";
