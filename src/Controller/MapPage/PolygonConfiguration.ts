@@ -5,10 +5,8 @@ import { Feature } from "../../Model/Feature";
 import { MapPin } from "../../Model/MapPin";
 import { Polygon } from "../../Model/Polygon";
 import MockDataProvider from "../FROST/MockDataProvider";
-//@ts-ignore
-import Delaunay from "delaunay-triangulation";
-import { Position } from "../../Model/Position";
 import { Observation } from "../../Model/Observation";
+import Delaunator from "delaunator";
 
 const ID = "PolygonConfiguration";
 export default class PolygonConfiguration extends MapConfiguration {
@@ -32,61 +30,40 @@ export default class PolygonConfiguration extends MapConfiguration {
             view.getRadius(),
             this.selectedFeature
         );
-        var stations: {
-            [key: string]: Observation;
-        } = {};
-        var vertices: Delaunay.Point[] = [];
+        var polys = this.triangulate(observations);
+        return polys;
+    }
 
-        for (let index = 0; index < observations.length; index++) {
-            stations[
-                observations[index]
-                    .getObservationStation()
-                    .getPosition()
-                    .getString()
-            ] = observations[index];
-            vertices.push(
-                new Delaunay.Point(
-                    observations[index]
-                        .getObservationStation()
-                        .getPosition()
-                        .getLatitude(),
-                    observations[index]
-                        .getObservationStation()
-                        .getPosition()
-                        .getLongitude()
+    private triangulate(observations: Observation[]): Polygon[] {
+        var points: [number, number][] = [];
+        observations.forEach((o) =>
+            points.push([
+                o.getObservationStation().getPosition().getLatitude(),
+                o.getObservationStation().getPosition().getLongitude(),
+            ])
+        );
+        var delaunay = Delaunator.from(points);
+        var output = [];
+        var tri = delaunay.triangles;
+        for (let i = 0; i < tri.length; i += 3) {
+            var triStations = [
+                observations[tri[i]].getObservationStation(),
+                observations[tri[i + 1]].getObservationStation(),
+                observations[tri[i + 2]].getObservationStation(),
+            ];
+            var val =
+                (observations[tri[i]].getValue() +
+                    observations[tri[i + 1]].getValue() +
+                    observations[tri[i + 2]].getValue()) /
+                3;
+            output.push(
+                new Polygon(
+                    triStations,
+                    this.selectedFeature.getRelatedScale().getColor(val)
                 )
             );
         }
-
-        var tris = Delaunay.triangulate(vertices);
-        var polys: Polygon[] = [];
-        tris.forEach((triangle: any) => {
-            var s1 =
-                stations[
-                    new Position(triangle.p1.x, triangle.p1.y).getString()
-                ];
-            var s2 =
-                stations[
-                    new Position(triangle.p2.x, triangle.p2.y).getString()
-                ];
-            var s3 =
-                stations[
-                    new Position(triangle.p3.x, triangle.p3.y).getString()
-                ];
-            var avgValue = (s1.getValue() + s2.getValue() + s3.getValue()) / 3;
-            polys.push(
-                new Polygon(
-                    [
-                        s1.getObservationStation(),
-                        s2.getObservationStation(),
-                        s3.getObservationStation(),
-                    ],
-                    this.getScale().getColor(avgValue)
-                )
-            );
-        });
-
-        return polys;
+        return output;
     }
 
     getScale(): Scale {
