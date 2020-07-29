@@ -21,6 +21,7 @@ class FHLCConfigurationOption {
         xAxis: { type: string; label: string }
     ) {
         this.name = languageProvider.getText(nameId);
+        this.name = "";
         this.timespan = timespan;
         this.frequency = frequency;
         this.xAxis = xAxis;

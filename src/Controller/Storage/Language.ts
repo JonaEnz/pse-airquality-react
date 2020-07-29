@@ -1,5 +1,5 @@
-import { Configuration } from "./Configuration";
 import * as languageData from "./languages.json";
+const Configuration = import("./Configuration");
 
 interface Lang {
     id: string;
@@ -12,7 +12,7 @@ interface Strings {
 }
 
 export default class Language {
-    private static languageInstance: Language;
+    private static languageInstance: Language | null = null;
 
     private selectedLangId: string;
     private languages: Lang[];
@@ -27,23 +27,22 @@ export default class Language {
 
     //returns the language instance
     public static getInstance(): Language {
-        if (!this.languageInstance) {
-            this.languageInstance = new Language();
+        if (!Language.languageInstance) {
+            Language.languageInstance = new Language();
             var local = localStorage.getItem("language");
             if (local) {
                 //Change language if selected
-                this.languageInstance.changeLanguage(local);
-            } else {
-                /*this.languageInstance.changeLanguage(
-                    Configuration.getInstance().getLanguage()
-                );*/
+                Language.languageInstance.changeLanguage(local);
             }
         }
-        return Language.languageInstance;
+        return Language.languageInstance as Language;
     }
 
     //returns the string that corresponds to the string id in the currently selected language
     public getText(id: string): string {
+        if (this.selectedLangId === "") {
+            this.changeLanguage(Configuration.getInstance().getLanguage());
+        }
         let text: string = this.selectedLang.strings[id];
         if (text === "" || text == null) {
             throw new Error(
@@ -72,7 +71,7 @@ export default class Language {
         }
     }
 
-    public getAvailabeleLanguages(): Map<string, string> {
+    public getAvailableLanguages(): Map<string, string> {
         let langs: Map<string, string> = new Map<string, string>();
         this.languages.forEach((element) => {
             langs.set(element.id, element.name);

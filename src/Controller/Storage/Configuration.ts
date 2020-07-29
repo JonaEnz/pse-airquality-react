@@ -1,6 +1,6 @@
 import FeatureProvider from "../FeatureProvider";
 
-export class Configuration {
+export default class Configuration {
     private static instance: Configuration | null;
     private language: string = "";
     private frostUrl: string = "";
