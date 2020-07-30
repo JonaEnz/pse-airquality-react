@@ -23,7 +23,7 @@
             "diagrams": [
                 "FeatureHistoryLineChart"
             ],
-            "icon": ""
+            "icon": "smog"
         },
         {
             "id": "saqn:op:mcpm2p5",
@@ -48,7 +48,7 @@
             "diagrams": [
                 "FeatureHistoryLineChart"
             ],
-            "icon": ""
+            "icon": "smog"
         },
         {
             "id": "saqn:op:plev",
@@ -73,7 +73,7 @@
             "diagrams": [
                 "FeatureHistoryLineChart"
             ],
-            "icon": ""
+            "icon": "tachometer-alt"
         },
         {
             "id": "saqn:op:ta",
@@ -98,7 +98,7 @@
             "diagrams": [
                 "FeatureHistoryLineChart"
             ],
-            "icon": ""
+            "icon": "thermometer-half"
         }
     ]
 }

@@ -8,8 +8,9 @@ import {
     Box,
 } from '@material-ui/core';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThermometerHalf } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library, IconName } from '@fortawesome/fontawesome-svg-core';
+import { faThermometerHalf, faSmog, faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { Color } from '../../Model/Color';
 import { Observation } from '../../Model/Observation';
@@ -17,6 +18,8 @@ import { Feature } from '../../Model/Feature';
 
 import './ObservationItem.css';
 
+
+library.add(faThermometerHalf, faSmog, faTachometerAlt);
 
 export default class ObservationItem extends React.Component<IObservationItemProps, IObservationItemState> {
     constructor(props: IObservationItemProps) {
@@ -30,7 +33,7 @@ export default class ObservationItem extends React.Component<IObservationItemPro
                     <Grid container direction='row'>
                         <Grid container direction='column' justify='center' xl={2} lg={2} md={2} sm={2} xs={2}>
                             <Avatar style={{ backgroundColor: this.props.color.getHex() }}>
-                                <FontAwesomeIcon icon={faThermometerHalf} />
+                                <FontAwesomeIcon icon={this.props.observation.getFeature().getIconName() as IconName} />
                             </Avatar>
                         </Grid>
                         <Grid container direction='column' xl={10} lg={10} md={10} sm={10} xs={10}>
