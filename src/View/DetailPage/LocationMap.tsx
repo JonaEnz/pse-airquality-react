@@ -12,9 +12,6 @@ import { Position } from '../../Model/Position';
 
 export default class LocationMap extends React.Component<ILocationMapProps, ILocationMapState> {
 
-    //geo coordinates that will be marked on the map
-    position: Leaflet.LatLng;
-
     //zoom level of the map
     private static readonly ZOOM_LEVEL = 20;
 
@@ -34,7 +31,6 @@ export default class LocationMap extends React.Component<ILocationMapProps, ILoc
 
     constructor(props: ILocationMapProps) {
         super(props);
-        this.position = new Leaflet.LatLng(this.props.position.getLatitude(), this.props.position.getLongitude());
     }
 
     // custom css styles
@@ -46,10 +42,11 @@ export default class LocationMap extends React.Component<ILocationMapProps, ILoc
 
     //render component as JSX.Element
     render() {
+        var position = new Leaflet.LatLng(this.props.position.getLatitude(), this.props.position.getLongitude());
         return (
             <Card>
                 <Map
-                    center={this.position} //center map to the required position
+                    center={position} //center map to the required position
                     zoom={LocationMap.ZOOM_LEVEL} //set zoom
                     style={this.styles.map} //provide custom styles
 
@@ -64,7 +61,7 @@ export default class LocationMap extends React.Component<ILocationMapProps, ILoc
                         attribution={LocationMap.TILE_SERVER_ATTRIBUTION}
                     />
                     <Marker
-                        position={this.position}
+                        position={position}
                         icon={LocationMap.MARKER_ICON}
                     />
                 </Map>

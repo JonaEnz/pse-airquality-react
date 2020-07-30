@@ -18,10 +18,6 @@ import { Feature } from '../../Model/Feature';
 
 export default class ObservationItem extends React.Component<IObservationItemProps, IObservationItemState> {
 
-    color: Color;
-    observation: Observation;
-    feature: Feature;
-
     styles = {
         feature_card: {
         },
@@ -32,9 +28,6 @@ export default class ObservationItem extends React.Component<IObservationItemPro
 
     constructor(props: IObservationItemProps) {
         super(props);
-        this.color = this.props.color;
-        this.observation = this.props.observation;
-        this.feature = this.observation.getFeature();
     }
 
     render() {
@@ -43,13 +36,13 @@ export default class ObservationItem extends React.Component<IObservationItemPro
                 <CardContent style={this.styles.card_content}>
                     <Grid container alignItems='center'>
                         <Grid item xl={2} lg={2} md={2} sm={2} xs={2}>
-                            <Avatar style={{ backgroundColor: this.color.getHex() }}>
+                            <Avatar style={{ backgroundColor: this.props.color.getHex() }}>
                                 <FontAwesomeIcon icon={faThermometerHalf} />
                             </Avatar>
                         </Grid>
                         <Grid item xl={10} lg={10} md={10} sm={10} xs={10}>
-                            <Typography color='textSecondary'>{this.feature.getName()}</Typography>
-                            <Typography variant='subtitle1'>{this.observation.getValue() + ' ' + this.feature.getUnitOfMeasurement()}</Typography>
+                            <Typography color='textSecondary'>{this.props.observation.getFeature().getName()}</Typography>
+                            <Typography variant='subtitle1'>{this.props.observation.getValue() + ' ' + this.props.observation.getFeature().getUnitOfMeasurement()}</Typography>
                         </Grid>
                     </Grid>
                 </CardContent>

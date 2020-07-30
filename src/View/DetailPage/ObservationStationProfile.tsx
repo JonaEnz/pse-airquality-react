@@ -13,6 +13,7 @@ import MockDataProvider from '../../Controller/MockDataProvider';
 import { Color } from '../../Model/Color';
 import { Observation } from '../../Model/Observation';
 import Language from '../../Controller/Storage/Language';
+import DataProvider from '../../Controller/Frost/DataProvider';
 
 export default class ObservationStationProfile extends React.Component<IObservationStationProfileProps, IObservationStationProfileState> {
 
@@ -21,9 +22,10 @@ export default class ObservationStationProfile extends React.Component<IObservat
     constructor(props: IObservationStationProfileProps) {
         super(props);
         this.state = {
-            latestObservations: this.getLatestObservations(),
+            latestObservations: [],
         }
         this.languageProvider = Language.getInstance();
+        this.getLatestObservations().then((o) => this.setState({ latestObservations: o }))
     }
 
     //styles for this component
@@ -66,13 +68,14 @@ export default class ObservationStationProfile extends React.Component<IObservat
 
 
     //returns the latest observation for each feature of this observation station
-    private getLatestObservations() {
+    private async getLatestObservations(): Promise<Observation[]> {
         var features = this.props.observationStation.getFeatures();
         var observations = new Array<Observation>();
+        var promises = [];
 
         features.forEach(feature => {
-            let observation = MockDataProvider.getLatestObservation(this.props.observationStation, feature);
-            observations.push(observation);
+            var observation = DataProvider.getLatestObservation(this.props.observationStation, feature);
+            promises.push(observation);
         });
 
         return observations;

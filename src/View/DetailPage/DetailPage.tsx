@@ -17,10 +17,9 @@ export default class DetailPage extends React.Component<IDetailPageProps, IDetai
     constructor(props: IDetailPageProps) {
         super(props);
         this.state = { obs: new ObservationStation("", "", "", new Position(0, 0), []) };
-    }
-
-    async componentWillMount() {
-        this.setState({ obs: await DataProvider.getStation(this.props.match.params.id) });
+        DataProvider.getStation(this.props.match.params.id).then((o) => {
+            this.setState({ obs: o });
+        });
     }
 
     //styles of this component
