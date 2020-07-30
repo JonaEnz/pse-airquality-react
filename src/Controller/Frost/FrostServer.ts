@@ -31,7 +31,7 @@ export default class FrostServer {
                 return null;
             }
         });
-        const result: T = ff.getConverter().convert(json)
+        const result: T = ff.getConverter().convert(json, options);
         return new FrostResult<T>(result, ok, mes);
     }
 }
