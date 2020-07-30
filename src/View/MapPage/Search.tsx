@@ -1,5 +1,11 @@
-import React, { Fragment } from "react";
-import { IconButton, Divider, InputBase, Grid, Card } from "@material-ui/core";
+import React, { Fragment, SyntheticEvent } from "react";
+import {
+    IconButton,
+    Divider,
+    InputBase,
+    Grid,
+    Card,
+} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import GpsFixedIcon from "@material-ui/icons/GpsFixed";
 import { Position } from "../../Model/Position";
@@ -10,7 +16,7 @@ import "./Search.css";
 let language = Language.getInstance();
 
 interface Props {
-    onSearch(term: string): void;
+    onSearch(event: SyntheticEvent, term: string): void;
     updatePosition(pos: Position): void;
 }
 
@@ -71,10 +77,8 @@ export default class Search extends React.Component<Props, State> {
                         alignContent="space-between"
                     >
                         <form
-                            className="search-form"
-                            onSubmit={() => {
-                                this.props.onSearch(this.state.searchTerm);
-                            }}
+                            className='search-form'
+                            onSubmit={(e) => this.props.onSearch(e, this.state.searchTerm)}
                         >
                             <InputBase
                                 className="input"
@@ -87,10 +91,9 @@ export default class Search extends React.Component<Props, State> {
                                 placeholder={language.getText("search")}
                             />
                             <IconButton
-                                onClick={() => {
-                                    this.props.onSearch(this.state.searchTerm);
-                                }}
-                                className="search-button"
+                                type='submit'
+                                onClick={(e) => this.props.onSearch(e, this.state.searchTerm)}
+                                className='search-button'
                             >
                                 <SearchIcon />
                             </IconButton>
@@ -105,7 +108,7 @@ export default class Search extends React.Component<Props, State> {
                         </IconButton>
                     </Grid>
                 </Card>
-            </Fragment>
+            </Fragment >
         );
     }
 }

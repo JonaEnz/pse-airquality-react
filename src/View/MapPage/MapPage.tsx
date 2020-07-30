@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, SyntheticEvent } from "react";
 import { ObservationStation } from "../../Model/ObservationStation";
 import { Map } from "./Map";
 import { Feature } from "../../Model/Feature";
@@ -118,7 +118,8 @@ class MapPage extends React.Component<Props, State> {
         return promise;
     }
 
-    onSearch(term: string) {
+    onSearch(event: SyntheticEvent, term: string) {
+        event.preventDefault();
         this.mapController.search(term).then(() => {
             var mp = new MapPin(
                 "icon-home-1",
@@ -167,7 +168,7 @@ class MapPage extends React.Component<Props, State> {
             <Box className='map-page'>
                 <Box className='search'>
                     <Search
-                        onSearch={(term) => this.onSearch(term)}
+                        onSearch={(event, term) => this.onSearch(event, term)}
                         updatePosition={(pos) => {
                             var view = this.state.viewport;
                             view.setCenter(pos);
