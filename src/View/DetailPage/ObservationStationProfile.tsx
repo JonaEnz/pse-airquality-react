@@ -16,13 +16,10 @@ import Language from '../../Controller/Storage/Language';
 
 export default class ObservationStationProfile extends React.Component<IObservationStationProfileProps, IObservationStationProfileState> {
 
-    //the corresponding observation station to this component
-    observationStation: ObservationStation;
     languageProvider: Language;
 
     constructor(props: IObservationStationProfileProps) {
         super(props);
-        this.observationStation = this.props.observationStation;
         this.state = {
             latestObservations: this.getLatestObservations(),
         }
@@ -70,11 +67,11 @@ export default class ObservationStationProfile extends React.Component<IObservat
 
     //returns the latest observation for each feature of this observation station
     private getLatestObservations() {
-        var features = this.observationStation.getFeatures();
+        var features = this.props.observationStation.getFeatures();
         var observations = new Array<Observation>();
 
         features.forEach(feature => {
-            let observation = MockDataProvider.getLatestObservation(this.observationStation, feature);
+            let observation = MockDataProvider.getLatestObservation(this.props.observationStation, feature);
             observations.push(observation);
         });
 
@@ -113,13 +110,13 @@ export default class ObservationStationProfile extends React.Component<IObservat
                 <CardContent>
                     <div style={this.styles.section_1}>
                         <Typography align="left" variant="h4" component='h2' >
-                            {this.observationStation.getName()}
+                            {this.props.observationStation.getName()}
                         </Typography>
                         <Typography align="left" color='textSecondary' component="p" style={this.styles.pos}>
-                            {this.observationStation.getPosition().getString()}
+                            {this.props.observationStation.getPosition().getString()}
                         </Typography>
                         <Typography align='left' variant="body2" component="p" >
-                            {this.observationStation.getDescription()}
+                            {this.props.observationStation.getDescription()}
                         </Typography>
                     </div>
                     <Divider variant="middle" />
