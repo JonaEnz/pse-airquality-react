@@ -4,6 +4,7 @@ import { Viewport } from "../../Model/Viewport";
 import { MapPin } from "../../Model/MapPin";
 import { Polygon } from "../../Model/Polygon";
 
+import { Card } from '@material-ui/core';
 import {
     Map as LeafletMap,
     TileLayer,
@@ -59,7 +60,7 @@ export class Map extends React.Component<Props, State> {
             icon: "", // Name of Material icon
             iconColor: "", // Material icon color (could be rgba, hex, html name...)
             markerColor: pin.getColor().getHex(), // Marker fill color
-            outlineColor: "black", // Marker outline color
+            outlineColor: "", // Marker outline color
             outlineWidth: 1, // Marker outline width
         });
         //Filter icons
@@ -137,46 +138,45 @@ export class Map extends React.Component<Props, State> {
 
     render() {
         return (
-            <div>
-                <LeafletMap
-                    center={this.state.viewport.getCenter().getCoordinates()}
-                    zoom={this.state.viewport.getZoom()}
-                    onViewportChange={(v) => this.onViewportChange(v)}
-                >
-                    <TileLayer
-                        attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    {this.props.pins.map((pin) => (
-                        <Marker
-                            position={pin.getPosition().getCoordinates()}
-                            icon={this.getIconFromMapPin(pin)}
-                        >
-                            <Popup onOpen={() => this.handlePopup(pin)}>
-                                {this.state.lastObservation ? (
-                                    <StationInfo
-                                        lastObservation={
-                                            this.state.lastObservation
-                                        }
-                                    />
-                                ) : (
+            <LeafletMap
+                center={this.state.viewport.getCenter().getCoordinates()}
+                zoom={this.state.viewport.getZoom()}
+                onViewportChange={(v) => this.onViewportChange(v)}
+                zoomControl={false}
+            >
+                <TileLayer
+                    attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {this.props.pins.map((pin) => (
+                    <Marker
+                        position={pin.getPosition().getCoordinates()}
+                        icon={this.getIconFromMapPin(pin)}
+                    >
+                        <Popup onOpen={() => this.handlePopup(pin)}>
+                            {this.state.lastObservation ? (
+                                <StationInfo
+                                    lastObservation={
+                                        this.state.lastObservation
+                                    }
+                                />
+                            ) : (
                                     <p>
                                         {Language.getInstance().getText(
                                             "noData"
                                         )}
                                     </p>
                                 )}
-                            </Popup>
-                        </Marker>
-                    ))}
-                    {this.props.polygons.map((polygon) => (
-                        <LeafletPolygon
-                            positions={this.getPositionsFromPolygon(polygon)}
-                            color={polygon.getColor().getHex()}
-                        />
-                    ))}
-                </LeafletMap>
-            </div>
+                        </Popup>
+                    </Marker>
+                ))}
+                {this.props.polygons.map((polygon) => (
+                    <LeafletPolygon
+                        positions={this.getPositionsFromPolygon(polygon)}
+                        color={polygon.getColor().getHex()}
+                    />
+                ))}
+            </LeafletMap>
         );
     }
 }

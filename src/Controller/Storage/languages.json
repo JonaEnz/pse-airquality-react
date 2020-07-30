@@ -9,7 +9,8 @@
                 "privacyPolicy": "Datenschutzerklärung",
                 "privacyPolicyText": "In dem Fall, dass Sie die Standortermittlung nicht erlauben erfasst diese Webapplikation keine persönliche Daten von Ihnen. Sonst wird Ihr Standort erfasst, zwischengespeichert und nach dem Schließen der Webapplikation wieder gelöscht. Weitere Daten werden nicht gespeichert.",
                 "stationInfoButton": "Mehr Informationen",
-                "search": "Suche",
+                "search": "Suche nach einer Stadt oder Adresse",
+                "loading": "Laden ...",
                 "noData": "Keine Daten",
                 "Error404": "Fehler 404: Die angeforderte Seite existiert nicht.",
                 "error": "Fehler",
@@ -37,6 +38,7 @@
                 "last_year": "Letztes Jahr",
                 "higher": "höherer Wert",
                 "lower": "niedrigerer Wert",
+                "map_configuration_title": "Kartenkonfiguration",
                 "testFeature": "Test"
             }
         },
@@ -49,7 +51,8 @@
                 "privacyPolicy": "Privacy Policy",
                 "privacyPolicyText": "If you don't allow the application to have access to your address, no data will be collected from you. Otherwise, your addressed will be cached until you close the application. No other personal data will be collected.",
                 "stationInfoButton": "More details",
-                "search": "Search",
+                "search": "Search for a city or an address",
+                "loading": "Loading ...",
                 "noData": "No data.",
                 "Error404": "Error 404: This page doesn't exist.",
                 "error": "Error",
@@ -77,6 +80,7 @@
                 "last_year": "last year",
                 "higher": "higher value",
                 "lower": "lower value",
+                "map_configuration_title": "Map Configuration",
                 "testFeature": "Test"
             }
         }

@@ -1,14 +1,12 @@
 import React from "react";
 import { Scale } from "../../Model/Scale";
-import { Box, Grid, Typography } from "@material-ui/core";
+import { Box, Grid, Typography, Card } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        box: {
+        container: {
             padding: theme.spacing(1),
-            width: "50px",
-            backgroundColor: "white",
         },
     })
 );
@@ -32,16 +30,16 @@ function getStyleFromScale(scale: Scale, min: number, max: number) {
     grad = grad.slice(0, -2) + ")";
     return {
         background: grad,
-        height: "80px",
-        width: "40px",
+        height: "100px",
+        width: "30px",
     };
 }
 
 function Legend(props: Props) {
     const classes = useStyles();
     return (
-        <Box className={classes.box} border={1}>
-            <Grid container direction="column">
+        <Card className={classes.container}>
+            <Grid container direction="column" alignItems='center'>
                 <Typography variant="body2">
                     {Math.floor(props.max * 10) / 10}
                 </Typography>
@@ -52,7 +50,7 @@ function Legend(props: Props) {
                     {Math.floor(props.min * 10) / 10}
                 </Typography>
             </Grid>
-        </Box>
+        </Card>
     );
 }
 

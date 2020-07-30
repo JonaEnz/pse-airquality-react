@@ -1,0 +1,24 @@
+
+.root {
+    margin: 10px;
+    padding: 2px 2px 2px 20px;
+
+    height: 45px;
+
+    border-radius: 10px;
+
+    position: relative;
+}
+
+.input {
+    height: 45px;
+    width: 280px;
+}
+
+.divider{
+    margin-left: 10px;
+}
+
+.search-button {
+    margin-left: 30px;
+}

@@ -1,0 +1,23 @@
+.title{
+
+}
+
+.position {
+    margin: 0px !important;
+    margin-bottom: 10px !important;
+}
+
+.feature {
+    margin-top: 15px !important;
+}
+
+.value {
+    width: 100%;
+    text-align: center;
+    margin-top: 15px !important;
+    margin-bottom: 25px !important;
+}
+
+.info-button{
+    width: 100%;
+}

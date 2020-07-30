@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import {
     Avatar,
     Card,
@@ -7,6 +7,9 @@ import {
     InputLabel,
     Select,
     MenuItem,
+    Grid,
+    Typography,
+    Divider,
 } from "@material-ui/core";
 import LayersIcon from "@material-ui/icons/Layers";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
@@ -17,19 +20,34 @@ import NearConfiguration from "../../Controller/MapPage/NearConfiguration";
 import StationConfiguration from "../../Controller/MapPage/StationConfiguration";
 import PolygonConfiguration from "../../Controller/MapPage/PolygonConfiguration";
 import FeatureProvider from "../../Controller/FeatureProvider";
+import Language from "../../Controller/Storage/Language";
 interface Props {
     onConfigurationChange(mapConfig: MapConfiguration): void;
     startConf?: { conf: string; feature: string };
 }
 
+let language = Language.getInstance();
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             background: theme.palette.primary.main,
+            position: 'relative',
+        },
+        title: {
+            textAlign: 'center',
+            width: '100%',
+            marginBottom: '10px',
+        },
+        popup: {
+            padding: '20px',
+            paddingBottom: '50px',
+            marginBottom: '-40px',
         },
         formControl: {
-            margin: theme.spacing(1),
-            minWidth: 120,
+            width: '100%',
+            marginTop: '10px',
+            marginBottom: '10px',
         },
     })
 );
@@ -114,50 +132,58 @@ export default function FeatureSelect(props: Props) {
     };
 
     return (
-        <div>
-            <Avatar className={classes.root} onClick={handleClick}>
-                <LayersIcon />
-            </Avatar>
-            {open ? (
-                <Card variant="outlined">
-                    <CardContent>
-                        <FormControl className={classes.formControl}>
-                            <InputLabel>{"Feature"}</InputLabel>
-                            <Select
-                                onChange={handleFeatureChange}
-                                value={feature?.getId() ?? ""}
-                            >
-                                {FeatureProvider.getInstance()
-                                    .listAllFeatures()
-                                    .map((f) => (
-                                        <MenuItem value={f.getId()}>
-                                            {f.getName()}
-                                        </MenuItem>
-                                    ))}
-                            </Select>
-                        </FormControl>
-                        <FormControl className={classes.formControl}>
-                            <InputLabel>{"Style"}</InputLabel>
-                            <Select
-                                onChange={handleConfigChange}
-                                value={config ?? ""}
-                            >
-                                <MenuItem value={POLY_CONFIG}>
-                                    {POLY_CONFIG}
-                                </MenuItem>
-                                <MenuItem value={STATION_CONFIG}>
-                                    {STATION_CONFIG}
-                                </MenuItem>
-                                <MenuItem value={NEAR_CONFIG}>
-                                    {NEAR_CONFIG}
-                                </MenuItem>
-                            </Select>
-                        </FormControl>
-                    </CardContent>
-                </Card>
-            ) : (
-                ""
-            )}
-        </div>
+        <Fragment>
+            <Grid container direction='column' alignItems='flex-end'>
+                {open ? (
+                    <Card className={classes.popup} variant="outlined">
+                        <Grid container direction='column'>
+                            <Typography className={classes.title} variant='subtitle1' color='textSecondary'>
+                                {language.getText('map_configuration_title')}
+                            </Typography>
+                            <Divider orientation='horizontal'></Divider>
+                            <FormControl className={classes.formControl}>
+                                <InputLabel>{"Feature"}</InputLabel>
+                                <Select
+                                    onChange={handleFeatureChange}
+                                    value={feature?.getId() ?? ""}
+                                >
+                                    {FeatureProvider.getInstance()
+                                        .listAllFeatures()
+                                        .map((f) => (
+                                            <MenuItem value={f.getId()}>
+                                                {f.getName()}
+                                            </MenuItem>
+                                        ))}
+                                </Select>
+                            </FormControl>
+                            <FormControl className={classes.formControl}>
+                                <InputLabel>{"Style"}</InputLabel>
+                                <Select
+                                    onChange={handleConfigChange}
+                                    value={config ?? ""}
+                                >
+                                    <MenuItem value={POLY_CONFIG}>
+                                        {POLY_CONFIG}
+                                    </MenuItem>
+                                    <MenuItem value={STATION_CONFIG}>
+                                        {STATION_CONFIG}
+                                    </MenuItem>
+                                    <MenuItem value={NEAR_CONFIG}>
+                                        {NEAR_CONFIG}
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    </Card>
+                ) : (
+                        ""
+                    )}
+                <Avatar
+                    className={classes.root}
+                    onClick={handleClick}>
+                    <LayersIcon />
+                </Avatar>
+            </Grid>
+        </Fragment >
     );
 }
