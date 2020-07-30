@@ -121,17 +121,21 @@ class MapPage extends React.Component<Props, State> {
     onSearch(event: SyntheticEvent, term: string) {
         event.preventDefault();
         this.mapController.search(term).then(() => {
-            var mp = new MapPin(
-                "icon-home-1",
-                this.state.viewport.getCenter(),
-                -1,
-                new Color(0, 0, 0)
-            );
-            this.setState({
-                additionalPins: [mp],
-                pins: this.state.pins.concat(mp),
-            });
+            this.setHomeMarker();
             this.update();
+        });
+    }
+
+    setHomeMarker() {
+        var mp = new MapPin(
+            "icon-home-1",
+            this.state.viewport.getCenter(),
+            -1,
+            new Color(0, 0, 0)
+        );
+        this.setState({
+            additionalPins: [mp],
+            pins: this.state.pins.concat(mp),
         });
     }
 
@@ -172,6 +176,7 @@ class MapPage extends React.Component<Props, State> {
                         updatePosition={(pos) => {
                             var view = this.state.viewport;
                             view.setCenter(pos);
+                            this.setHomeMarker();
                             this.onViewportChange(view);
                         }}
                     />
