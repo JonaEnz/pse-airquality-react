@@ -9,7 +9,6 @@ import {
 
 import { ObservationStation } from '../../Model/ObservationStation';
 import ObservationItem from './ObservationItem';
-import MockDataProvider from '../../Controller/MockDataProvider';
 import { Color } from '../../Model/Color';
 import { Observation } from '../../Model/Observation';
 import Language from '../../Controller/Storage/Language';

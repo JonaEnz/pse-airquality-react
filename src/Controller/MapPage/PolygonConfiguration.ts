@@ -4,7 +4,7 @@ import { Scale } from "../../Model/Scale";
 import { Feature } from "../../Model/Feature";
 import { MapPin } from "../../Model/MapPin";
 import { Polygon } from "../../Model/Polygon";
-import MockDataProvider from "../FROST/MockDataProvider";
+import DataProvider from "../Frost/DataProvider";
 import { Observation } from "../../Model/Observation";
 import Delaunator from "delaunator";
 
@@ -26,7 +26,7 @@ export default class PolygonConfiguration extends MapConfiguration {
     }
 
     async getPolygons(view: Viewport): Promise<Polygon[]> {
-        var observations = await MockDataProvider.getLatestObservations(
+        var observations = await DataProvider.getLatestObservations(
             view.getCenter(),
             view.getRadius(),
             this.selectedFeature

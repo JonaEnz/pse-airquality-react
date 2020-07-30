@@ -6,7 +6,6 @@ import { Scale } from "../../Model/Scale";
 import { Polygon } from "../../Model/Polygon";
 import MapConfiguration from "./MapConfiguration";
 import MapConfigurationMemory from "../Storage/MapConfigurationMemory";
-import MockDataProvider from "../FROST/MockDataProvider";
 import StationConfiguration from "./StationConfiguration";
 import FeatureProvider from "../FeatureProvider";
 import { MapPin } from "../../Model/MapPin";

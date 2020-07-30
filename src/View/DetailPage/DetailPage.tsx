@@ -2,8 +2,6 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
 
-import MockDataProvider from '../../Controller/MockDataProvider';
-
 import { ObservationStation } from '../../Model/ObservationStation';
 
 import ObservationStationProfile from './ObservationStationProfile';

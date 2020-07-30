@@ -3,7 +3,6 @@ import { Viewport } from "../../Model/Viewport";
 import { Scale } from "../../Model/Scale";
 import { Polygon } from "../../Model/Polygon";
 import { MapPin } from "../../Model/MapPin";
-import MockDataProvider from "../FROST/MockDataProvider";
 import { Feature } from "../../Model/Feature";
 import DataProvider from "../Frost/DataProvider";
 import { ObservationStation } from "../../Model/ObservationStation";

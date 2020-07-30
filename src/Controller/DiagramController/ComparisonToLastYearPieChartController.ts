@@ -2,8 +2,9 @@ import IDiagramController, { ChartType } from './DiagramController';
 import { ObservationStation } from '../../Model/ObservationStation';
 import { Feature } from '../../Model/Feature';
 import Timespan from '../../Model/Timespan';
-import MockDataProvider from '../MockDataProvider';
+import DataProvider from '../Frost/DataProvider';
 import Language from '../Storage/Language';
+import MockDataProvider from '../MockDataProvider';
 
 
 class CTLYPCConfigurationOption {
@@ -82,7 +83,7 @@ export class ComparisonToLastYearPieChartController implements IDiagramControlle
             start,
             end,
             this.feature,
-            configuration.frequency,
+            configuration.frequency
         );
 
         var lastObservationValue = observations.pop()?.getValue() as number;

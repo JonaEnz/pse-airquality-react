@@ -4,7 +4,6 @@ import { Scale } from "../../Model/Scale";
 import { MapPin } from "../../Model/MapPin";
 import { Polygon } from "../../Model/Polygon";
 import { Feature } from "../../Model/Feature";
-import MockDataProvider from "../FROST/MockDataProvider";
 import { Observation } from "../../Model/Observation";
 import { ObservationStation } from "../../Model/ObservationStation";
 import DataProvider from "../Frost/DataProvider";
