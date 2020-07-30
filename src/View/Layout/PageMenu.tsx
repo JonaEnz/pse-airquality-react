@@ -36,7 +36,12 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
     render() {
         return (
             <Fragment>
-                <AppBar position="static" style={{ height: '64px' }}>
+                <AppBar position="static" style={{
+                    height: '64px',
+                    boxShadow: '0px 2px 1px -1px rgba(0,0,0,0.2)',
+                    position: 'relative',
+                    zIndex: 20,
+                }}>
                     <Toolbar>
                         <Typography variant="h6" component={Link} to='/pse-airquality-react/' style={{ textDecoration: 'none', color: 'unset' }}>
                             SmartAQnet
