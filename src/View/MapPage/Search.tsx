@@ -1,17 +1,11 @@
 import React, { Fragment } from "react";
-import {
-    IconButton,
-    Divider,
-    InputBase,
-    Grid,
-    Card,
-} from "@material-ui/core";
+import { IconButton, Divider, InputBase, Grid, Card } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import GpsFixedIcon from '@material-ui/icons/GpsFixed';
+import GpsFixedIcon from "@material-ui/icons/GpsFixed";
 import { Position } from "../../Model/Position";
 import Language from "../../Controller/Storage/Language";
 
-import './Search.css'
+import "./Search.css";
 
 let language = Language.getInstance();
 
@@ -70,35 +64,41 @@ export default class Search extends React.Component<Props, State> {
     render() {
         return (
             <Fragment>
-                <Card className='root'>
-                    <Grid container direction='row' alignContent='space-between'>
+                <Card className="root">
+                    <Grid
+                        container
+                        direction="row"
+                        alignContent="space-between"
+                    >
                         <form
-                            className='search-form'
-                            onSubmit={() => { this.props.onSearch(this.state.searchTerm); }}
+                            className="search-form"
+                            onSubmit={() => {
+                                this.props.onSearch(this.state.searchTerm);
+                            }}
                         >
                             <InputBase
-                                className='input'
+                                className="input"
                                 type="search"
                                 onChange={(e) => {
-                                    this.setState({ searchTerm: e.target.value });
+                                    this.setState({
+                                        searchTerm: e.target.value,
+                                    });
                                 }}
-                                placeholder={language.getText('search')}
+                                placeholder={language.getText("search")}
                             />
                             <IconButton
-                                type='submit'
-                                onClick={() => this.locationClick()}
-                                className='search-button'
+                                onClick={() => {
+                                    this.props.onSearch(this.state.searchTerm);
+                                }}
+                                className="search-button"
                             >
                                 <SearchIcon />
                             </IconButton>
                         </form>
-                        <Divider
-                            orientation='vertical'
-                            flexItem={true}
-                        />
+                        <Divider orientation="vertical" flexItem={true} />
                         <IconButton
                             onClick={() => this.locationClick()}
-                            className='location-button'
+                            className="location-button"
                             disabled={!this.state.locationEnabled}
                         >
                             <GpsFixedIcon />
