@@ -70,7 +70,7 @@ export class Map extends React.Component<Props, State> {
             //@ts-ignore
             icon = L.IconMaterial.icon({
                 icon: iconName[1], // Name of Material icon
-                iconColor: "#33DD11", // Material icon color (could be rgba, hex, html name...)
+                iconColor: "white", // Material icon color (could be rgba, hex, html name...)
                 markerColor: pin.getColor().getHex(), // Marker fill color
                 outlineColor: "black", // Marker outline color
                 outlineWidth: 1, // Marker outline width
