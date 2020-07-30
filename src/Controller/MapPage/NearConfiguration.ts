@@ -6,7 +6,7 @@ import { Polygon } from "../../Model/Polygon";
 import { Feature } from "../../Model/Feature";
 import { Observation } from "../../Model/Observation";
 import { ObservationStation } from "../../Model/ObservationStation";
-import DataProvider from "../Frost/DataProvider";
+import DataProvider from "../FROST/DataProvider";
 
 const SAMPLE_SCALE = 20;
 const ID = "NearConfiguration";

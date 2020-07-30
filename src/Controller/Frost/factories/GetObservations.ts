@@ -1,9 +1,9 @@
-import QueryBuilder from '../QueryBuilder';
-import FrostFactory from '../FrostFactory';
-import { Observation } from '../../../Model/Observation';
-import ResultModelConverter from '../ResultModelConverter';
-import { ObservationStation } from '../../../Model/ObservationStation';
-import { Feature } from '../../../Model/Feature';
+import QueryBuilder from "../QueryBuilder";
+import FrostFactory from "../FrostFactory";
+import { Observation } from "../../../Model/Observation";
+import ResultModelConverter from "../ResultModelConverter";
+import { ObservationStation } from "../../../Model/ObservationStation";
+import { Feature } from "../../../Model/Feature";
 
 export class GetObservationsFactory extends FrostFactory<Observation[]> {
     constructor() {
@@ -11,19 +11,33 @@ export class GetObservationsFactory extends FrostFactory<Observation[]> {
     }
 }
 
-export class GetObservationsConverter implements ResultModelConverter<Observation[]> {
-    public convert(json: ResultList, options: GetObservationsOptions): Observation[] {
+export class GetObservationsConverter
+    implements ResultModelConverter<Observation[]> {
+    public convert(
+        json: ResultList,
+        options: GetObservationsOptions
+    ): Observation[] {
         if (json.value === null || json.value === undefined) {
             throw new Error("nö");
         }
         let observations: Observation[] = [];
-        json.value.forEach(stream => {
-            if (stream.Observations === null || stream.Observations === undefined) {
+        json.value.forEach((stream) => {
+            if (
+                stream.Observations === null ||
+                stream.Observations === undefined
+            ) {
                 return;
             }
-            stream.Observations.forEach(obs => {
+            stream.Observations.forEach((obs) => {
                 if (obs !== null) {
-                    observations.push(new Observation(options.station, options.feature, obs.result, new Date(obs.phenomenonTime)));
+                    observations.push(
+                        new Observation(
+                            options.station,
+                            options.feature,
+                            obs.result,
+                            new Date(obs.phenomenonTime)
+                        )
+                    );
                 }
             });
         });
@@ -31,9 +45,7 @@ export class GetObservationsConverter implements ResultModelConverter<Observatio
     }
 }
 
-
 export class GetObservationsBuilder implements QueryBuilder {
-
     public getQuery(options: GetObservationsOptions): string {
         return "";
     }
@@ -47,7 +59,7 @@ export interface GetObservationsOptions {
 }
 
 export interface ResultList {
-    value?: (ValueEntity)[] | null;
+    value?: ValueEntity[] | null;
 }
 export interface ValueEntity {
     Observations?: (ObservationsEntity | null)[] | null;
@@ -65,4 +77,3 @@ export interface ObservationsEntity {
 export interface Parameters {
     "last calibration": string;
 }
-

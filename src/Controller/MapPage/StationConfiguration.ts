@@ -4,7 +4,7 @@ import { Scale } from "../../Model/Scale";
 import { Polygon } from "../../Model/Polygon";
 import { MapPin } from "../../Model/MapPin";
 import { Feature } from "../../Model/Feature";
-import DataProvider from "../Frost/DataProvider";
+import DataProvider from "../FROST/DataProvider";
 import { ObservationStation } from "../../Model/ObservationStation";
 import { Observation } from "../../Model/Observation";
 
@@ -22,7 +22,11 @@ export default class StationConfiguration extends MapConfiguration {
     }
 
     async getPins(view: Viewport): Promise<MapPin[]> {
-        var latestObs: Observation[] = await DataProvider.getLatestObservations(view.getCenter(), view.getZoom(), this.selectedFeature);
+        var latestObs: Observation[] = await DataProvider.getLatestObservations(
+            view.getCenter(),
+            view.getZoom(),
+            this.selectedFeature
+        );
         return latestObs.map((o) =>
             this.buildMapPin(o.getObservationStation(), o.getValue())
         );
