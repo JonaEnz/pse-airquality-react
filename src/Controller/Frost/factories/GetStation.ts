@@ -18,7 +18,7 @@ export class GetStationConverter implements ResultModelConverter<ObservationStat
         if (json.Locations === undefined || json.Locations === null) {
             throw new Error("ObservationStation has no Location");
         } else {
-            pos = new Position(json.Locations[0].location.coordinates[0], json.Locations[0].location.coordinates[1]);
+            pos = new Position(json.Locations[0].location.coordinates[1], json.Locations[0].location.coordinates[0]);
         }
 
         if (json.Datastreams === undefined || json.Datastreams === null) {

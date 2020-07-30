@@ -16,7 +16,7 @@ export default class DetailPage extends React.Component<IDetailPageProps, IDetai
 
     constructor(props: IDetailPageProps) {
         super(props);
-        this.state = { obs: new ObservationStation("", "", "", new Position(0, 0), []) };
+        this.state = { obs: null };
         DataProvider.getStation(this.props.match.params.id).then((o) => {
             this.setState({ obs: o });
         });
@@ -31,7 +31,7 @@ export default class DetailPage extends React.Component<IDetailPageProps, IDetai
 
     //return diagrams of this observation station
     renderDiagrams() {
-        var diagramController = this.state.obs.getDiagramController();
+        var diagramController = (this.state.obs as ObservationStation).getDiagramController();
         return (
             diagramController.map((controller) => (
                 <Grid item xl={6} lg={6} md={6} sm={6} xs={6} >
@@ -46,14 +46,16 @@ export default class DetailPage extends React.Component<IDetailPageProps, IDetai
             <Grid container justify='center'>
                 <Grid container justify='center' spacing={4} xl={8} lg={8} md={8} sm={12} xs={12} style={this.styles.main_container}>
                     <Grid item xl={8} lg={8} md={8} sm={12} xs={12} >
-                        <ObservationStationProfile observationStation={this.state.obs} />
+                        {this.state.obs ? <ObservationStationProfile observationStation={this.state.obs} /> : <p>...</p>}
+
                     </Grid>
                     <Hidden only={['sm', 'xs']}>
                         <Grid item xl={4} lg={4} md={4}>
-                            <LocationMap position={this.state.obs.getPosition()} />
+                            {this.state.obs ? <LocationMap position={this.state.obs.getPosition()} /> : <p>...</p>}
+
                         </Grid>
                     </Hidden>
-                    {this.renderDiagrams()}
+                    {this.state.obs ? this.renderDiagrams() : <p>...</p>}
                 </Grid>
             </Grid>
         );
@@ -65,5 +67,5 @@ interface IDetailPageProps {
 }
 
 interface IDetailPageState {
-    obs: ObservationStation;
+    obs: ObservationStation | null;
 }
