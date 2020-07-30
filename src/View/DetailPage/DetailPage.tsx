@@ -7,12 +7,12 @@ import { ObservationStation } from "../../Model/ObservationStation";
 import ObservationStationProfile from "./ObservationStationProfile";
 import LocationMap from "./LocationMap";
 import Diagram from "./Diagram";
-import DataProvider from "../../Controller/FROST/DataProvider";
+import DataProvider from "../../Controller/Frost/DataProvider";
 
 export default class DetailPage extends React.Component<
     IDetailPageProps,
     IDetailPageState
-> {
+    > {
     constructor(props: IDetailPageProps) {
         super(props);
         this.state = { obs: null };
@@ -60,8 +60,8 @@ export default class DetailPage extends React.Component<
                                 observationStation={this.state.obs}
                             />
                         ) : (
-                            <p>...</p>
-                        )}
+                                <p>...</p>
+                            )}
                     </Grid>
                     <Hidden only={["sm", "xs"]}>
                         <Grid item xl={4} lg={4} md={4}>
@@ -70,8 +70,8 @@ export default class DetailPage extends React.Component<
                                     position={this.state.obs.getPosition()}
                                 />
                             ) : (
-                                <p>...</p>
-                            )}
+                                    <p>...</p>
+                                )}
                         </Grid>
                     </Hidden>
                     {this.state.obs ? this.renderDiagrams() : <p>...</p>}

@@ -12,12 +12,12 @@ import ObservationItem from "./ObservationItem";
 import { Color } from "../../Model/Color";
 import { Observation } from "../../Model/Observation";
 import Language from "../../Controller/Storage/Language";
-import DataProvider from "../../Controller/FROST/DataProvider";
+import DataProvider from "../../Controller/Frost/DataProvider";
 
 export default class ObservationStationProfile extends React.Component<
     IObservationStationProfileProps,
     IObservationStationProfileState
-> {
+    > {
     languageProvider: Language;
 
     constructor(props: IObservationStationProfileProps) {

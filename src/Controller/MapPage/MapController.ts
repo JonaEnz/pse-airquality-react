@@ -11,7 +11,7 @@ import FeatureProvider from "../FeatureProvider";
 import { MapPin } from "../../Model/MapPin";
 import NearConfiguration from "./NearConfiguration";
 import PolygonConfiguration from "./PolygonConfiguration";
-import DataProvider from "../FROST/DataProvider";
+import DataProvider from "../Frost/DataProvider";
 
 export class MapController {
     private config: MapConfiguration;
@@ -106,7 +106,7 @@ export class MapController {
             default:
                 throw new Error(
                     "Current configuration has invalid id: " +
-                        this.config.getId()
+                    this.config.getId()
                 );
         }
     }
@@ -125,7 +125,7 @@ export class MapController {
 
         var response = await fetch(
             "https://nominatim.openstreetmap.org/search?format=json&q=" +
-                encodeURIComponent(searchTerm)
+            encodeURIComponent(searchTerm)
         );
         var json = await response.json();
         if (json.length === 0) {

@@ -4,7 +4,7 @@ import { Scale } from "../../Model/Scale";
 import { Feature } from "../../Model/Feature";
 import { MapPin } from "../../Model/MapPin";
 import { Polygon } from "../../Model/Polygon";
-import DataProvider from "../FROST/DataProvider";
+import DataProvider from "../Frost/DataProvider";
 import { Observation } from "../../Model/Observation";
 import Delaunator from "delaunator";
 
