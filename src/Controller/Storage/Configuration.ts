@@ -5,6 +5,7 @@ export default class Configuration {
     private language: string = "";
     private frostUrl: string = "";
 
+    // Return singleton instance
     static getInstance(): Configuration {
         if (!Configuration.instance) {
             Configuration.load();
@@ -12,8 +13,9 @@ export default class Configuration {
         return Configuration.instance as Configuration;
     }
 
+    // Load instance from config.json
     private static load() {
-        var json = require("../../Jsons/config.json");
+        var json = require("../../Jsons/config.json"); //Load config
         var iConf = json as IConfig;
         if (!iConf) {
             throw new Error("Config.json has wrong format.");
@@ -21,17 +23,19 @@ export default class Configuration {
         var newConf = new Configuration();
         newConf.language = iConf.language;
         newConf.frostUrl = iConf.frostUrl;
-        iConf.supportedFeatures.forEach((f) =>
-            FeatureProvider.getInstance().getFeature(f)
+        iConf.supportedFeatures.forEach(
+            (f) => FeatureProvider.getInstance().getFeature(f) //Load all supported features
         );
 
         Configuration.instance = newConf;
     }
 
+    // The default value for the language id
     getLanguage(): string {
         return this.language;
     }
 
+    // The Url of the top level FROST REST API
     getFrostUrl(): string {
         return this.frostUrl;
     }
