@@ -7,6 +7,7 @@ import { Feature } from "../../Model/Feature";
 import MockDataProvider from "../FROST/MockDataProvider";
 import { Observation } from "../../Model/Observation";
 import { ObservationStation } from "../../Model/ObservationStation";
+import DataProvider from "../Frost/DataProvider";
 
 const SAMPLE_SCALE = 20;
 const ID = "NearConfiguration";
@@ -62,7 +63,7 @@ export default class NearConfiguration extends MapConfiguration {
     }
 
     async getPins(view: Viewport): Promise<MapPin[]> {
-        var observations = await MockDataProvider.getLatestObservations(
+        var observations = await DataProvider.getLatestObservations(
             view.getCenter(),
             view.getZoom(),
             this.selectedFeature

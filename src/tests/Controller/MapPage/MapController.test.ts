@@ -1,7 +1,9 @@
 import { MapController } from "../../../Controller/MapPage/MapController";
 import { Color } from "../../../Model/Color";
+import Language from "../../../Controller/Storage/Language";
 
 var controller = new MapController(false); //New controller with default data
+Language.getInstance();
 
 test("Valid default viewport", () => {
     var vp = controller.getViewport();

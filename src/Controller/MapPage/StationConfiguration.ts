@@ -5,6 +5,9 @@ import { Polygon } from "../../Model/Polygon";
 import { MapPin } from "../../Model/MapPin";
 import MockDataProvider from "../FROST/MockDataProvider";
 import { Feature } from "../../Model/Feature";
+import DataProvider from "../Frost/DataProvider";
+import { ObservationStation } from "../../Model/ObservationStation";
+import { Observation } from "../../Model/Observation";
 
 const ID = "StationConfiguration";
 
@@ -20,11 +23,7 @@ export default class StationConfiguration extends MapConfiguration {
     }
 
     async getPins(view: Viewport): Promise<MapPin[]> {
-        var latestObs = await MockDataProvider.getLatestObservations(
-            view.getCenter(),
-            view.getZoom(),
-            this.selectedFeature
-        );
+        var latestObs: Observation[] = await DataProvider.getLatestObservations(view.getCenter(), view.getZoom(), this.selectedFeature);
         return latestObs.map((o) =>
             this.buildMapPin(o.getObservationStation(), o.getValue())
         );

@@ -20,7 +20,7 @@ export default class MapConfigurationMemory {
         localStorage.setItem(
             LOCALSTORAGE_MAPCONF,
             JSON.stringify({
-                type: conf.constructor.name,
+                type: conf.getId(),
                 feature: conf.getFeatures()[0].getId(),
                 view: view,
             })

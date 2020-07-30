@@ -1,6 +1,6 @@
 import React from "react";
-import { Fragment } from "react";
 import Language from "../Controller/Storage/Language";
+import "./informationPage.css";
 
 let language = Language.getInstance();
 
@@ -9,10 +9,12 @@ export default class PrivacyPolicyPage extends React.Component<
     IPrivacyPolicyPageState
     > {
     render() {
-        return <Fragment>
-            <h1>{language.getText("privacyPolicy")}</h1>
-            <h4>{language.getText("privacyPolicyText")}</h4>
-        </Fragment>
+        return <div>
+            <p className="informationPage">
+                <h1>{language.getText("privacyPolicy")}</h1>
+                <h3>{language.getText("privacyPolicyText")}</h3>
+            </p>
+        </div>
     }
 }
 

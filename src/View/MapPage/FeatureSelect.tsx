@@ -78,7 +78,7 @@ export default function FeatureSelect(props: Props) {
             );
             setConfig(props.startConf.conf);
         }
-    }, []);
+    }, [props.startConf]);
     const changeConfig = (conf: string, feature: Feature) => {
         console.log(conf);
         setConfig(conf);
