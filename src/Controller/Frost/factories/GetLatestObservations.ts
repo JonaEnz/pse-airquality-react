@@ -13,8 +13,8 @@ export class GetLatestObservationsFactory extends FrostFactory<Observation[]> {
 }
 
 export class GetLatestObservationsConverter implements ResultModelConverter<Observation[]> {
-    public convert(json: any): Observation[] {
-        return;
+    public convert(json: any, options: GetLatestObservationsOptions): Observation[] {
+        return [];
     }
 }
 
