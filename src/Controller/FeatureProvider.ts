@@ -1,14 +1,19 @@
 import { Feature } from "../Model/Feature";
 import { Scale } from "../Model/Scale";
+import * as featureDefinition from "../Jsons/features.json";
 
 export default class FeatureProvider {
-    private context: any;
+    //private context: any;
     private features: { [id: string]: Feature };
     private static instance: FeatureProvider | null = null;
 
     constructor() {
         this.features = {};
-        this.context = require.context("../Jsons/", true);
+        //@ts-ignore
+        (featureDefinition.features as FeatureDefinition[]).forEach((f) => {
+            this.addFeature(f);
+        });
+        //this.context = require.context("../Jsons/", true);
     }
 
     static getInstance(): FeatureProvider {
@@ -29,7 +34,7 @@ export default class FeatureProvider {
                 definition.limit,
                 definition.unitOfMeasurement,
                 definition.diagrams,
-                definition.icon,
+                definition.icon
             );
             this.features[f.getId()] = f;
         }
@@ -42,6 +47,7 @@ export default class FeatureProvider {
         });
     }
 
+    /*
     getFeature(featureId: string): Feature | undefined {
         if (Object.keys(this.features).includes(featureId)) {
             return this.features[featureId];
@@ -57,7 +63,17 @@ export default class FeatureProvider {
             }
         }
     }
+    */
 
+    getFeature(featureId: string): Feature | undefined {
+        if (Object.keys(this.features).includes(featureId)) {
+            return this.features[featureId];
+        } else {
+            return undefined;
+        }
+    }
+
+    /*
     private getFeatureById(featureId: string): Feature | null {
         featureId = featureId.replace(/:/g, "");
         try {
@@ -78,9 +94,10 @@ export default class FeatureProvider {
             definition.limit,
             definition.unitOfMeasurement,
             definition.diagrams,
-            definition.icon,
+            definition.icon
         );
     }
+    */
 }
 
 interface FeatureDefinition {
