@@ -1,4 +1,3 @@
-
 import { FeatureHistoryLineChartController } from "../../Controller/DiagramController/FeatureHistoryLineChartController";
 import { ComparisonToLastYearPieChartController } from "../../Controller/DiagramController/ComparisonToLastYearPieChartController";
 import { YearComparisonLineChartController } from "../../Controller/DiagramController/YearComparisonLineChartController";
@@ -8,7 +7,6 @@ import { Feature } from "../../Model/Feature";
 import { ObservationStation } from "../../Model/ObservationStation";
 import { Scale } from "../../Model/Scale";
 import { Position } from "../../Model/Position";
-
 
 var feature = new Feature(
     "1",
@@ -24,16 +22,28 @@ var feature = new Feature(
     100,
     "degree",
     ["1", "2"],
-    "iconnName"
+    "iconName"
 );
 
-var station = new ObservationStation("0001", "Chicago", "placeholder", new Position(0, 0), [feature]);
+var station = new ObservationStation(
+    "0001",
+    "Chicago",
+    "placeholder",
+    new Position(0, 0),
+    [feature]
+);
 
 var historyChart = new FeatureHistoryLineChartController(station, feature);
 
-var ComparisonToLastYearPieChart = new ComparisonToLastYearPieChartController(station, feature);
+var ComparisonToLastYearPieChart = new ComparisonToLastYearPieChartController(
+    station,
+    feature
+);
 
-var yearComparisonChart = new YearComparisonLineChartController(station, feature);
+var yearComparisonChart = new YearComparisonLineChartController(
+    station,
+    feature
+);
 
 test("getChartType() linechart", () => {
     expect(historyChart.getChartType()).toBe(ChartType.LINE_CHART);
@@ -48,11 +58,18 @@ test("getDefaultConfigurationOption() linechart", () => {
 });
 
 test("getConfigurationOptions() linechart", () => {
-    expect(historyChart.getConfigurationOptions()).toBe(['last_24_hours', 'last_7_days', 'last_31_days', 'last_year'])
+    expect(historyChart.getConfigurationOptions()).toBe([
+        "last_24_hours",
+        "last_7_days",
+        "last_31_days",
+        "last_year",
+    ]);
 });
 
 test("getChartType() piechart", () => {
-    expect(ComparisonToLastYearPieChart.getChartType()).toBe(ChartType.PIE_CHART);
+    expect(ComparisonToLastYearPieChart.getChartType()).toBe(
+        ChartType.PIE_CHART
+    );
 });
 
 test("isConfigurable() piechart", () => {
@@ -60,26 +77,41 @@ test("isConfigurable() piechart", () => {
 });
 
 test("getConfigurationOptions() piechart", () => {
-    expect(ComparisonToLastYearPieChart.getConfigurationOptions()).toBe(['default_configuration'])
+    expect(ComparisonToLastYearPieChart.getConfigurationOptions()).toBe([
+        "default_configuration",
+    ]);
 });
 
 test("getDefaultConfigurationOption() piechart", () => {
-    expect(ComparisonToLastYearPieChart.getDefaultConfigurationOption()).toBe("default_configuration");
+    expect(ComparisonToLastYearPieChart.getDefaultConfigurationOption()).toBe(
+        "default_configuration"
+    );
 });
 
 test("getGraphicsOptions() yearcomparisonChart", () => {
     expect(yearComparisonChart.getGraphicsOptions()).toEqual({
         hAxis: {
-            format: 'MMM',
-            gridlines: { count: 6 }
+            format: "MMM",
+            gridlines: { count: 6 },
         },
     });
-    test("create Diagram in  Diagram Factory", () => {
-        expect(DiagramFactory.getDiagramController('YearComparisonLineChart', station, feature)).toEqual(new YearComparisonLineChartController(station, feature))
-    });
+});
+test("create Diagram in  Diagram Factory", () => {
+    expect(
+        DiagramFactory.getDiagramController(
+            "YearComparisonLineChart",
+            station,
+            feature
+        )
+    ).toEqual(new YearComparisonLineChartController(station, feature));
+});
 
-    test("show error message in DiagramFactory", () => {
-        expect(DiagramFactory.getDiagramController('UndefinedPieChart', station, feature)).toThrowError();
-    })
-
-
+test("show error message in DiagramFactory", () => {
+    expect(
+        DiagramFactory.getDiagramController(
+            "UndefinedPieChart",
+            station,
+            feature
+        )
+    ).toThrowError();
+});

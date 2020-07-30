@@ -36,7 +36,8 @@
                 "last_31_days": "Letzte 31 Tage",
                 "last_year": "Letztes Jahr",
                 "higher": "höherer Wert",
-                "lower": "niedrigerer Wert"
+                "lower": "niedrigerer Wert",
+                "testFeature": "Test"
             }
         },
         {
@@ -75,7 +76,8 @@
                 "last_31_days": "last 31 days",
                 "last_year": "last year",
                 "higher": "higher value",
-                "lower": "lower value"
+                "lower": "lower value",
+                "testFeature": "Test"
             }
         }
     ]

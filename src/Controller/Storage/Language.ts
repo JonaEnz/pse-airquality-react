@@ -1,5 +1,4 @@
 import * as languageData from "./languages.json";
-const Configuration = import("./Configuration");
 
 interface Lang {
     id: string;
@@ -40,9 +39,6 @@ export default class Language {
 
     //returns the string that corresponds to the string id in the currently selected language
     public getText(id: string): string {
-        if (this.selectedLangId === "") {
-            this.changeLanguage(Configuration.getInstance().getLanguage());
-        }
         let text: string = this.selectedLang.strings[id];
         if (text === "" || text == null) {
             throw new Error(

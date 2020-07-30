@@ -2,7 +2,7 @@ import FeatureProvider from "../FeatureProvider";
 
 export default class Configuration {
     private static instance: Configuration | null;
-    private language: string = "";
+    private language: string = "de-de";
     private frostUrl: string = "";
 
     // Return singleton instance

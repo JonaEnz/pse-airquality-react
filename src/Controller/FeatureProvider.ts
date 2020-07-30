@@ -13,7 +13,6 @@ export default class FeatureProvider {
         (featureDefinition.features as FeatureDefinition[]).forEach((f) => {
             this.addFeature(f);
         });
-        //this.context = require.context("../Jsons/", true);
     }
 
     static getInstance(): FeatureProvider {
@@ -47,24 +46,6 @@ export default class FeatureProvider {
         });
     }
 
-    /*
-    getFeature(featureId: string): Feature | undefined {
-        if (Object.keys(this.features).includes(featureId)) {
-            return this.features[featureId];
-        } else {
-            var f = this.getFeatureById(featureId);
-            if (f) {
-                //Successfully read feature json
-                this.features[featureId] = f;
-                return f;
-            } else {
-                //console.log("Failed to read, " + featureId, ".");
-                return undefined;
-            }
-        }
-    }
-    */
-
     getFeature(featureId: string): Feature | undefined {
         if (Object.keys(this.features).includes(featureId)) {
             return this.features[featureId];
@@ -72,32 +53,6 @@ export default class FeatureProvider {
             return undefined;
         }
     }
-
-    /*
-    private getFeatureById(featureId: string): Feature | null {
-        featureId = featureId.replace(/:/g, "");
-        try {
-            var json = this.context("./" + featureId + ".json");
-        } catch {
-            return null;
-        }
-        if (!json) {
-            return null; //Failed to read file
-        }
-        var definition = json as FeatureDefinition;
-        return new Feature(
-            definition.id,
-            definition.nameId,
-            definition.descriptionId,
-            new Scale(true, definition.defaultScale),
-            definition.webLinkId,
-            definition.limit,
-            definition.unitOfMeasurement,
-            definition.diagrams,
-            definition.icon
-        );
-    }
-    */
 }
 
 interface FeatureDefinition {
