@@ -119,12 +119,16 @@ class MapPage extends React.Component<Props, State> {
     onSearch(term: string) {
         this.mapController.search(term).then(() => {
             var mp = new MapPin(
-                "position",
+                "icon-home-1",
                 this.state.viewport.getCenter(),
                 -1,
                 new Color(0, 0, 0)
             );
-            this.setState({ additionalPins: [mp] });
+            this.setState({
+                additionalPins: [mp],
+                pins: this.state.pins.concat(mp),
+            });
+            this.update();
         });
     }
 
