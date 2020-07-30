@@ -1,0 +1,10 @@
+{
+    "language": "de-de",
+    "frostUrl": "https://api.smartaq.net/",
+    "supportedFeatures": [
+        "saqn:op:mcpm2p5",
+        "saqn:op:mcpm10",
+        "saqn:op:ta",
+        "saqn:op:plev"
+    ]
+}

@@ -1,0 +1,96 @@
+{
+    "features": [
+        {
+            "id": "saqn:op:ncpm10",
+            "nameId": "PNC10Name",
+            "unitOfMeasurement": "Ø",
+            "descriptionId": "PNC10Desc",
+            "defaultScale": {
+                "0": "#0f8a0f",
+                "5": "#2db00c",
+                "10": "#59d408",
+                "15": "#8fec04",
+                "20": "#c7f901",
+                "25": "#ffff00",
+                "30": "#f9c701",
+                "40": "#ec8f04",
+                "50": "#d45908",
+                "100": "#b02d0c",
+                "2147483647": "#8a0f0f"
+            },
+            "webLinkId": "PNC10Link",
+            "limit": 100,
+            "diagrams": [],
+            "icon": ""
+        },
+        {
+            "id": "saqn:op:mcpm2p5",
+            "nameId": "PNC2.5Name",
+            "unitOfMeasurement": "µg/m³",
+            "descriptionId": "PNC2.5Desc",
+            "defaultScale": {
+                "0": "#0f8a0f",
+                "5": "#2db00c",
+                "10": "#59d408",
+                "15": "#8fec04",
+                "20": "#c7f901",
+                "25": "#ffff00",
+                "30": "#f9c701",
+                "40": "#ec8f04",
+                "50": "#d45908",
+                "100": "#b02d0c",
+                "2147483647": "#8a0f0f"
+            },
+            "webLinkId": "PNC2.5Link",
+            "limit": 100,
+            "diagrams": [],
+            "icon": ""
+        },
+        {
+            "id": "saqn:op:plev",
+            "nameId": "AirPressureName",
+            "unitOfMeasurement": "hPa",
+            "descriptionId": "pascalDef",
+            "defaultScale": {
+                "-2147483647": "#0000ff",
+                "970": "#0993f6",
+                "980": "#11eed1",
+                "990": "#16e963",
+                "1000": "#29e718",
+                "1010": "#80e619",
+                "1020": "#cfe718",
+                "1030": "#e9b816",
+                "1040": "#ee7811",
+                "1050": "#f63c09",
+                "2147483647": "#ff0000"
+            },
+            "webLinkId": "pascalLink",
+            "limit": 1050,
+            "diagrams": [],
+            "icon": ""
+        },
+        {
+            "id": "saqn:op:ta",
+            "nameId": "temperatureName",
+            "unitOfMeasurement": "°C",
+            "descriptionId": "temperatureDesc",
+            "defaultScale": {
+                "-2147483647": "#0000ff",
+                "0": "#0993f6",
+                "5": "#11eed1",
+                "10": "#16e963",
+                "15": "#29e718",
+                "20": "#80e619",
+                "25": "#cfe718",
+                "30": "#e9b816",
+                "35": "#ee7811",
+                "40": "#f63c09",
+                "2147483647": "#ff0000"
+            },
+            "webLinkId": "tempLink",
+            "limit": 40,
+            "diagrams": [],
+            "icon": ""
+        }
+    ]
+}

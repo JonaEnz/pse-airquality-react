@@ -62,6 +62,19 @@ export class Map extends React.Component<Props, State> {
             outlineColor: "black", // Marker outline color
             outlineWidth: 1, // Marker outline width
         });
+        //Filter icons
+        var regEx = /icon-(.+)-.*/;
+        if (regEx.test(pin.getId())) {
+            var iconName = regEx.exec(pin.getId()) as RegExpExecArray;
+            //@ts-ignore
+            icon = L.IconMaterial.icon({
+                icon: iconName[1], // Name of Material icon
+                iconColor: "#33DD11", // Material icon color (could be rgba, hex, html name...)
+                markerColor: pin.getColor().getHex(), // Marker fill color
+                outlineColor: "black", // Marker outline color
+                outlineWidth: 1, // Marker outline width
+            });
+        }
         return icon;
     }
 
@@ -149,7 +162,7 @@ export class Map extends React.Component<Props, State> {
                                 ) : (
                                     <p>
                                         {Language.getInstance().getText(
-                                            "loading"
+                                            "noData"
                                         )}
                                     </p>
                                 )}

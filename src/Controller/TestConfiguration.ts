@@ -1,4 +1,4 @@
-import MapConfiguration from "./MapConfiguration";
+import MapConfiguration from "./MapPage/MapConfiguration";
 import { Viewport } from "../Model/Viewport";
 import { Scale } from "../Model/Scale";
 import { MapPin } from "../Model/MapPin";
@@ -15,6 +15,10 @@ export default class TestConfiguration extends MapConfiguration {
     constructor(feature: Feature) {
         super();
         this.feature = feature;
+    }
+
+    getId(): string {
+        return "TestConfiguration";
     }
 
     async getPins(view: Viewport): Promise<MapPin[]> {

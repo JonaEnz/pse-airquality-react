@@ -12,11 +12,13 @@ import ObservationItem from './ObservationItem';
 import MockDataProvider from '../../Controller/MockDataProvider';
 import { Color } from '../../Model/Color';
 import { Observation } from '../../Model/Observation';
+import Language from '../../Controller/Storage/Language';
 
 export default class ObservationStationProfile extends React.Component<IObservationStationProfileProps, IObservationStationProfileState> {
 
     //the corresponding observation station to this component
     observationStation: ObservationStation;
+    languageProvider: Language;
 
     constructor(props: IObservationStationProfileProps) {
         super(props);
@@ -24,6 +26,7 @@ export default class ObservationStationProfile extends React.Component<IObservat
         this.state = {
             latestObservations: this.getLatestObservations(),
         }
+        this.languageProvider = Language.getInstance();
     }
 
     //styles for this component
@@ -98,32 +101,10 @@ export default class ObservationStationProfile extends React.Component<IObservat
     //returns the timestamp of the latest observation as a readable string
     private renderObservationDate() {
         if (this.state.latestObservations.length !== 0) {
-            var timestamp = this.state.latestObservations[0].getTimeStamp();
-
-            var year = timestamp.getFullYear();
-            var month = timestamp.getMonth();
-            var day = timestamp.getDay();
-            var hour = timestamp.getHours();
-            var minute = timestamp.getMinutes();
-
-            return this.getDateString(year, month, day, hour, minute);
+            return this.languageProvider.getDateString(this.state.latestObservations[0].getTimeStamp());
         } else {
             return '';
         }
-    }
-
-    //returns a readable date string
-    private getDateString(year: number, month: number, day: number, hour: number, minute: number) {
-        var parameters: number[] = [year, month, day, hour, minute];
-        var strParameters: string[] = parameters.map((num) => num.toString());
-        strParameters = strParameters.map((str) => {
-            if (str.length === 1) {
-                return ('0' + str);
-            } else {
-                return str;
-            }
-        });
-        return '' + strParameters[2] + '.' + strParameters[1] + '.' + strParameters[0] + ', ' + strParameters[3] + ':' + strParameters[4] + ' Uhr';
     }
 
     render() {
@@ -146,7 +127,7 @@ export default class ObservationStationProfile extends React.Component<IObservat
                         <Grid container alignItems='stretch'>
                             <Grid item xs>
                                 <Typography align='left' variant='subtitle1'>
-                                    Letzte Messung
+                                    {this.languageProvider.getText('last_measurement')}
                                 </Typography>
                             </Grid>
                             <Grid item>

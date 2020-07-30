@@ -3,7 +3,7 @@ import { ObservationStation } from "../../Model/ObservationStation";
 import { Map } from "./Map";
 import { Feature } from "../../Model/Feature";
 import { Viewport } from "../../Model/Viewport";
-import { MapController } from "../../Controller/MapController";
+import { MapController } from "../../Controller/MapPage/MapController";
 import { MapPin } from "../../Model/MapPin";
 import { Polygon } from "../../Model/Polygon";
 import { Position } from "../../Model/Position";
@@ -13,6 +13,7 @@ import Search from "./Search";
 import Legend from "./Legend";
 import { Box, Theme } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
+import { Color } from "../../Model/Color";
 
 const styles = (theme: Theme) => ({});
 
@@ -21,6 +22,7 @@ interface State {
     pins: MapPin[];
     polygons: Polygon[];
     viewport: Viewport;
+    additionalPins: MapPin[];
 }
 
 interface Props {
@@ -42,6 +44,7 @@ class MapPage extends React.Component<Props, State> {
             viewport: this.mapController.getViewport(),
             pins: [],
             polygons: [],
+            additionalPins: [],
         };
         this.update();
     }
@@ -59,7 +62,7 @@ class MapPage extends React.Component<Props, State> {
         var polyPromsie = this.mapController.getPolygons();
         Promise.all([pinPromise, polyPromsie]).then((pinPoly) => {
             this.setState({
-                pins: pinPoly[0],
+                pins: pinPoly[0].concat(this.state.additionalPins),
                 polygons: pinPoly[1],
             });
         });
@@ -101,6 +104,12 @@ class MapPage extends React.Component<Props, State> {
     }
 
     async onStationSelected(pin: MapPin): Promise<Observation> {
+        if (this.state.additionalPins.some((p) => pin.getId() === p.getId())) {
+            // Not a station, do nothing
+            return new Promise(() => {
+                return null;
+            });
+        }
         this.setState({ selectedStation: null });
         var promise = this.mapController.handlePopup(pin);
         promise.then((o) => this.changePopupStation(o.getObservationStation()));
@@ -108,8 +117,19 @@ class MapPage extends React.Component<Props, State> {
     }
 
     onSearch(term: string) {
-        this.mapController.search(term);
-        this.setState({ selectedStation: this.state.selectedStation });
+        this.mapController.search(term).then(() => {
+            var mp = new MapPin(
+                "icon-home-1",
+                this.state.viewport.getCenter(),
+                -1,
+                new Color(0, 0, 0)
+            );
+            this.setState({
+                additionalPins: [mp],
+                pins: this.state.pins.concat(mp),
+            });
+            this.update();
+        });
     }
 
     getMin(): number {
