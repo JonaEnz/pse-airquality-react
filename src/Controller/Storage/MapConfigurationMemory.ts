@@ -1,11 +1,11 @@
-import MapConfiguration from "../MapConfiguration";
+import MapConfiguration from "../MapPage/MapConfiguration";
 import { Viewport } from "../../Model/Viewport";
 import { Position } from "../../Model/Position";
 import TestConfiguration from "../TestConfiguration";
-import NearConfiguration from "../NearConfiguration";
+import NearConfiguration from "../MapPage/NearConfiguration";
 import FeatureProvider from "../FeatureProvider";
 import PolygonConfiguration from "../MapPage/PolygonConfiguration";
-import StationConfiguration from "../StationConfiguration";
+import StationConfiguration from "../MapPage/StationConfiguration";
 import { Feature } from "../../Model/Feature";
 import { isNullOrUndefined } from "util";
 
@@ -20,7 +20,7 @@ export default class MapConfigurationMemory {
         localStorage.setItem(
             LOCALSTORAGE_MAPCONF,
             JSON.stringify({
-                type: conf.constructor.name,
+                type: conf.getId(),
                 feature: conf.getFeatures()[0].getId(),
                 view: view,
             })

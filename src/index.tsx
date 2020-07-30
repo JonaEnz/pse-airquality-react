@@ -7,6 +7,7 @@ import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import purple from "@material-ui/core/colors/purple";
 import lightGreen from "@material-ui/core/colors/green";
 import Layout from "./View/Layout/Layout";
+import Configuration from "./Controller/Storage/Configuration";
 
 const theme = createMuiTheme({
     palette: {
@@ -18,6 +19,8 @@ const theme = createMuiTheme({
         },
     },
 });
+
+Configuration.getInstance(); //Initialize App Config
 
 ReactDOM.render(
     <React.StrictMode>

@@ -1,14 +1,18 @@
 import { Feature } from "../Model/Feature";
 import { Scale } from "../Model/Scale";
+import * as featureDefinition from "../Jsons/features.json";
 
 export default class FeatureProvider {
-    private context: any;
+    //private context: any;
     private features: { [id: string]: Feature };
     private static instance: FeatureProvider | null = null;
 
     constructor() {
         this.features = {};
-        this.context = require.context("../Jsons/", true);
+        //@ts-ignore
+        (featureDefinition.features as FeatureDefinition[]).forEach((f) => {
+            this.addFeature(f);
+        });
     }
 
     static getInstance(): FeatureProvider {
@@ -29,7 +33,7 @@ export default class FeatureProvider {
                 definition.limit,
                 definition.unitOfMeasurement,
                 definition.diagrams,
-                definition.icon,
+                definition.icon
             );
             this.features[f.getId()] = f;
         }
@@ -46,40 +50,8 @@ export default class FeatureProvider {
         if (Object.keys(this.features).includes(featureId)) {
             return this.features[featureId];
         } else {
-            var f = this.getFeatureById(featureId);
-            if (f) {
-                //Successfully read feature json
-                this.features[featureId] = f;
-                return f;
-            } else {
-                //console.log("Failed to read, " + featureId, ".");
-                return undefined;
-            }
+            return undefined;
         }
-    }
-
-    private getFeatureById(featureId: string): Feature | null {
-        featureId = featureId.replace(/:/g, "");
-        try {
-            var json = this.context("./" + featureId + ".json");
-        } catch {
-            return null;
-        }
-        if (!json) {
-            return null; //Failed to read file
-        }
-        var definition = json as FeatureDefinition;
-        return new Feature(
-            definition.id,
-            definition.nameId,
-            definition.descriptionId,
-            new Scale(true, definition.defaultScale),
-            definition.webLinkId,
-            definition.limit,
-            definition.unitOfMeasurement,
-            definition.diagrams,
-            definition.icon,
-        );
     }
 }
 

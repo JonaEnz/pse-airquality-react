@@ -1,14 +1,15 @@
 import MapConfiguration from "./MapConfiguration";
-import { Viewport } from "../Model/Viewport";
-import { Scale } from "../Model/Scale";
-import { MapPin } from "../Model/MapPin";
-import { Polygon } from "../Model/Polygon";
-import { Feature } from "../Model/Feature";
-import MockDataProvider from "./FROST/MockDataProvider";
-import { Observation } from "../Model/Observation";
-import { ObservationStation } from "../Model/ObservationStation";
+import { Viewport } from "../../Model/Viewport";
+import { Scale } from "../../Model/Scale";
+import { MapPin } from "../../Model/MapPin";
+import { Polygon } from "../../Model/Polygon";
+import { Feature } from "../../Model/Feature";
+import MockDataProvider from "../FROST/MockDataProvider";
+import { Observation } from "../../Model/Observation";
+import { ObservationStation } from "../../Model/ObservationStation";
 
 const SAMPLE_SCALE = 20;
+const ID = "NearConfiguration";
 
 export default class NearConfiguration extends MapConfiguration {
     private selectedFeature: Feature;
@@ -18,6 +19,10 @@ export default class NearConfiguration extends MapConfiguration {
         super();
         this.selectedFeature = feature;
         this.scale = this.selectedFeature.getRelatedScale();
+    }
+
+    getId(): string {
+        return ID;
     }
 
     buildMapPin(obs: ObservationStation, value: number): MapPin {

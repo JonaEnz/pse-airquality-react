@@ -5,10 +5,12 @@
             "name": "Deutsch",
             "strings": {
                 "about": "Über",
+                "aboutText": "Das SmartAQNEet Projekt ist eine open-source Webanwendung auf Github, die von Informatikstudenten/-studentinnen der Karlsruher Institut der Technologie erstellt wurde. Ziel des Projektes ist es, die verschiedenen Messdaten zur Luftqualität simpel, aussagekräftig und benutzerfreundlich darzustellen.  Die Webanwendung basiert auf eine Umfrage mit 50 Teilnehmern zwischen dem Alter von 18 und 70, in der sie ihre Erwartungen an einer solchen Applikation genannt haben. Die Messdaten stammen von der Smart AirQuality Network Projekt in Ausburg.",
                 "privacyPolicy": "Datenschutzerklärung",
+                "privacyPolicyText": "In dem Fall, dass Sie die Standortermittlung nicht erlauben erfasst diese Webapplikation keine persönliche Daten von Ihnen. Sonst wird Ihr Standort erfasst, zwischengespeichert und nach dem Schließen der Webapplikation wieder gelöscht. Weitere Daten werden nicht gespeichert.",
                 "stationInfoButton": "Mehr Informationen",
                 "search": "Suche",
-                "loading": "Laden ...",
+                "noData": "Keine Daten",
                 "Error404": "Fehler 404: Die angeforderte Seite existiert nicht.",
                 "error": "Fehler",
                 "RelatedLink": "Mehr Infos",
@@ -24,7 +26,18 @@
                 "pascalLink": "TODO",
                 "temperatureName": "Temperatur",
                 "temperatureDesc": "Umgebungstemperatur in °C",
-                "tempLink": "TODO"
+                "tempLink": "TODO",
+                "mockFeatureNameId": "mockFeatureNameIdDe",
+                "mockFeatureDescriptionId": "mockFeatureDescriptionIdDe",
+                "mockWeblinkId": "mockWeblinkIdDe",
+                "last_measurement": "Letzte Messung",
+                "last_24_hours": "Letzte 24 Stunden",
+                "last_7_days": "Letzte 7 Tage",
+                "last_31_days": "Letzte 31 Tage",
+                "last_year": "Letztes Jahr",
+                "higher": "höherer Wert",
+                "lower": "niedrigerer Wert",
+                "testFeature": "Test"
             }
         },
         {
@@ -32,10 +45,12 @@
             "name": "English",
             "strings": {
                 "about": "About",
+                "aboutText": "The SmartAQNet project is an open-source Github web-application made by students of the Karlsruhe Institute of Technology. The goal of the project is to reflect many different types of measured data regarding air and air pollution in a simple, informative and user-friendly way. The web-application was based on a survey done with 50 people of ages 18 to 70, in which the participants shared their expectations for an application about air quality.The data has been provided by the Smart AirQuality Network project in Augsburg (www.smartaqnet.com).",
                 "privacyPolicy": "Privacy Policy",
+                "privacyPolicyText": "If you don't allow the application to have access to your address, no data will be collected from you. Otherwise, your addressed will be cached until you close the application. No other personal data will be collected.",
                 "stationInfoButton": "More details",
                 "search": "Search",
-                "loading": "Loading ...",
+                "noData": "No data.",
                 "Error404": "Error 404: This page doesn't exist.",
                 "error": "Error",
                 "RelatedLink": "More information",
@@ -51,7 +66,18 @@
                 "pascalLink": "TODO",
                 "temperatureName": "Temperature",
                 "temperatureDesc": "Temperature in °C",
-                "tempLink": "TODO"
+                "tempLink": "TODO",
+                "mockFeatureNameId": "mockFeatureNameIdEn",
+                "mockFeatureDescriptionId": "mockFeatureDescriptionIdEn",
+                "mockWeblinkId": "mockWeblinkIdEn",
+                "last_measurement": "Last Measurement",
+                "last_24_hours": "last 24 hours",
+                "last_7_days": "last 7 days",
+                "last_31_days": "last 31 days",
+                "last_year": "last year",
+                "higher": "higher value",
+                "lower": "lower value",
+                "testFeature": "Test"
             }
         }
     ]

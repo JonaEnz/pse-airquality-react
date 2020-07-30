@@ -3,6 +3,7 @@ import { ObservationStation } from '../../Model/ObservationStation';
 import { Feature } from '../../Model/Feature';
 import Timespan from '../../Model/Timespan';
 import MockDataProvider from '../MockDataProvider';
+import Language from '../Storage/Language';
 
 
 class CTLYPCConfigurationOption {
@@ -35,12 +36,16 @@ export class ComparisonToLastYearPieChartController implements IDiagramControlle
     //default configuration option
     private static readonly defaultConfigurationOption = ComparisonToLastYearPieChartController.configurationOptions[0];
 
+    languageProvider: Language;
+
     observationStation: ObservationStation;
     feature: Feature;
 
     constructor(observationStation: ObservationStation, feature: Feature) {
         this.observationStation = observationStation;
         this.feature = feature;
+
+        this.languageProvider = Language.getInstance();
     }
 
     getChartType(): ChartType {
@@ -85,14 +90,18 @@ export class ComparisonToLastYearPieChartController implements IDiagramControlle
         var higher = 0;
         var lower = 0;
 
+        let higherTag = this.languageProvider.getText('higher');
+        let lowerTag = this.languageProvider.getText('lower');
+
+
         observations.forEach(observation => {
             (observation.getValue() > lastObservationValue) ? (higher++) : (lower++);
         });
 
         var data = [
             ['Vergleich zum letzten Messwert', 'Anzahl Tage'],
-            ['higher', higher],
-            ['lower', lower],
+            [higherTag, higher],
+            [lowerTag, lower],
         ];
         return data;
     }
