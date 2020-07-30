@@ -5,6 +5,7 @@ import ResultModelConverter from '../ResultModelConverter';
 import { Position } from '../../../Model/Position';
 import { Feature } from '../../../Model/Feature';
 import FeatureProvider from '../../FeatureProvider';
+import { featureGroup } from 'leaflet';
 
 export class GetStationFactory extends FrostFactory<ObservationStation> {
     constructor() {
@@ -31,7 +32,16 @@ export class GetStationConverter implements ResultModelConverter<ObservationStat
         json.Datastreams.forEach(element => {
             let getfeat: Feature | undefined = fp.getFeature(element.ObservedProperty["@iot.id"]);
             if (getfeat !== undefined) {
-                features.push(getfeat);
+                let feat: Feature = getfeat;
+                let isin: boolean = false;
+                features.forEach(f => {
+                    if (f.getId() === feat.getId()) {
+                        isin = true;
+                    }
+                })
+                if (isin === false) {
+                    features.push(getfeat);
+                }
             }
         });
 
