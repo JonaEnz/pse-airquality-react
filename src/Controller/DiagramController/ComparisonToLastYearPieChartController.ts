@@ -1,11 +1,9 @@
-import IDiagramController, { ChartType } from './DiagramController';
-import { ObservationStation } from '../../Model/ObservationStation';
-import { Feature } from '../../Model/Feature';
-import Timespan from '../../Model/Timespan';
-import DataProvider from '../Frost/DataProvider';
-import Language from '../Storage/Language';
-import MockDataProvider from '../MockDataProvider';
-
+import IDiagramController, { ChartType } from "./DiagramController";
+import { ObservationStation } from "../../Model/ObservationStation";
+import { Feature } from "../../Model/Feature";
+import Timespan from "../../Model/Timespan";
+import Language from "../Storage/Language";
+import MockDataProvider from "../MockDataProvider";
 
 class CTLYPCConfigurationOption {
     name: string;
@@ -19,7 +17,8 @@ class CTLYPCConfigurationOption {
     }
 }
 
-export class ComparisonToLastYearPieChartController implements IDiagramController {
+export class ComparisonToLastYearPieChartController
+    implements IDiagramController {
     //support line charts
     private static readonly chartType = ChartType.PIE_CHART;
 
@@ -31,11 +30,16 @@ export class ComparisonToLastYearPieChartController implements IDiagramControlle
 
     //configuration options
     private static readonly configurationOptions = [
-        new CTLYPCConfigurationOption('default_configuration', new Timespan(365 * 24 * 60 * 60 * 1000), 24),
+        new CTLYPCConfigurationOption(
+            "default_configuration",
+            new Timespan(365 * 24 * 60 * 60 * 1000),
+            24
+        ),
     ];
 
     //default configuration option
-    private static readonly defaultConfigurationOption = ComparisonToLastYearPieChartController.configurationOptions[0];
+    private static readonly defaultConfigurationOption =
+        ComparisonToLastYearPieChartController.configurationOptions[0];
 
     languageProvider: Language;
 
@@ -62,16 +66,21 @@ export class ComparisonToLastYearPieChartController implements IDiagramControlle
     }
 
     getConfigurationOptions() {
-        return ComparisonToLastYearPieChartController.configurationOptions.map(option => option.name);
-    };
+        return ComparisonToLastYearPieChartController.configurationOptions.map(
+            (option) => option.name
+        );
+    }
 
     getDefaultConfigurationOption() {
-        return ComparisonToLastYearPieChartController.defaultConfigurationOption.name;
+        return ComparisonToLastYearPieChartController.defaultConfigurationOption
+            .name;
     }
 
     getData(configurationOptionName: string): any[][] {
         //configuration option by name
-        var configuration = this.getCTLYPCConfigurationOption(configurationOptionName);
+        var configuration = this.getCTLYPCConfigurationOption(
+            configurationOptionName
+        );
 
         //get timespan
         var end: Date = new Date(Date.now());
@@ -91,16 +100,15 @@ export class ComparisonToLastYearPieChartController implements IDiagramControlle
         var higher = 0;
         var lower = 0;
 
-        let higherTag = this.languageProvider.getText('higher');
-        let lowerTag = this.languageProvider.getText('lower');
+        let higherTag = this.languageProvider.getText("higher");
+        let lowerTag = this.languageProvider.getText("lower");
 
-
-        observations.forEach(observation => {
-            (observation.getValue() > lastObservationValue) ? (higher++) : (lower++);
+        observations.forEach((observation) => {
+            observation.getValue() > lastObservationValue ? higher++ : lower++;
         });
 
         var data = [
-            ['Vergleich zum letzten Messwert', 'Anzahl Tage'],
+            ["Vergleich zum letzten Messwert", "Anzahl Tage"],
             [higherTag, higher],
             [lowerTag, lower],
         ];
@@ -108,20 +116,22 @@ export class ComparisonToLastYearPieChartController implements IDiagramControlle
     }
 
     //get configuration option by name
-    private getCTLYPCConfigurationOption(name: string): CTLYPCConfigurationOption {
-        var options = ComparisonToLastYearPieChartController.configurationOptions;
+    private getCTLYPCConfigurationOption(
+        name: string
+    ): CTLYPCConfigurationOption {
+        var options =
+            ComparisonToLastYearPieChartController.configurationOptions;
 
         for (let i = 0; i < options.length; i++) {
-
             //if option matches return it
             if (options[i].name === name) {
                 return options[i];
             }
-
         }
 
         //no option matches, throw an error
-        throw new Error(`${name} is an invalid configuration option for a diagram of type ComparisonToLastYearPieChart`);
+        throw new Error(
+            `${name} is an invalid configuration option for a diagram of type ComparisonToLastYearPieChart`
+        );
     }
 }
-

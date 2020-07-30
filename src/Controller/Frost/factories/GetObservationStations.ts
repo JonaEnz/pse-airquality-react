@@ -1,40 +1,62 @@
-import QueryBuilder from '../QueryBuilder';
-import FrostFactory from '../FrostFactory';
-import { ObservationStation } from '../../../Model/ObservationStation';
-import ResultModelConverter from '../ResultModelConverter';
-import { Position } from '../../../Model/Position';
-import { Feature } from '../../../Model/Feature';
-import FeatureProvider from '../../FeatureProvider';
+import QueryBuilder from "../QueryBuilder";
+import FrostFactory from "../FrostFactory";
+import { ObservationStation } from "../../../Model/ObservationStation";
+import ResultModelConverter from "../ResultModelConverter";
+import { Position } from "../../../Model/Position";
+import { Feature } from "../../../Model/Feature";
+import FeatureProvider from "../../FeatureProvider";
 
-export class GetObservationStationsFactory extends FrostFactory<ObservationStation[]> {
+export class GetObservationStationsFactory extends FrostFactory<
+    ObservationStation[]
+> {
     constructor() {
-        super(new GetObservationStationsConverter(), new GetObservationStationsBuilder());
+        super(
+            new GetObservationStationsConverter(),
+            new GetObservationStationsBuilder()
+        );
     }
 }
 
-export class GetObservationStationsConverter implements ResultModelConverter<ObservationStation[]> {
-    public convert(json: ResultList, options: GetObservationStationsOptions): ObservationStation[] {
+export class GetObservationStationsConverter
+    implements ResultModelConverter<ObservationStation[]> {
+    public convert(
+        json: ResultList,
+        options: GetObservationStationsOptions
+    ): ObservationStation[] {
         let stations: ObservationStation[] = [];
         if (json.value === null || json.value === undefined) {
             throw new Error("nö");
         }
-        json.value.forEach(element => {
+        json.value.forEach((element) => {
             let coord: number[] = element.Locations[0].location.coordinates;
             let pos: Position = new Position(coord[1], coord[0]);
 
             let features: Feature[] = [];
             let fp: FeatureProvider = FeatureProvider.getInstance();
-            if (element.Datastreams === null || element.Datastreams === undefined) {
+            if (
+                element.Datastreams === null ||
+                element.Datastreams === undefined
+            ) {
                 throw new Error("nö");
             }
-            element.Datastreams.forEach(stream => {
-                let feat: Feature | undefined = fp.getFeature(stream.ObservedProperty["@iot.id"]);
+            element.Datastreams.forEach((stream) => {
+                let feat: Feature | undefined = fp.getFeature(
+                    stream.ObservedProperty["@iot.id"]
+                );
                 if (feat !== undefined) {
                     features.push(feat);
                 }
-            })
-            stations.push(new ObservationStation(element["@iot.id"], element.name, element.description, pos, []));
-        })
+            });
+            stations.push(
+                new ObservationStation(
+                    element["@iot.id"],
+                    element.name,
+                    element.description,
+                    pos,
+                    []
+                )
+            );
+        });
 
         if (stations.length === 0) {
             alert("keine Stationen gefunden");
@@ -43,11 +65,17 @@ export class GetObservationStationsConverter implements ResultModelConverter<Obs
     }
 }
 
-
 export class GetObservationStationsBuilder implements QueryBuilder {
-
     public getQuery(options: GetObservationStationsOptions): string {
-        return "Things?$filter=geo.distance(Locations/location,geography'POINT(" + options.middle.getLongitude() + " " + options.middle.getLatitude() + ")') lt " + options.radius + " and overlaps(Datastreams/phenomenonTime,(now() sub duration'P1d'))&$expand=Locations($select=location),Datastreams($select=name)/ObservedProperty($select=@iot.id)";
+        return (
+            "Things?$filter=geo.distance(Locations/location,geography'POINT(" +
+            options.middle.getLongitude() +
+            " " +
+            options.middle.getLatitude() +
+            ")') lt " +
+            options.radius +
+            " and overlaps(Datastreams/phenomenonTime,(now() sub duration'P1d'))&$expand=Locations($select=location),Datastreams($select=name)/ObservedProperty($select=@iot.id)"
+        );
     }
 }
 
@@ -57,17 +85,17 @@ export interface GetObservationStationsOptions {
 }
 
 export interface ResultList {
-    value?: (ValueEntity)[] | null;
+    value?: ValueEntity[] | null;
 }
 export interface ValueEntity {
     name: string;
     description: string;
     properties?: Properties | null;
     "Datastreams@iot.navigationLink": string;
-    Datastreams?: (DatastreamsEntity)[] | null;
+    Datastreams?: DatastreamsEntity[] | null;
     "MultiDatastreams@iot.navigationLink": string;
     "Locations@iot.navigationLink": string;
-    Locations: (LocationsEntity)[];
+    Locations: LocationsEntity[];
     "HistoricalLocations@iot.navigationLink": string;
     "@iot.id": string;
     "@iot.selfLink": string;
@@ -79,7 +107,7 @@ export interface Properties {
     station_active_from?: string | null;
     station_setting_name?: string | null;
     "station type name"?: string | null;
-    "station_no"?: number | null;
+    station_no?: number | null;
     documentation?: string | null;
 }
 export interface DatastreamsEntity {
@@ -94,6 +122,5 @@ export interface LocationsEntity {
 }
 export interface Location {
     type: string;
-    coordinates: (number)[];
+    coordinates: number[];
 }
-
