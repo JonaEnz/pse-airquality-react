@@ -9,6 +9,7 @@ import lightGreen from "@material-ui/core/colors/green";
 import Layout from "./View/Layout/Layout";
 import Configuration from "./Controller/Storage/Configuration";
 
+
 const theme = createMuiTheme({
     palette: {
         primary: {

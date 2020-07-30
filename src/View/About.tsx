@@ -1,6 +1,6 @@
 import React from "react";
-import { Fragment } from "react";
 import Language from "../Controller/Storage/Language";
+import "./informationPage.css";
 
 let language = Language.getInstance();
 
@@ -9,13 +9,13 @@ export default class AboutPage extends React.Component<
     IAboutPageState
     > {
     render() {
-        return <Fragment>
-            <p>
+        return <div>
+            <p className="informationPage">
                 <h1>{language.getText("about")}</h1>
-                <h4>{language.getText("aboutText")}</h4>
+                <h3>{language.getText("aboutText")}</h3>
             </p>
 
-        </Fragment>
+        </div>
     }
 }
 
