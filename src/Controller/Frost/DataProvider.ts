@@ -11,6 +11,7 @@ import { FrostResult } from "../../Model/FrostResult";
 import { GetObservationStationsFactory } from "../Frost/factories/GetObservationStations";
 import { GetLatestObservationFactory } from "../Frost/factories/GetLatestObservation";
 import { GetLatestObservationsFactory } from "./factories/GetLatestObservations";
+import { GetObservationsFactory } from "./factories/GetObservations";
 
 export default class DataProvider {
 
@@ -48,6 +49,16 @@ export default class DataProvider {
 
     static async getLatestObservations(center: Position, radius: number, feature: Feature): Promise<Observation[]> {
         let fr: FrostResult<Observation[]> = await this.server.request(new GetLatestObservationsFactory(), { center, radius, feature });
+        let obsnull: Observation[] | null = fr.getResult();
+        if (obsnull !== null) {
+            return obsnull;
+        }
+        alert(fr.getMessage() + "dp spec");
+        return [];
+    }
+
+    static async getObservations(station: ObservationStation, feature: Feature, start: Date, end: Date): Promise<Observation[]> {
+        let fr: FrostResult<Observation[]> = await this.server.request(new GetObservationsFactory(), { station, feature, start, end });
         let obsnull: Observation[] | null = fr.getResult();
         if (obsnull !== null) {
             return obsnull;
