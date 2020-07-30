@@ -8,6 +8,7 @@ import purple from "@material-ui/core/colors/purple";
 import lightGreen from "@material-ui/core/colors/green";
 import Layout from "./View/Layout/Layout";
 
+
 const theme = createMuiTheme({
     palette: {
         primary: {
