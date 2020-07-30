@@ -5,7 +5,7 @@ import ErrorPage from "../ErrorPage";
 import AboutPage from "./../About";
 import PrivacyPolicyPage from "./../PrivacyPolicy";
 import PageMenu from "./PageMenu";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Language from "../../Controller/Storage/Language";
 
 function Layout() {
@@ -13,7 +13,7 @@ function Layout() {
 
     return (
         <div className="App">
-            <Router>
+            <Router basename={process.env.PUBLIC_URL}>
                 <PageMenu language={language} />
                 <Switch>
                     <Route
