@@ -174,6 +174,7 @@ export class Map extends React.Component<Props, State> {
                     <LeafletPolygon
                         positions={this.getPositionsFromPolygon(polygon)}
                         color={polygon.getColor().getHex()}
+                        fillOpacity={0.1}
                     />
                 ))}
             </LeafletMap>
