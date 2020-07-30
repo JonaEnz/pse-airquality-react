@@ -1,5 +1,4 @@
 import React from 'react';
-import { Fragment } from 'react';
 
 export default class ErrorPage extends React.Component<IErrorPageProps, IErrorPageState> {
 
@@ -15,11 +14,11 @@ export default class ErrorPage extends React.Component<IErrorPageProps, IErrorPa
 
     render() {
         return (
-            <Fragment>
+            <div className="informationPage">
                 <h1>Error</h1>
                 <h2>{this.code}</h2>
                 <p>{this.message}</p>
-            </Fragment>
+            </div>
         );
     }
 }
