@@ -5,7 +5,7 @@ import ErrorPage from "../ErrorPage";
 import AboutPage from "./../About";
 import PrivacyPolicyPage from "./../PrivacyPolicy";
 import PageMenu from "./PageMenu";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Language from "../../Controller/Storage/Language";
 
 function Layout() {
