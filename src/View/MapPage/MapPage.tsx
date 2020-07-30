@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { ObservationStation } from "../../Model/ObservationStation";
 import { Map } from "./Map";
 import { Feature } from "../../Model/Feature";
@@ -11,8 +11,9 @@ import { Observation } from "../../Model/Observation";
 import FeatureSelect from "./FeatureSelect";
 import Search from "./Search";
 import Legend from "./Legend";
-import { Box, Theme } from "@material-ui/core";
+import { Box, Theme, Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
+import './MapPage.css'
 
 const styles = (theme: Theme) => ({});
 
@@ -142,35 +143,38 @@ class MapPage extends React.Component<Props, State> {
         var min = this.getMin();
         var max = this.getMax();
         return (
-            <Box>
-                <Search
-                    onSearch={(term) => this.onSearch(term)}
-                    updatePosition={(pos) => {
-                        var view = this.state.viewport;
-                        view.setCenter(pos);
-                        this.onViewportChange(view);
-                    }}
-                />
-                <Map
-                    viewport={this.state.viewport}
-                    onViewportChange={(viewport) => {
-                        this.onViewportChange(viewport);
-                    }}
-                    handlePopup={(pin) => this.onStationSelected(pin)}
-                    pins={this.state.pins}
-                    polygons={this.state.polygons}
-                />
-                <FeatureSelect
-                    onConfigurationChange={(conf) => {
-                        this.mapController.onConfigurationChange(conf);
-                        this.update();
-                    }}
-                    startConf={this.mapController.getFeatureSelectConf()}
-                />
-                <Box
-                    zIndex={1000}
-                    style={{ position: "absolute", bottom: "7%", right: "5%" }}
-                >
+            <Box className='map-page'>
+                <Box className='search'>
+                    <Search
+                        onSearch={(term) => this.onSearch(term)}
+                        updatePosition={(pos) => {
+                            var view = this.state.viewport;
+                            view.setCenter(pos);
+                            this.onViewportChange(view);
+                        }}
+                    />
+                </Box>
+                <Box className='map'>
+                    <Map
+                        viewport={this.state.viewport}
+                        onViewportChange={(viewport) => {
+                            this.onViewportChange(viewport);
+                        }}
+                        handlePopup={(pin) => this.onStationSelected(pin)}
+                        pins={this.state.pins}
+                        polygons={this.state.polygons}
+                    />
+                </Box>
+                <Box className='feature-select'>
+                    <FeatureSelect
+                        onConfigurationChange={(conf) => {
+                            this.mapController.onConfigurationChange(conf);
+                            this.update();
+                        }}
+                        startConf={this.mapController.getFeatureSelectConf()}
+                    />
+                </Box>
+                <Box className='legend'>
                     <Legend
                         min={min}
                         max={max}

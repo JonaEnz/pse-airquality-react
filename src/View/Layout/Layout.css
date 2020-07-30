@@ -1,0 +1,12 @@
+.app {
+    width: 100%;
+    height: 100%;
+}
+
+.page-content {
+    position: relative;
+    width: 100%;
+    
+    /* set hight to full screen size without header */
+    height: calc(100% - 64px);
+}
