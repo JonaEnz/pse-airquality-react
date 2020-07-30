@@ -12,6 +12,7 @@ import FeatureProvider from "../FeatureProvider";
 import { MapPin } from "../../Model/MapPin";
 import NearConfiguration from "./NearConfiguration";
 import PolygonConfiguration from "./PolygonConfiguration";
+import DataProvider from "../Frost/DataProvider";
 
 export class MapController {
     private config: MapConfiguration;
@@ -45,8 +46,8 @@ export class MapController {
 
     // Called when a pin on the map is clicked, gets information from server
     async handlePopup(pin: MapPin): Promise<Observation> {
-        var station = await MockDataProvider.getStation(pin.getId());
-        return MockDataProvider.getLatestObservation(
+        var station = await DataProvider.getStation(pin.getId());
+        return DataProvider.getLatestObservation(
             station,
             this.config.getFeatures()[0]
         );
@@ -106,7 +107,7 @@ export class MapController {
             default:
                 throw new Error(
                     "Current configuration has invalid id: " +
-                        this.config.getId()
+                    this.config.getId()
                 );
         }
     }
@@ -125,7 +126,7 @@ export class MapController {
 
         var response = await fetch(
             "https://nominatim.openstreetmap.org/search?format=json&q=" +
-                encodeURIComponent(searchTerm)
+            encodeURIComponent(searchTerm)
         );
         var json = await response.json();
         if (json.length === 0) {
