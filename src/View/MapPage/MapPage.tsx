@@ -205,6 +205,7 @@ class MapPage extends React.Component<Props, State> {
                     <Legend
                         min={min}
                         max={max}
+                        unit={this.mapController.getSelectedFeature().getUnitOfMeasurement()}
                         scale={this.mapController.getScale()}
                     />
                 </Box>
