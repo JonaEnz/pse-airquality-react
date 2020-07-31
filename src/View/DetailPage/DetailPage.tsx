@@ -8,6 +8,7 @@ import ObservationStationProfile from "./ObservationStationProfile";
 import LocationMap from "./LocationMap";
 import Diagram from "./Diagram";
 import DataProvider from "../../Controller/Frost/DataProvider";
+import MockDataProvider from "../../Controller/MockDataProvider";
 
 export default class DetailPage extends React.Component<
     IDetailPageProps,
@@ -30,8 +31,12 @@ export default class DetailPage extends React.Component<
 
     //return diagrams of this observation station
     renderDiagrams() {
-        var diagramController = (this.state
-            .obs as ObservationStation).getDiagramController();
+        if (this.state.obs === null) return '';
+
+        //mock data
+        let observationStation = MockDataProvider.getStation(this.state.obs.getId());
+
+        var diagramController = observationStation.getDiagramController();
         return diagramController.map((controller) => (
             <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
                 <Diagram controller={controller} />
@@ -74,7 +79,7 @@ export default class DetailPage extends React.Component<
                                 )}
                         </Grid>
                     </Hidden>
-                    {this.state.obs ? this.renderDiagrams() : <p>...</p>}
+                    {this.renderDiagrams()}
                 </Grid>
             </Grid>
         );
