@@ -102,8 +102,12 @@ export default class DataProvider {
                 end,
             }
         );
+        console.log("Das hier ist das FROST Result");
+        console.log(fr);
         let obsnull: Observation[] | null = fr.getResult();
         if (obsnull !== null) {
+            console.log("Das hier kommt vom Data Provider");
+            console.log(obsnull);
             return obsnull;
         }
         alert(fr.getMessage() + "dp spec");
