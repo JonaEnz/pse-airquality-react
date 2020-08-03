@@ -47,7 +47,7 @@ export class GetObservationsConverter
 
 export class GetObservationsBuilder implements QueryBuilder {
     public getQuery(options: GetObservationsOptions): string {
-        return "";
+        return "Datastreams?$select=@iot.id&$filter=Thing/@iot.id eq '" + options.station.getId() + "' and ObservedProperty/@iot.id eq '" + options.feature.getId() + "'&$expand=Observations($filter=overlaps(phenomenonTime, " + options.start.toDateString() + "/" + options.end.toDateString() + ");$orderby=phenomenonTime desc)";
     }
 }
 
