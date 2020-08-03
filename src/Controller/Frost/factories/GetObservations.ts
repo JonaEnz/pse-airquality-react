@@ -18,7 +18,7 @@ export class GetObservationsConverter
         options: GetObservationsOptions
     ): Observation[] {
         if (json.value === null || json.value === undefined) {
-            throw new Error("nö");
+            throw new Error("Cannot parse response of server");
         }
         let observations: Observation[] = [];
         json.value.forEach((stream) => {

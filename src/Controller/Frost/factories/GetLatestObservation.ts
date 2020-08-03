@@ -23,22 +23,22 @@ export class GetLatestObservationConverter
         options: GetLatestObservationOptions
     ): Observation {
         if (json.value === null || json.value === undefined) {
-            throw new Error("nö");
+            throw new Error("Cannot parse response of server");
         }
         if (json.value[0] === null || json.value[0] === undefined) {
-            throw new Error("nö");
+            throw new Error("Cannot parse response of server");
         }
         if (
             json.value[0].Observations === null ||
             json.value[0].Observations === undefined
         ) {
-            throw new Error("nö");
+            throw new Error("Cannot parse response of server");
         }
         if (
             json.value[0].Observations[0] === null ||
             json.value[0].Observations[0] === undefined
         ) {
-            throw new Error("nö");
+            throw new Error("Cannot parse response of server");
         }
 
         let observation: ObservationsEntity = json.value[0].Observations[0];

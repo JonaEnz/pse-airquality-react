@@ -20,7 +20,7 @@ export class GetStationConverter
     ): ObservationStation {
         let pos: Position;
         if (json.Locations === undefined || json.Locations === null) {
-            throw new Error("ObservationStation has no Location");
+            throw new Error("Thing has no Location");
         } else {
             pos = new Position(
                 json.Locations[0].location.coordinates[1],
@@ -29,7 +29,7 @@ export class GetStationConverter
         }
 
         if (json.Datastreams === undefined || json.Datastreams === null) {
-            throw new Error("Station has no Observed Properties");
+            throw new Error("Cannot parse response of server");
         }
 
         let features: Feature[] = [];

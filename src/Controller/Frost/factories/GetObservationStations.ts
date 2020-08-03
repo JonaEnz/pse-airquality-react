@@ -8,7 +8,7 @@ import FeatureProvider from "../../FeatureProvider";
 
 export class GetObservationStationsFactory extends FrostFactory<
     ObservationStation[]
-> {
+    > {
     constructor() {
         super(
             new GetObservationStationsConverter(),
@@ -25,7 +25,7 @@ export class GetObservationStationsConverter
     ): ObservationStation[] {
         let stations: ObservationStation[] = [];
         if (json.value === null || json.value === undefined) {
-            throw new Error("nö");
+            throw new Error("Cannot parse response of server");
         }
         json.value.forEach((element) => {
             let coord: number[] = element.Locations[0].location.coordinates;
@@ -37,7 +37,7 @@ export class GetObservationStationsConverter
                 element.Datastreams === null ||
                 element.Datastreams === undefined
             ) {
-                throw new Error("nö");
+                throw new Error("Cannot parse response of server");
             }
             element.Datastreams.forEach((stream) => {
                 let feat: Feature | undefined = fp.getFeature(
@@ -57,10 +57,6 @@ export class GetObservationStationsConverter
                 )
             );
         });
-
-        if (stations.length === 0) {
-            alert("keine Stationen gefunden");
-        }
         return stations;
     }
 }
