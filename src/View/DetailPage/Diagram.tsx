@@ -1,10 +1,21 @@
-import React from 'react';
-import { Card, Divider, Typography, Grid, CircularProgress, Select, MenuItem, } from '@material-ui/core';
+import React from "react";
+import {
+    Card,
+    Divider,
+    Typography,
+    Grid,
+    CircularProgress,
+    Select,
+    MenuItem,
+} from "@material-ui/core";
 import Chart from "react-google-charts";
 
-import IDiagramController from '../../Controller/DiagramController/DiagramController';
+import IDiagramController from "../../Controller/DiagramController/DiagramController";
 
-export default class Diagram extends React.Component<IDiagramProps, IDiagramState> {
+export default class Diagram extends React.Component<
+    IDiagramProps,
+    IDiagramState
+> {
     //controller for this diagram
     controller: IDiagramController;
 
@@ -15,43 +26,44 @@ export default class Diagram extends React.Component<IDiagramProps, IDiagramStat
         //setup default configuration in state
         this.state = {
             configurationOption: this.controller.getDefaultConfigurationOption(),
-        }
+            data: [],
+        };
 
-        this.handleConfigurationChange = this.handleConfigurationChange.bind(this);
+        this.handleConfigurationChange = this.handleConfigurationChange.bind(
+            this
+        );
     }
 
     //styles of this component
     styles = {
         header: {
-            padding: '10px',
-            paddingLeft: '40px',
+            padding: "10px",
+            paddingLeft: "40px",
         },
         diagram: {
-            width: '100%',
-            height: '350px',
+            width: "100%",
+            height: "350px",
         },
     };
 
     //change configuration in state
     handleConfigurationChange(event: React.ChangeEvent<{ value: unknown }>) {
         this.setState({
-            configurationOption: (event.target.value as string),
+            configurationOption: event.target.value as string,
         });
     }
 
     //return configuration options as menu items
     renderConfigurationOptions() {
         var configurationOptions = this.controller.getConfigurationOptions();
-        return (
-            configurationOptions.map((option) =>
-                <MenuItem value={option}>{option}</MenuItem>
-            )
-        );
+        return configurationOptions.map((option) => (
+            <MenuItem value={option}>{option}</MenuItem>
+        ));
     }
 
     //renders the configuration form of this diagram
     renderDiagramConfiguration() {
-        //if configuration is enabled return slect form with configuration options
+        //if configuration is enabled return select form with configuration options
         if (this.controller.isConfigurable()) {
             return (
                 <Grid item>
@@ -64,7 +76,14 @@ export default class Diagram extends React.Component<IDiagramProps, IDiagramStat
                 </Grid>
             );
             //not configurable return empty string
-        } else return ('');
+        } else return "";
+    }
+
+    componentDidMount() {
+        this.controller
+            .getData(this.state.configurationOption)
+            .then((data) => this.setState({ data: data }))
+            .then(console.log);
     }
 
     //render component
@@ -72,9 +91,11 @@ export default class Diagram extends React.Component<IDiagramProps, IDiagramStat
         return (
             <Card>
                 <div style={this.styles.header}>
-                    <Grid container justify='space-between' alignItems='center'>
+                    <Grid container justify="space-between" alignItems="center">
                         <Grid item>
-                            <Typography variant='subtitle1'>{this.controller.feature.getName()}</Typography>
+                            <Typography variant="subtitle1">
+                                {this.controller.feature.getName()}
+                            </Typography>
                         </Grid>
                         {this.renderDiagramConfiguration()}
                     </Grid>
@@ -86,11 +107,16 @@ export default class Diagram extends React.Component<IDiagramProps, IDiagramStat
                     chartType={this.controller.getChartType()}
                     options={this.controller.getGraphicsOptions()}
                     loader={
-                        <Grid container justify='center' alignContent='center' style={this.styles.diagram}>
+                        <Grid
+                            container
+                            justify="center"
+                            alignContent="center"
+                            style={this.styles.diagram}
+                        >
                             <CircularProgress />
                         </Grid>
                     }
-                    data={this.controller.getData(this.state.configurationOption)}
+                    data={this.state.data}
                 />
             </Card>
         );
@@ -103,4 +129,5 @@ export interface IDiagramProps {
 
 interface IDiagramState {
     configurationOption: string;
+    data: Array<Array<Date | number | string | null>>;
 }
