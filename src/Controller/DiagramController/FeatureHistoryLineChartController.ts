@@ -4,6 +4,7 @@ import { ObservationStation } from "../../Model/ObservationStation";
 import { Feature } from "../../Model/Feature";
 import Timespan from "../../Model/Timespan";
 import MockDataProvider from "../MockDataProvider";
+import DataProvider from "../Frost/DataProvider";
 
 let languageProvider = Language.getInstance();
 
@@ -72,7 +73,7 @@ export class FeatureHistoryLineChartController implements IDiagramController {
 
     // options for the graphical appearence
     private static readonly graphicsOptions = {
-        legend: { position: 'none' },
+        legend: { position: "none" },
     };
 
     //concerning observation station
@@ -125,7 +126,9 @@ export class FeatureHistoryLineChartController implements IDiagramController {
     }
 
     //return data to display
-    getData(configurationOptionName: string): any[][] {
+    async getData(
+        configurationOptionName: string
+    ): Promise<Array<Array<Date | number | string | null>>> {
         //get option object
         var configurationOption: FHLCConfigurationOption = this.getFHLCConfigurationOption(
             configurationOptionName
@@ -135,14 +138,15 @@ export class FeatureHistoryLineChartController implements IDiagramController {
         var end: Date = new Date(Date.now());
         var start: Date = configurationOption.timespan.getStart(end);
 
-        //get mock observations
-        var observations = MockDataProvider.getObservations(
+        //get observations
+        var observations = await DataProvider.getObservations(
             this.observationStation,
-            start,
-            end,
             this.feature,
-            configurationOption.frequency
+            start,
+            end
         );
+
+        console.log(observations);
 
         //add react google chart specific header
         var data: any[] = [[configurationOption.xAxis, this.yAxisLabel]];

@@ -6,25 +6,27 @@ export default interface IDiagramController {
     feature: Feature;
 
     //returns type of chart
-    getChartType: () => ChartType,
+    getChartType: () => ChartType;
 
     //returns options that specify how the diagram is displayed
-    getGraphicsOptions: () => {},
+    getGraphicsOptions: () => {};
 
     //returns whether a diagram can be configured via a select form. In this case getSelectOprions must return an Array of select options
-    isConfigurable: () => boolean,
+    isConfigurable: () => boolean;
 
     //returns all options that can be selected to configure the diagram
-    getConfigurationOptions: () => string[],
+    getConfigurationOptions: () => string[];
 
     //returns default configuration option
-    getDefaultConfigurationOption: () => string,
+    getDefaultConfigurationOption: () => string;
 
     //returns the data that can be displayed in the diagram
-    getData: (configurationOptionName: string) => any[][],
+    getData: (
+        configurationOptionName: string
+    ) => Promise<Array<Array<Date | null | number | string>>>;
 }
 
 export enum ChartType {
-    LINE_CHART = 'LineChart',
-    PIE_CHART = 'PieChart',
+    LINE_CHART = "LineChart",
+    PIE_CHART = "PieChart",
 }

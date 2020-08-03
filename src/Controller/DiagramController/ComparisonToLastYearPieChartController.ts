@@ -76,7 +76,9 @@ export class ComparisonToLastYearPieChartController
             .name;
     }
 
-    getData(configurationOptionName: string): any[][] {
+    async getData(
+        configurationOptionName: string
+    ): Promise<Array<Array<Date | number | string | null>>> {
         //configuration option by name
         var configuration = this.getCTLYPCConfigurationOption(
             configurationOptionName
@@ -87,7 +89,7 @@ export class ComparisonToLastYearPieChartController
         var start: Date = configuration.timespan.getStart(end);
 
         //get mock observations
-        var observations = MockDataProvider.getObservations(
+        var observations = await MockDataProvider.getObservations(
             this.observationStation,
             start,
             end,

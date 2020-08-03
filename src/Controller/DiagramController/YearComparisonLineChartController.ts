@@ -1,7 +1,7 @@
-import IDiagramController, { ChartType } from './DiagramController';
-import { ObservationStation } from '../../Model/ObservationStation';
-import { Feature } from '../../Model/Feature';
-import MockDataProvider from '../MockDataProvider';
+import IDiagramController, { ChartType } from "./DiagramController";
+import { ObservationStation } from "../../Model/ObservationStation";
+import { Feature } from "../../Model/Feature";
+import MockDataProvider from "../MockDataProvider";
 
 class YCLCCConfigurationOption {
     name: string;
@@ -24,17 +24,21 @@ export class YearComparisonLineChartController implements IDiagramController {
 
     //configuration options
     private static readonly configurationOptions = [
-        new YCLCCConfigurationOption('default_configuration', 3, 1),
+        new YCLCCConfigurationOption("default_configuration", 3, 1),
     ];
 
     //default configuration option
-    private static readonly defaultConfigurationOption = new YCLCCConfigurationOption('default_configuration', 10, 1);
+    private static readonly defaultConfigurationOption = new YCLCCConfigurationOption(
+        "default_configuration",
+        10,
+        1
+    );
 
     // options for the graphical appearence
     private static readonly graphicsOptions = {
         hAxis: {
-            format: 'MMM',
-            gridlines: { count: 6 }
+            format: "MMM",
+            gridlines: { count: 6 },
         },
     };
 
@@ -52,7 +56,7 @@ export class YearComparisonLineChartController implements IDiagramController {
     //return chart type
     getChartType(): ChartType {
         return YearComparisonLineChartController.chartType;
-    };
+    }
 
     getGraphicsOptions() {
         return YearComparisonLineChartController.graphicsOptions;
@@ -65,24 +69,35 @@ export class YearComparisonLineChartController implements IDiagramController {
 
     //returns default configuration option
     getDefaultConfigurationOption(): string {
-        return YearComparisonLineChartController.defaultConfigurationOption.name;
+        return YearComparisonLineChartController.defaultConfigurationOption
+            .name;
     }
 
     //return names of configuration options
     getConfigurationOptions(): string[] {
-        return YearComparisonLineChartController.configurationOptions.map(option => option.name);
+        return YearComparisonLineChartController.configurationOptions.map(
+            (option) => option.name
+        );
     }
 
     getYCLCCConfigurationOption(name: string) {
         for (let option of YearComparisonLineChartController.configurationOptions) {
             if (option.name === name) return option;
         }
-        throw new Error('Configuration option: ' + name + ' does not exist for YearComparisonLineChart');
+        throw new Error(
+            "Configuration option: " +
+                name +
+                " does not exist for YearComparisonLineChart"
+        );
     }
 
     //return data to display
-    getData(configurationOptionName: string): Array<Array<string | Date | number | null>> {
-        let configurationOption = this.getYCLCCConfigurationOption(configurationOptionName);
+    async getData(
+        configurationOptionName: string
+    ): Promise<Array<Array<Date | number | string | null>>> {
+        let configurationOption = this.getYCLCCConfigurationOption(
+            configurationOptionName
+        );
         let numberOfYears = configurationOption.numberOfYears;
         let frequency = configurationOption.frequency;
 
@@ -94,11 +109,17 @@ export class YearComparisonLineChartController implements IDiagramController {
         let end = now;
 
         //request (mock-)data
-        let observations = MockDataProvider.getObservations(this.observationStation, start, end, this.feature, frequency);
+        let observations = await MockDataProvider.getObservations(
+            this.observationStation,
+            start,
+            end,
+            this.feature,
+            frequency
+        );
 
         //filter out the null values
-        let cleanedObservations = observations.filter(observation => {
-            return (observation !== null);
+        let cleanedObservations = observations.filter((observation) => {
+            return observation !== null;
         });
 
         //determine the displayed years
@@ -108,12 +129,11 @@ export class YearComparisonLineChartController implements IDiagramController {
         }
 
         //define header
-        let header: string[] = years.map(year => year.toString());
-        header.splice(0, 0, 'dates');
-
+        let header: string[] = years.map((year) => year.toString());
+        header.splice(0, 0, "dates");
 
         //define new data table with header
-        let dt = new DataTable(header)
+        let dt = new DataTable(header);
 
         //add every observation to the table
         for (let observation of cleanedObservations) {
@@ -125,7 +145,6 @@ export class YearComparisonLineChartController implements IDiagramController {
 
         //return data table as a twodimensional array
         let dtAsArray = dt.toArray();
-        console.log(dtAsArray);
         return dtAsArray;
     }
 }
@@ -151,7 +170,7 @@ class DTRow {
     }
 
     static sort(dtrowA: DTRow, dtrowB: DTRow): number {
-        return ((dtrowA.date.valueOf() <= dtrowB.date.valueOf() ? -1 : 1));
+        return dtrowA.date.valueOf() <= dtrowB.date.valueOf() ? -1 : 1;
     }
 }
 
@@ -172,8 +191,10 @@ class DataTable {
         //get row
         let rowIndex = this.getRowIndex(date);
         if (rowIndex === null) {
-            this.rows.push(new DTRow(this.getBaseDate(date), this.numberOfValues));
-            rowIndex = (this.rows.length - 1);
+            this.rows.push(
+                new DTRow(this.getBaseDate(date), this.numberOfValues)
+            );
+            rowIndex = this.rows.length - 1;
         }
 
         //get column
@@ -190,7 +211,7 @@ class DataTable {
     getColumnIndex(key: string): number | null {
         for (let index = 0; index < this.header.length; index++) {
             if (key === this.header[index]) {
-                return (index - 1);
+                return index - 1;
             }
         }
         return null;
@@ -213,7 +234,7 @@ class DataTable {
             date.getHours(),
             date.getMinutes(),
             date.getSeconds(),
-            date.getMilliseconds(),
+            date.getMilliseconds()
         );
         return baseDate;
     }
@@ -221,12 +242,12 @@ class DataTable {
     //returns whether two dates are the same except their years
     datesAreEqual(dateA: Date, dateB: Date): boolean {
         let equal: boolean =
-            (dateA.getMonth() === dateB.getMonth()) &&
-            (dateA.getDate() === dateB.getDate()) &&
-            (dateA.getHours() === dateB.getHours()) &&
-            (dateA.getMinutes() === dateB.getMinutes()) &&
-            (dateA.getSeconds() === dateB.getSeconds()) &&
-            (dateA.getMilliseconds() === dateB.getMilliseconds());
+            dateA.getMonth() === dateB.getMonth() &&
+            dateA.getDate() === dateB.getDate() &&
+            dateA.getHours() === dateB.getHours() &&
+            dateA.getMinutes() === dateB.getMinutes() &&
+            dateA.getSeconds() === dateB.getSeconds() &&
+            dateA.getMilliseconds() === dateB.getMilliseconds();
         return equal;
     }
 
@@ -237,10 +258,11 @@ class DataTable {
     toArray() {
         this.sort();
 
-        let arrayRepresentation = new Array<Array<string | Date | number | null>>();
-        arrayRepresentation = this.rows.map(row => row.toArray());
+        let arrayRepresentation = new Array<
+            Array<string | Date | number | null>
+        >();
+        arrayRepresentation = this.rows.map((row) => row.toArray());
         arrayRepresentation.splice(0, 0, this.header);
         return arrayRepresentation;
     }
 }
-
