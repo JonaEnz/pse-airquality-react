@@ -146,8 +146,6 @@ export class FeatureHistoryLineChartController implements IDiagramController {
             end
         );
 
-        console.log(observations);
-
         //add react google chart specific header
         var data: any[] = [[configurationOption.xAxis, this.yAxisLabel]];
 

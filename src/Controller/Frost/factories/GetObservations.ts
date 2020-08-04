@@ -50,9 +50,9 @@ export class GetObservationsBuilder implements QueryBuilder {
             "' and ObservedProperty/@iot.id eq '" +
             options.feature.getId() +
             "'&$expand=Observations($filter=overlaps(phenomenonTime, " +
-            options.start.toDateString() +
+            options.start.toISOString() +
             "/" +
-            options.end.toDateString() +
+            options.end.toISOString() +
             ");$orderby=phenomenonTime desc)"
         );
     }

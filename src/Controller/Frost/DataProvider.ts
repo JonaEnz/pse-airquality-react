@@ -43,27 +43,43 @@ export default class DataProvider {
         station: ObservationStation,
         feature: Feature
     ): Promise<Observation> {
+        let frostFactory = new GetLatestObservationFactory();
+        let options = { station, feature };
+
+        //fetch data
         let fr: FrostResult<Observation> = await this.server.request(
             new GetLatestObservationFactory(),
             { station, feature }
         );
-        let obsnull: Observation | null = fr.getResult();
-        if (obsnull !== null) {
-            return obsnull;
+
+        //check whether something went wrong
+        if (!fr.getSuccess()) {
+            throw new Error(fr.getMessage());
         }
-        throw new Error("nö");
+
+        //everything went well
+        //return result
+        return fr.getResult() as Observation; //null type is impossible because of specific frost factory
     }
 
     static async getStation(id: string): Promise<ObservationStation> {
+        let frostFactory = new GetStationFactory();
+        let options = { id };
+
+        //fetch data
         let fr: FrostResult<ObservationStation> = await this.server.request(
-            new GetStationFactory(),
-            { id }
+            frostFactory,
+            options
         );
-        let obsnull: ObservationStation | null = fr.getResult();
-        if (obsnull !== null) {
-            return obsnull;
+
+        //check whether something went wrong
+        if (!fr.getSuccess()) {
+            throw new Error(fr.getMessage());
         }
-        throw new Error("nö");
+
+        //everything went well
+        //return result
+        return fr.getResult() as ObservationStation; //null type is impossible because of specific frost factory
     }
 
     static async getLatestObservations(
@@ -71,19 +87,23 @@ export default class DataProvider {
         radius: number,
         feature: Feature
     ): Promise<Observation[]> {
+        let frostFactory = new GetLatestObservationsFactory();
+        let options = { center, radius, feature };
+
+        //fetch data
         let fr: FrostResult<Observation[]> = await this.server.request(
-            new GetLatestObservationsFactory(),
-            {
-                center,
-                radius,
-                feature,
-            }
+            frostFactory,
+            options
         );
-        let obsnull: Observation[] | null = fr.getResult();
-        if (obsnull !== null) {
-            return obsnull;
+
+        //check whether something went wrong
+        if (!fr.getSuccess()) {
+            throw new Error(fr.getMessage());
         }
-        return [];
+
+        //everything went well
+        //return result
+        return fr.getResult() as Observation[]; //null type is impossible because of specific frost factory
     }
 
     static async getObservations(
@@ -92,19 +112,22 @@ export default class DataProvider {
         start: Date,
         end: Date
     ): Promise<Observation[]> {
+        let frostFactory = new GetObservationsFactory();
+        let options = { station, feature, start, end };
+
+        //fetch data
         let fr: FrostResult<Observation[]> = await this.server.request(
-            new GetObservationsFactory(),
-            {
-                station,
-                feature,
-                start,
-                end,
-            }
+            frostFactory,
+            options
         );
-        let obsnull: Observation[] | null = fr.getResult();
-        if (obsnull !== null) {
-            return obsnull;
+
+        //check whether something went wrong
+        if (!fr.getSuccess()) {
+            throw new Error(fr.getMessage());
         }
-        return [];
+
+        //everything went well
+        //return result
+        return fr.getResult() as Observation[]; //null type is impossible because of specific frost factory
     }
 }
