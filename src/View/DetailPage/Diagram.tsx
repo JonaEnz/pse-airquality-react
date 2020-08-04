@@ -48,9 +48,13 @@ export default class Diagram extends React.Component<
 
     //change configuration in state
     handleConfigurationChange(event: React.ChangeEvent<{ value: unknown }>) {
-        this.setState({
-            configurationOption: event.target.value as string,
-        });
+        let configurationOption = event.target.value as string;
+        this.controller.getData(configurationOption).then((data) =>
+            this.setState({
+                configurationOption: configurationOption,
+                data: data,
+            })
+        );
     }
 
     //return configuration options as menu items
