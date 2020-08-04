@@ -5,6 +5,7 @@ import { Feature } from "../../Model/Feature";
 import Timespan from "../../Model/Timespan";
 import MockDataProvider from "../MockDataProvider";
 import DataProvider from "../Frost/DataProvider";
+import { Observation } from "../../Model/Observation";
 
 let languageProvider = Language.getInstance();
 
@@ -135,28 +136,53 @@ export class FeatureHistoryLineChartController implements IDiagramController {
         );
 
         //get timespan
-        var end: Date = new Date(Date.now());
-        var start: Date = configurationOption.timespan.getStart(end);
-
-        //get observations
-        var observations = await DataProvider.getObservations(
-            this.observationStation,
-            this.feature,
-            start,
-            end
+        var start: Date = configurationOption.timespan.getStart(
+            new Date(Date.now())
         );
+        var observations: Observation[] = [];
 
-        //add react google chart specific header
-        var data: any[] = [[configurationOption.xAxis, this.yAxisLabel]];
+        while (start.valueOf() < Date.now()) {
+            let end = new Date(
+                start.getFullYear(),
+                start.getMonth(),
+                start.getDate() + 1
+            );
+
+            //get observations
+            let newObs = await DataProvider.getObservations(
+                this.observationStation,
+                this.feature,
+                start,
+                end
+            );
+
+            observations = observations.concat(newObs);
+
+            start = end;
+        }
+
+        let data: Array<[Date, number]> = [];
 
         //extract values and timestamps from observations
-        observations.forEach((observation) => {
+        observations.forEach((observation, index) => {
             let timestamp = observation.getTimeStamp();
             let value = observation.getValue();
             data.push([timestamp, value]);
         });
 
-        return data;
+        data.sort((row1, row2) => {
+            if (row1[0].valueOf() < row2[0].valueOf()) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
+
+        //add react google chart specific header
+        let table: any = data;
+        table.splice(0, 0, [configurationOption.xAxis, this.yAxisLabel]);
+
+        return table;
     }
 
     //get configuration option by name
