@@ -2,9 +2,6 @@ import { Feature } from "../../Model/Feature";
 import { Observation } from "../../Model/Observation";
 import { ObservationStation } from "../../Model/ObservationStation";
 import { Position } from "../../Model/Position";
-import { Scale } from "../../Model/Scale";
-import { Color } from "../../Model/Color";
-import FeatureProvider from "../FeatureProvider";
 import FrostServer from "./FrostServer";
 import { GetStationFactory } from "./factories/GetStation";
 import { FrostResult } from "../../Model/FrostResult";
@@ -18,24 +15,28 @@ export default class DataProvider {
         "https://api.smartaq.net/v1.0/"
     );
 
+    // returns all observation stations that are located within a specified radius around a geo position
     static async getObservationStations(
         middle: Position,
         radius: number
     ): Promise<ObservationStation[]> {
+        let frostFactory = new GetObservationStationsFactory();
+        let options = { middle, radius };
+
+        //fetch data
         let fr: FrostResult<ObservationStation[]> = await this.server.request(
-            new GetObservationStationsFactory(),
-            {
-                middle,
-                radius,
-            }
+            frostFactory,
+            options
         );
-        let obsnull: ObservationStation[] | null = fr.getResult();
-        if (obsnull !== null) {
-            return obsnull;
+
+        //check whether something went wrong
+        if (!fr.getSuccess()) {
+            throw new Error(fr.getMessage());
         }
-        alert("dp error");
-        alert(fr.getMessage());
-        throw new Error(fr.getMessage());
+
+        //everything went well
+        //return result
+        return fr.getResult() as ObservationStation[]; //null type is impossible because of specific frost factory
     }
 
     static async getLatestObservation(
@@ -62,7 +63,6 @@ export default class DataProvider {
         if (obsnull !== null) {
             return obsnull;
         }
-        alert("dp error");
         throw new Error("nö");
     }
 
@@ -83,7 +83,6 @@ export default class DataProvider {
         if (obsnull !== null) {
             return obsnull;
         }
-        alert(fr.getMessage() + "dp spec");
         return [];
     }
 
@@ -102,15 +101,10 @@ export default class DataProvider {
                 end,
             }
         );
-        console.log("Das hier ist das FROST Result");
-        console.log(fr);
         let obsnull: Observation[] | null = fr.getResult();
         if (obsnull !== null) {
-            console.log("Das hier kommt vom Data Provider");
-            console.log(obsnull);
             return obsnull;
         }
-        alert(fr.getMessage() + "dp spec");
         return [];
     }
 }

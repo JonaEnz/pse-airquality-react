@@ -1,26 +1,15 @@
 export class FrostResult<T> {
-    private result: T | null;
+    private result: T | null; //payload of the response from the FROST server
     private success: boolean;
     private errorMessage: string;
 
     constructor(result: T | null, success: boolean, errorMessage: string) {
-        if (success || result !== null || result !== undefined) {
-            //object is not null or success
-            this.result = result;
-            this.success = true;
-            this.errorMessage = "";
-        } else {
-            //object is null and no success
-            this.result = null;
-            this.success = false;
-            this.errorMessage = errorMessage;
-        }
+        this.result = result;
+        this.success = success;
+        this.errorMessage = errorMessage;
     }
 
     getResult(): T | null {
-        if (this.result === undefined) {
-            return null;
-        }
         return this.result;
     }
 
