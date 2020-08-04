@@ -4,6 +4,8 @@ import { Feature } from "../../Model/Feature";
 import Timespan from "../../Model/Timespan";
 import Language from "../Storage/Language";
 import MockDataProvider from "../MockDataProvider";
+import DataProvider from "../Frost/DataProvider";
+import { Observation } from "../../Model/Observation";
 
 class CTLYPCConfigurationOption {
     name: string;
@@ -84,18 +86,29 @@ export class ComparisonToLastYearPieChartController
             configurationOptionName
         );
 
-        //get timespan
-        var end: Date = new Date(Date.now());
-        var start: Date = configuration.timespan.getStart(end);
+        ///get timespan
+        var start: Date = configuration.timespan.getStart(new Date(Date.now()));
+        var observations: Observation[] = [];
 
-        //get mock observations
-        var observations = await MockDataProvider.getObservations(
-            this.observationStation,
-            start,
-            end,
-            this.feature,
-            configuration.frequency
-        );
+        while (start.valueOf() < Date.now()) {
+            let end = new Date(
+                start.getFullYear(),
+                start.getMonth(),
+                start.getDate() + 1
+            );
+
+            //get observations
+            let newObs = await DataProvider.getObservations(
+                this.observationStation,
+                this.feature,
+                start,
+                end
+            );
+
+            observations = observations.concat(newObs);
+
+            start = end;
+        }
 
         var lastObservationValue = observations.pop()?.getValue() as number;
 
