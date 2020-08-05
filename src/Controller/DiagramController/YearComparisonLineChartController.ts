@@ -2,6 +2,8 @@ import IDiagramController, { ChartType } from "./DiagramController";
 import { ObservationStation } from "../../Model/ObservationStation";
 import { Feature } from "../../Model/Feature";
 import MockDataProvider from "../MockDataProvider";
+import { Observation } from "../../Model/Observation";
+import DataProvider from "../Frost/DataProvider";
 
 class YCLCCConfigurationOption {
     name: string;
@@ -103,19 +105,30 @@ export class YearComparisonLineChartController implements IDiagramController {
 
         let now = new Date(Date.now());
 
-        //start of timespan
+        //get timespan
         let start = new Date(now.getFullYear() - numberOfYears, 0, 1);
-        //end of timespan
-        let end = now;
+        var observations: Observation[] = [];
 
-        //request (mock-)data
-        let observations = await MockDataProvider.getObservations(
-            this.observationStation,
-            start,
-            end,
-            this.feature,
-            frequency
-        );
+        while (start.valueOf() < Date.now()) {
+            let end = new Date(
+                start.getFullYear(),
+                start.getMonth(),
+                start.getDate() + 1
+            );
+
+            //get observations
+            let newObs = await DataProvider.getObservations(
+                this.observationStation,
+                this.feature,
+                start,
+                end
+            );
+
+            observations = observations.concat(newObs);
+
+            start = end;
+        }
+        console.log(observations);
 
         //filter out the null values
         let cleanedObservations = observations.filter((observation) => {
