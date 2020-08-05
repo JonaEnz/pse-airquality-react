@@ -24,7 +24,7 @@ export class GetLatestObservationsConverter
     ): Observation[] {
         let observations: Observation[] = [];
         if (json.value === null || json.value === undefined) {
-            throw new Error("nö");
+            throw new Error("Cannot parse response of server");
         }
 
         json.value.forEach((stream) => {
@@ -89,7 +89,7 @@ export class GetLatestObservationsConverter
                         new Date(stream.Observations[0].phenomenonTime)
                     )
                 );
-            } catch (e) {}
+            } catch (e) { }
         });
 
         return observations;
