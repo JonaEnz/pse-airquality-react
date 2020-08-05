@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, CircularProgress } from "@material-ui/core";
 import Hidden from "@material-ui/core/Hidden";
 
 import { ObservationStation } from "../../Model/ObservationStation";
@@ -13,7 +13,7 @@ import MockDataProvider from "../../Controller/MockDataProvider";
 export default class DetailPage extends React.Component<
     IDetailPageProps,
     IDetailPageState
-    > {
+> {
     constructor(props: IDetailPageProps) {
         super(props);
         this.state = { obs: null };
@@ -31,10 +31,12 @@ export default class DetailPage extends React.Component<
 
     //return diagrams of this observation station
     renderDiagrams() {
-        if (this.state.obs === null) return '';
+        if (this.state.obs === null) return <CircularProgress />;
 
         //mock data
-        let observationStation = MockDataProvider.getStation(this.state.obs.getId());
+        let observationStation = MockDataProvider.getStation(
+            this.state.obs.getId()
+        );
 
         var diagramController = observationStation.getDiagramController();
         return diagramController.map((controller) => (
@@ -65,8 +67,8 @@ export default class DetailPage extends React.Component<
                                 observationStation={this.state.obs}
                             />
                         ) : (
-                                <p>...</p>
-                            )}
+                            <CircularProgress />
+                        )}
                     </Grid>
                     <Hidden only={["sm", "xs"]}>
                         <Grid item xl={4} lg={4} md={4}>
@@ -75,8 +77,8 @@ export default class DetailPage extends React.Component<
                                     position={this.state.obs.getPosition()}
                                 />
                             ) : (
-                                    <p>...</p>
-                                )}
+                                <CircularProgress />
+                            )}
                         </Grid>
                     </Hidden>
                     {this.renderDiagrams()}
