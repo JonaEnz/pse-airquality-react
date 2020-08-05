@@ -33,12 +33,7 @@ export default class DetailPage extends React.Component<
     renderDiagrams() {
         if (this.state.obs === null) return <CircularProgress />;
 
-        //mock data
-        let observationStation = MockDataProvider.getStation(
-            this.state.obs.getId()
-        );
-
-        var diagramController = observationStation.getDiagramController();
+        var diagramController = this.state.obs.getDiagramController();
         return diagramController.map((controller) => (
             <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
                 <Diagram controller={controller} />
