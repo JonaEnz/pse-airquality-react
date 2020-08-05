@@ -3,7 +3,6 @@ import { ObservationStation } from "../../Model/ObservationStation";
 import { Feature } from "../../Model/Feature";
 import Timespan from "../../Model/Timespan";
 import Language from "../Storage/Language";
-import MockDataProvider from "../MockDataProvider";
 import DataProvider from "../Frost/DataProvider";
 import { Observation } from "../../Model/Observation";
 
@@ -34,7 +33,7 @@ export class ComparisonToLastYearPieChartController
     private static readonly configurationOptions = [
         new CTLYPCConfigurationOption(
             "default_configuration",
-            new Timespan(365 * 24 * 60 * 60 * 1000),
+            new Timespan(31 * 24 * 60 * 60 * 1000),
             24
         ),
     ];

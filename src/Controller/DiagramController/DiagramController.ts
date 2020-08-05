@@ -29,4 +29,5 @@ export default interface IDiagramController {
 export enum ChartType {
     LINE_CHART = "LineChart",
     PIE_CHART = "PieChart",
+    SCATTER_CHART = "ScatterChart",
 }

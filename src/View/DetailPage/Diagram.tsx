@@ -26,7 +26,7 @@ export default class Diagram extends React.Component<
         //setup default configuration in state
         this.state = {
             configurationOption: this.controller.getDefaultConfigurationOption(),
-            data: [],
+            data: null,
         };
 
         this.handleConfigurationChange = this.handleConfigurationChange.bind(
@@ -49,6 +49,10 @@ export default class Diagram extends React.Component<
     //change configuration in state
     handleConfigurationChange(event: React.ChangeEvent<{ value: unknown }>) {
         let configurationOption = event.target.value as string;
+        this.setState({
+            configurationOption: configurationOption,
+            data: null,
+        });
         this.controller.getData(configurationOption).then((data) =>
             this.setState({
                 configurationOption: configurationOption,
@@ -90,21 +94,20 @@ export default class Diagram extends React.Component<
             .then(console.log);
     }
 
-    //render component
-    render() {
-        return (
-            <Card>
-                <div style={this.styles.header}>
-                    <Grid container justify="space-between" alignItems="center">
-                        <Grid item>
-                            <Typography variant="subtitle1">
-                                {this.controller.feature.getName()}
-                            </Typography>
-                        </Grid>
-                        {this.renderDiagramConfiguration()}
-                    </Grid>
-                </div>
-                <Divider />
+    renderChart() {
+        if (this.state.data === null) {
+            return (
+                <Grid
+                    container
+                    justify="center"
+                    alignContent="center"
+                    style={this.styles.diagram}
+                >
+                    <CircularProgress />
+                </Grid>
+            );
+        } else {
+            return (
                 <Chart
                     width={this.styles.diagram.width}
                     height={this.styles.diagram.height}
@@ -122,6 +125,26 @@ export default class Diagram extends React.Component<
                     }
                     data={this.state.data}
                 />
+            );
+        }
+    }
+
+    //render component
+    render() {
+        return (
+            <Card>
+                <div style={this.styles.header}>
+                    <Grid container justify="space-between" alignItems="center">
+                        <Grid item>
+                            <Typography variant="subtitle1">
+                                {this.controller.feature.getName()}
+                            </Typography>
+                        </Grid>
+                        {this.renderDiagramConfiguration()}
+                    </Grid>
+                </div>
+                <Divider />
+                {this.renderChart()}
             </Card>
         );
     }
@@ -133,5 +156,5 @@ export interface IDiagramProps {
 
 interface IDiagramState {
     configurationOption: string;
-    data: Array<Array<Date | number | string | null>>;
+    data: Array<Array<Date | number | string | null>> | null;
 }

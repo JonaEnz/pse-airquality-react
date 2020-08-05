@@ -3,7 +3,6 @@ import IDiagramController, { ChartType } from "./DiagramController";
 import { ObservationStation } from "../../Model/ObservationStation";
 import { Feature } from "../../Model/Feature";
 import Timespan from "../../Model/Timespan";
-import MockDataProvider from "../MockDataProvider";
 import DataProvider from "../Frost/DataProvider";
 import { Observation } from "../../Model/Observation";
 
