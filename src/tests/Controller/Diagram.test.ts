@@ -56,11 +56,11 @@ test("isConfigurable() linechart", () => {
 });
 
 test("getDefaultConfigurationOption() linechart", () => {
-    expect(historyChart.getDefaultConfigurationOption()).toBe("last_24_hours");
+    expect(historyChart.getDefaultConfigurationOption()).toStrictEqual(language.getText("last_24_hours"));
 });
 
 test("getConfigurationOptions() linechart", () => {
-    expect(historyChart.getConfigurationOptions()).toBe([
+    expect(historyChart.getConfigurationOptions()).toStrictEqual([
         language.getText("last_24_hours"),
         language.getText("last_7_days"),
         language.getText("last_31_days"),
@@ -79,7 +79,7 @@ test("isConfigurable() piechart", () => {
 });
 
 test("getConfigurationOptions() piechart", () => {
-    expect(ComparisonToLastYearPieChart.getConfigurationOptions()).toBe([
+    expect(ComparisonToLastYearPieChart.getConfigurationOptions()).toStrictEqual([
         "default_configuration",
     ]);
 });
@@ -115,5 +115,5 @@ test("show error message in DiagramFactory", () => {
             station,
             feature
         )
-    ).toThrowError();
+    ).toThrowError(`Diagram id: ${"UndefinedPieChart"}, is not supported`);
 });
