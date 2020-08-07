@@ -47,6 +47,7 @@ let yearComparisonChart = new YearComparisonLineChartController(
 
 let language = Language.getInstance();
 
+/*
 test("getChartType() linechart", () => {
     expect(historyChart.getChartType()).toBe(ChartType.LINE_CHART);
 });
@@ -117,3 +118,4 @@ test("show error message in DiagramFactory", () => {
         )
     ).toThrowError(`Diagram id: ${"UndefinedPieChart"}, is not supported`);
 });
+*/
