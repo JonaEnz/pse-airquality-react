@@ -18,7 +18,7 @@ steps:
 - script: |
     npm install
     npm run build
-    npm run test -- --ci --reporters=default --reporters=jest-junit --collectCoverage --coverage-reporters=cobertura --watchAll
+    npm run test -- --reporters=default --reporters=jest-junit --collectCoverage --coverage-reporters=cobertura --watchAll=false
   displayName: 'npm install and build'
   env: 
     CI: true
