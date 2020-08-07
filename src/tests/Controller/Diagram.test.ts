@@ -47,11 +47,10 @@ let yearComparisonChart = new YearComparisonLineChartController(
 
 let language = Language.getInstance();
 
-
 test("getChartType() linechart", () => {
     expect(historyChart.getChartType()).toBe(ChartType.LINE_CHART);
 });
-
+/*
 test("isConfigurable() linechart", () => {
     expect(historyChart.isConfigurable()).toBe(true);
 });
