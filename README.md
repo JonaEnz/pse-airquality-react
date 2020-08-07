@@ -1,6 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 [![Build Status](https://jonaenzinger.visualstudio.com/pse-airquality-react/_apis/build/status/JonaEnz.pse-airquality-react?branchName=master)](https://jonaenzinger.visualstudio.com/pse-airquality-react/_build/latest?definitionId=5&branchName=master)
+
+![Tests](https://img.shields.io/azure-devops/tests/jonaenzinger/pse-airquality-react/5)
+
+![Coverage](https://img.shields.io/azure-devops/coverage/jonaenzinger/pse-airquality-react/5)
+
 ## Available Scripts
 
 In the project directory, you can run:
