@@ -1,9 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-![](https://jonaenzinger.visualstudio.com/pse-airquality-react/_apis/build/status/JonaEnz.pse-airquality-react?branchName=master)
-
-(https://jonaenzinger.visualstudio.com/pse-airquality-react/_build/latest?definitionId=5&branchName=master)
-
+[![Build Status](https://jonaenzinger.visualstudio.com/pse-airquality-react/_apis/build/status/JonaEnz.pse-airquality-react?branchName=master)](https://jonaenzinger.visualstudio.com/pse-airquality-react/_build/latest?definitionId=5&branchName=master)
 ## Available Scripts
 
 In the project directory, you can run:
