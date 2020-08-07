@@ -39,7 +39,10 @@
                 "higher": "höherer Wert",
                 "lower": "niedrigerer Wert",
                 "map_configuration_title": "Kartenkonfiguration",
-                "testFeature": "Test"
+                "testFeature": "Test",
+                "testNameDesc": "Test Beschreibung",
+                "testNameId": "Test Name",
+                "testWebLink": "Test Link"
             }
         },
         {
