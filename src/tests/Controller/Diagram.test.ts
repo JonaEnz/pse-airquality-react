@@ -7,8 +7,9 @@ import { Feature } from "../../Model/Feature";
 import { ObservationStation } from "../../Model/ObservationStation";
 import { Scale } from "../../Model/Scale";
 import { Position } from "../../Model/Position";
+import Language from "../../Controller/Storage/Language";
 
-var feature = new Feature(
+let feature = new Feature(
     "1",
     "testFeature",
     "id",
@@ -25,7 +26,7 @@ var feature = new Feature(
     "iconName"
 );
 
-var station = new ObservationStation(
+let station = new ObservationStation(
     "0001",
     "Chicago",
     "placeholder",
@@ -33,17 +34,18 @@ var station = new ObservationStation(
     [feature]
 );
 
-var historyChart = new FeatureHistoryLineChartController(station, feature);
+let historyChart = new FeatureHistoryLineChartController(station, feature);
 
-var ComparisonToLastYearPieChart = new ComparisonToLastYearPieChartController(
+let ComparisonToLastYearPieChart = new ComparisonToLastYearPieChartController(
+    station,
+    feature
+);
+let yearComparisonChart = new YearComparisonLineChartController(
     station,
     feature
 );
 
-var yearComparisonChart = new YearComparisonLineChartController(
-    station,
-    feature
-);
+let language = Language.getInstance();
 
 test("getChartType() linechart", () => {
     expect(historyChart.getChartType()).toBe(ChartType.LINE_CHART);
@@ -59,10 +61,10 @@ test("getDefaultConfigurationOption() linechart", () => {
 
 test("getConfigurationOptions() linechart", () => {
     expect(historyChart.getConfigurationOptions()).toBe([
-        "last_24_hours",
-        "last_7_days",
-        "last_31_days",
-        "last_year",
+        language.getText("last_24_hours"),
+        language.getText("last_7_days"),
+        language.getText("last_31_days"),
+        language.getText("last_year"),
     ]);
 });
 

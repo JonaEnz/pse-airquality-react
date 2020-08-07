@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, SyntheticEvent } from "react";
 import { IconButton, Divider, InputBase, Grid, Card } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import GpsFixedIcon from "@material-ui/icons/GpsFixed";
@@ -10,7 +10,7 @@ import "./Search.css";
 let language = Language.getInstance();
 
 interface Props {
-    onSearch(term: string): void;
+    onSearch(event: SyntheticEvent, term: string): void;
     updatePosition(pos: Position): void;
 }
 
@@ -72,9 +72,9 @@ export default class Search extends React.Component<Props, State> {
                     >
                         <form
                             className="search-form"
-                            onSubmit={() => {
-                                this.props.onSearch(this.state.searchTerm);
-                            }}
+                            onSubmit={(e) =>
+                                this.props.onSearch(e, this.state.searchTerm)
+                            }
                         >
                             <InputBase
                                 className="input"
@@ -88,7 +88,12 @@ export default class Search extends React.Component<Props, State> {
                             />
                             <IconButton
                                 type="submit"
-                                onClick={() => this.locationClick()}
+                                onClick={(e) =>
+                                    this.props.onSearch(
+                                        e,
+                                        this.state.searchTerm
+                                    )
+                                }
                                 className="search-button"
                             >
                                 <SearchIcon />

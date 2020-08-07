@@ -38,15 +38,14 @@ export class ObservationStation {
     }
 
     public getDiagramController(): IDiagramController[] {
-        var diagramController: IDiagramController[] = [];
+        var diagramController = new Array<IDiagramController>();
 
-        this.availableFeatures.forEach(feature => {
+        for (let feature of this.availableFeatures) {
             let featureDiagramControllerArray = feature.getDiagramController(this);
-            featureDiagramControllerArray.forEach(contr => {
-                diagramController.push(contr);
-            });
-        });
-
+            for (let controller of featureDiagramControllerArray) {
+                diagramController.push(controller);
+            }
+        }
         return diagramController;
     }
 

@@ -4,7 +4,7 @@ import { Viewport } from "../../Model/Viewport";
 import { MapPin } from "../../Model/MapPin";
 import { Polygon } from "../../Model/Polygon";
 
-import { Card } from '@material-ui/core';
+import { Card, CircularProgress } from "@material-ui/core";
 import {
     Map as LeafletMap,
     TileLayer,
@@ -18,6 +18,7 @@ import { StationInfo } from "./StationInfo";
 import { Observation } from "../../Model/Observation";
 import { ObservationStation } from "../../Model/ObservationStation";
 import Language from "../../Controller/Storage/Language";
+import { isNull } from "util";
 require("leaflet-iconmaterial");
 
 const VIEW_UPDATE_DELAY = 500; // in ms
@@ -70,7 +71,7 @@ export class Map extends React.Component<Props, State> {
             //@ts-ignore
             icon = L.IconMaterial.icon({
                 icon: iconName[1], // Name of Material icon
-                iconColor: "#33DD11", // Material icon color (could be rgba, hex, html name...)
+                iconColor: "white", // Material icon color (could be rgba, hex, html name...)
                 markerColor: pin.getColor().getHex(), // Marker fill color
                 outlineColor: "black", // Marker outline color
                 outlineWidth: 1, // Marker outline width
@@ -122,6 +123,7 @@ export class Map extends React.Component<Props, State> {
     }
 
     private async handlePopup(pin: MapPin) {
+        this.setState({ lastObservation: null });
         var observation = await this.props.handlePopup(pin);
         this.setState({ lastObservation: observation });
     }
@@ -153,20 +155,17 @@ export class Map extends React.Component<Props, State> {
                         position={pin.getPosition().getCoordinates()}
                         icon={this.getIconFromMapPin(pin)}
                     >
-                        <Popup onOpen={() => this.handlePopup(pin)}>
+                        <Popup
+                            onOpen={() => this.handlePopup(pin)}
+                            className="popup"
+                        >
                             {this.state.lastObservation ? (
                                 <StationInfo
-                                    lastObservation={
-                                        this.state.lastObservation
-                                    }
+                                    lastObservation={this.state.lastObservation}
                                 />
                             ) : (
-                                    <p>
-                                        {Language.getInstance().getText(
-                                            "noData"
-                                        )}
-                                    </p>
-                                )}
+                                <CircularProgress />
+                            )}
                         </Popup>
                     </Marker>
                 ))}
@@ -174,7 +173,7 @@ export class Map extends React.Component<Props, State> {
                     <LeafletPolygon
                         positions={this.getPositionsFromPolygon(polygon)}
                         color={polygon.getColor().getHex()}
-                        fillOpacity={0.1}
+                        fillOpacity={0.3}
                     />
                 ))}
             </LeafletMap>

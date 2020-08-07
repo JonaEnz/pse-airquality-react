@@ -97,17 +97,21 @@ export default class MockDataProvider {
         let date = start;
         let observations = new Array<Observation>();
 
+        let previousValue = feature.getLimit() / 3;
+
         if (frequency <= 1) {
             while (date.valueOf() < end.valueOf()) {
                 date = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1 / frequency);
-                let value = Math.random() * 100;
+                let value = previousValue + (Math.random() * 2) - 1;
+                previousValue = value;
                 let observation = new Observation(station, feature, value, date);
                 observations.push(observation);
             }
         } else if (frequency > 1) {
             while (date.valueOf() < end.valueOf()) {
                 date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours() + 24 / frequency);
-                let value = Math.random() * 100;
+                let value = previousValue + (Math.random() * 2) - 1;
+                previousValue = value;
                 let observation = new Observation(station, feature, value, date);
                 observations.push(observation);
             }
@@ -128,15 +132,43 @@ export default class MockDataProvider {
     }
 
     static getStation(id: string): ObservationStation {
+        var colors: { [key: number]: string } = {};
+        for (let index = 0; index < 5; index++) {
+            var c = this.randomColor().getHex();
+            colors[Math.floor(Math.random() * 100)] = c;
+        }
+        var scale = new Scale(true, colors);
+
         return new ObservationStation(
             id,
             'mockName',
             'mockDesc',
             new Position(48.369665, 10.903877),
+
+
             [
-                this.mockFeature(),
-                this.mockFeature(),
-                this.mockFeature(),
+                new Feature(
+                    "saqn:op:ta",
+                    "temperatureName",
+                    "temperatureDesc",
+                    scale,
+                    "tempLink",
+                    40,
+                    "°C",
+                    ['YearComparisonLineChart', 'FeatureHistoryLineChart', 'ComparisonToLastYearPieChart'],
+                    'thermometer-half'
+                ),
+                new Feature(
+                    "saqn:op:mcpm2p5",
+                    "PNC2.5Name",
+                    "PNC2.5Desc",
+                    scale,
+                    "PNC2.5Link",
+                    100,
+                    "µg/m³",
+                    ['YearComparisonLineChart', 'FeatureHistoryLineChart', 'ComparisonToLastYearPieChart'],
+                    'smog'
+                ),
             ]
         );
     }

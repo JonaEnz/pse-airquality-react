@@ -18,7 +18,7 @@ export class GetObservationsConverter
         options: GetObservationsOptions
     ): Observation[] {
         if (json.value === null || json.value === undefined) {
-            throw new Error("nö");
+            throw new Error("Cannot parse response of server");
         }
         let observations: Observation[] = [];
         json.value.forEach((stream) => {
@@ -47,7 +47,15 @@ export class GetObservationsConverter
 
 export class GetObservationsBuilder implements QueryBuilder {
     public getQuery(options: GetObservationsOptions): string {
-        return "";
+        return "Datastreams?$select=@iot.id&$filter=Thing/@iot.id eq '" +
+            options.station.getId() + "' and ObservedProperty/@iot.id eq '" +
+            options.feature.getId() + "'&$expand=Observations($filter=overlaps(phenomenonTime, " +
+            this.properDate(options.start) + "/" + this.properDate(options.end) + ");$orderby=phenomenonTime desc)";
+    }
+
+    private properDate(date: Date): string {
+        return date.getFullYear() + "-" + date.getMonth() + "-" +
+            date.getDay() + "T" + date.getHours + ":" + date.getMinutes + ":" + date.getSeconds() + "Z";
     }
 }
 

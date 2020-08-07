@@ -18,6 +18,18 @@ export default class DataProvider {
         "https://api.smartaq.net/v1.0/"
     );
 
+    private static handleFrostResult<T>(fr: FrostResult<T>): T {
+        let result: T | null = fr.getResult();
+        if (!fr.getSuccess() || result === null) {
+            //Error handling here
+            throw new Error(fr.getMessage());
+        } else {
+            return result;
+        }
+
+
+    }
+
     static async getObservationStations(
         middle: Position,
         radius: number
@@ -29,13 +41,7 @@ export default class DataProvider {
                 radius,
             }
         );
-        let obsnull: ObservationStation[] | null = fr.getResult();
-        if (obsnull !== null) {
-            return obsnull;
-        }
-        alert("dp error");
-        alert(fr.getMessage());
-        throw new Error(fr.getMessage());
+        return this.handleFrostResult(fr);
     }
 
     static async getLatestObservation(
@@ -46,11 +52,7 @@ export default class DataProvider {
             new GetLatestObservationFactory(),
             { station, feature }
         );
-        let obsnull: Observation | null = fr.getResult();
-        if (obsnull !== null) {
-            return obsnull;
-        }
-        throw new Error("nö");
+        return this.handleFrostResult(fr);
     }
 
     static async getStation(id: string): Promise<ObservationStation> {
@@ -58,12 +60,7 @@ export default class DataProvider {
             new GetStationFactory(),
             { id }
         );
-        let obsnull: ObservationStation | null = fr.getResult();
-        if (obsnull !== null) {
-            return obsnull;
-        }
-        alert("dp error");
-        throw new Error("nö");
+        return this.handleFrostResult(fr);
     }
 
     static async getLatestObservations(

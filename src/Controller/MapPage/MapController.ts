@@ -90,6 +90,10 @@ export class MapController {
         return this.config.getScale();
     }
 
+    getSelectedFeature(): Feature {
+        return this.config.getFeatures()[0];
+    }
+
     // Switch to configuration with different feature
     changeFeature(feature: Feature) {
         switch (this.config.getId()) {

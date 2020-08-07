@@ -21,7 +21,6 @@ class FHLCConfigurationOption {
         xAxis: { type: string; label: string }
     ) {
         this.name = languageProvider.getText(nameId);
-        this.name = "";
         this.timespan = timespan;
         this.frequency = frequency;
         this.xAxis = xAxis;
@@ -72,7 +71,9 @@ export class FeatureHistoryLineChartController implements IDiagramController {
         FeatureHistoryLineChartController.configurationOptions[0];
 
     // options for the graphical appearence
-    private static readonly graphicsOptions = {};
+    private static readonly graphicsOptions = {
+        legend: { position: 'none' },
+    };
 
     //concerning observation station
     observationStation: ObservationStation;

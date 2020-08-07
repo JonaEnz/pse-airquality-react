@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, SyntheticEvent } from "react";
 import { ObservationStation } from "../../Model/ObservationStation";
 import { Map } from "./Map";
 import { Feature } from "../../Model/Feature";
@@ -15,7 +15,7 @@ import { Box, Theme, Grid } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import { Color } from "../../Model/Color";
 
-import './MapPage.css'
+import "./MapPage.css";
 
 const styles = (theme: Theme) => ({});
 
@@ -118,19 +118,24 @@ class MapPage extends React.Component<Props, State> {
         return promise;
     }
 
-    onSearch(term: string) {
+    onSearch(event: SyntheticEvent, term: string) {
+        event.preventDefault();
         this.mapController.search(term).then(() => {
-            var mp = new MapPin(
-                "icon-home-1",
-                this.state.viewport.getCenter(),
-                -1,
-                new Color(0, 0, 0)
-            );
-            this.setState({
-                additionalPins: [mp],
-                pins: this.state.pins.concat(mp),
-            });
+            this.setHomeMarker();
             this.update();
+        });
+    }
+
+    setHomeMarker() {
+        var mp = new MapPin(
+            "icon-home-1",
+            this.state.viewport.getCenter(),
+            -1,
+            new Color(0, 0, 0)
+        );
+        this.setState({
+            additionalPins: [mp],
+            pins: this.state.pins.concat(mp),
         });
     }
 
@@ -164,18 +169,19 @@ class MapPage extends React.Component<Props, State> {
         var min = this.getMin();
         var max = this.getMax();
         return (
-            <Box className='map-page'>
-                <Box className='search'>
+            <Box className="map-page">
+                <Box className="search">
                     <Search
-                        onSearch={(term) => this.onSearch(term)}
+                        onSearch={(event, term) => this.onSearch(event, term)}
                         updatePosition={(pos) => {
                             var view = this.state.viewport;
                             view.setCenter(pos);
+                            this.setHomeMarker();
                             this.onViewportChange(view);
                         }}
                     />
                 </Box>
-                <Box className='map'>
+                <Box className="map">
                     <Map
                         viewport={this.state.viewport}
                         onViewportChange={(viewport) => {
@@ -186,7 +192,7 @@ class MapPage extends React.Component<Props, State> {
                         polygons={this.state.polygons}
                     />
                 </Box>
-                <Box className='feature-select'>
+                <Box className="feature-select">
                     <FeatureSelect
                         onConfigurationChange={(conf) => {
                             this.mapController.onConfigurationChange(conf);
@@ -195,10 +201,13 @@ class MapPage extends React.Component<Props, State> {
                         startConf={this.mapController.getFeatureSelectConf()}
                     />
                 </Box>
-                <Box className='legend'>
+                <Box className="legend">
                     <Legend
                         min={min}
                         max={max}
+                        unit={this.mapController
+                            .getSelectedFeature()
+                            .getUnitOfMeasurement()}
                         scale={this.mapController.getScale()}
                     />
                 </Box>

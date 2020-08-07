@@ -1,9 +1,9 @@
 {
     "features": [
         {
-            "id": "saqn:op:ncpm10",
+            "id": "saqn:op:mcpm10",
             "nameId": "PNC10Name",
-            "unitOfMeasurement": "Ø",
+            "unitOfMeasurement": "µg/m³",
             "descriptionId": "PNC10Desc",
             "defaultScale": {
                 "0": "#0f8a0f",
@@ -20,10 +20,8 @@
             },
             "webLinkId": "PNC10Link",
             "limit": 100,
-            "diagrams": [
-                "FeatureHistoryLineChart"
-            ],
-            "icon": ""
+            "diagrams": ["FeatureHistoryLineChart"],
+            "icon": "smog"
         },
         {
             "id": "saqn:op:mcpm2p5",
@@ -45,10 +43,8 @@
             },
             "webLinkId": "PNC2.5Link",
             "limit": 100,
-            "diagrams": [
-                "FeatureHistoryLineChart"
-            ],
-            "icon": ""
+            "diagrams": ["FeatureHistoryLineChart"],
+            "icon": "smog"
         },
         {
             "id": "saqn:op:plev",
@@ -70,10 +66,8 @@
             },
             "webLinkId": "pascalLink",
             "limit": 1050,
-            "diagrams": [
-                "FeatureHistoryLineChart"
-            ],
-            "icon": ""
+            "diagrams": ["FeatureHistoryLineChart"],
+            "icon": "tachometer-alt"
         },
         {
             "id": "saqn:op:ta",
@@ -95,10 +89,8 @@
             },
             "webLinkId": "tempLink",
             "limit": 40,
-            "diagrams": [
-                "FeatureHistoryLineChart"
-            ],
-            "icon": ""
+            "diagrams": ["FeatureHistoryLineChart"],
+            "icon": "thermometer-half"
         }
     ]
 }
