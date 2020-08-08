@@ -84,7 +84,10 @@
                 "higher": "higher value",
                 "lower": "lower value",
                 "map_configuration_title": "Map Configuration",
-                "testFeature": "Test"
+                "testFeature": "Test",
+                "testNameDesc": "Test Beschreibung",
+                "testNameId": "Test Name",
+                "testWebLink": "Test Link"
             }
         }
     ]
