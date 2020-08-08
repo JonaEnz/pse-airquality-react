@@ -47,7 +47,7 @@ let yearComparisonChart = new YearComparisonLineChartController(
 
 let language = Language.getInstance();
 
-/*
+
 test("getChartType() linechart", () => {
     expect(historyChart.getChartType()).toBe(ChartType.LINE_CHART);
 });
@@ -109,6 +109,7 @@ test("create Diagram in  Diagram Factory", () => {
     ).toEqual(new YearComparisonLineChartController(station, feature));
 });
 
+/*
 test("show error message in DiagramFactory", () => {
     expect(
         DiagramFactory.getDiagramController(
