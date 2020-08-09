@@ -95,12 +95,8 @@ export class FeatureHistoryLineChartController implements IDiagramController {
         return FeatureHistoryLineChartController.chartType;
     }
 
+    //return names of graphics option
     getGraphicsOptions() {
-        return FeatureHistoryLineChartController.graphicsOptions;
-    }
-
-    //return names of graphics options
-    getViewOptions() {
         return FeatureHistoryLineChartController.graphicsOptions;
     }
 
