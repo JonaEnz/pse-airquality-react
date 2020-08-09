@@ -8,3 +8,5 @@ import ErrorPage from "./ErrorPage";
 let language = Language.getInstance();
 
 let about = AboutPage;
+
+test("Empty test to make this test suite valid", () => {});
