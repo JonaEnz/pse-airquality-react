@@ -1,6 +1,6 @@
-import { Position } from './Position';
-import { Feature } from './Feature';
-import IDiagramController from '../Controller/DiagramController/DiagramController';
+import { Position } from "./Position";
+import { Feature } from "./Feature";
+import IDiagramController from "../Controller/DiagramController/DiagramController";
 
 export class ObservationStation {
     private id: string;
@@ -9,7 +9,13 @@ export class ObservationStation {
     private position: Position;
     private availableFeatures: Feature[];
 
-    constructor(id: string, name: string, description: string, position: Position, availableFeatures: Feature[]) {
+    constructor(
+        id: string,
+        name: string,
+        description: string,
+        position: Position,
+        availableFeatures: Feature[]
+    ) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -41,7 +47,9 @@ export class ObservationStation {
         var diagramController = new Array<IDiagramController>();
 
         for (let feature of this.availableFeatures) {
-            let featureDiagramControllerArray = feature.getDiagramController(this);
+            let featureDiagramControllerArray = feature.getDiagramController(
+                this
+            );
             for (let controller of featureDiagramControllerArray) {
                 diagramController.push(controller);
             }
@@ -50,14 +58,8 @@ export class ObservationStation {
     }
 
     public hasFeature(feature: Feature): boolean {
-        //Not sure if this works 
-        var found: boolean = false;
-        var length: number = this.availableFeatures.length;
-        for (var counter: number = 0; counter < length; counter++) {
-            if (feature === this.availableFeatures[counter]) {
-                found = true;
-            }
-        }
-        return found;
+        return this.availableFeatures.find((f) => f.getId() === feature.getId())
+            ? true
+            : false;
     }
 }
