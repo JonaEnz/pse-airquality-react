@@ -4,6 +4,7 @@ import Language from "../../Controller/Storage/Language";
 import { Observation } from "../../Model/Observation";
 import { ObservationStation } from "../../Model/ObservationStation";
 import { Position } from "../../Model/Position";
+import TestHelper from "../TestHelper";
 
 const ID_GERMAN = "de-de";
 
@@ -15,7 +16,7 @@ var feature = new Feature(
     "testWebLink",
     100,
     "testUoM",
-    ["testController"],
+    ["FeatureHistoryLineChart"],
     "testIcon"
 );
 
@@ -36,20 +37,16 @@ test("Check Name, Description and Link in German", () => {
     expect(feature.getRelatedWeblink()).toStrictEqual("https://testlink/");
 });
 
-function getObservationWithValue(n: number): Observation {
-    return new Observation(
-        new ObservationStation("", "", "", new Position(0, 0), []),
-        feature,
-        n,
-        new Date(Date.now())
-    );
-}
-
 test("Limit exceeded", () => {
-    var obs = getObservationWithValue(100);
+    var obs = TestHelper.getTestObservation(100);
     expect(feature.isLimitExceeded(obs)).toBe(false);
-    obs = getObservationWithValue(101);
+    obs = TestHelper.getTestObservation(101);
     expect(feature.isLimitExceeded(obs)).toBe(true);
-    obs = getObservationWithValue(99.5);
+    obs = TestHelper.getTestObservation(99.5);
     expect(feature.isLimitExceeded(obs)).toBe(false);
+});
+
+test("Diagram controller", () => {
+    var obs = TestHelper.getTestObservationStation();
+    expect(feature.getDiagramController(obs).length).toBeGreaterThanOrEqual(1);
 });
