@@ -77,6 +77,7 @@ export default class Search extends React.Component<Props, State> {
                             }
                         >
                             <InputBase
+                                data-testid="textBox"
                                 className="input"
                                 type="search"
                                 onChange={(e) => {
@@ -87,6 +88,7 @@ export default class Search extends React.Component<Props, State> {
                                 placeholder={language.getText("search")}
                             />
                             <IconButton
+                                data-testid="searchButton"
                                 type="submit"
                                 onClick={(e) =>
                                     this.props.onSearch(
@@ -101,11 +103,12 @@ export default class Search extends React.Component<Props, State> {
                         </form>
                         <Divider orientation="vertical" flexItem={true} />
                         <IconButton
+                            data-testid="locationButton"
                             onClick={() => this.locationClick()}
                             className="location-button"
                             disabled={!this.state.locationEnabled}
                         >
-                            <GpsFixedIcon />
+                            <GpsFixedIcon data-testid="locationIcon" />
                         </IconButton>
                     </Grid>
                 </Card>

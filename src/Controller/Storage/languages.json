@@ -42,7 +42,7 @@
                 "testFeature": "Test",
                 "testNameDesc": "Test Beschreibung",
                 "testNameId": "Test Name",
-                "testWebLink": "Test Link"
+                "testWebLink": "https://testlink/"
             }
         },
         {

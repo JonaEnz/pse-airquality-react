@@ -4,6 +4,8 @@ import { Color } from "../Model/Color";
 var color = TestHelper.getTestColor();
 var feature = TestHelper.getTestFeature();
 var scale = TestHelper.getTestScale();
+var observation = TestHelper.getTestObservation(100);
+var obsStation = TestHelper.getTestObservationStation(1, 2);
 
 function isColorValid(c: Color): boolean {
     var rgb = c.getRGB();
@@ -33,4 +35,15 @@ test("Scale", () => {
 
 test("Feature", () => {
     expect(feature.getId()).toStrictEqual(TestHelper.FEATURE_ID);
+});
+
+test("Observation", () => {
+    expect(observation.getValue()).toBe(100);
+});
+
+test("ObservationStation", () => {
+    expect(obsStation.getPosition().getCoordinates()).toStrictEqual({
+        lat: 1,
+        lng: 2,
+    });
 });

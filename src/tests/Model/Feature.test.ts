@@ -33,7 +33,7 @@ test("Check Name, Description and Link in German", () => {
     Language.getInstance().changeLanguage(ID_GERMAN);
     expect(feature.getName()).toStrictEqual("Test Name");
     expect(feature.getDescription()).toStrictEqual("Test Beschreibung");
-    expect(feature.getRelatedWeblink()).toStrictEqual("Test Link");
+    expect(feature.getRelatedWeblink()).toStrictEqual("https://testlink/");
 });
 
 function getObservationWithValue(n: number): Observation {
