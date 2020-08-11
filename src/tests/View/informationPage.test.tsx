@@ -19,8 +19,7 @@ test("PrivcyolicyPage renders", () => {
     expect(wrapped.exists()).toBe(true);
 });
 
-//this test doesn't work yet, nneed to pass props to errorpage
-/*test("ErrorPage renders", () => {
-    let wrapped = shallow(<ErrorPage code />);
+test("ErrorPage renders", () => {
+    let wrapped = shallow(<ErrorPage code={404} message={"Page not found"} />);
     expect(wrapped.exists()).toBe(true);
-});*/
+});
