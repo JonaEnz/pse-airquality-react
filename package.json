@@ -69,5 +69,11 @@
         "@types/webpack-env": "^1.15.2",
         "jest": "^24.9.0",
         "prettier": "^2.0.5"
+    },
+    "jest": {
+        "collectCoverageFrom": [
+            "src/**/*.{js,jsx,ts,tsx}",
+            "!<rootDir>/src/serviceWorker.ts"
+        ]
     }
 }
