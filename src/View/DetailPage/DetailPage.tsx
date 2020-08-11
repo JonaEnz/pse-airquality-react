@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, CircularProgress } from "@material-ui/core";
 import Hidden from "@material-ui/core/Hidden";
 
 import { ObservationStation } from "../../Model/ObservationStation";
@@ -31,7 +31,7 @@ export default class DetailPage extends React.Component<
 
     //return diagrams of this observation station
     renderDiagrams() {
-        if (this.state.obs === null) return "";
+        if (this.state.obs === null) return <CircularProgress />;
 
         var diagramController = this.state.obs.getDiagramController();
         return diagramController.map((controller) => (
@@ -62,7 +62,7 @@ export default class DetailPage extends React.Component<
                                 observationStation={this.state.obs}
                             />
                         ) : (
-                            <p>...</p>
+                            <CircularProgress />
                         )}
                     </Grid>
                     <Hidden only={["sm", "xs"]}>
@@ -72,7 +72,7 @@ export default class DetailPage extends React.Component<
                                     position={this.state.obs.getPosition()}
                                 />
                             ) : (
-                                <p>...</p>
+                                <CircularProgress />
                             )}
                         </Grid>
                     </Hidden>
