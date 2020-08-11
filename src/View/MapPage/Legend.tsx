@@ -40,11 +40,12 @@ function Legend(props: Props) {
     const classes = useStyles();
     return (
         <Card className={classes.container}>
-            <Grid container direction="column" alignItems='center'>
+            <Grid container direction="column" alignItems="center">
                 <Typography variant="body2">
                     {Math.floor(props.max * 10) / 10}
                 </Typography>
                 <Box
+                    data-testid="legend"
                     style={getStyleFromScale(props.scale, props.min, props.max)}
                 />
                 <Typography variant="body2">
@@ -52,7 +53,7 @@ function Legend(props: Props) {
                 </Typography>
                 <Divider orientation="horizontal" flexItem={true} />
                 <Typography variant="body2">
-                    {'[' + props.unit + ']'}
+                    {"[" + props.unit + "]"}
                 </Typography>
             </Grid>
         </Card>
