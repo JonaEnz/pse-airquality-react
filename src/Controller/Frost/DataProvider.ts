@@ -2,9 +2,6 @@ import { Feature } from "../../Model/Feature";
 import { Observation } from "../../Model/Observation";
 import { ObservationStation } from "../../Model/ObservationStation";
 import { Position } from "../../Model/Position";
-import { Scale } from "../../Model/Scale";
-import { Color } from "../../Model/Color";
-import FeatureProvider from "../FeatureProvider";
 import FrostServer from "./FrostServer";
 import { GetStationFactory } from "./factories/GetStation";
 import { FrostResult } from "../../Model/FrostResult";
@@ -26,8 +23,6 @@ export default class DataProvider {
         } else {
             return result;
         }
-
-
     }
 
     static async getObservationStations(
