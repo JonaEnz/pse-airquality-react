@@ -6,7 +6,6 @@ var errorResult = new FrostResult<string>(null, false, "ErrMes");
 test("Getters", () => {
     expect(frostResult.getResult()).toStrictEqual("Result");
     expect(frostResult.getSuccess()).toBeTruthy();
-    expect(frostResult.getMessage()).toStrictEqual("");
 });
 
 test("Error", () => {
