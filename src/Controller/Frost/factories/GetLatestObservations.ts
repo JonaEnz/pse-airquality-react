@@ -5,7 +5,6 @@ import ResultModelConverter from "../ResultModelConverter";
 import { Position } from "../../../Model/Position";
 import { ObservationStation } from "../../../Model/ObservationStation";
 import { Feature } from "../../../Model/Feature";
-import { Stream } from "stream";
 import FeatureProvider from "../../FeatureProvider";
 
 export class GetLatestObservationsFactory extends FrostFactory<Observation[]> {
