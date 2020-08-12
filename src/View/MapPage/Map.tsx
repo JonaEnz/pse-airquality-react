@@ -4,7 +4,7 @@ import { Viewport } from "../../Model/Viewport";
 import { MapPin } from "../../Model/MapPin";
 import { Polygon } from "../../Model/Polygon";
 
-import { Card, CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import {
     Map as LeafletMap,
     TileLayer,
@@ -17,8 +17,6 @@ import { Position } from "../../Model/Position";
 import { StationInfo } from "./StationInfo";
 import { Observation } from "../../Model/Observation";
 import { ObservationStation } from "../../Model/ObservationStation";
-import Language from "../../Controller/Storage/Language";
-import { isNull } from "util";
 require("leaflet-iconmaterial");
 
 const VIEW_UPDATE_DELAY = 500; // in ms
@@ -143,6 +141,7 @@ export class Map extends React.Component<Props, State> {
             <LeafletMap
                 center={this.state.viewport.getCenter().getCoordinates()}
                 zoom={this.state.viewport.getZoom()}
+                id="leafletMap"
                 onViewportChange={(v) => this.onViewportChange(v)}
                 zoomControl={false}
             >
@@ -154,6 +153,7 @@ export class Map extends React.Component<Props, State> {
                     <Marker
                         position={pin.getPosition().getCoordinates()}
                         icon={this.getIconFromMapPin(pin)}
+                        id={"mapPin-" + pin.getId()}
                     >
                         <Popup
                             onOpen={() => this.handlePopup(pin)}
