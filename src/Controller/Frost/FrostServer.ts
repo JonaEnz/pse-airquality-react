@@ -1,6 +1,5 @@
 import { FrostResult } from "../../Model/FrostResult";
 import FrostFactory from "./FrostFactory";
-import QueryBuilder from "./QueryBuilder";
 
 export default class FrostServer {
     private url: string;
@@ -21,23 +20,33 @@ export default class FrostServer {
         ff: FrostFactory<T>,
         options: any
     ): Promise<FrostResult<T>> {
-        let req: string = ff.getQueryBuilder().getQuery(options);
-        const json: any = await fetch(this.url + req).then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                return null;
-            }
-        });
-        if (json === null) {
-            return new FrostResult<T>(null, false, "fetch error");
+        //get query from query builder
+        let query: string = ff.getQueryBuilder().getQuery(options);
+
+        //fetch response
+        let response: Response = await fetch(this.url + query);
+        if (!response.ok) {
+            //something went wrong in the fetching process
+            return new FrostResult<T>(
+                null,
+                false,
+                `Fetching Error: ${response.status} ${response.statusText}`
+            );
         }
-        let result: T;
+
+        //convert response to json
+        let json: JSON = await response.json();
+
         try {
-            result = ff.getConverter().convert(json, options);
+            //get type specific json converter
+            let converter = ff.getConverter();
+            //convert json to specific objects
+            let result: T = converter.convert(json, options);
+
+            return new FrostResult<T>(result, true, "No error occured");
         } catch (error) {
-            return new FrostResult<T>(null, false, error.message);
+            //something went wrong in the convertion process
+            return new FrostResult<T>(null, false, (error as Error).message);
         }
-        return new FrostResult<T>(result, true, "");
     }
 }

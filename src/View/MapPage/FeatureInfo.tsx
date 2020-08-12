@@ -51,6 +51,7 @@ export default function FeatureInfo(props: IProps) {
     return (
         <div>
             <Avatar
+                id="infoAvatar"
                 className={classes.icon}
                 aria-describedby={id}
                 onClick={handleClick}
@@ -80,6 +81,7 @@ export default function FeatureInfo(props: IProps) {
                     <Button
                         color="secondary"
                         variant="outlined"
+                        className="linkButton"
                         href={
                             props.feature?.getRelatedWeblink() ??
                             language.getText("error")

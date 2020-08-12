@@ -18,6 +18,14 @@ test("Render", () => {
         "href",
         language.getText("testWebLink")
     );
+    //@ts-ignore
+    global.window.location = {
+        href: "",
+    };
+
+    stationInfo.getByTestId("info-button").click();
+
+    expect(global.window.location.href.length).toBeGreaterThan(0);
 });
 
 const stationI = shallow(

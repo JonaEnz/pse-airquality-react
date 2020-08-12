@@ -1,4 +1,4 @@
-import React, { Fragment, SyntheticEvent } from "react";
+import React, { SyntheticEvent } from "react";
 import { ObservationStation } from "../../Model/ObservationStation";
 import { Map } from "./Map";
 import { Feature } from "../../Model/Feature";

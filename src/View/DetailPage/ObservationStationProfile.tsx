@@ -17,7 +17,7 @@ import DataProvider from "../../Controller/Frost/DataProvider";
 export default class ObservationStationProfile extends React.Component<
     IObservationStationProfileProps,
     IObservationStationProfileState
-    > {
+> {
     languageProvider: Language;
 
     constructor(props: IObservationStationProfileProps) {
@@ -72,11 +72,13 @@ export default class ObservationStationProfile extends React.Component<
     //returns the latest observation for each feature of this observation station
     private async getLatestObservations(): Promise<Array<Observation>> {
         var features = this.props.observationStation.getFeatures();
-        console.log(this.props.observationStation);
         var observations = new Array<Observation>();
 
         for (let feature of features) {
-            var observation = await DataProvider.getLatestObservation(this.props.observationStation, feature);
+            var observation = await DataProvider.getLatestObservation(
+                this.props.observationStation,
+                feature
+            );
             observations.push(observation);
         }
 

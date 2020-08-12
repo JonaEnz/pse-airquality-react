@@ -71,6 +71,9 @@ export class MapController {
 
     // Called if the viewport has changed significantly
     handleViewportChange(viewport: Viewport) {
+        if (viewport.getZoom() < 5) {
+            viewport = new Viewport(viewport.getCenter(), 5);
+        }
         this.viewport = viewport;
         this.save();
     }
@@ -110,7 +113,7 @@ export class MapController {
             default:
                 throw new Error(
                     "Current configuration has invalid id: " +
-                    this.config.getId()
+                        this.config.getId()
                 );
         }
     }
@@ -129,7 +132,7 @@ export class MapController {
 
         var response = await fetch(
             "https://nominatim.openstreetmap.org/search?format=json&q=" +
-            encodeURIComponent(searchTerm)
+                encodeURIComponent(searchTerm)
         );
         var json = await response.json();
         if (json.length === 0) {

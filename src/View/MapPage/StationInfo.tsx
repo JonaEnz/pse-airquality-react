@@ -2,7 +2,6 @@ import React from "react";
 import { Observation } from "../../Model/Observation";
 import { Button, Typography, Grid, Box, Divider } from "@material-ui/core";
 import Language from "../../Controller/Storage/Language";
-import FeatureInfo from "./FeatureInfo";
 
 import "./StationInfo.css";
 
@@ -74,6 +73,7 @@ export class StationInfo extends React.Component<Props, State> {
                     </Typography>
                     <Button
                         className="info-button"
+                        data-testid="info-button"
                         color="primary"
                         onClick={() => this.openDetails()}
                         variant="contained"

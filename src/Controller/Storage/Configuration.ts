@@ -1,4 +1,5 @@
 import FeatureProvider from "../FeatureProvider";
+import { isNullOrUndefined } from "util";
 
 export default class Configuration {
     private static instance: Configuration | null;
@@ -17,7 +18,8 @@ export default class Configuration {
     private static load() {
         var json = require("../../Jsons/config.json"); //Load config
         var iConf = json as IConfig;
-        if (!iConf) {
+        console.log(iConf);
+        if (isNullOrUndefined(iConf)) {
             throw new Error("Config.json has wrong format.");
         }
         var newConf = new Configuration();

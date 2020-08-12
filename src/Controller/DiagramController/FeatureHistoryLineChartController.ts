@@ -3,7 +3,8 @@ import IDiagramController, { ChartType } from "./DiagramController";
 import { ObservationStation } from "../../Model/ObservationStation";
 import { Feature } from "../../Model/Feature";
 import Timespan from "../../Model/Timespan";
-import MockDataProvider from "../MockDataProvider";
+import DataProvider from "../Frost/DataProvider";
+import { Observation } from "../../Model/Observation";
 
 let languageProvider = Language.getInstance();
 
@@ -11,108 +12,128 @@ class FHLCConfigurationOption {
     name: string;
     timespan: Timespan;
     frequency: number;
-    //type and label for the xAxis
-    xAxis: { type: string; label: string };
+    additionalGraphicsOptions: {};
 
     constructor(
         nameId: string,
         timespan: Timespan,
         frequency: number,
-        xAxis: { type: string; label: string }
+        additionalGraphicsOptions: {}
     ) {
         this.name = languageProvider.getText(nameId);
         this.timespan = timespan;
         this.frequency = frequency;
-        this.xAxis = xAxis;
+        this.additionalGraphicsOptions = additionalGraphicsOptions;
     }
 }
 
 export class FeatureHistoryLineChartController implements IDiagramController {
     //support line charts
     private static readonly chartType = ChartType.LINE_CHART;
-
     //enable configuration
     private static readonly isConfigutable = true;
-
-    //configuration options
+    //available configuration options
     private static readonly configurationOptions = [
         //last 24 hours
         new FHLCConfigurationOption(
             "last_24_hours",
             new Timespan(24 * 60 * 60 * 1000),
             24,
-            { type: "date", label: "Day" }
+            {
+                hAxis: {
+                    format: "HH:mm",
+                    gridlines: {
+                        count: 6,
+                    },
+                },
+            }
         ),
         //last 7 days
         new FHLCConfigurationOption(
             "last_7_days",
             new Timespan(7 * 24 * 60 * 60 * 1000),
             12,
-            { type: "date", label: "Day" }
+            {
+                hAxis: {
+                    format: "dd.MM",
+                    gridlines: {
+                        count: 7,
+                    },
+                },
+            }
         ),
         //last 31 days
         new FHLCConfigurationOption(
             "last_31_days",
             new Timespan(31 * 24 * 60 * 60 * 1000),
             6,
-            { type: "date", label: "Day" }
+            {
+                hAxis: {
+                    format: "dd.MM",
+                    gridlines: {
+                        count: 6,
+                    },
+                },
+            }
         ),
         //last year
         new FHLCConfigurationOption(
             "last_year",
             new Timespan(365 * 24 * 60 * 60 * 1000),
             1,
-            { type: "date", label: "Day" }
+            {
+                hAxis: {
+                    format: "MMM",
+                    gridlines: {
+                        count: 6,
+                    },
+                },
+            }
         ),
     ];
-
-    //default configuration option
-    private static readonly defaultConfigurationOption =
-        FeatureHistoryLineChartController.configurationOptions[0];
-
-    // options for the graphical appearence
+    // options for the graphical appearence (aplied for all configuration options)
     private static readonly graphicsOptions = {
-        legend: { position: 'none' },
+        legend: { position: "none" },
     };
 
-    //concerning observation station
     observationStation: ObservationStation;
-    //concerning feature
     feature: Feature;
-    yAxisLabel: string;
+    currentConfigurationOption: FHLCConfigurationOption;
 
     constructor(observationStation: ObservationStation, feature: Feature) {
         this.observationStation = observationStation;
         this.feature = feature;
-        this.yAxisLabel =
-            this.feature.getName() +
-            "[" +
-            this.feature.getUnitOfMeasurement() +
-            "]";
+        this.currentConfigurationOption =
+            FeatureHistoryLineChartController.configurationOptions[0];
     }
-    //return chart type
+    //returns chart type
     getChartType(): ChartType {
         return FeatureHistoryLineChartController.chartType;
     }
 
+    //returns options that specify how the diagram is displayed
     getGraphicsOptions() {
-        return FeatureHistoryLineChartController.graphicsOptions;
+        return {
+            ...FeatureHistoryLineChartController.graphicsOptions,
+            ...this.currentConfigurationOption.additionalGraphicsOptions,
+        };
     }
 
-    //return names of graphics options
-    getViewOptions() {
-        return FeatureHistoryLineChartController.graphicsOptions;
-    }
-
-    //return that the corresponding diagram to this controller is configurable
+    //returns whether the diagram is configurable
     isConfigurable() {
         return FeatureHistoryLineChartController.isConfigutable;
     }
 
-    //returns default configuration option
-    getDefaultConfigurationOption(): string {
-        return FeatureHistoryLineChartController.defaultConfigurationOption
-            .name;
+    //sets the current configurationOption of the diagram
+    setConfigurationOption(optionName: string) {
+        this.currentConfigurationOption = this.getFHLCConfigurationOption(
+            optionName
+        );
+    }
+
+    //returns the name of the current configuration option
+    getCurrentConfigurationOption() {
+        return this.currentConfigurationOption.name;
     }
 
     //return names of configuration options
@@ -125,36 +146,58 @@ export class FeatureHistoryLineChartController implements IDiagramController {
     }
 
     //return data to display
-    getData(configurationOptionName: string): any[][] {
-        //get option object
-        var configurationOption: FHLCConfigurationOption = this.getFHLCConfigurationOption(
-            configurationOptionName
-        );
-
+    async getData(
+        configurationOptionName: string
+    ): Promise<Array<Array<Date | number | string | null>>> {
         //get timespan
-        var end: Date = new Date(Date.now());
-        var start: Date = configurationOption.timespan.getStart(end);
-
-        //get mock observations
-        var observations = MockDataProvider.getObservations(
-            this.observationStation,
-            start,
-            end,
-            this.feature,
-            configurationOption.frequency
+        var start: Date = this.currentConfigurationOption.timespan.getStart(
+            new Date(Date.now())
         );
+        var observations: Observation[] = [];
 
-        //add react google chart specific header
-        var data: any[] = [[configurationOption.xAxis, this.yAxisLabel]];
+        while (start.valueOf() < Date.now()) {
+            let end = new Date(
+                start.getFullYear(),
+                start.getMonth(),
+                start.getDate(),
+                start.getHours() + 6
+            );
+
+            //get observations
+            let newObs = await DataProvider.getObservations(
+                this.observationStation,
+                this.feature,
+                start,
+                end
+            );
+
+            observations = observations.concat(newObs);
+
+            start = end;
+        }
+
+        let data: Array<[Date, number]> = [];
 
         //extract values and timestamps from observations
-        observations.forEach((observation) => {
+        observations.forEach((observation, index) => {
             let timestamp = observation.getTimeStamp();
             let value = observation.getValue();
             data.push([timestamp, value]);
         });
 
-        return data;
+        data.sort((row1, row2) => {
+            if (row1[0].valueOf() < row2[0].valueOf()) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
+
+        //add react google chart specific header
+        let table: any = data;
+        table.splice(0, 0, ["Date", "Value"]);
+
+        return table;
     }
 
     //get configuration option by name
