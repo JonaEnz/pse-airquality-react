@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from "react";
 import {
     Avatar,
     Card,
-    CardContent,
     FormControl,
     InputLabel,
     Select,
@@ -32,22 +31,22 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             background: theme.palette.primary.main,
-            position: 'relative',
+            position: "relative",
         },
         title: {
-            textAlign: 'center',
-            width: '100%',
-            marginBottom: '10px',
+            textAlign: "center",
+            width: "100%",
+            marginBottom: "10px",
         },
         popup: {
-            padding: '20px',
-            paddingBottom: '50px',
-            marginBottom: '-40px',
+            padding: "20px",
+            paddingBottom: "50px",
+            marginBottom: "-40px",
         },
         formControl: {
-            width: '100%',
-            marginTop: '10px',
-            marginBottom: '10px',
+            width: "100%",
+            marginTop: "10px",
+            marginBottom: "10px",
         },
     })
 );
@@ -79,9 +78,8 @@ export default function FeatureSelect(props: Props) {
             setConfig(props.startConf.conf);
         }
     }, [props.startConf]);
+
     const changeConfig = (conf: string, feature: Feature) => {
-        console.log(conf);
-        setConfig(conf);
         switch (conf) {
             case TEST_CONFIG:
                 var testConf = new TestConfiguration(feature); //Create new config
@@ -100,8 +98,9 @@ export default function FeatureSelect(props: Props) {
                 props.onConfigurationChange(stationConf);
                 break;
             default:
-                break;
+                return;
         }
+        setConfig(conf);
     };
 
     const handleFeatureChange = (
@@ -115,8 +114,6 @@ export default function FeatureSelect(props: Props) {
         if (f) {
             if (config) {
                 changeConfig(config, f);
-            } else {
-                throw new Error("No config selected");
             }
         }
     };
@@ -124,26 +121,31 @@ export default function FeatureSelect(props: Props) {
     const handleConfigChange = (
         event: React.ChangeEvent<{ value: unknown }>
     ) => {
-        if (!feature) {
-            return; //A feature has to be selected, should never happen.
+        if (feature) {
+            changeConfig(event.target.value as string, feature);
         }
-        changeConfig(event.target.value as string, feature);
         //window.location.reload(); //Reload with new config
     };
 
     return (
         <Fragment>
-            <Grid container direction='column' alignItems='flex-end'>
+            <Grid container direction="column" alignItems="flex-end">
                 {open ? (
                     <Card className={classes.popup} variant="outlined">
-                        <Grid container direction='column'>
-                            <Typography className={classes.title} variant='subtitle1' color='textSecondary'>
-                                {language.getText('map_configuration_title')}
+                        <Grid container direction="column">
+                            <Typography
+                                id="title"
+                                className={classes.title}
+                                variant="subtitle1"
+                                color="textSecondary"
+                            >
+                                {language.getText("map_configuration_title")}
                             </Typography>
-                            <Divider orientation='horizontal'></Divider>
+                            <Divider orientation="horizontal"></Divider>
                             <FormControl className={classes.formControl}>
                                 <InputLabel>{"Feature"}</InputLabel>
                                 <Select
+                                    id="featureSelectForm"
                                     onChange={handleFeatureChange}
                                     value={feature?.getId() ?? ""}
                                 >
@@ -159,6 +161,7 @@ export default function FeatureSelect(props: Props) {
                             <FormControl className={classes.formControl}>
                                 <InputLabel>{"Style"}</InputLabel>
                                 <Select
+                                    id="confSelectForm"
                                     onChange={handleConfigChange}
                                     value={config ?? ""}
                                 >
@@ -176,14 +179,16 @@ export default function FeatureSelect(props: Props) {
                         </Grid>
                     </Card>
                 ) : (
-                        ""
-                    )}
+                    ""
+                )}
                 <Avatar
                     className={classes.root}
-                    onClick={handleClick}>
+                    id="avatarButton"
+                    onClick={handleClick}
+                >
                     <LayersIcon />
                 </Avatar>
             </Grid>
-        </Fragment >
+        </Fragment>
     );
 }

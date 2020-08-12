@@ -8,7 +8,7 @@ import { Position } from "../Model/Position";
 export default class TestHelper {
     static FEATURE_NAME = "testNameId";
     static FEATURE_ID = "testId";
-    static FEATURE_DESC = "testDesc";
+    static FEATURE_DESC = "testNameDesc";
     static FEATURE_UOM = "UoM";
     static FEATURE_ICON = "testIcon";
     static FEATURE_LINK = "testWebLink";

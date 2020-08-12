@@ -4,6 +4,7 @@ import React from "react";
 import Language from "../../../Controller/Storage/Language";
 import ReactDOM from "react-dom";
 import { Position } from "../../../Model/Position";
+import { shallow } from "enzyme";
 
 let language = Language.getInstance();
 
@@ -18,7 +19,7 @@ test("Render test", async () => {
 test("Call event mocks", () => {
     var searchFn = jest.fn((searchTerm: string) => {});
     var positionFn = jest.fn((pos: Position) => {});
-    render(
+    var search = render(
         <Search onSearch={() => searchFn} updatePosition={() => positionFn} />
     );
     screen.getByTestId("searchButton").click(); //Should not crash
