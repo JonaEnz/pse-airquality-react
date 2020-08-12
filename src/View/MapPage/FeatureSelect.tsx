@@ -51,7 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function FeatureSelect(props: Props) {
-    const TEST_CONFIG = "TestConfiguration";
     const NEAR_CONFIG = "NearConfiguration";
     const POLY_CONFIG = "PolygonConfiguration";
     const STATION_CONFIG = "StationConfiguration";

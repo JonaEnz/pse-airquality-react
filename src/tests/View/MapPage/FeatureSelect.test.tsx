@@ -33,10 +33,6 @@ test("Select Feature", () => {
 
 test("Select Configuration", () => {
     featureSelect.find("#confSelectForm").simulate("change", {
-        target: { value: "TestConfiguration" },
-    });
-
-    featureSelect.find("#confSelectForm").simulate("change", {
         target: { value: "NearConfiguration" },
     });
     expect(featureSelect.find("#confSelectForm").prop("value")).toStrictEqual(

@@ -1,7 +1,6 @@
 import MapConfiguration from "../MapPage/MapConfiguration";
 import { Viewport } from "../../Model/Viewport";
 import { Position } from "../../Model/Position";
-import TestConfiguration from "../TestConfiguration";
 import NearConfiguration from "../MapPage/NearConfiguration";
 import FeatureProvider from "../FeatureProvider";
 import PolygonConfiguration from "../MapPage/PolygonConfiguration";
