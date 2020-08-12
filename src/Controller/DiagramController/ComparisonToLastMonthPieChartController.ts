@@ -6,82 +6,93 @@ import Language from "../Storage/Language";
 import DataProvider from "../Frost/DataProvider";
 import { Observation } from "../../Model/Observation";
 
-class CTLYPCConfigurationOption {
+let languageProvider = Language.getInstance();
+
+class CTLMPCConfigurationOption {
     name: string;
     timespan: Timespan;
     frequency: number;
+    additionalGraphicOptions: {};
 
-    constructor(name: string, timespan: Timespan, frequency: number) {
+    constructor(
+        name: string,
+        timespan: Timespan,
+        frequency: number,
+        additionalGraphicOptions: {}
+    ) {
         this.name = name;
         this.timespan = timespan;
         this.frequency = frequency;
+        this.additionalGraphicOptions = additionalGraphicOptions;
     }
 }
 
-export class ComparisonToLastYearPieChartController
+export class ComparisonToLastMonthPieChartController
     implements IDiagramController {
     //support line charts
     private static readonly chartType = ChartType.PIE_CHART;
-
     //enable configuration
     private static readonly isConfigurable = false;
-
     // options for the graphical appearence
     private static readonly graphicsOptions = {};
-
     //configuration options
     private static readonly configurationOptions = [
-        new CTLYPCConfigurationOption(
+        new CTLMPCConfigurationOption(
             "default_configuration",
             new Timespan(31 * 24 * 60 * 60 * 1000),
-            24
+            24,
+            {}
         ),
     ];
 
-    //default configuration option
-    private static readonly defaultConfigurationOption =
-        ComparisonToLastYearPieChartController.configurationOptions[0];
-
-    languageProvider: Language;
-
     observationStation: ObservationStation;
     feature: Feature;
+    currentConfigurationOption: CTLMPCConfigurationOption;
 
     constructor(observationStation: ObservationStation, feature: Feature) {
         this.observationStation = observationStation;
         this.feature = feature;
+        this.currentConfigurationOption =
+            ComparisonToLastMonthPieChartController.configurationOptions[0];
+    }
 
-        this.languageProvider = Language.getInstance();
+    setConfigurationOption(optionName: string) {
+        this.currentConfigurationOption = this.getCTLMPCConfigurationOption(
+            optionName
+        );
     }
 
     getChartType(): ChartType {
-        return ComparisonToLastYearPieChartController.chartType;
+        return ComparisonToLastMonthPieChartController.chartType;
     }
 
     getGraphicsOptions() {
-        return ComparisonToLastYearPieChartController.graphicsOptions;
+        return {
+            ...ComparisonToLastMonthPieChartController.graphicsOptions,
+            ...this.currentConfigurationOption.additionalGraphicOptions,
+        };
     }
 
     isConfigurable() {
-        return ComparisonToLastYearPieChartController.isConfigurable;
+        return ComparisonToLastMonthPieChartController.isConfigurable;
     }
 
     getConfigurationOptions() {
-        return ComparisonToLastYearPieChartController.configurationOptions.map(
+        return ComparisonToLastMonthPieChartController.configurationOptions.map(
             (option) => option.name
         );
     }
 
-    getDefaultConfigurationOption() {
-        return ComparisonToLastYearPieChartController.defaultConfigurationOption
-            .name;
+    //returns the name of the current configuration option
+    getCurrentConfigurationOption() {
+        return this.currentConfigurationOption.name;
     }
 
     async getData(
         configurationOptionName: string
     ): Promise<Array<Array<Date | number | string | null>>> {
         //configuration option by name
-        var configuration = this.getCTLYPCConfigurationOption(
+        var configuration = this.getCTLMPCConfigurationOption(
             configurationOptionName
         );
 
@@ -93,7 +104,8 @@ export class ComparisonToLastYearPieChartController
             let end = new Date(
                 start.getFullYear(),
                 start.getMonth(),
-                start.getDate() + 1
+                start.getDate(),
+                start.getHours() + 6
             );
 
             //get observations
@@ -114,15 +126,15 @@ export class ComparisonToLastYearPieChartController
         var higher = 0;
         var lower = 0;
 
-        let higherTag = this.languageProvider.getText("higher");
-        let lowerTag = this.languageProvider.getText("lower");
+        let higherTag = languageProvider.getText("higher");
+        let lowerTag = languageProvider.getText("lower");
 
         observations.forEach((observation) => {
             observation.getValue() > lastObservationValue ? higher++ : lower++;
         });
 
         var data = [
-            ["Vergleich zum letzten Messwert", "Anzahl Tage"],
+            ["tag", "#days"],
             [higherTag, higher],
             [lowerTag, lower],
         ];
@@ -130,11 +142,11 @@ export class ComparisonToLastYearPieChartController
     }
 
     //get configuration option by name
-    private getCTLYPCConfigurationOption(
+    private getCTLMPCConfigurationOption(
         name: string
-    ): CTLYPCConfigurationOption {
+    ): CTLMPCConfigurationOption {
         var options =
-            ComparisonToLastYearPieChartController.configurationOptions;
+            ComparisonToLastMonthPieChartController.configurationOptions;
 
         for (let i = 0; i < options.length; i++) {
             //if option matches return it

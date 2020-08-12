@@ -22,7 +22,7 @@
             "limit": 100,
             "diagrams": [
                 "FeatureHistoryLineChart",
-                "ComparisonToLastYearPieChart"
+                "ComparisonToLastMonthPieChart"
             ],
             "icon": "smog"
         },
@@ -48,7 +48,7 @@
             "limit": 100,
             "diagrams": [
                 "FeatureHistoryLineChart",
-                "ComparisonToLastYearPieChart"
+                "ComparisonToLastMonthPieChart"
             ],
             "icon": "smog"
         },
@@ -74,7 +74,7 @@
             "limit": 1050,
             "diagrams": [
                 "FeatureHistoryLineChart",
-                "ComparisonToLastYearPieChart"
+                "ComparisonToLastMonthPieChart"
             ],
             "icon": "tachometer-alt"
         },
@@ -100,7 +100,7 @@
             "limit": 40,
             "diagrams": [
                 "FeatureHistoryLineChart",
-                "ComparisonToLastYearPieChart"
+                "ComparisonToLastMonthPieChart"
             ],
             "icon": "thermometer-half"
         }
