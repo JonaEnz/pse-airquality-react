@@ -1,6 +1,5 @@
 import { FeatureHistoryLineChartController } from "../../Controller/DiagramController/FeatureHistoryLineChartController";
-import { ComparisonToLastYearPieChartController } from "../../Controller/DiagramController/ComparisonToLastMonthPieChartController";
-import { YearComparisonLineChartController } from "../../Controller/DiagramController/YearComparisonLineChartController";
+import { ComparisonToLastMonthPieChartController } from "../../Controller/DiagramController/ComparisonToLastMonthPieChartController";
 import DiagramFactory from "../../Controller/DiagramController/DiagramFactory";
 import { ChartType } from "../../Controller/DiagramController/DiagramController";
 import { Feature } from "../../Model/Feature";
@@ -36,11 +35,7 @@ let station = new ObservationStation(
 
 let historyChart = new FeatureHistoryLineChartController(station, feature);
 
-let ComparisonToLastYearPieChart = new ComparisonToLastYearPieChartController(
-    station,
-    feature
-);
-let yearComparisonChart = new YearComparisonLineChartController(
+let ComparisonToLastYearPieChart = new ComparisonToLastMonthPieChartController(
     station,
     feature
 );
