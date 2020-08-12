@@ -25,7 +25,6 @@ export default class Diagram extends React.Component<
 
         //setup default configuration in state
         this.state = {
-            configurationOption: this.controller.getDefaultConfigurationOption(),
             data: null,
         };
 
@@ -46,16 +45,15 @@ export default class Diagram extends React.Component<
         },
     };
 
-    //change configuration in state
+    //changes the diagrams configuration
     handleConfigurationChange(event: React.ChangeEvent<{ value: unknown }>) {
         let configurationOption = event.target.value as string;
+        this.controller.setConfigurationOption(configurationOption);
         this.setState({
-            configurationOption: configurationOption,
             data: null,
         });
         this.controller.getData(configurationOption).then((data) =>
             this.setState({
-                configurationOption: configurationOption,
                 data: data,
             })
         );
@@ -76,7 +74,7 @@ export default class Diagram extends React.Component<
             return (
                 <Grid item>
                     <Select
-                        value={this.state.configurationOption}
+                        value={this.controller.getCurrentConfigurationOption()}
                         onChange={this.handleConfigurationChange}
                     >
                         {this.renderConfigurationOptions()}
@@ -89,9 +87,8 @@ export default class Diagram extends React.Component<
 
     componentDidMount() {
         this.controller
-            .getData(this.state.configurationOption)
-            .then((data) => this.setState({ data: data }))
-            .then(console.log);
+            .getData(this.controller.getCurrentConfigurationOption())
+            .then((data) => this.setState({ data: data }));
     }
 
     renderChart() {
@@ -137,7 +134,10 @@ export default class Diagram extends React.Component<
                     <Grid container justify="space-between" alignItems="center">
                         <Grid item>
                             <Typography variant="subtitle1">
-                                {this.controller.feature.getName()}
+                                {this.controller.feature.getName() +
+                                    " [" +
+                                    this.controller.feature.getUnitOfMeasurement() +
+                                    "]"}
                             </Typography>
                         </Grid>
                         {this.renderDiagramConfiguration()}
@@ -155,6 +155,5 @@ export interface IDiagramProps {
 }
 
 interface IDiagramState {
-    configurationOption: string;
     data: Array<Array<Date | number | string | null>> | null;
 }

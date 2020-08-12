@@ -12,108 +12,128 @@ class FHLCConfigurationOption {
     name: string;
     timespan: Timespan;
     frequency: number;
-    //type and label for the xAxis
-    xAxis: { type: string; label: string };
+    additionalGraphicsOptions: {};
 
     constructor(
         nameId: string,
         timespan: Timespan,
         frequency: number,
-        xAxis: { type: string; label: string }
+        additionalGraphicsOptions: {}
     ) {
         this.name = languageProvider.getText(nameId);
         this.timespan = timespan;
         this.frequency = frequency;
-        this.xAxis = xAxis;
+        this.additionalGraphicsOptions = additionalGraphicsOptions;
     }
 }
 
 export class FeatureHistoryLineChartController implements IDiagramController {
     //support line charts
     private static readonly chartType = ChartType.LINE_CHART;
-
     //enable configuration
     private static readonly isConfigutable = true;
-
-    //configuration options
+    //available configuration options
     private static readonly configurationOptions = [
         //last 24 hours
         new FHLCConfigurationOption(
             "last_24_hours",
             new Timespan(24 * 60 * 60 * 1000),
             24,
-            { type: "date", label: "Day" }
+            {
+                hAxis: {
+                    format: "HH:mm",
+                    gridlines: {
+                        count: 6,
+                    },
+                },
+            }
         ),
         //last 7 days
         new FHLCConfigurationOption(
             "last_7_days",
             new Timespan(7 * 24 * 60 * 60 * 1000),
             12,
-            { type: "date", label: "Day" }
+            {
+                hAxis: {
+                    format: "dd.MM",
+                    gridlines: {
+                        count: 7,
+                    },
+                },
+            }
         ),
         //last 31 days
         new FHLCConfigurationOption(
             "last_31_days",
             new Timespan(31 * 24 * 60 * 60 * 1000),
             6,
-            { type: "date", label: "Day" }
+            {
+                hAxis: {
+                    format: "dd.MM",
+                    gridlines: {
+                        count: 6,
+                    },
+                },
+            }
         ),
         //last year
         new FHLCConfigurationOption(
             "last_year",
             new Timespan(365 * 24 * 60 * 60 * 1000),
             1,
-            { type: "date", label: "Day" }
+            {
+                hAxis: {
+                    format: "MMM",
+                    gridlines: {
+                        count: 6,
+                    },
+                },
+            }
         ),
     ];
-
-    //default configuration option
-    private static readonly defaultConfigurationOption =
-        FeatureHistoryLineChartController.configurationOptions[0];
-
-    // options for the graphical appearence
+    // options for the graphical appearence (aplied for all configuration options)
     private static readonly graphicsOptions = {
         legend: { position: "none" },
     };
 
-    //concerning observation station
     observationStation: ObservationStation;
-    //concerning feature
     feature: Feature;
-    yAxisLabel: string;
+    currentConfigurationOption: FHLCConfigurationOption;
 
     constructor(observationStation: ObservationStation, feature: Feature) {
         this.observationStation = observationStation;
         this.feature = feature;
-        this.yAxisLabel =
-            this.feature.getName() +
-            "[" +
-            this.feature.getUnitOfMeasurement() +
-            "]";
+        this.currentConfigurationOption =
+            FeatureHistoryLineChartController.configurationOptions[0];
     }
-    //return chart type
+    //returns chart type
     getChartType(): ChartType {
         return FeatureHistoryLineChartController.chartType;
     }
 
+    //returns options that specify how the diagram is displayed
     getGraphicsOptions() {
-        return FeatureHistoryLineChartController.graphicsOptions;
+        return {
+            ...FeatureHistoryLineChartController.graphicsOptions,
+            ...this.currentConfigurationOption.additionalGraphicsOptions,
+        };
     }
 
-    //return names of graphics options
-    getViewOptions() {
-        return FeatureHistoryLineChartController.graphicsOptions;
-    }
-
-    //return that the corresponding diagram to this controller is configurable
+    //returns whether the diagram is configurable
     isConfigurable() {
         return FeatureHistoryLineChartController.isConfigutable;
     }
 
-    //returns default configuration option
-    getDefaultConfigurationOption(): string {
-        return FeatureHistoryLineChartController.defaultConfigurationOption
-            .name;
+    //sets the current configurationOption of the diagram
+    setConfigurationOption(optionName: string) {
+        this.currentConfigurationOption = this.getFHLCConfigurationOption(
+            optionName
+        );
+    }
+
+    //returns the name of the current configuration option
+    getCurrentConfigurationOption() {
+        return this.currentConfigurationOption.name;
     }
 
     //return names of configuration options
@@ -129,13 +149,8 @@ export class FeatureHistoryLineChartController implements IDiagramController {
     async getData(
         configurationOptionName: string
     ): Promise<Array<Array<Date | number | string | null>>> {
-        //get option object
-        var configurationOption: FHLCConfigurationOption = this.getFHLCConfigurationOption(
-            configurationOptionName
-        );
-
         //get timespan
-        var start: Date = configurationOption.timespan.getStart(
+        var start: Date = this.currentConfigurationOption.timespan.getStart(
             new Date(Date.now())
         );
         var observations: Observation[] = [];
@@ -144,7 +159,8 @@ export class FeatureHistoryLineChartController implements IDiagramController {
             let end = new Date(
                 start.getFullYear(),
                 start.getMonth(),
-                start.getDate() + 1
+                start.getDate(),
+                start.getHours() + 6
             );
 
             //get observations
@@ -179,7 +195,7 @@ export class FeatureHistoryLineChartController implements IDiagramController {
 
         //add react google chart specific header
         let table: any = data;
-        table.splice(0, 0, [configurationOption.xAxis, this.yAxisLabel]);
+        table.splice(0, 0, ["Date", "Value"]);
 
         return table;
     }

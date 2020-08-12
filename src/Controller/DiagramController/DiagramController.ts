@@ -11,14 +11,17 @@ export default interface IDiagramController {
     //returns options that specify how the diagram is displayed
     getGraphicsOptions: () => {};
 
-    //returns whether a diagram can be configured via a select form. In this case getSelectOprions must return an Array of select options
+    //returns whether the diagram is configurable
     isConfigurable: () => boolean;
 
-    //returns all options that can be selected to configure the diagram
+    //returns the name of the current configuration option
+    getCurrentConfigurationOption: () => string;
+
+    //return names of configuration options
     getConfigurationOptions: () => string[];
 
-    //returns default configuration option
-    getDefaultConfigurationOption: () => string;
+    //sets the curren configuration option of the diagram
+    setConfigurationOption: (optionName: string) => void;
 
     //returns the data that can be displayed in the diagram
     getData: (
@@ -29,5 +32,4 @@ export default interface IDiagramController {
 export enum ChartType {
     LINE_CHART = "LineChart",
     PIE_CHART = "PieChart",
-    SCATTER_CHART = "ScatterChart",
 }

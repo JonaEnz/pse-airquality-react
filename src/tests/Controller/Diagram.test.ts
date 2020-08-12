@@ -1,5 +1,5 @@
 import { FeatureHistoryLineChartController } from "../../Controller/DiagramController/FeatureHistoryLineChartController";
-import { ComparisonToLastYearPieChartController } from "../../Controller/DiagramController/ComparisonToLastYearPieChartController";
+import { ComparisonToLastYearPieChartController } from "../../Controller/DiagramController/ComparisonToLastMonthPieChartController";
 import { YearComparisonLineChartController } from "../../Controller/DiagramController/YearComparisonLineChartController";
 import DiagramFactory from "../../Controller/DiagramController/DiagramFactory";
 import { ChartType } from "../../Controller/DiagramController/DiagramController";
@@ -47,7 +47,6 @@ let yearComparisonChart = new YearComparisonLineChartController(
 
 let language = Language.getInstance();
 
-
 test("getChartType() linechart", () => {
     expect(historyChart.getChartType()).toBe(ChartType.LINE_CHART);
 });
@@ -57,7 +56,9 @@ test("isConfigurable() linechart", () => {
 });
 
 test("getDefaultConfigurationOption() linechart", () => {
-    expect(historyChart.getDefaultConfigurationOption()).toStrictEqual(language.getText("last_24_hours"));
+    expect(historyChart.getDefaultConfigurationOption()).toStrictEqual(
+        language.getText("last_24_hours")
+    );
 });
 
 test("getConfigurationOptions() linechart", () => {
@@ -80,9 +81,9 @@ test("isConfigurable() piechart", () => {
 });
 
 test("getConfigurationOptions() piechart", () => {
-    expect(ComparisonToLastYearPieChart.getConfigurationOptions()).toStrictEqual([
-        "default_configuration",
-    ]);
+    expect(
+        ComparisonToLastYearPieChart.getConfigurationOptions()
+    ).toStrictEqual(["default_configuration"]);
 });
 
 test("getDefaultConfigurationOption() piechart", () => {
