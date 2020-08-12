@@ -30,8 +30,12 @@ export default class MockDataProvider {
             "mockWeblinkId",
             100,
             "uoM",
-            ['YearComparisonLineChart', 'FeatureHistoryLineChart', 'ComparisonToLastYearPieChart'],
-            ''
+            [
+                "YearComparisonLineChart",
+                "FeatureHistoryLineChart",
+                "ComparisonToLastYearPieChart",
+            ],
+            ""
         );
     }
     private static mockStation(center: Position): ObservationStation {
@@ -86,14 +90,14 @@ export default class MockDataProvider {
         );
     }
 
-    static getObservations(
+    static async getObservations(
         station: ObservationStation,
         start: Date,
         end: Date,
         feature: Feature,
         //how many observations per day are expected
         frequency: number
-    ): Observation[] {
+    ): Promise<Observation[]> {
         let date = start;
         let observations = new Array<Observation>();
 
@@ -101,18 +105,37 @@ export default class MockDataProvider {
 
         if (frequency <= 1) {
             while (date.valueOf() < end.valueOf()) {
-                date = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1 / frequency);
-                let value = previousValue + (Math.random() * 2) - 1;
+                date = new Date(
+                    date.getFullYear(),
+                    date.getMonth(),
+                    date.getDate() + 1 / frequency
+                );
+                let value = previousValue + Math.random() * 2 - 1;
                 previousValue = value;
-                let observation = new Observation(station, feature, value, date);
+                let observation = new Observation(
+                    station,
+                    feature,
+                    value,
+                    date
+                );
                 observations.push(observation);
             }
         } else if (frequency > 1) {
             while (date.valueOf() < end.valueOf()) {
-                date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours() + 24 / frequency);
-                let value = previousValue + (Math.random() * 2) - 1;
+                date = new Date(
+                    date.getFullYear(),
+                    date.getMonth(),
+                    date.getDate(),
+                    date.getHours() + 24 / frequency
+                );
+                let value = previousValue + Math.random() * 2 - 1;
                 previousValue = value;
-                let observation = new Observation(station, feature, value, date);
+                let observation = new Observation(
+                    station,
+                    feature,
+                    value,
+                    date
+                );
                 observations.push(observation);
             }
         }
@@ -141,10 +164,9 @@ export default class MockDataProvider {
 
         return new ObservationStation(
             id,
-            'mockName',
-            'mockDesc',
+            "mockName",
+            "mockDesc",
             new Position(48.369665, 10.903877),
-
 
             [
                 new Feature(
@@ -155,8 +177,12 @@ export default class MockDataProvider {
                     "tempLink",
                     40,
                     "°C",
-                    ['YearComparisonLineChart', 'FeatureHistoryLineChart', 'ComparisonToLastYearPieChart'],
-                    'thermometer-half'
+                    [
+                        "YearComparisonLineChart",
+                        "FeatureHistoryLineChart",
+                        "ComparisonToLastYearPieChart",
+                    ],
+                    "thermometer-half"
                 ),
                 new Feature(
                     "saqn:op:mcpm2p5",
@@ -166,8 +192,12 @@ export default class MockDataProvider {
                     "PNC2.5Link",
                     100,
                     "µg/m³",
-                    ['YearComparisonLineChart', 'FeatureHistoryLineChart', 'ComparisonToLastYearPieChart'],
-                    'smog'
+                    [
+                        "YearComparisonLineChart",
+                        "FeatureHistoryLineChart",
+                        "ComparisonToLastYearPieChart",
+                    ],
+                    "smog"
                 ),
             ]
         );

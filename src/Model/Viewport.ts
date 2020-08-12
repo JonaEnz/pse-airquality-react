@@ -7,8 +7,8 @@ export class Viewport {
     constructor(center: Position, zoom: number) {
         this.center = center;
         this.zoom = zoom;
-        if (this.zoom < 0) {
-            this.zoom = 0;
+        if (this.zoom < 1) {
+            this.zoom = 1;
         }
     }
 
@@ -30,8 +30,8 @@ export class Viewport {
 
     setZoom(zoom: number) {
         this.zoom = zoom;
-        if (this.zoom < 0) {
-            this.zoom = 0;
+        if (this.zoom < 1) {
+            this.zoom = 1;
         }
     }
 }

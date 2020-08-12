@@ -5,7 +5,6 @@ import { Polygon } from "../../Model/Polygon";
 import { MapPin } from "../../Model/MapPin";
 import { Feature } from "../../Model/Feature";
 import DataProvider from "../Frost/DataProvider";
-import { ObservationStation } from "../../Model/ObservationStation";
 import { Observation } from "../../Model/Observation";
 
 const ID = "StationConfiguration";

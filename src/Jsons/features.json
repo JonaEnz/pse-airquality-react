@@ -20,7 +20,10 @@
             },
             "webLinkId": "PNC10Link",
             "limit": 100,
-            "diagrams": ["FeatureHistoryLineChart"],
+            "diagrams": [
+                "FeatureHistoryLineChart",
+                "ComparisonToLastMonthPieChart"
+            ],
             "icon": "smog"
         },
         {
@@ -43,7 +46,10 @@
             },
             "webLinkId": "PNC2.5Link",
             "limit": 100,
-            "diagrams": ["FeatureHistoryLineChart"],
+            "diagrams": [
+                "FeatureHistoryLineChart",
+                "ComparisonToLastMonthPieChart"
+            ],
             "icon": "smog"
         },
         {
@@ -66,7 +72,10 @@
             },
             "webLinkId": "pascalLink",
             "limit": 1050,
-            "diagrams": ["FeatureHistoryLineChart"],
+            "diagrams": [
+                "FeatureHistoryLineChart",
+                "ComparisonToLastMonthPieChart"
+            ],
             "icon": "tachometer-alt"
         },
         {
@@ -89,7 +98,10 @@
             },
             "webLinkId": "tempLink",
             "limit": 40,
-            "diagrams": ["FeatureHistoryLineChart"],
+            "diagrams": [
+                "FeatureHistoryLineChart",
+                "ComparisonToLastMonthPieChart"
+            ],
             "icon": "thermometer-half"
         }
     ]

@@ -2,7 +2,6 @@ import ResultModelConverter from "./ResultModelConverter";
 import QueryBuilder from "./QueryBuilder";
 
 export default abstract class FrostFactory<T> {
-
     private rmc: ResultModelConverter<T>;
     private qb: QueryBuilder;
 

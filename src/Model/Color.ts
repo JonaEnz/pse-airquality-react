@@ -51,9 +51,6 @@ export class Color {
     }
 
     private toHex(n: number): string {
-        if (n < 0 || n > 255) {
-            return this.toHex(0); //This should never happen, only for reusing this method later.
-        }
         var hex = n.toString(16).toUpperCase(); //Converts to upper-case-hex.
         if (hex.length < 2) {
             hex = "0" + hex; //Add padding if n < 16

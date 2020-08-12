@@ -21,7 +21,11 @@
         "@types/react-router-dom": "^5.1.5",
         "babel-plugin-transform-require-context": "^0.1.1",
         "delaunator": "^4.0.1",
+        "enzyme": "^3.11.0",
+        "enzyme-adapter-react-16": "^1.15.3",
         "geonames.js": "^2.3.0",
+        "jest-enzyme": "^7.1.2",
+        "jest-junit": "^11.1.0",
         "leaflet": "^1.6.0",
         "leaflet-iconmaterial": "^1.0.1",
         "react": "^16.13.1",
@@ -30,7 +34,8 @@
         "react-leaflet": "^2.7.0",
         "react-router": "^5.2.0",
         "react-router-dom": "^5.2.0",
-        "react-scripts": "3.4.1",
+        "react-scripts": "^3.4.2",
+        "react-test-renderer": "^16.13.1",
         "typeface-roboto": "0.0.75",
         "typescript": "^3.7.5"
     },
@@ -59,8 +64,17 @@
         ]
     },
     "devDependencies": {
+        "@types/enzyme": "^3.10.5",
+        "@types/enzyme-adapter-react-16": "^1.0.6",
         "@types/webpack-env": "^1.15.2",
         "jest": "^24.9.0",
+        "jest-react-hooks-shallow": "^1.4.1",
         "prettier": "^2.0.5"
+    },
+    "jest": {
+        "collectCoverageFrom": [
+            "src/**/*.{js,jsx,ts,tsx}",
+            "!<rootDir>/src/serviceWorker.ts"
+        ]
     }
 }

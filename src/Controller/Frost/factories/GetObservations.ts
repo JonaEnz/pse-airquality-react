@@ -13,49 +13,48 @@ export class GetObservationsFactory extends FrostFactory<Observation[]> {
 
 export class GetObservationsConverter
     implements ResultModelConverter<Observation[]> {
-    public convert(
-        json: ResultList,
-        options: GetObservationsOptions
-    ): Observation[] {
-        if (json.value === null || json.value === undefined) {
-            throw new Error("Cannot parse response of server");
+    public convert(json: any, options: GetObservationsOptions): Observation[] {
+        let rl: ResultList;
+
+        try {
+            //convert json to template
+            rl = json;
+        } catch {
+            throw new Error("Convertion Error: unknown json template");
         }
+
         let observations: Observation[] = [];
-        json.value.forEach((stream) => {
-            if (
-                stream.Observations === null ||
-                stream.Observations === undefined
-            ) {
-                return;
-            }
+
+        rl.value.forEach((stream) => {
             stream.Observations.forEach((obs) => {
-                if (obs !== null) {
-                    observations.push(
-                        new Observation(
-                            options.station,
-                            options.feature,
-                            obs.result,
-                            new Date(obs.phenomenonTime)
-                        )
-                    );
-                }
+                observations.push(
+                    new Observation(
+                        options.station,
+                        options.feature,
+                        obs.result,
+                        new Date(obs.phenomenonTime)
+                    )
+                );
             });
         });
+
         return observations;
     }
 }
 
 export class GetObservationsBuilder implements QueryBuilder {
     public getQuery(options: GetObservationsOptions): string {
-        return "Datastreams?$select=@iot.id&$filter=Thing/@iot.id eq '" +
-            options.station.getId() + "' and ObservedProperty/@iot.id eq '" +
-            options.feature.getId() + "'&$expand=Observations($filter=overlaps(phenomenonTime, " +
-            this.properDate(options.start) + "/" + this.properDate(options.end) + ");$orderby=phenomenonTime desc)";
-    }
-
-    private properDate(date: Date): string {
-        return date.getFullYear() + "-" + date.getMonth() + "-" +
-            date.getDay() + "T" + date.getHours + ":" + date.getMinutes + ":" + date.getSeconds() + "Z";
+        return (
+            "Datastreams?$select=@iot.id&$filter=Thing/@iot.id eq '" +
+            options.station.getId() +
+            "' and ObservedProperty/@iot.id eq '" +
+            options.feature.getId() +
+            "'&$expand=Observations($filter=overlaps(phenomenonTime, " +
+            options.start.toISOString() +
+            "/" +
+            options.end.toISOString() +
+            ");$orderby=phenomenonTime desc)"
+        );
     }
 }
 
@@ -67,12 +66,12 @@ export interface GetObservationsOptions {
 }
 
 export interface ResultList {
-    value?: ValueEntity[] | null;
+    value: ValueEntity[];
 }
 export interface ValueEntity {
-    Observations?: (ObservationsEntity | null)[] | null;
+    Observations: ObservationsEntity[];
     "@iot.id": string;
-    "Observations@iot.nextLink"?: string | null;
+    "Observations@iot.nextLink"?: string;
 }
 export interface ObservationsEntity {
     phenomenonTime: string;
