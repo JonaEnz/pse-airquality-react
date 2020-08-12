@@ -63,7 +63,7 @@ export default class MapConfigurationMemory {
             } else if (obj.type === "StationConfiguration") {
                 return [new StationConfiguration(feature), view];
             } else {
-                return [new TestConfiguration(feature), view];
+                throw new Error("Invalid configuration: " + obj.type);
             }
         }
         return [DEFAULT_CONF, DEFAULT_VIEWPORT];

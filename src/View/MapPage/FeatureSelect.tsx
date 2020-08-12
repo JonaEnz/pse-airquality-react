@@ -14,7 +14,6 @@ import LayersIcon from "@material-ui/icons/Layers";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import MapConfiguration from "../../Controller/MapPage/MapConfiguration";
 import { Feature } from "../../Model/Feature";
-import TestConfiguration from "../../Controller/TestConfiguration";
 import NearConfiguration from "../../Controller/MapPage/NearConfiguration";
 import StationConfiguration from "../../Controller/MapPage/StationConfiguration";
 import PolygonConfiguration from "../../Controller/MapPage/PolygonConfiguration";
@@ -81,10 +80,6 @@ export default function FeatureSelect(props: Props) {
 
     const changeConfig = (conf: string, feature: Feature) => {
         switch (conf) {
-            case TEST_CONFIG:
-                var testConf = new TestConfiguration(feature); //Create new config
-                props.onConfigurationChange(testConf);
-                break;
             case NEAR_CONFIG:
                 var nearConf = new NearConfiguration(feature); //Create new config
                 props.onConfigurationChange(nearConf);
