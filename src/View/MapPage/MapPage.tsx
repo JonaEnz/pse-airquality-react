@@ -61,8 +61,8 @@ class MapPage extends React.Component<Props, State> {
     // Reload Pins and Polygons
     update() {
         var pinPromise = this.mapController.getPins();
-        var polyPromsie = this.mapController.getPolygons();
-        Promise.all([pinPromise, polyPromsie]).then((pinPoly) => {
+        var polyPromise = this.mapController.getPolygons();
+        Promise.all([pinPromise, polyPromise]).then((pinPoly) => {
             this.setState({
                 pins: pinPoly[0].concat(this.state.additionalPins),
                 polygons: pinPoly[1],
@@ -172,6 +172,7 @@ class MapPage extends React.Component<Props, State> {
             <Box className="map-page">
                 <Box className="search">
                     <Search
+                        id="search"
                         onSearch={(event, term) => this.onSearch(event, term)}
                         updatePosition={(pos) => {
                             var view = this.state.viewport;
@@ -183,6 +184,7 @@ class MapPage extends React.Component<Props, State> {
                 </Box>
                 <Box className="map">
                     <Map
+                        id="map"
                         viewport={this.state.viewport}
                         onViewportChange={(viewport) => {
                             this.onViewportChange(viewport);
@@ -194,6 +196,7 @@ class MapPage extends React.Component<Props, State> {
                 </Box>
                 <Box className="feature-select">
                     <FeatureSelect
+                        id="featureSelect"
                         onConfigurationChange={(conf) => {
                             this.mapController.onConfigurationChange(conf);
                             this.update();
