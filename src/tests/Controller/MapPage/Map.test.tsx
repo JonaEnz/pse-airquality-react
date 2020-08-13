@@ -1,5 +1,5 @@
 import { shallow } from "enzyme";
-import React from "React";
+import React from "react";
 import { Map } from "../../../View/MapPage/Map";
 import { Viewport } from "../../../Model/Viewport";
 import { Position } from "../../../Model/Position";
