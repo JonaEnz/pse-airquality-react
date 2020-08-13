@@ -172,7 +172,6 @@ class MapPage extends React.Component<Props, State> {
             <Box className="map-page">
                 <Box className="search">
                     <Search
-                        id="search"
                         onSearch={(event, term) => this.onSearch(event, term)}
                         updatePosition={(pos) => {
                             var view = this.state.viewport;
@@ -184,7 +183,6 @@ class MapPage extends React.Component<Props, State> {
                 </Box>
                 <Box className="map">
                     <Map
-                        id="map"
                         viewport={this.state.viewport}
                         onViewportChange={(viewport) => {
                             this.onViewportChange(viewport);
@@ -196,7 +194,6 @@ class MapPage extends React.Component<Props, State> {
                 </Box>
                 <Box className="feature-select">
                     <FeatureSelect
-                        id="featureSelect"
                         onConfigurationChange={(conf) => {
                             this.mapController.onConfigurationChange(conf);
                             this.update();

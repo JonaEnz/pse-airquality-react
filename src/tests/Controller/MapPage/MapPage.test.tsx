@@ -5,9 +5,11 @@ import { MapController } from "../../../Controller/MapPage/MapController";
 import { Viewport } from "../../../Model/Viewport";
 import { Position } from "../../../Model/Position";
 import TestHelper from "../../TestHelper";
-import { render, fireEvent } from "@testing-library/react";
 import StationConfiguration from "../../../Controller/MapPage/StationConfiguration";
 import { MapPin } from "../../../Model/MapPin";
+import { Map } from "../../../View/MapPage/Map";
+import FeatureSelect from "../../../View/MapPage/FeatureSelect";
+import Search from "../../../View/MapPage/Search";
 
 jest.mock("../../../Controller/MapPage/MapController");
 test("Render", () => {
@@ -44,12 +46,12 @@ test("Render", () => {
     var mapPage = mount(<MapPage />);
 
     //@ts-ignore
-    mapPage.find("#map").props().onViewportChange(viewport);
+    mapPage.find(Map).props().onViewportChange(viewport);
     expect(viewportChange).toBeCalled();
 
     //@ts-ignore
     mapPage
-        .find("#map")
+        .find(Map)
         .props()
         .handlePopup(
             new MapPin(
@@ -64,19 +66,19 @@ test("Render", () => {
     var conf = new StationConfiguration(TestHelper.getTestFeature());
 
     //@ts-ignore
-    mapPage.find("#featureSelect").props().onConfigurationChange(conf);
+    mapPage.find(FeatureSelect).props().onConfigurationChange(conf);
 
     var event = { preventDefault: jest.fn() };
     //@ts-ignore
-    mapPage.find("#search").props().onSearch(event, "testTerm");
+    mapPage.find(Search).props().onSearch(event, "testTerm");
     expect(searchMock).toBeCalledWith("testTerm");
 
     //@ts-ignore
-    mapPage.find("#search").props().updatePosition(new Position(1, 1));
+    mapPage.find(Search).props().updatePosition(new Position(1, 1));
 
     //@ts-ignore
     mapPage
-        .find("#map")
+        .find(Map)
         .props()
         .handlePopup(
             new MapPin(
