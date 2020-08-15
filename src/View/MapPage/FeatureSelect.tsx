@@ -146,7 +146,10 @@ export default function FeatureSelect(props: Props) {
                                     {FeatureProvider.getInstance()
                                         .listAllFeatures()
                                         .map((f) => (
-                                            <MenuItem value={f.getId()}>
+                                            <MenuItem
+                                                value={f.getId()}
+                                                key={f.getId()}
+                                            >
                                                 {f.getName()}
                                             </MenuItem>
                                         ))}

@@ -64,7 +64,7 @@ class MapPage extends React.Component<Props, State> {
         var polyPromise = this.mapController.getPolygons();
         Promise.all([pinPromise, polyPromise]).then((pinPoly) => {
             this.setState({
-                pins: pinPoly[0].concat(this.state.additionalPins),
+                pins: pinPoly[0],
                 polygons: pinPoly[1],
             });
         });
@@ -135,7 +135,7 @@ class MapPage extends React.Component<Props, State> {
         );
         this.setState({
             additionalPins: [mp],
-            pins: this.state.pins.concat(mp),
+            pins: this.state.pins,
         });
     }
 
@@ -188,7 +188,7 @@ class MapPage extends React.Component<Props, State> {
                             this.onViewportChange(viewport);
                         }}
                         handlePopup={(pin) => this.onStationSelected(pin)}
-                        pins={this.state.pins}
+                        pins={this.state.pins.concat(this.state.additionalPins)}
                         polygons={this.state.polygons}
                     />
                 </Box>
