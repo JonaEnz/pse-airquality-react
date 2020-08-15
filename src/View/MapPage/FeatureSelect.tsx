@@ -160,13 +160,13 @@ export default function FeatureSelect(props: Props) {
                                     value={config ?? ""}
                                 >
                                     <MenuItem value={POLY_CONFIG}>
-                                        {POLY_CONFIG}
+                                        {language.getText(POLY_CONFIG)}
                                     </MenuItem>
                                     <MenuItem value={STATION_CONFIG}>
-                                        {STATION_CONFIG}
+                                        {language.getText(STATION_CONFIG)}
                                     </MenuItem>
                                     <MenuItem value={NEAR_CONFIG}>
-                                        {NEAR_CONFIG}
+                                        {language.getText(NEAR_CONFIG)}
                                     </MenuItem>
                                 </Select>
                             </FormControl>
