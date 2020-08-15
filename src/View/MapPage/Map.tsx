@@ -154,6 +154,7 @@ export class Map extends React.Component<Props, State> {
                         position={pin.getPosition().getCoordinates()}
                         icon={this.getIconFromMapPin(pin)}
                         id={"mapPin-" + pin.getId()}
+                        key={pin.getId()}
                     >
                         <Popup
                             onOpen={() => this.handlePopup(pin)}
@@ -169,8 +170,9 @@ export class Map extends React.Component<Props, State> {
                         </Popup>
                     </Marker>
                 ))}
-                {this.props.polygons.map((polygon) => (
+                {this.props.polygons.map((polygon, index) => (
                     <LeafletPolygon
+                        key={index}
                         positions={this.getPositionsFromPolygon(polygon)}
                         color={polygon.getColor().getHex()}
                         fillOpacity={0.3}
