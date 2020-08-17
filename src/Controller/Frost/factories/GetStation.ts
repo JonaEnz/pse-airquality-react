@@ -19,7 +19,7 @@ export class GetStationConverter
         options: getStationOptions
     ): ObservationStation {
         let pos: Position;
-        if (json.Locations === undefined || json.Locations === null) {
+        if (json.Locations === undefined || json.Locations === null || json.Locations[0] === undefined || json.Locations[0] === null) {
             throw new Error("Thing has no Location");
         } else {
             pos = new Position(

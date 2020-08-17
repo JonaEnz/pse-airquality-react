@@ -45,13 +45,31 @@ test("All configurations", () => {
         "StationConfiguration",
         "NearConfiguration",
         "PolygonConfiguration",
-        "TestConfiguration",
     ];
 
     confs.forEach((c) => {
         localStorage.setItem("mapconf", createConf(c));
         expect(MapConfigurationMemory.load()[0].getId()).toStrictEqual(c);
     });
+
+    localStorage.setItem("mapconf", createConf("invalidConf"));
+    expect(() => MapConfigurationMemory.load()[0].getId()).toThrow();
+});
+
+test("Unsupported feature", () => {
+    var invFeat = JSON.stringify({
+        type: "StationConfiguration",
+        feature: "invalidFeature",
+        view: {
+            center: {
+                latitude: 1,
+                longitude: 2,
+            },
+            zoom: 7,
+        },
+    });
+    localStorage.setItem("mapconf", invFeat);
+    expect(() => MapConfigurationMemory.load()).toThrow();
 });
 
 localStorage.getItem = getItem;

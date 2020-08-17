@@ -1,7 +1,6 @@
 import MapConfiguration from "../MapPage/MapConfiguration";
 import { Viewport } from "../../Model/Viewport";
 import { Position } from "../../Model/Position";
-import TestConfiguration from "../TestConfiguration";
 import NearConfiguration from "../MapPage/NearConfiguration";
 import FeatureProvider from "../FeatureProvider";
 import PolygonConfiguration from "../MapPage/PolygonConfiguration";
@@ -63,7 +62,7 @@ export default class MapConfigurationMemory {
             } else if (obj.type === "StationConfiguration") {
                 return [new StationConfiguration(feature), view];
             } else {
-                return [new TestConfiguration(feature), view];
+                throw new Error("Invalid configuration: " + obj.type);
             }
         }
         return [DEFAULT_CONF, DEFAULT_VIEWPORT];

@@ -14,7 +14,6 @@ import LayersIcon from "@material-ui/icons/Layers";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import MapConfiguration from "../../Controller/MapPage/MapConfiguration";
 import { Feature } from "../../Model/Feature";
-import TestConfiguration from "../../Controller/TestConfiguration";
 import NearConfiguration from "../../Controller/MapPage/NearConfiguration";
 import StationConfiguration from "../../Controller/MapPage/StationConfiguration";
 import PolygonConfiguration from "../../Controller/MapPage/PolygonConfiguration";
@@ -52,7 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function FeatureSelect(props: Props) {
-    const TEST_CONFIG = "TestConfiguration";
     const NEAR_CONFIG = "NearConfiguration";
     const POLY_CONFIG = "PolygonConfiguration";
     const STATION_CONFIG = "StationConfiguration";
@@ -81,10 +79,6 @@ export default function FeatureSelect(props: Props) {
 
     const changeConfig = (conf: string, feature: Feature) => {
         switch (conf) {
-            case TEST_CONFIG:
-                var testConf = new TestConfiguration(feature); //Create new config
-                props.onConfigurationChange(testConf);
-                break;
             case NEAR_CONFIG:
                 var nearConf = new NearConfiguration(feature); //Create new config
                 props.onConfigurationChange(nearConf);
@@ -152,7 +146,10 @@ export default function FeatureSelect(props: Props) {
                                     {FeatureProvider.getInstance()
                                         .listAllFeatures()
                                         .map((f) => (
-                                            <MenuItem value={f.getId()}>
+                                            <MenuItem
+                                                value={f.getId()}
+                                                key={f.getId()}
+                                            >
                                                 {f.getName()}
                                             </MenuItem>
                                         ))}
@@ -166,13 +163,13 @@ export default function FeatureSelect(props: Props) {
                                     value={config ?? ""}
                                 >
                                     <MenuItem value={POLY_CONFIG}>
-                                        {POLY_CONFIG}
+                                        {language.getText(POLY_CONFIG)}
                                     </MenuItem>
                                     <MenuItem value={STATION_CONFIG}>
-                                        {STATION_CONFIG}
+                                        {language.getText(STATION_CONFIG)}
                                     </MenuItem>
                                     <MenuItem value={NEAR_CONFIG}>
-                                        {NEAR_CONFIG}
+                                        {language.getText(NEAR_CONFIG)}
                                     </MenuItem>
                                 </Select>
                             </FormControl>

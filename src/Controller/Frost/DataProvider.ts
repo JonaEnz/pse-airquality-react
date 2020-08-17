@@ -39,14 +39,7 @@ export default class DataProvider {
             options
         );
 
-        //check whether something went wrong
-        if (!fr.getSuccess()) {
-            throw new Error(fr.getMessage());
-        }
-
-        //everything went well
-        //return result
-        return fr.getResult() as ObservationStation[]; //null type is impossible because of specific frost factory
+        return this.handleFrostResult(fr);
     }
 
     static async getLatestObservation(
@@ -62,14 +55,7 @@ export default class DataProvider {
             { station, feature }
         );
 
-        //check whether something went wrong
-        if (!fr.getSuccess()) {
-            throw new Error(fr.getMessage());
-        }
-
-        //everything went well
-        //return result
-        return fr.getResult() as Observation; //null type is impossible because of specific frost factory
+        return this.handleFrostResult(fr);
     }
 
     static async getStation(id: string): Promise<ObservationStation> {
@@ -87,9 +73,7 @@ export default class DataProvider {
             throw new Error(fr.getMessage());
         }
 
-        //everything went well
-        //return result
-        return fr.getResult() as ObservationStation; //null type is impossible because of specific frost factory
+        return this.handleFrostResult(fr);
     }
 
     static async getLatestObservations(
@@ -106,14 +90,7 @@ export default class DataProvider {
             options
         );
 
-        //check whether something went wrong
-        if (!fr.getSuccess()) {
-            throw new Error(fr.getMessage());
-        }
-
-        //everything went well
-        //return result
-        return fr.getResult() as Observation[]; //null type is impossible because of specific frost factory
+        return this.handleFrostResult(fr);
     }
 
     static async getObservations(
@@ -131,13 +108,6 @@ export default class DataProvider {
             options
         );
 
-        //check whether something went wrong
-        if (!fr.getSuccess()) {
-            throw new Error(fr.getMessage());
-        }
-
-        //everything went well
-        //return result
-        return fr.getResult() as Observation[]; //null type is impossible because of specific frost factory
+        return this.handleFrostResult(fr);
     }
 }

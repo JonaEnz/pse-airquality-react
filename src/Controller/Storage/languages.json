@@ -1,6 +1,5 @@
 {
-    "languages": [
-        {
+    "languages": [{
             "id": "de-de",
             "name": "Deutsch",
             "strings": {
@@ -42,7 +41,10 @@
                 "testFeature": "Test",
                 "testNameDesc": "Test Beschreibung",
                 "testNameId": "Test Name",
-                "testWebLink": "https://testlink/"
+                "testWebLink": "https://testlink/",
+                "StationConfiguration": "Messstationen",
+                "NearConfiguration": "Vergleich mit Umfeld",
+                "PolygonConfiguration": "Flächen"
             }
         },
         {
@@ -87,7 +89,10 @@
                 "testFeature": "Test",
                 "testNameDesc": "Test Beschreibung",
                 "testNameId": "Test Name",
-                "testWebLink": "Test Link"
+                "testWebLink": "Test Link",
+                "StationConfiguration": "Stations",
+                "NearConfiguration": "Compare to surroundings",
+                "PolygonConfiguration": "Area"
             }
         }
     ]
