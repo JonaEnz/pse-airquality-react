@@ -128,7 +128,7 @@ export default class RequestReducer {
             return prev.concat(next);
         }, []);
     }
-
+    /*
     private static async estimateObservationCount(
         start: Date,
         end: Date,
@@ -146,4 +146,5 @@ export default class RequestReducer {
             (((end.getTime() - start.getTime()) / 1000) * 60 * 60);
         return estimate;
     }
+    */
 }
