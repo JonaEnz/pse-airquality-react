@@ -5,6 +5,9 @@ import { Feature } from "../../Model/Feature";
 import Timespan from "../../Model/Timespan";
 import DataProvider from "../Frost/DataProvider";
 import { Observation } from "../../Model/Observation";
+import { MicOutlined } from "@material-ui/icons";
+import { start } from "repl";
+import RequestReducer from "./RequestReducer";
 
 let languageProvider = Language.getInstance();
 
@@ -155,6 +158,7 @@ export class FeatureHistoryLineChartController implements IDiagramController {
         );
         var observations: Observation[] = [];
 
+        /*
         while (start.valueOf() < Date.now()) {
             let end = new Date(
                 start.getFullYear(),
@@ -163,6 +167,7 @@ export class FeatureHistoryLineChartController implements IDiagramController {
                 start.getHours() + 6
             );
 
+            
             //get observations
             let newObs = await DataProvider.getObservations(
                 this.observationStation,
@@ -170,10 +175,38 @@ export class FeatureHistoryLineChartController implements IDiagramController {
                 start,
                 end
             );
+            
+            let newObs = await this.reduceGetData(start, end);
 
             observations = observations.concat(newObs);
 
             start = end;
+        }
+        */
+
+        var end = new Date(Date.now());
+        var length = end.getTime() - start.getTime();
+        const MONTH_IN_MILLI = 1000 * 60 * 60 * 24 * 30;
+        const YEAR_IN_MILLI = MONTH_IN_MILLI * 12;
+        if (length >= YEAR_IN_MILLI) {
+            observations = await RequestReducer.getDataByYear(
+                end,
+                this.observationStation,
+                this.feature
+            );
+        } else if (length >= MONTH_IN_MILLI) {
+            observations = await RequestReducer.getDataByMonth(
+                end,
+                this.observationStation,
+                this.feature
+            );
+        } else {
+            observations = await DataProvider.getObservations(
+                this.observationStation,
+                this.feature,
+                start,
+                end
+            );
         }
 
         let data: Array<[Date, number]> = [];
