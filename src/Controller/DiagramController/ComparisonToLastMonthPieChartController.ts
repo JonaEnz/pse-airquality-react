@@ -5,6 +5,7 @@ import Timespan from "../../Model/Timespan";
 import Language from "../Storage/Language";
 import DataProvider from "../Frost/DataProvider";
 import { Observation } from "../../Model/Observation";
+import RequestReducer from "./RequestReducer";
 
 let languageProvider = Language.getInstance();
 
@@ -104,16 +105,15 @@ export class ComparisonToLastMonthPieChartController
             let end = new Date(
                 start.getFullYear(),
                 start.getMonth(),
-                start.getDate(),
-                start.getHours() + 6
+                start.getDate() + 7,
+                start.getHours()
             );
 
             //get observations
-            let newObs = await DataProvider.getObservations(
+            let newObs = await RequestReducer.GetDataForDay(
+                end,
                 this.observationStation,
-                this.feature,
-                start,
-                end
+                this.feature
             );
 
             observations = observations.concat(newObs);
