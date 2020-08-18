@@ -78,7 +78,7 @@ export class GetLatestObservationsConverter
                 ) {
                     return;
                 }
-                if (stream.Observations[0] === null) {
+                if (stream.Observations[0] === null || stream.Observations[0] === undefined) {
                     return;
                 }
                 observations.push(
@@ -107,7 +107,7 @@ export class GetLatestObservationsBuilder implements QueryBuilder {
             options.radius +
             " and overlaps(phenomenonTime,(now() sub duration'P1d')) and ObservedProperty/@iot.id eq '" +
             options.feature.getId() +
-            "'&$expand=Thing($select=name,@iot.id;$expand=Locations($select=location),Datastreams($select=name)/ObservedProperty($select=@iot.id)),Observations($select=result;$filter=phenomenonTime gt now() sub duration'P1D';$orderby=phenomenonTime desc;$top=1)"
+            "'&$expand=Thing($select=name,description,@iot.id;$expand=Locations($select=location),Datastreams($select=name)/ObservedProperty($select=@iot.id)),Observations($select=result,phenomenonTime;$filter=phenomenonTime gt now() sub duration'P1D';$orderby=phenomenonTime desc;$top=1)"
         );
     }
 }
