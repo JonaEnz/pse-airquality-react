@@ -28,10 +28,6 @@ export class GetStationConverter
             );
         }
 
-        if (json.Datastreams === undefined || json.Datastreams === null) {
-            throw new Error("Cannot parse response of server");
-        }
-
         let features: Feature[] = [];
 
         let fp: FeatureProvider = FeatureProvider.getInstance();
@@ -80,7 +76,7 @@ export interface getStationOptions {
 interface ObservationStationEntity {
     name: string;
     description: string;
-    Datastreams?: DatastreamsEntity[] | null;
+    Datastreams: DatastreamsEntity[];
     Locations?: LocationsEntity[] | null;
     "@iot.id": string;
 }
