@@ -71,11 +71,13 @@ export default class NearConfiguration extends MapConfiguration {
         this.scale = this.buildNearScale(observations);
 
         var pins: MapPin[] = [];
-        observations.forEach((o) => {
-            pins.push(
-                this.buildMapPin(o.getObservationStation(), o.getValue())
-            );
-        });
+        observations
+            .filter((o) => o.getValue() < 5 * this.selectedFeature.getLimit())
+            .forEach((o) => {
+                pins.push(
+                    this.buildMapPin(o.getObservationStation(), o.getValue())
+                );
+            });
         return pins;
     }
 
