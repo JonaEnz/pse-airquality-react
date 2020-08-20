@@ -62,22 +62,22 @@ export default class NearConfiguration extends MapConfiguration {
     }
 
     async getPins(view: Viewport): Promise<MapPin[]> {
-        var observations = await DataProvider.getLatestObservations(
-            view.getCenter(),
-            view.getZoom(),
-            this.selectedFeature
-        );
+        var observations = (
+            await DataProvider.getLatestObservations(
+                view.getCenter(),
+                view.getZoom(),
+                this.selectedFeature
+            )
+        ).filter((o) => o.getValue() < 5 * this.selectedFeature.getLimit());
 
         this.scale = this.buildNearScale(observations);
 
         var pins: MapPin[] = [];
-        observations
-            .filter((o) => o.getValue() < 5 * this.selectedFeature.getLimit())
-            .forEach((o) => {
-                pins.push(
-                    this.buildMapPin(o.getObservationStation(), o.getValue())
-                );
-            });
+        observations.forEach((o) => {
+            pins.push(
+                this.buildMapPin(o.getObservationStation(), o.getValue())
+            );
+        });
         return pins;
     }
 
