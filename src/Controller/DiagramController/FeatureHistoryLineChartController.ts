@@ -29,6 +29,7 @@ class FHLCConfigurationOption {
 }
 
 export class FeatureHistoryLineChartController implements IDiagramController {
+    private static readonly ID = "FeatureHistoryLineChart";
     //support line charts
     private static readonly chartType = ChartType.LINE_CHART;
     //enable configuration
@@ -106,6 +107,9 @@ export class FeatureHistoryLineChartController implements IDiagramController {
         this.feature = feature;
         this.currentConfigurationOption =
             FeatureHistoryLineChartController.configurationOptions[0];
+    }
+    getID() {
+        return FeatureHistoryLineChartController.ID;
     }
     //returns chart type
     getChartType(): ChartType {

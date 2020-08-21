@@ -5,6 +5,7 @@ export default interface IDiagramController {
     observationStation: ObservationStation;
     feature: Feature;
 
+    getID: () => string;
     //returns type of chart
     getChartType: () => ChartType;
 
@@ -20,7 +21,7 @@ export default interface IDiagramController {
     //return names of configuration options
     getConfigurationOptions: () => string[];
 
-    //sets the curren configuration option of the diagram
+    //sets the current configuration option of the diagram
     setConfigurationOption: (optionName: string) => void;
 
     //returns the data that can be displayed in the diagram

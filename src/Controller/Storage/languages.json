@@ -1,5 +1,6 @@
 {
-    "languages": [{
+    "languages": [
+        {
             "id": "de-de",
             "name": "Deutsch",
             "strings": {
@@ -44,7 +45,9 @@
                 "testWebLink": "https://testlink/",
                 "StationConfiguration": "Messstationen",
                 "NearConfiguration": "Vergleich mit Umfeld",
-                "PolygonConfiguration": "Flächen"
+                "PolygonConfiguration": "Flächen",
+                "FeatureHistoryLineChart_Name": "Historische Werte",
+                "ComparisonToLastMonthPieChart_Name": "Vergleich letzter Monat"
             }
         },
         {
@@ -92,7 +95,9 @@
                 "testWebLink": "Test Link",
                 "StationConfiguration": "Stations",
                 "NearConfiguration": "Compare to surroundings",
-                "PolygonConfiguration": "Area"
+                "PolygonConfiguration": "Area",
+                "FeatureHistoryLineChart_Name": "Historic Values",
+                "ComparisonToLastMonthPieChart_Name": "Comparison last month"
             }
         }
     ]

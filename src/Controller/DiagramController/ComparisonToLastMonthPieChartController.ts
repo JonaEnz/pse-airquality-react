@@ -29,6 +29,7 @@ class CTLMPCConfigurationOption {
 
 export class ComparisonToLastMonthPieChartController
     implements IDiagramController {
+    private static readonly ID = "ComparisonToLastMonthPieChart";
     //support line charts
     private static readonly chartType = ChartType.PIE_CHART;
     //enable configuration
@@ -54,6 +55,9 @@ export class ComparisonToLastMonthPieChartController
         this.feature = feature;
         this.currentConfigurationOption =
             ComparisonToLastMonthPieChartController.configurationOptions[0];
+    }
+    getID() {
+        return ComparisonToLastMonthPieChartController.ID;
     }
 
     setConfigurationOption(optionName: string) {
