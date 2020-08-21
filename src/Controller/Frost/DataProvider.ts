@@ -100,14 +100,34 @@ export default class DataProvider {
         end: Date
     ): Promise<Observation[]> {
         let frostFactory = new GetObservationsFactory();
-        let options = { station, feature, start, end };
 
-        //fetch data
+        let options = [];
+
+        var step = new Date(start.getTime() + 6 * 60 * 60 * 1000);
+
+        do {
+            options.push({
+                station,
+                feature,
+                start: new Date(start.getTime()),
+                end: new Date(step < end ? step.getTime() : end.getTime()),
+            });
+            start.setHours(start.getHours() + 6);
+            step.setHours(step.getHours() + 6);
+        } while (step < end);
+
+        var promises: Promise<FrostResult<Observation[]>>[] = [];
+
+        options.forEach((o) => {
+            promises.push(this.server.request(frostFactory, o));
+        });
+        let res = await Promise.all(promises);
+        /*//fetch data
         let fr: FrostResult<Observation[]> = await this.server.request(
             frostFactory,
             options
-        );
+        );*/
 
-        return this.handleFrostResult(fr);
+        return res.flatMap((r) => this.handleFrostResult(r));
     }
 }
