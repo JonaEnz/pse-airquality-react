@@ -13,11 +13,6 @@ var featureSelect = shallow(
 );
 
 test("Render", () => {
-    //open
-    featureSelect
-        .find("#avatarButton")
-        .simulate("click", { currentTarget: true });
-
     expect(featureSelect.find("#title")).toIncludeText(
         language.getText("map_configuration_title")
     );
@@ -72,6 +67,9 @@ test("Render with startConf", () => {
             startConf={startConf}
         />
     );
+
+    //close
+    select.find("#avatarButton").simulate("click", { currentTarget: true });
     //open
     select.find("#avatarButton").simulate("click", { currentTarget: true });
 

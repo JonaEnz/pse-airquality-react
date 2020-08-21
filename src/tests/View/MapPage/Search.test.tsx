@@ -1,18 +1,17 @@
-import { render, screen, waitForElement } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Search from "../../../View/MapPage/Search";
 import React from "react";
 import Language from "../../../Controller/Storage/Language";
-import ReactDOM from "react-dom";
 import { Position } from "../../../Model/Position";
-import { shallow } from "enzyme";
 
 let language = Language.getInstance();
 
-test("Render test", async () => {
-    render(<Search onSearch={() => {}} updatePosition={() => {}} />);
-    await waitForElement(() => screen.getByTestId("searchButton"));
+test("Render test", () => {
+    var search = render(
+        <Search onSearch={() => {}} updatePosition={() => {}} />
+    );
     expect(
-        screen.getByPlaceholderText(language.getText("search"))
+        search.getByPlaceholderText(language.getText("search"))
     ).not.toBeNull();
 });
 
