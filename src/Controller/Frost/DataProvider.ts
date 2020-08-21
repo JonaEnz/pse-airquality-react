@@ -46,9 +46,6 @@ export default class DataProvider {
         station: ObservationStation,
         feature: Feature
     ): Promise<Observation> {
-        let frostFactory = new GetLatestObservationFactory();
-        let options = { station, feature };
-
         //fetch data
         let fr: FrostResult<Observation> = await this.server.request(
             new GetLatestObservationFactory(),

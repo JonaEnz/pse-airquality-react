@@ -3,7 +3,6 @@ import { ObservationStation } from "../../Model/ObservationStation";
 import { Feature } from "../../Model/Feature";
 import Timespan from "../../Model/Timespan";
 import Language from "../Storage/Language";
-import DataProvider from "../Frost/DataProvider";
 import { Observation } from "../../Model/Observation";
 import RequestReducer from "./RequestReducer";
 

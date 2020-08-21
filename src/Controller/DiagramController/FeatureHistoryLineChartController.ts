@@ -5,8 +5,6 @@ import { Feature } from "../../Model/Feature";
 import Timespan from "../../Model/Timespan";
 import DataProvider from "../Frost/DataProvider";
 import { Observation } from "../../Model/Observation";
-import { MicOutlined } from "@material-ui/icons";
-import { start } from "repl";
 import RequestReducer from "./RequestReducer";
 
 let languageProvider = Language.getInstance();

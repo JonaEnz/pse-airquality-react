@@ -11,7 +11,7 @@ import { Observation } from "../../Model/Observation";
 import FeatureSelect from "./FeatureSelect";
 import Search from "./Search";
 import Legend from "./Legend";
-import { Box, Theme, Grid } from "@material-ui/core";
+import { Box, Theme } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import { Color } from "../../Model/Color";
 

@@ -19,7 +19,6 @@ import StationConfiguration from "../../Controller/MapPage/StationConfiguration"
 import PolygonConfiguration from "../../Controller/MapPage/PolygonConfiguration";
 import FeatureProvider from "../../Controller/FeatureProvider";
 import Language from "../../Controller/Storage/Language";
-import { truncate } from "fs";
 interface Props {
     onConfigurationChange(mapConfig: MapConfiguration): void;
     startConf?: { conf: string; feature: string };
