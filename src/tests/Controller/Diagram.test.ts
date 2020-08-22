@@ -26,7 +26,6 @@ let feature = new Feature(
     "iconName"
 );
 
-let diagram = new Diagram(FeatureHistoryLineChartController);
 
 let station = new ObservationStation(
     "0001",
@@ -37,6 +36,8 @@ let station = new ObservationStation(
 );
 
 let historyChart = new FeatureHistoryLineChartController(station, feature);
+
+//let diagram = new Diagram(historyChart));
 
 let ComparisonToLastYearPieChart = new ComparisonToLastMonthPieChartController(
     station,
