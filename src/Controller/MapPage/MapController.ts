@@ -43,6 +43,27 @@ export class MapController {
         }
     }
 
+    async getCityName(): Promise<string> {
+        var json = await (
+            await fetch(
+                "https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&zoom=10&format=json"
+                    .replace(
+                        "{lat}",
+                        this.viewport.getCenter().getLatitude().toString()
+                    )
+                    .replace(
+                        "{lon}",
+                        this.viewport.getCenter().getLongitude().toString()
+                    )
+            )
+        ).json();
+        if (json.address?.city) {
+            return json.address.city;
+        } else {
+            return "?";
+        }
+    }
+
     // Called when a pin on the map is clicked, gets information from server
     async handlePopup(pin: MapPin): Promise<Observation> {
         var station = await DataProvider.getStation(pin.getId());

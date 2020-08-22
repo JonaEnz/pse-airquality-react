@@ -168,3 +168,10 @@ test("Search", async () => {
     //Restore original function
     controller.updateCurrentPosition = updateCurrentPosition;
 });
+
+test("City", async () => {
+    controller.handleViewportChange(new Viewport(new Position(49, 8.4), 5)); //Karlsruhe
+    expect(await controller.getCityName()).toStrictEqual("Karlsruhe");
+    controller.handleViewportChange(new Viewport(new Position(48.9, -9.3), 5)); //in the ocean
+    expect(await controller.getCityName()).toStrictEqual("?");
+});

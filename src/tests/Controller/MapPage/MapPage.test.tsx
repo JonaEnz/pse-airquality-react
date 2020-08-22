@@ -43,6 +43,11 @@ test("Render", () => {
     });
     MapController.prototype.handlePopup = popupHandlerMock;
 
+    var cityMock = jest.fn(async () => {
+        return "City";
+    });
+    MapController.prototype.getCityName = cityMock;
+
     var mapPage = mount(<MapPage />);
 
     //@ts-ignore

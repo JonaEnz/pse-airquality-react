@@ -11,7 +11,7 @@ import { Observation } from "../../Model/Observation";
 import FeatureSelect from "./FeatureSelect";
 import Search from "./Search";
 import Legend from "./Legend";
-import { Box, Theme } from "@material-ui/core";
+import { Box, Theme, Typography, Paper } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
 import { Color } from "../../Model/Color";
 
@@ -25,6 +25,7 @@ interface State {
     polygons: Polygon[];
     viewport: Viewport;
     additionalPins: MapPin[];
+    cityName: string;
 }
 
 interface Props {
@@ -47,6 +48,7 @@ class MapPage extends React.Component<Props, State> {
             pins: [],
             polygons: [],
             additionalPins: [],
+            cityName: "",
         };
         this.update();
     }
@@ -67,6 +69,9 @@ class MapPage extends React.Component<Props, State> {
                 pins: pinPoly[0],
                 polygons: pinPoly[1],
             });
+        });
+        this.mapController.getCityName().then((city) => {
+            this.setState({ cityName: city });
         });
     }
 
@@ -180,6 +185,13 @@ class MapPage extends React.Component<Props, State> {
                             this.onViewportChange(view);
                         }}
                     />
+                </Box>
+                <Box className="cityName">
+                    <Paper className="cityPaper">
+                        <Typography variant="button">
+                            {this.state.cityName}
+                        </Typography>
+                    </Paper>
                 </Box>
                 <Box className="map">
                     <Map
