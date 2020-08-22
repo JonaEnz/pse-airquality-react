@@ -26,9 +26,11 @@ export default class StationConfiguration extends MapConfiguration {
             view.getZoom(),
             this.selectedFeature
         );
-        return latestObs.map((o) =>
-            this.buildMapPin(o.getObservationStation(), o.getValue())
-        );
+        return latestObs
+            .filter((o) => o.getValue() < 5 * this.selectedFeature.getLimit())
+            .map((o) =>
+                this.buildMapPin(o.getObservationStation(), o.getValue())
+            );
     }
 
     async getPolygons(view: Viewport): Promise<Polygon[]> {

@@ -31,7 +31,11 @@ export default class PolygonConfiguration extends MapConfiguration {
             view.getRadius(),
             this.selectedFeature
         );
-        var polys = this.triangulate(observations);
+        var polys = this.triangulate(
+            observations.filter(
+                (o) => o.getValue() < 5 * this.selectedFeature.getLimit()
+            )
+        );
         return polys;
     }
 

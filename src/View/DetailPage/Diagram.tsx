@@ -10,6 +10,8 @@ import {
 } from "@material-ui/core";
 import Chart from "react-google-charts";
 
+import Language from "../../Controller/Storage/Language";
+
 import IDiagramController from "../../Controller/DiagramController/DiagramController";
 
 export default class Diagram extends React.Component<
@@ -134,7 +136,11 @@ export default class Diagram extends React.Component<
                     <Grid container justify="space-between" alignItems="center">
                         <Grid item>
                             <Typography variant="subtitle1">
-                                {this.controller.feature.getName() +
+                                {Language.getInstance().getText(
+                                    this.controller.getID() + "_Name"
+                                ) +
+                                    " - " +
+                                    this.controller.feature.getName() +
                                     " [" +
                                     this.controller.feature.getUnitOfMeasurement() +
                                     "]"}

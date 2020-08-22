@@ -3,8 +3,8 @@ import { ObservationStation } from "../../Model/ObservationStation";
 import { Feature } from "../../Model/Feature";
 import Timespan from "../../Model/Timespan";
 import Language from "../Storage/Language";
-import DataProvider from "../Frost/DataProvider";
 import { Observation } from "../../Model/Observation";
+import RequestReducer from "./RequestReducer";
 
 let languageProvider = Language.getInstance();
 
@@ -29,6 +29,7 @@ class CTLMPCConfigurationOption {
 
 export class ComparisonToLastMonthPieChartController
     implements IDiagramController {
+    private static readonly ID = "ComparisonToLastMonthPieChart";
     //support line charts
     private static readonly chartType = ChartType.PIE_CHART;
     //enable configuration
@@ -54,6 +55,9 @@ export class ComparisonToLastMonthPieChartController
         this.feature = feature;
         this.currentConfigurationOption =
             ComparisonToLastMonthPieChartController.configurationOptions[0];
+    }
+    getID() {
+        return ComparisonToLastMonthPieChartController.ID;
     }
 
     setConfigurationOption(optionName: string) {
@@ -104,16 +108,15 @@ export class ComparisonToLastMonthPieChartController
             let end = new Date(
                 start.getFullYear(),
                 start.getMonth(),
-                start.getDate(),
-                start.getHours() + 6
+                start.getDate() + 7,
+                start.getHours()
             );
 
             //get observations
-            let newObs = await DataProvider.getObservations(
+            let newObs = await RequestReducer.GetDataForDay(
+                end,
                 this.observationStation,
-                this.feature,
-                start,
-                end
+                this.feature
             );
 
             observations = observations.concat(newObs);

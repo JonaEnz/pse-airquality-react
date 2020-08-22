@@ -1,5 +1,3 @@
-import { isNullOrUndefined } from "util";
-
 export class FrostResult<T> {
     private result: T | null; //payload of the response from the FROST server
     private success: boolean;

@@ -55,14 +55,14 @@ export default function FeatureSelect(props: Props) {
     const POLY_CONFIG = "PolygonConfiguration";
     const STATION_CONFIG = "StationConfiguration";
     const classes = useStyles();
-    const [open, setOpen] = useState<HTMLImageElement | null>(null);
+    const [open, setOpen] = useState<boolean>(true);
     const [feature, setFeature] = useState<Feature | undefined>(
         FeatureProvider.getInstance().listAllFeatures()[0]
     );
     const [config, setConfig] = useState<string | null>(STATION_CONFIG);
 
     const handleClick = (event: React.MouseEvent<HTMLImageElement>) => {
-        setOpen(open ? null : event.currentTarget);
+        setOpen(!open);
     };
 
     useEffect(() => {
@@ -131,11 +131,11 @@ export default function FeatureSelect(props: Props) {
                                 id="title"
                                 className={classes.title}
                                 variant="subtitle1"
-                                color="textSecondary"
+                                color="textPrimary"
                             >
                                 {language.getText("map_configuration_title")}
                             </Typography>
-                            <Divider orientation="horizontal"></Divider>
+                            <Divider orientation="horizontal" />
                             <FormControl className={classes.formControl}>
                                 <InputLabel>{"Feature"}</InputLabel>
                                 <Select
