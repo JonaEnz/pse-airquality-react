@@ -34,7 +34,7 @@ export default class DetailPage extends React.Component<
 
         var diagramController = this.state.obs.getDiagramController();
         return diagramController.map((controller) => (
-            <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+            <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                 <Diagram controller={controller} />
             </Grid>
         ));
