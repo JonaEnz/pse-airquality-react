@@ -47,7 +47,8 @@
                 "NearConfiguration": "Vergleich mit Umfeld",
                 "PolygonConfiguration": "Flächen",
                 "FeatureHistoryLineChart_Name": "Historische Werte",
-                "ComparisonToLastMonthPieChart_Name": "Vergleich letzter Monat"
+                "ComparisonToLastMonthPieChart_Name": "Vergleich letzter Monat",
+                "ComparisonToLastMonthPieChart_Title": "Wie viele Werte, die während des letzten Monats gemessen wurden, waren höher/niedriger, als der aktuelle Wert?"
             }
         },
         {
@@ -97,7 +98,8 @@
                 "NearConfiguration": "Compare to surroundings",
                 "PolygonConfiguration": "Area",
                 "FeatureHistoryLineChart_Name": "Historic Values",
-                "ComparisonToLastMonthPieChart_Name": "Comparison last month"
+                "ComparisonToLastMonthPieChart_Name": "Comparison last month",
+                "ComparisonToLastMonthPieChart_Title": "How many values, measured during the last month, were higher/lower than the current value?"
             }
         }
     ]

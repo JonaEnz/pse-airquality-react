@@ -29,13 +29,25 @@ class CTLMPCConfigurationOption {
 
 export class ComparisonToLastMonthPieChartController
     implements IDiagramController {
+    private static readonly title = languageProvider.getText(
+        "ComparisonToLastMonthPieChart_Title"
+    );
     private static readonly ID = "ComparisonToLastMonthPieChart";
     //support line charts
     private static readonly chartType = ChartType.PIE_CHART;
     //enable configuration
     private static readonly isConfigurable = false;
     // options for the graphical appearence
-    private static readonly graphicsOptions = {};
+    private static readonly graphicsOptions = {
+        legend: "none",
+        pieSliceText: "label",
+        title: ComparisonToLastMonthPieChartController.title,
+        pieStartAngle: 100,
+        slices: {
+            0: { color: "#4caf50" },
+            1: { color: "#f44336" },
+        },
+    };
     //configuration options
     private static readonly configurationOptions = [
         new CTLMPCConfigurationOption(
