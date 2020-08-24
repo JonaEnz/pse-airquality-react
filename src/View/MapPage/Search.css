@@ -1,21 +1,50 @@
 .root {
-    margin: 10px;
-    padding: 2px 2px 2px 20px;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
 
-    height: 50px;
+    max-width: 400px;
+    height: 56px;
 
     border-radius: 10px;
 }
 
-.input {
-    height: 50px;
-    min-width: 300px;
+.input-field {
+    position: absolute !important;
+    left: 30px;
+    top: 2px;
+    bottom: 2px;
+    width: 100%;
 }
 
 .divider {
-    margin-left: 10px;
+    position: absolute;
+    top: 0px;
+    right: 56px;
+
+    width: 1px;
+    height: 56px;
+
+    background-color: lightgray;
 }
 
 .search-button {
-    margin-left: 10px;
+    position: absolute !important;
+    right: 60px;
+    top: 0px;
+
+    z-index: 20;
+
+    width: 56px;
+    height: 56px;
+}
+
+.location-button {
+    position: absolute !important;
+    right: 0px;
+    top: 0px;
+
+    width: 56px;
+    height: 56px;
 }
