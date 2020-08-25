@@ -6,6 +6,9 @@
 .search {
     position: absolute;
     z-index: 30;
+    left: 10px;
+    right: 10px;
+    top: 10px;
 }
 
 .map {
@@ -32,7 +35,4 @@
     bottom: 30px;
     right: 20px;
     z-index: 30;
-}
-
-@media only screen and (min-width: 768px) {
 }

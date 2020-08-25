@@ -9,7 +9,7 @@
                 "privacyPolicy": "Datenschutzerklärung",
                 "privacyPolicyText": "Die Webanwendung SmartAQNet speichert keine persönlichen Daten. Wenn Sie der Applikation die Standortermittlung erlauben wird Ihr Standort erfasst, zwischengespeichert und nach dem Schließen der Webapplikation wieder gelöscht. Keine weitere Daten werden erfasst.",
                 "stationInfoButton": "Mehr Informationen",
-                "search": "Suche nach einer Stadt oder Adresse",
+                "search": "Suche nach einem Ort",
                 "loading": "Laden ...",
                 "noData": "Keine Daten",
                 "Error404": "Fehler 404: Die angeforderte Seite existiert nicht.",
@@ -47,7 +47,8 @@
                 "NearConfiguration": "Vergleich mit Umfeld",
                 "PolygonConfiguration": "Flächen",
                 "FeatureHistoryLineChart_Name": "Historische Werte",
-                "ComparisonToLastMonthPieChart_Name": "Vergleich letzter Monat"
+                "ComparisonToLastMonthPieChart_Name": "Vergleich letzter Monat",
+                "ComparisonToLastMonthPieChart_Title": "Wie viele Werte, die während des letzten Monats gemessen wurden, waren höher/niedriger, als der aktuelle Wert?"
             }
         },
         {
@@ -59,7 +60,7 @@
                 "privacyPolicy": "Privacy Policy",
                 "privacyPolicyText": "If you don't allow the application to have access to your address, SmartAQNet will not collect any data from you. Otherwise, your address will be cached until you close the application. No other personal data will be collected.",
                 "stationInfoButton": "More details",
-                "search": "Search for a city or an address",
+                "search": "Search for a location",
                 "loading": "Loading ...",
                 "noData": "No data.",
                 "Error404": "Error 404: This page doesn't exist.",
@@ -97,7 +98,8 @@
                 "NearConfiguration": "Compare to surroundings",
                 "PolygonConfiguration": "Area",
                 "FeatureHistoryLineChart_Name": "Historic Values",
-                "ComparisonToLastMonthPieChart_Name": "Comparison last month"
+                "ComparisonToLastMonthPieChart_Name": "Comparison last month",
+                "ComparisonToLastMonthPieChart_Title": "How many values, measured during the last month, were higher/lower than the current value?"
             }
         }
     ]
