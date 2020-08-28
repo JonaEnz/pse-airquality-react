@@ -21,7 +21,7 @@ export class Polygon {
     }
 
     getStations(): ObservationStation[] {
-        return this.obs.flatMap((o) => o.getObservationStation());
+        return this.obs.map((o) => o.getObservationStation());
     }
 
     getAverageValue(): number {
