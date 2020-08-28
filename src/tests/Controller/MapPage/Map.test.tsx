@@ -20,9 +20,9 @@ test("Render", () => {
     );
     var polygon = new Polygon(
         [
-            TestHelper.getTestObservationStation(0, 0),
-            TestHelper.getTestObservationStation(1, 0),
-            TestHelper.getTestObservationStation(0, 1),
+            TestHelper.getTestObservation(0),
+            TestHelper.getTestObservation(1),
+            TestHelper.getTestObservation(2),
         ],
         TestHelper.getTestColor()
     );
