@@ -16,6 +16,7 @@ import { withStyles } from "@material-ui/styles";
 import { Color } from "../../Model/Color";
 
 import "./MapPage.css";
+import Language from "../../Controller/Storage/Language";
 
 const styles = (theme: Theme) => ({});
 
@@ -120,10 +121,19 @@ class MapPage extends React.Component<Props, State> {
 
     onSearch(event: SyntheticEvent, term: string) {
         event.preventDefault();
-        this.mapController.search(term).then(() => {
-            this.setHomeMarker();
-            this.update();
-        });
+        this.mapController.search(term).then(
+            () => {
+                this.setHomeMarker();
+                this.update();
+            },
+            () => {
+                alert(
+                    Language.getInstance()
+                        .getText("searchAlert")
+                        .replace("{term}", term)
+                );
+            }
+        );
     }
 
     setHomeMarker() {

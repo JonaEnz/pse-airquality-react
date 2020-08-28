@@ -125,7 +125,7 @@ export class MapController {
     }
 
     // Get Position from search term using the nominatim API
-    async search(searchTerm: string) {
+    async search(searchTerm: string): Promise<void> {
         if (searchTerm.length === 0) {
             return; //No search possible
         }
@@ -136,9 +136,10 @@ export class MapController {
         );
         var json = await response.json();
         if (json.length === 0) {
-            return; //No location found
+            return Promise.reject(); //No location found
         }
         this.updateCurrentPosition(new Position(json[0].lat, json[0].lon));
+        return Promise.resolve();
     }
 
     // Set new position
