@@ -71,6 +71,7 @@ export default class Search extends React.Component<Props, State> {
                         alignContent="space-between"
                     >
                         <form
+                            title="searchForm"
                             className="search-form"
                             onSubmit={(e) =>
                                 this.props.onSearch(e, this.state.searchTerm)
@@ -80,6 +81,7 @@ export default class Search extends React.Component<Props, State> {
                                 data-testid="textBox"
                                 className="input"
                                 type="search"
+                                title="searchTextBox"
                                 onChange={(e) => {
                                     this.setState({
                                         searchTerm: e.target.value,
@@ -89,6 +91,7 @@ export default class Search extends React.Component<Props, State> {
                             />
                             <IconButton
                                 data-testid="searchButton"
+                                title="search"
                                 type="submit"
                                 onClick={(e) =>
                                     this.props.onSearch(
@@ -103,6 +106,7 @@ export default class Search extends React.Component<Props, State> {
                         </form>
                         <Divider orientation="vertical" flexItem={true} />
                         <IconButton
+                            title="position"
                             data-testid="locationButton"
                             onClick={() => this.locationClick()}
                             className="location-button"

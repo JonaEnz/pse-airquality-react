@@ -128,6 +128,8 @@ export default function FeatureSelect(props: Props) {
                     <Card className={classes.popup} variant="outlined">
                         <Grid container direction="column">
                             <Typography
+                                role="heading"
+                                aria-level={2}
                                 id="title"
                                 className={classes.title}
                                 variant="subtitle1"

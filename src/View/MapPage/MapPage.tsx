@@ -5,7 +5,7 @@ import { Feature } from "../../Model/Feature";
 import { Viewport } from "../../Model/Viewport";
 import { MapController } from "../../Controller/MapPage/MapController";
 import { MapPin } from "../../Model/MapPin";
-import { Polygon } from "../../Model/Polygon";
+
 import { Position } from "../../Model/Position";
 import { Observation } from "../../Model/Observation";
 import FeatureSelect from "./FeatureSelect";
@@ -16,8 +16,9 @@ import { withStyles } from "@material-ui/styles";
 import { Color } from "../../Model/Color";
 
 import "./MapPage.css";
+import { Polygon } from "../../Model/Polygon";
 
-const styles = (theme: Theme) => ({});
+const styles = () => ({});
 
 interface State {
     selectedStation: ObservationStation | null;
@@ -75,6 +76,7 @@ class MapPage extends React.Component<Props, State> {
         });
     }
 
+    // eslint-disable-next-line no-unused-vars
     getValueAt(position: Position, feature: Feature): number {
         // Get pins sorted by distance
         var sortedPins = this.state.pins.sort((a, b) => {

@@ -20,7 +20,7 @@ export default class TestHelper {
             TestHelper.FEATURE_DESC,
             TestHelper.getTestScale(),
             TestHelper.FEATURE_LINK,
-            Math.random() * 100,
+            100,
             TestHelper.FEATURE_UOM,
             [],
             TestHelper.FEATURE_ICON

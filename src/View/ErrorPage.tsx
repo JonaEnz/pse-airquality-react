@@ -1,7 +1,9 @@
-import React from 'react';
+import React from "react";
 
-export default class ErrorPage extends React.Component<IErrorPageProps, IErrorPageState> {
-
+export default class ErrorPage extends React.Component<
+    IErrorPageProps,
+    IErrorPageState
+> {
     code: number;
     message: string;
 
@@ -28,7 +30,4 @@ interface IErrorPageProps {
     message: string;
 }
 
-interface IErrorPageState {
-
-
-}
+interface IErrorPageState {}

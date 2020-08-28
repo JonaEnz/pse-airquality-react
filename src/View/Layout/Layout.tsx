@@ -7,7 +7,7 @@ import PrivacyPolicyPage from "./../PrivacyPolicy";
 import PageMenu from "./PageMenu";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Language from "../../Controller/Storage/Language";
-import './Layout.css'
+import "./Layout.css";
 
 function Layout() {
     let language: Language = Language.getInstance();
@@ -16,7 +16,7 @@ function Layout() {
         <div className="app">
             <Router>
                 <PageMenu language={language} />
-                <div className='page-content'>
+                <div className="page-content" role="main">
                     <Switch>
                         <Route
                             exact
@@ -42,7 +42,9 @@ function Layout() {
                         <Route>
                             <ErrorPage
                                 code={404}
-                                message={Language.getInstance().getText("Error404")}
+                                message={Language.getInstance().getText(
+                                    "Error404"
+                                )}
                             />
                         </Route>
                     </Switch>
