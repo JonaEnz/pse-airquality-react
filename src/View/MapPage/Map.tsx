@@ -138,6 +138,7 @@ export class Map extends React.Component<Props, State> {
     }
 
     render() {
+        return (
             <LeafletMap
                 center={this.state.viewport.getCenter().getCoordinates()}
                 zoom={this.state.viewport.getZoom()}
