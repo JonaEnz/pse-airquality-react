@@ -17,7 +17,7 @@ export class MapController {
     private config: MapConfiguration;
     private viewport: Viewport;
 
-    private DEFAULT_POSITION: Position = new Position(49, 8.4); //Karlsruhe
+    private DEFAULT_POSITION: Position = new Position(48.37, 10.9); //Augsburg
     private DEFAULT_ZOOM: number = 5;
 
     constructor(useMemory: boolean = true) {

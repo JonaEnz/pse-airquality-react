@@ -138,13 +138,13 @@ export class Map extends React.Component<Props, State> {
     }
 
     render() {
-        return (
             <LeafletMap
                 center={this.state.viewport.getCenter().getCoordinates()}
                 zoom={this.state.viewport.getZoom()}
                 id="leafletMap"
                 onViewportChange={(v) => this.onViewportChange(v)}
                 zoomControl={false}
+                minZoom={5}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
