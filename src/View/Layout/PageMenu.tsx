@@ -44,7 +44,7 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
                 }}>
                     <Toolbar>
                         <Typography variant="h6" component={Link} to='/pse-airquality-react/' style={{ textDecoration: 'none', color: 'unset' }}>
-                            SmartAQnet
+                            {this.language.getText("SmartAQNet")}
                         </Typography>
                         <div style={{ marginLeft: 'auto' }}>
 
