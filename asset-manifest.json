@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/pse-airquality-react/static/css/main.1421b75d.chunk.css",
-    "main.js": "/pse-airquality-react/static/js/main.edf9ae00.chunk.js",
-    "main.js.map": "/pse-airquality-react/static/js/main.edf9ae00.chunk.js.map",
+    "main.js": "/pse-airquality-react/static/js/main.bbed8ea0.chunk.js",
+    "main.js.map": "/pse-airquality-react/static/js/main.bbed8ea0.chunk.js.map",
     "runtime-main.js": "/pse-airquality-react/static/js/runtime-main.56fb4d4d.js",
     "runtime-main.js.map": "/pse-airquality-react/static/js/runtime-main.56fb4d4d.js.map",
     "static/css/2.f68bf6e8.chunk.css": "/pse-airquality-react/static/css/2.f68bf6e8.chunk.css",
     "static/js/2.76b0dc59.chunk.js": "/pse-airquality-react/static/js/2.76b0dc59.chunk.js",
     "static/js/2.76b0dc59.chunk.js.map": "/pse-airquality-react/static/js/2.76b0dc59.chunk.js.map",
     "index.html": "/pse-airquality-react/index.html",
-    "precache-manifest.f64e86ebfdc6d4ae70c07ba0ae7ec19d.js": "/pse-airquality-react/precache-manifest.f64e86ebfdc6d4ae70c07ba0ae7ec19d.js",
+    "precache-manifest.f25ff1b196aa3a44e59992dae212cf13.js": "/pse-airquality-react/precache-manifest.f25ff1b196aa3a44e59992dae212cf13.js",
     "service-worker.js": "/pse-airquality-react/service-worker.js",
     "static/css/2.f68bf6e8.chunk.css.map": "/pse-airquality-react/static/css/2.f68bf6e8.chunk.css.map",
     "static/css/main.1421b75d.chunk.css.map": "/pse-airquality-react/static/css/main.1421b75d.chunk.css.map",
@@ -22,6 +22,6 @@
     "static/css/2.f68bf6e8.chunk.css",
     "static/js/2.76b0dc59.chunk.js",
     "static/css/main.1421b75d.chunk.css",
-    "static/js/main.edf9ae00.chunk.js"
+    "static/js/main.bbed8ea0.chunk.js"
   ]
 }
