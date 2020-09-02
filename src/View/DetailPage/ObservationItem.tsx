@@ -20,7 +20,7 @@ library.add(faThermometerHalf, faSmog, faTachometerAlt);
 export default class ObservationItem extends React.Component<
     IObservationItemProps,
     IObservationItemState
-> {
+    > {
     render() {
         return (
             <Card className="feature-card">
@@ -75,8 +75,21 @@ export default class ObservationItem extends React.Component<
                                         .getFeature()
                                         .getUnitOfMeasurement()}
                             </Typography>
+                            <Typography
+                                align="right"
+                                color="primary">
+                                <a
+                                    href={this.props.observation
+                                        .getFeature()
+                                        .getRelatedWeblink()}
+                                    data-testid="featureWebLink"
+                                >
+                                    ?
+                            </a>
+                            </Typography>
                         </Grid>
                     </Grid>
+
                 </Box>
             </Card>
         );
@@ -88,4 +101,4 @@ interface IObservationItemProps {
     observation: Observation;
 }
 
-interface IObservationItemState {}
+interface IObservationItemState { }
