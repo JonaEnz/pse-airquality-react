@@ -120,7 +120,7 @@ export class ComparisonToLastMonthPieChartController
             let end = new Date(
                 start.getFullYear(),
                 start.getMonth(),
-                start.getDate() + 7,
+                start.getDate() + 1,
                 start.getHours()
             );
 
