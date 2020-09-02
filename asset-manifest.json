@@ -1,27 +1,27 @@
 {
   "files": {
     "main.css": "/pse-airquality-react/static/css/main.1421b75d.chunk.css",
-    "main.js": "/pse-airquality-react/static/js/main.41aa3f36.chunk.js",
-    "main.js.map": "/pse-airquality-react/static/js/main.41aa3f36.chunk.js.map",
+    "main.js": "/pse-airquality-react/static/js/main.009faca7.chunk.js",
+    "main.js.map": "/pse-airquality-react/static/js/main.009faca7.chunk.js.map",
     "runtime-main.js": "/pse-airquality-react/static/js/runtime-main.56fb4d4d.js",
     "runtime-main.js.map": "/pse-airquality-react/static/js/runtime-main.56fb4d4d.js.map",
     "static/css/2.f68bf6e8.chunk.css": "/pse-airquality-react/static/css/2.f68bf6e8.chunk.css",
-    "static/js/2.76b0dc59.chunk.js": "/pse-airquality-react/static/js/2.76b0dc59.chunk.js",
-    "static/js/2.76b0dc59.chunk.js.map": "/pse-airquality-react/static/js/2.76b0dc59.chunk.js.map",
+    "static/js/2.baff2a7b.chunk.js": "/pse-airquality-react/static/js/2.baff2a7b.chunk.js",
+    "static/js/2.baff2a7b.chunk.js.map": "/pse-airquality-react/static/js/2.baff2a7b.chunk.js.map",
     "index.html": "/pse-airquality-react/index.html",
-    "precache-manifest.3e9f0c76a749f61371c56f2797cb1705.js": "/pse-airquality-react/precache-manifest.3e9f0c76a749f61371c56f2797cb1705.js",
+    "precache-manifest.dd69959d705eeef1d9cd1e478024cbff.js": "/pse-airquality-react/precache-manifest.dd69959d705eeef1d9cd1e478024cbff.js",
     "service-worker.js": "/pse-airquality-react/service-worker.js",
     "static/css/2.f68bf6e8.chunk.css.map": "/pse-airquality-react/static/css/2.f68bf6e8.chunk.css.map",
     "static/css/main.1421b75d.chunk.css.map": "/pse-airquality-react/static/css/main.1421b75d.chunk.css.map",
-    "static/js/2.76b0dc59.chunk.js.LICENSE.txt": "/pse-airquality-react/static/js/2.76b0dc59.chunk.js.LICENSE.txt",
+    "static/js/2.baff2a7b.chunk.js.LICENSE.txt": "/pse-airquality-react/static/js/2.baff2a7b.chunk.js.LICENSE.txt",
     "static/media/marker_icon.svg": "/pse-airquality-react/static/media/marker_icon.a06775c7.svg",
     "static/media/index.css": "/pse-airquality-react/static/media/roboto-latin-900italic.ebf6d164.woff2"
   },
   "entrypoints": [
     "static/js/runtime-main.56fb4d4d.js",
     "static/css/2.f68bf6e8.chunk.css",
-    "static/js/2.76b0dc59.chunk.js",
+    "static/js/2.baff2a7b.chunk.js",
     "static/css/main.1421b75d.chunk.css",
-    "static/js/main.41aa3f36.chunk.js"
+    "static/js/main.009faca7.chunk.js"
   ]
 }
