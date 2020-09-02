@@ -163,7 +163,7 @@ test("Search", async () => {
 
     updatePositionSpy.mockClear();
 
-    expect(await controller.search("")).toBeUndefined();
+    expect(controller.search("")).rejects.toReturn();
 
     //Restore original function
     controller.updateCurrentPosition = updateCurrentPosition;

@@ -31,7 +31,11 @@ export default class PolygonConfiguration extends MapConfiguration {
             view.getRadius(),
             this.selectedFeature
         );
-        var polys = this.triangulate(observations);
+        var polys = this.triangulate(
+            observations.filter(
+                (o) => o.getValue() < 5 * this.selectedFeature.getLimit()
+            )
+        );
         return polys;
     }
 
@@ -49,11 +53,11 @@ export default class PolygonConfiguration extends MapConfiguration {
         var output = [];
         var tri = delaunay.triangles; // Convert Points to indices for triangles
         for (let i = 0; i < tri.length; i += 3) {
-            var triStations = [
+            var triObs = [
                 // 3 sequential indices describe a triangle
-                observations[tri[i]].getObservationStation(),
-                observations[tri[i + 1]].getObservationStation(),
-                observations[tri[i + 2]].getObservationStation(),
+                observations[tri[i]],
+                observations[tri[i + 1]],
+                observations[tri[i + 2]],
             ];
             var val =
                 // Calculate average value for all of the stations
@@ -63,7 +67,7 @@ export default class PolygonConfiguration extends MapConfiguration {
                 3;
             output.push(
                 new Polygon(
-                    triStations,
+                    triObs,
                     this.selectedFeature.getRelatedScale().getColor(val)
                 )
             );

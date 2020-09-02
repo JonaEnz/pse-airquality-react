@@ -5,8 +5,6 @@ import { Feature } from "../../Model/Feature";
 import Timespan from "../../Model/Timespan";
 import DataProvider from "../Frost/DataProvider";
 import { Observation } from "../../Model/Observation";
-import { MicOutlined } from "@material-ui/icons";
-import { start } from "repl";
 import RequestReducer from "./RequestReducer";
 
 let languageProvider = Language.getInstance();
@@ -31,6 +29,7 @@ class FHLCConfigurationOption {
 }
 
 export class FeatureHistoryLineChartController implements IDiagramController {
+    private static readonly ID = "FeatureHistoryLineChart";
     //support line charts
     private static readonly chartType = ChartType.LINE_CHART;
     //enable configuration
@@ -108,6 +107,9 @@ export class FeatureHistoryLineChartController implements IDiagramController {
         this.feature = feature;
         this.currentConfigurationOption =
             FeatureHistoryLineChartController.configurationOptions[0];
+    }
+    getID() {
+        return FeatureHistoryLineChartController.ID;
     }
     //returns chart type
     getChartType(): ChartType {

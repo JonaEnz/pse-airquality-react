@@ -12,6 +12,7 @@ import {
     Polygon as LeafletPolygon,
     Viewport as LeafletViewport,
     Popup,
+    Tooltip,
 } from "react-leaflet";
 import { Position } from "../../Model/Position";
 import { StationInfo } from "./StationInfo";
@@ -144,6 +145,7 @@ export class Map extends React.Component<Props, State> {
                 id="leafletMap"
                 onViewportChange={(v) => this.onViewportChange(v)}
                 zoomControl={false}
+                minZoom={5}
             >
                 <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -176,7 +178,16 @@ export class Map extends React.Component<Props, State> {
                         positions={this.getPositionsFromPolygon(polygon)}
                         color={polygon.getColor().getHex()}
                         fillOpacity={0.3}
-                    />
+                    >
+                        <Tooltip>
+                            {Math.floor(polygon.getAverageValue() * 100) / 100 +
+                                " " +
+                                polygon
+                                    .getObservations()[0]
+                                    ?.getFeature()
+                                    .getUnitOfMeasurement() ?? ""}
+                        </Tooltip>
+                    </LeafletPolygon>
                 ))}
             </LeafletMap>
         );

@@ -1,11 +1,12 @@
 import { ObservationStation } from "./ObservationStation";
 import { Color } from "./Color";
+import { Observation } from "./Observation";
 
 export class Polygon {
-    private stations: ObservationStation[];
+    private obs: Observation[];
     private color: Color;
-    constructor(stations: ObservationStation[], color: Color) {
-        this.stations = stations;
+    constructor(obs: Observation[], color: Color) {
+        this.obs = obs;
         this.color = color;
     }
     getColor(): Color {
@@ -14,7 +15,20 @@ export class Polygon {
     setColor(color: Color) {
         this.color = color;
     }
+
+    getObservations(): Observation[] {
+        return this.obs;
+    }
+
     getStations(): ObservationStation[] {
-        return this.stations;
+        return this.obs.map((o) => o.getObservationStation());
+    }
+
+    getAverageValue(): number {
+        return this.obs.length === 0
+            ? 0
+            : this.obs.reduce((a, b) => {
+                  return a + b.getValue();
+              }, 0) / this.obs.length;
     }
 }

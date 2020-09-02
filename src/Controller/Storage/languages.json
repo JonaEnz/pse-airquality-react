@@ -1,14 +1,17 @@
 {
-    "languages": [{
+    "languages": [
+        {
             "id": "de-de",
             "name": "Deutsch",
             "strings": {
+                "SmartAQNet": "SmartAQNet - Ihre Luftqualitätsapp",
                 "about": "Über",
                 "aboutText": "Das SmartAQNEet Projekt ist eine open-source Webanwendung auf Github, die von Informatikstudenten/-studentinnen der Karlsruher Institut der Technologie erstellt wurde. Ziel des Projektes ist es, die verschiedenen Messdaten zur Luftqualität simpel, aussagekräftig und benutzerfreundlich darzustellen.  Die Webanwendung basiert auf eine Umfrage mit 50 Teilnehmern zwischen dem Alter von 18 und 70, in der sie ihre Erwartungen an einer solchen Applikation genannt haben. Die Messdaten stammen von der Smart AirQuality Network Projekt in Ausburg.",
                 "privacyPolicy": "Datenschutzerklärung",
                 "privacyPolicyText": "Die Webanwendung SmartAQNet speichert keine persönlichen Daten. Wenn Sie der Applikation die Standortermittlung erlauben wird Ihr Standort erfasst, zwischengespeichert und nach dem Schließen der Webapplikation wieder gelöscht. Keine weitere Daten werden erfasst.",
                 "stationInfoButton": "Mehr Informationen",
-                "search": "Suche nach einer Stadt oder Adresse",
+                "search": "Suche nach einem Ort",
+                "searchAlert": "Ort {term} konnte nicht gefunden werden.",
                 "loading": "Laden ...",
                 "noData": "Keine Daten",
                 "Error404": "Fehler 404: Die angeforderte Seite existiert nicht.",
@@ -17,10 +20,10 @@
                 "mockFeatureName": "Mock Feature",
                 "PNC2.5Desc": "Feinstaub mit Durchmesser kleiner als 2.5 µm",
                 "PNC2.5Name": "Feinstaub (PM2.5)",
-                "PNC2.5Link": "https://de.wikipedia.org/wiki/Feinstaub#PM2,5",
+                "PNC2.5Link": "https://www.umweltbundesamt.de/themen/luft/luftschadstoffe/feinstaub",
                 "PNC10Desc": "Feinstaub mit Durchmesser kleiner als 2.5 µm",
                 "PNC10Name": "Feinstaub (PM10)",
-                "PNC10Link": "https://de.wikipedia.org/wiki/Feinstaub#PM10",
+                "PNC10Link": "https://www.umweltbundesamt.de/themen/luft/luftschadstoffe/feinstaub",
                 "AirPressureName": "Luftdruck",
                 "pascalDef": "Luftdruck in Pascal",
                 "pascalLink": "https://de.wikipedia.org/wiki/Luftdruck",
@@ -44,19 +47,24 @@
                 "testWebLink": "https://testlink/",
                 "StationConfiguration": "Messstationen",
                 "NearConfiguration": "Vergleich mit Umfeld",
-                "PolygonConfiguration": "Flächen"
+                "PolygonConfiguration": "Flächen",
+                "FeatureHistoryLineChart_Name": "Historische Werte",
+                "ComparisonToLastMonthPieChart_Name": "Vergleich letzter Monat",
+                "ComparisonToLastMonthPieChart_Title": "Wie viele Werte, die während des letzten Monats gemessen wurden, waren höher/niedriger, als der aktuelle Wert?"
             }
         },
         {
             "id": "en-us",
             "name": "English",
             "strings": {
+                "SmartAQNet": "SmartAQNet - Your Air Quality App",
                 "about": "About",
                 "aboutText": "The SmartAQNet project is an open-source Github web-application made by students of the Karlsruhe Institute of Technology. The goal of the project is to reflect many different types of measured data regarding air and air pollution in a simple, informative and user-friendly way. The web-application was based on a survey done with 50 people of ages 18 to 70, in which the participants shared their expectations for an application about air quality.The data has been provided by the Smart AirQuality Network project in Augsburg (www.smartaqnet.com).",
                 "privacyPolicy": "Privacy Policy",
                 "privacyPolicyText": "If you don't allow the application to have access to your address, SmartAQNet will not collect any data from you. Otherwise, your address will be cached until you close the application. No other personal data will be collected.",
                 "stationInfoButton": "More details",
-                "search": "Search for a city or an address",
+                "search": "Search for a location",
+                "searchAlert": "Couldn't find a place called {term}.",
                 "loading": "Loading ...",
                 "noData": "No data.",
                 "Error404": "Error 404: This page doesn't exist.",
@@ -92,7 +100,10 @@
                 "testWebLink": "Test Link",
                 "StationConfiguration": "Stations",
                 "NearConfiguration": "Compare to surroundings",
-                "PolygonConfiguration": "Area"
+                "PolygonConfiguration": "Area",
+                "FeatureHistoryLineChart_Name": "Historic Values",
+                "ComparisonToLastMonthPieChart_Name": "Comparison last month",
+                "ComparisonToLastMonthPieChart_Title": "How many values, measured during the last month, were higher/lower than the current value?"
             }
         }
     ]

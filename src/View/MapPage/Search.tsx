@@ -1,5 +1,12 @@
 import React, { Fragment, SyntheticEvent } from "react";
-import { IconButton, Divider, InputBase, Grid, Card } from "@material-ui/core";
+import {
+    IconButton,
+    Divider,
+    InputBase,
+    Grid,
+    Card,
+    Box,
+} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import GpsFixedIcon from "@material-ui/icons/GpsFixed";
 import { Position } from "../../Model/Position";
@@ -65,52 +72,43 @@ export default class Search extends React.Component<Props, State> {
         return (
             <Fragment>
                 <Card className="root">
-                    <Grid
-                        container
-                        direction="row"
-                        alignContent="space-between"
+                    <form
+                        className="search-form"
+                        onSubmit={(e) =>
+                            this.props.onSearch(e, this.state.searchTerm)
+                        }
                     >
-                        <form
-                            className="search-form"
-                            onSubmit={(e) =>
+                        <InputBase
+                            className="input-field"
+                            data-testid="textBox"
+                            type="search"
+                            onChange={(e) => {
+                                this.setState({
+                                    searchTerm: e.target.value,
+                                });
+                            }}
+                            placeholder={language.getText("search")}
+                        />
+                        <IconButton
+                            className="search-button"
+                            data-testid="searchButton"
+                            type="submit"
+                            onClick={(e) =>
                                 this.props.onSearch(e, this.state.searchTerm)
                             }
                         >
-                            <InputBase
-                                data-testid="textBox"
-                                className="input"
-                                type="search"
-                                onChange={(e) => {
-                                    this.setState({
-                                        searchTerm: e.target.value,
-                                    });
-                                }}
-                                placeholder={language.getText("search")}
-                            />
-                            <IconButton
-                                data-testid="searchButton"
-                                type="submit"
-                                onClick={(e) =>
-                                    this.props.onSearch(
-                                        e,
-                                        this.state.searchTerm
-                                    )
-                                }
-                                className="search-button"
-                            >
-                                <SearchIcon />
-                            </IconButton>
-                        </form>
-                        <Divider orientation="vertical" flexItem={true} />
+                            <SearchIcon />
+                        </IconButton>
+                        <Box className="divider"></Box>
                         <IconButton
+                            className="location-button"
                             data-testid="locationButton"
                             onClick={() => this.locationClick()}
-                            className="location-button"
                             disabled={!this.state.locationEnabled}
                         >
                             <GpsFixedIcon data-testid="locationIcon" />
                         </IconButton>
-                    </Grid>
+                    </form>
                 </Card>
             </Fragment>
         );

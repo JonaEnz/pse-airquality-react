@@ -7,6 +7,7 @@ import { ObservationStation } from "../../Model/ObservationStation";
 import { Scale } from "../../Model/Scale";
 import { Position } from "../../Model/Position";
 import Language from "../../Controller/Storage/Language";
+import Diagram from "../../View/DetailPage/Diagram";
 
 let feature = new Feature(
     "1",
@@ -25,6 +26,7 @@ let feature = new Feature(
     "iconName"
 );
 
+
 let station = new ObservationStation(
     "0001",
     "Chicago",
@@ -34,6 +36,8 @@ let station = new ObservationStation(
 );
 
 let historyChart = new FeatureHistoryLineChartController(station, feature);
+
+//let diagram = new Diagram(historyChart));
 
 let ComparisonToLastYearPieChart = new ComparisonToLastMonthPieChartController(
     station,
