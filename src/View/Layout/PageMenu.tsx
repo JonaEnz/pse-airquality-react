@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import EmojiObjectsOutlinedIcon from '@material-ui/icons/EmojiObjectsOutlined';
 import MenuIcon from '@material-ui/icons/Menu';
 import InfoIcon from '@material-ui/icons/Info';
 import SecurityIcon from '@material-ui/icons/Security';
@@ -46,9 +47,11 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
                         <Typography variant="h6" component={Link} to='/pse-airquality-react/' style={{ textDecoration: 'none', color: 'unset' }}>
                             {this.language.getText("SmartAQNet")}
                         </Typography>
-                        <Typography variant="h6" component={Link} to='/pse-airquality-react/howTo' style={{ marginLeft: 'auto', textDecoration: 'none', fontStyle: 'italic', color: 'unset' }}>
-                            {this.language.getText("SmartAQNet")}
+                        <Typography variant="h6" component={Link} to='/pse-airquality-react/howItWorks' style={{ marginLeft: 'auto', textDecoration: 'none', color: 'unset' }}>
+                            {this.language.getText("howdoesitwork")}
+                            <EmojiObjectsOutlinedIcon />
                         </Typography>
+
                         <div style={{ marginLeft: 'auto' }}>
 
                             <LanguageMenu language={this.language} />

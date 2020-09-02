@@ -4,10 +4,9 @@ import "./informationPage.css";
 
 let language = Language.getInstance();
 
-export default class PrivacyPolicyPage extends React.Component<
-    IPrivacyPolicyPageProps,
-    IPrivacyPolicyPageState
-    > {
+export default class HowItWorks extends React.Component<
+    IHowItWorksProps,
+    IHowItWorksState> {
     render() {
         return <div>
             <p className="informationPage">
@@ -18,6 +17,6 @@ export default class PrivacyPolicyPage extends React.Component<
     }
 }
 
-interface IPrivacyPolicyPageProps { }
+interface IHowItWorksProps { }
 
-interface IPrivacyPolicyPageState { }
+interface IHowItWorksState { }

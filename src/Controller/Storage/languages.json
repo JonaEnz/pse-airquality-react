@@ -5,6 +5,7 @@
             "name": "Deutsch",
             "strings": {
                 "SmartAQNet": "SmartAQNet - Ihre Luftqualitätsapp",
+                "howdoesitwork": "Wie die App funktioniert",
                 "about": "Über",
                 "aboutText": "Das SmartAQNEet Projekt ist eine open-source Webanwendung auf Github, die von Informatikstudenten/-studentinnen der Karlsruher Institut der Technologie erstellt wurde. Ziel des Projektes ist es, die verschiedenen Messdaten zur Luftqualität simpel, aussagekräftig und benutzerfreundlich darzustellen.  Die Webanwendung basiert auf eine Umfrage mit 50 Teilnehmern zwischen dem Alter von 18 und 70, in der sie ihre Erwartungen an einer solchen Applikation genannt haben. Die Messdaten stammen von der Smart AirQuality Network Projekt in Ausburg.",
                 "privacyPolicy": "Datenschutzerklärung",
@@ -58,6 +59,7 @@
             "name": "English",
             "strings": {
                 "SmartAQNet": "SmartAQNet - Your Air Quality App",
+                "howdoesitwork": "How it works",
                 "about": "About",
                 "aboutText": "The SmartAQNet project is an open-source Github web-application made by students of the Karlsruhe Institute of Technology. The goal of the project is to reflect many different types of measured data regarding air and air pollution in a simple, informative and user-friendly way. The web-application was based on a survey done with 50 people of ages 18 to 70, in which the participants shared their expectations for an application about air quality.The data has been provided by the Smart AirQuality Network project in Augsburg (www.smartaqnet.com).",
                 "privacyPolicy": "Privacy Policy",
