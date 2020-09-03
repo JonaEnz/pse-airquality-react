@@ -10,8 +10,7 @@ export default class HowItWorks extends React.Component<
     render() {
         return <div>
             <p className="informationPage">
-                <h1>{language.getText("privacyPolicy")}</h1>
-                <h3>{language.getText("privacyPolicyText")}</h3>
+                <h1>{language.getText("instructions")}</h1>
             </p>
         </div>
     }
