@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/pse-airquality-react/precache-manifest.d55cd167b6eace0c5567866bee7b27f1.js"
+  "/pse-airquality-react/precache-manifest.7f410020216f14bf39d3ca6553cf5cd8.js"
 );
 
 self.addEventListener('message', (event) => {
