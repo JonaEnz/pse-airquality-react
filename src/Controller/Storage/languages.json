@@ -52,7 +52,12 @@
                 "FeatureHistoryLineChart_Name": "Historische Werte",
                 "ComparisonToLastMonthPieChart_Name": "Vergleich letzter Monat",
                 "ComparisonToLastMonthPieChart_Title": "Wie viele Werte, die während des letzten Monats gemessen wurden, waren höher/niedriger, als der aktuelle Wert?",
-                "instructions": "Anleitung zur Website"
+                "instructions": "Anleitung zur Website",
+                "shortDescription": "Mit Hilfe dieser App kann man die Luftqualität und die Temperatur anschauen, bei sich in der Nähe und überall wo sich unsere Sensoren befinden.",
+                "SearchTitle": "Beliebige Orte finden",
+                "Search": "Egal ob eine Straße oder eine Stadt, es reicht den Namen in den Suchenfeld in der linken oberen Ecke einzutippen und Enter zu klicken.",
+                "locationTitle": "Zum aktuellen Standort springen",
+                "location": "Klickt man auf das Icon neben der Suche (Bild unten) und erlaubt man danach die Standortermittlung, springt die Karte direkt auf den aktuellen Standort."
             }
         },
         {
@@ -107,7 +112,12 @@
                 "FeatureHistoryLineChart_Name": "Historic Values",
                 "ComparisonToLastMonthPieChart_Name": "Comparison last month",
                 "ComparisonToLastMonthPieChart_Title": "How many values, measured during the last month, were higher/lower than the current value?",
-                "instructions": "Instructions to Website"
+                "instructions": "Instructions to Website",
+                "shortDescription": "With this website, you can check the air quality and temperature around your house and wherever else our sensors are.",
+                "SearchTitle": "Find any place you want",
+                "Search": "You can find exact locations using the search bar in the upper left corner. Wether you want to find a house, a street or a city, just type the name is the search bar and click Enter.",
+                "locationTitle": "Find your current location",
+                "location": "If you don't want to type, your can just click the button right next to the search bar (illustrations below) and accept the websites request to access your location. Then the map will jump to your currnt location."
             }
         }
     ]
