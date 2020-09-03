@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5dbce2080afc36b538918cfc56ccbc62",
+    "revision": "49e89575422ee9f55bcce2f090136b96",
     "url": "/pse-airquality-react/index.html"
   },
   {
-    "revision": "b59fa5582126516b779b",
+    "revision": "75619736467f747b9c9d",
     "url": "/pse-airquality-react/static/css/2.f68bf6e8.chunk.css"
   },
   {
-    "revision": "ccbd18dbe712b9d767ab",
+    "revision": "397faf9aff18cdd63439",
     "url": "/pse-airquality-react/static/css/main.1421b75d.chunk.css"
   },
   {
-    "revision": "b59fa5582126516b779b",
-    "url": "/pse-airquality-react/static/js/2.baff2a7b.chunk.js"
+    "revision": "75619736467f747b9c9d",
+    "url": "/pse-airquality-react/static/js/2.a69ba4b0.chunk.js"
   },
   {
     "revision": "278be41389e3536a5347a9018737729d",
-    "url": "/pse-airquality-react/static/js/2.baff2a7b.chunk.js.LICENSE.txt"
+    "url": "/pse-airquality-react/static/js/2.a69ba4b0.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ccbd18dbe712b9d767ab",
-    "url": "/pse-airquality-react/static/js/main.009faca7.chunk.js"
+    "revision": "397faf9aff18cdd63439",
+    "url": "/pse-airquality-react/static/js/main.59835e94.chunk.js"
   },
   {
     "revision": "98d2a021ed3822eec6f1",
