@@ -11,8 +11,18 @@ export default class HowItWorks extends React.Component<
         return <div>
             <p className="informationPage">
                 <h1>{language.getText("instructions")}</h1>
+                <h3>{language.getText("shortDescription")}</h3>
+            </p>
+            <p className="informationPage">
+                <h2><u>{language.getText("SearchTitle")}</u></h2>
+                <h3>{language.getText("Search")}</h3>
+            </p>
+            <p className="informationPage">
+                <h2><u>{language.getText("locationTitle")}</u></h2>
+                <h3>{language.getText("location")}</h3>
             </p>
         </div>
+
     }
 }
 
