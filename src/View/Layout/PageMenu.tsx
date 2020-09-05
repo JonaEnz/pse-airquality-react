@@ -54,19 +54,15 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
                         </Hidden>
 
                         <Box style={{ marginLeft: 'auto' }}></Box>
-                        <Hidden smDown>
-                            <Button startIcon={<HelpOutlineIcon />} component={Link} to='/pse-airquality-react/howitWorks' >
-                                {this.language.getText("help")}
-                            </Button>
-                        </Hidden>
+
+                        <Button startIcon={<HelpOutlineIcon />} component={Link} to='/pse-airquality-react/howitWorks' >
+                            {this.language.getText("help")}
+                        </Button>
+
                         <Box style={{ marginLeft: '20px' }}>
                             <LanguageMenu language={this.language} />
                         </Box>
-                        <Hidden mdUp>
-                            <IconButton component={Link} to='/pse-airquality-react/howitWorks'>
-                                <HelpOutlineIcon htmlColor='black' />
-                            </IconButton>
-                        </Hidden>
+
                         <IconButton style={{ float: "right" }} onClick={this.toogleDrawer}>
                             <MenuIcon htmlColor='black' />
                         </IconButton>
