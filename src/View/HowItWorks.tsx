@@ -25,6 +25,10 @@ export default class HowItWorks extends React.Component<
                 <h2><u>{language.getText("FeatureMenuTitle")}</u></h2>
                 <h3>{language.getText("FeatureMenu")}</h3>
             </p>
+            <p className="informationPage">
+                <h2><u>{language.getText("ValuesTitle")}</u></h2>
+                <h3>{language.getText("Values")}</h3>
+            </p>
         </div>
 
     }
