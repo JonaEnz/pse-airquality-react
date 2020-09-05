@@ -59,7 +59,9 @@
                 "locationTitle": "Zum aktuellen Standort springen",
                 "location": "Klickt man auf das Icon neben der Suche (Bild unten) und erlaubt man danach die Standortermittlung, springt die Karte direkt auf den aktuellen Standort.",
                 "FeatureMenuTitle": "Kartenkonfiguration",
-                "FeatureMenu": "In der Kartenkonfigurationsmenü rechts unten kann man auswählen, ob man sich die Temperatur, Luftfeuchtigkeit, PM2.5 oder PM10 (beides Feinstaub) Messwerte anschauen will. Dabei kann man auch einstellen, ob die Färbung der Stationenpins an die gesetzlich festgelegten Grenzwert (Style = Messstationen) oder die Durchschnitt aller aktuellesten Messwerten (Style = Vergleich mit Umfeld) darstellen soll. Beim Auswahl von Style = Flächen werden zwischen den Messstationen Dreicke ausgespannt. Wenn sie die Maus über ein Dreieck bewegen, sehen sie den Durchschnittswert der ausgespannten Fläche."
+                "FeatureMenu": "In der Kartenkonfigurationsmenü rechts unten kann man auswählen, ob man sich die Temperatur, Luftfeuchtigkeit, PM2.5 oder PM10 (beides Feinstaub) Messwerte anschauen will. Dabei kann man auch einstellen, ob die Färbung der Stationenpins an die gesetzlich festgelegten Grenzwert (Style = Messstationen) oder die Durchschnitt aller aktuellesten Messwerten (Style = Vergleich mit Umfeld) darstellen soll. Beim Auswahl von Style = Flächen werden zwischen den Messstationen Dreicke ausgespannt. Wenn sie die Maus über ein Dreieck bewegen, sehen sie den Durchschnittswert der ausgespannten Fläche.",
+                "ValuesTitle": "Messwerte anzeigen",
+                "Values": "Möchte man den aktuellsten Wert einer bestimmten Station sehen, muss man den farbigen Pin der ausgewählten Station anklicken. Dann öffnet sich ein Pop-Up mit dem Wert. Klickt man auf Weitere Informationen, so werden weitere Werte und Statistiken angezeigt. Wenn man zur Karte zurückkehren möchte, ist das mit dem SmartAQNet-Button oben links möglich."
             }
         },
         {
@@ -121,7 +123,9 @@
                 "locationTitle": "Find your current location",
                 "location": "If you don't want to type, your can just click the button right next to the search bar (illustrations below) and accept the websites request to access your location. Then the map will jump to your currnt location.",
                 "FeatureMenuTitle": "Map Configuration",
-                "FeatureMenu": "With the Map Configuration Menu in the lower right corner you can choose, which feature you want to display. You can also decide wether you want the color scale to show the measured values compared to an officially set limit (Style = Stations) or compared to the average of all latest measured values (Style = Compare to surroundings). In the Area Style, you will get triangle spanned between the station. Move your mouse above a triangle, so you can see the average value of the stations the triangle is spanned between."
+                "FeatureMenu": "With the Map Configuration Menu in the lower right corner you can choose, which feature you want to display. You can also decide wether you want the color scale to show the measured values compared to an officially set limit (Style = Stations) or compared to the average of all latest measured values (Style = Compare to surroundings). In the Area Style, you will get triangle spanned between the station. Move your mouse above a triangle, so you can see the average value of the stations the triangle is spanned between.",
+                "ValuesTitle": "Measured values",
+                "Values": "If you click on the pin of a station, a pop-up with the measured value will show. By clicking on More information you will get more values and statistics. You can return to the map by clicking the SmartAQNet-Button in the upper-left corner."
             }
         }
     ]
