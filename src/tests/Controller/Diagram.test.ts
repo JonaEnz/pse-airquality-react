@@ -109,14 +109,14 @@ test("create Diagram in  Diagram Factory", () => {
 });
 
 
-/*
+
 test("show error message in DiagramFactory", () => {
-    expect(
+    expect(() => {
         DiagramFactory.getDiagramController(
             "UndefinedPieChart",
             station,
             feature
         )
-    ).toThrowError(`Diagram id: ${"UndefinedPieChart"}, is not supported`);
+    }).toThrowError(`Diagram id: ${"UndefinedPieChart"}, is not supported`);
 });
-*/
+
