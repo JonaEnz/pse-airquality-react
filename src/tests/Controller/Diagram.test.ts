@@ -8,6 +8,7 @@ import { Scale } from "../../Model/Scale";
 import { Position } from "../../Model/Position";
 import Language from "../../Controller/Storage/Language";
 import Diagram from "../../View/DetailPage/Diagram";
+import { shallow, mount, render } from 'enzyme';
 
 let feature = new Feature(
     "1",
@@ -35,17 +36,45 @@ let station = new ObservationStation(
     [feature]
 );
 
-let historyChart = new FeatureHistoryLineChartController(station, feature);
-
-//let diagram = new Diagram(historyChart));
-
-let ComparisonToLastYearPieChart = new ComparisonToLastMonthPieChartController(
-    station,
-    feature
-);
+let historyLineChart = new FeatureHistoryLineChartController(station, feature);
 
 let language = Language.getInstance();
 
+let props = {
+    controller: new ComparisonToLastMonthPieChartController(station, feature)
+}
+
+let propslinechart = {
+    controller: historyLineChart
+}
+
+let diagram = new Diagram(props);
+
+let lineChart = new Diagram(propslinechart);
+
+test("Diagram Chart renders", () => {
+    let wrapped = shallow(diagram.renderChart());
+    expect(wrapped.exists()).toBe(true);
+});
+
+test("DiagramConfiguration non-configurable", () => {
+    expect(diagram.renderDiagramConfiguration()).toBe("");
+});
+
+
+test("DiagramConfiguration configurable", () => {
+    expect(lineChart.renderDiagramConfiguration()).not.toBe("");
+});
+
+test("Diagram Chart renders", () => {
+    let wrapped = shallow(diagram.render());
+    expect(wrapped.exists()).toBe(true);
+});
+
+test("Diagram Chart renders", () => {
+    let wrapped = shallow(lineChart.render());
+    expect(wrapped.exists()).toBe(true);
+});
 
 test("create Diagram in  Diagram Factory", () => {
     expect(
