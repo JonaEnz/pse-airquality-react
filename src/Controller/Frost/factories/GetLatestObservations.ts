@@ -1,4 +1,3 @@
-/* This class is not used, thus commented.
 import QueryBuilder from "../QueryBuilder";
 import FrostFactory from "../FrostFactory";
 import { Observation } from "../../../Model/Observation";
@@ -154,4 +153,3 @@ interface ObservationsEntity {
     phenomenonTime: string;
     result: number;
 }
-*/

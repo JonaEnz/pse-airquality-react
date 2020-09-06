@@ -5,7 +5,7 @@ import { Position } from "../../Model/Position";
 import FrostServer from "./FrostServer";
 import { GetStationFactory } from "./factories/GetStation";
 import { FrostResult } from "../../Model/FrostResult";
-import { GetObservationStationsFactory } from "./factories/GetObservationStations";
+//import { GetObservationStationsFactory } from "./factories/GetObservationStations";
 import { GetLatestObservationFactory } from "./factories/GetLatestObservation";
 import { GetLatestObservationsFactory } from "./factories/GetLatestObservations";
 import { GetObservationsFactory } from "./factories/GetObservations";

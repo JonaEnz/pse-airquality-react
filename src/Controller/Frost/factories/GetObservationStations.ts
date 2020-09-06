@@ -1,3 +1,4 @@
+/* This class is unused, thus commented
 import QueryBuilder from "../QueryBuilder";
 import FrostFactory from "../FrostFactory";
 import { ObservationStation } from "../../../Model/ObservationStation";
@@ -120,3 +121,4 @@ export interface Location {
     type: string;
     coordinates: number[];
 }
+*/
