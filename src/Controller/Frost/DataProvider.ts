@@ -26,6 +26,7 @@ export default class DataProvider {
     }
 
     // returns all observation stations that are located within a specified radius around a geo position
+    /* This method is unused, thus commented.
     static async getObservationStations(
         middle: Position,
         radius: number
@@ -41,6 +42,7 @@ export default class DataProvider {
 
         return this.handleFrostResult(fr);
     }
+    */
 
     static async getLatestObservation(
         station: ObservationStation,
