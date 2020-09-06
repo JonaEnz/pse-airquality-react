@@ -1,5 +1,6 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Hidden, Box, Button } from '@material-ui/core';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import MenuIcon from '@material-ui/icons/Menu';
 import InfoIcon from '@material-ui/icons/Info';
 import SecurityIcon from '@material-ui/icons/Security';
@@ -44,18 +45,27 @@ export default class PageMenu extends React.Component<IPageMenuProps, IPageMenuS
                 }}>
                     <Toolbar>
                         <Typography variant="h6" component={Link} to='/pse-airquality-react/' style={{ textDecoration: 'none', color: 'unset' }}>
-                            {this.language.getText("SmartAQNet")}
+                            SmartAQNet
                         </Typography>
-                        <div style={{ marginLeft: 'auto' }}>
+                        <Hidden smDown>
+                            <Typography variant="h6" component={Link} to='/pse-airquality-react/' style={{ textDecoration: 'none', fontStyle: 'italic', color: 'unset' }}>
+                                {this.language.getText("SmartAQNet")}
+                            </Typography>
+                        </Hidden>
 
+                        <Box style={{ marginLeft: 'auto' }}></Box>
+
+                        <Button startIcon={<HelpOutlineIcon />} component={Link} to='/pse-airquality-react/howitWorks' >
+                            {this.language.getText("help")}
+                        </Button>
+
+                        <Box style={{ marginLeft: '20px' }}>
                             <LanguageMenu language={this.language} />
+                        </Box>
 
-                        </div>
-                        <div>
-                            <IconButton style={{ float: 'right' }} onClick={this.toogleDrawer}>
-                                <MenuIcon />
-                            </IconButton>
-                        </div>
+                        <IconButton style={{ float: "right" }} onClick={this.toogleDrawer}>
+                            <MenuIcon htmlColor='black' />
+                        </IconButton>
                     </Toolbar>
                 </AppBar>
                 <SwipeableDrawer anchor="right" open={this.state.open} onOpen={this.toogleDrawer} onClose={this.toogleDrawer}>

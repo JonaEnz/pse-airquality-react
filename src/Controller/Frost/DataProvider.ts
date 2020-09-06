@@ -129,4 +129,19 @@ export default class DataProvider {
 
         return res.flatMap((r) => this.handleFrostResult(r));
     }
+
+    static async getAddress(pos: Position): Promise<string> {
+        var json = await (
+            await fetch(
+                "https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json"
+                    .replace("{lat}", pos.getLatitude().toString())
+                    .replace("{lon}", pos.getLongitude().toString())
+            )
+        ).json();
+        if (json.address?.road && json.address?.city) {
+            return json.address.road + ", " + json.address.city;
+        } else {
+            return "?";
+        }
+    }
 }

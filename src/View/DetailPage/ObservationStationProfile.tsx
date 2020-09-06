@@ -24,11 +24,17 @@ export default class ObservationStationProfile extends React.Component<
         super(props);
         this.state = {
             latestObservations: [],
+            positionText: "",
         };
         this.languageProvider = Language.getInstance();
         this.getLatestObservations().then((o) =>
             this.setState({ latestObservations: o })
         );
+        DataProvider.getAddress(
+            this.props.observationStation.getPosition()
+        ).then((address) => {
+            this.setState({ positionText: address });
+        });
     }
 
     //styles for this component
@@ -47,7 +53,7 @@ export default class ObservationStationProfile extends React.Component<
         },
     };
 
-    //colors that are asignable to the observation items icons
+    //colors that are assignable to the observation items icons
     colors = [
         "#f44336",
         "#e91e63",
@@ -134,6 +140,14 @@ export default class ObservationStationProfile extends React.Component<
                                 .getPosition()
                                 .getString()}
                         </Typography>
+                        <Typography
+                            align="left"
+                            color="textSecondary"
+                            component="p"
+                            style={this.styles.pos}
+                        >
+                            {this.state.positionText}
+                        </Typography>
                         <Typography align="left" variant="body2" component="p">
                             {this.props.observationStation.getDescription()}
                         </Typography>
@@ -177,4 +191,5 @@ interface IObservationStationProfileProps {
 
 interface IObservationStationProfileState {
     latestObservations: Observation[];
+    positionText: string;
 }

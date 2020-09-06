@@ -49,13 +49,20 @@ let language = Language.getInstance();
 test("getChartType() linechart", () => {
     expect(historyChart.getChartType()).toBe(ChartType.LINE_CHART);
 });
-/*
+
+
+
+test("getID historyLineChart", () => {
+    expect(historyChart.getID()).toBe("FeatureHistoryLineChart");
+});
+
+
 test("isConfigurable() linechart", () => {
     expect(historyChart.isConfigurable()).toBe(true);
 });
 
 test("getDefaultConfigurationOption() linechart", () => {
-    expect(historyChart.getDefaultConfigurationOption()).toStrictEqual(
+    expect(historyChart.getCurrentConfigurationOption()).toStrictEqual(
         language.getText("last_24_hours")
     );
 });
@@ -86,37 +93,30 @@ test("getConfigurationOptions() piechart", () => {
 });
 
 test("getDefaultConfigurationOption() piechart", () => {
-    expect(ComparisonToLastYearPieChart.getDefaultConfigurationOption()).toBe(
+    expect(ComparisonToLastYearPieChart.getCurrentConfigurationOption()).toBe(
         "default_configuration"
     );
 });
 
-test("getGraphicsOptions() yearcomparisonChart", () => {
-    expect(yearComparisonChart.getGraphicsOptions()).toEqual({
-        hAxis: {
-            format: "MMM",
-            gridlines: { count: 6 },
-        },
-    });
-});
 test("create Diagram in  Diagram Factory", () => {
     expect(
         DiagramFactory.getDiagramController(
-            "YearComparisonLineChart",
+            "ComparisonToLastMonthPieChart",
             station,
             feature
         )
-    ).toEqual(new YearComparisonLineChartController(station, feature));
+    ).toEqual(new ComparisonToLastMonthPieChartController(station, feature));
 });
 
-/*
+
+
 test("show error message in DiagramFactory", () => {
-    expect(
+    expect(() => {
         DiagramFactory.getDiagramController(
             "UndefinedPieChart",
             station,
             feature
         )
-    ).toThrowError(`Diagram id: ${"UndefinedPieChart"}, is not supported`);
+    }).toThrowError(`Diagram id: ${"UndefinedPieChart"}, is not supported`);
 });
-*/
+

@@ -4,10 +4,13 @@ import { Button, Typography, Grid, Box, Divider } from "@material-ui/core";
 import Language from "../../Controller/Storage/Language";
 
 import "./StationInfo.css";
+import DataProvider from "../../Controller/Frost/DataProvider";
 
 let language: Language = Language.getInstance();
 
-interface State {}
+interface State {
+    roadName: string;
+}
 interface Props {
     lastObservation: Observation;
 }
@@ -15,6 +18,15 @@ interface Props {
 const DETAIL_PATH = "/pse-airquality-react/detail/";
 
 export class StationInfo extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+        this.state = { roadName: "" };
+        DataProvider.getAddress(
+            this.props.lastObservation.getObservationStation().getPosition()
+        ).then((road) => {
+            this.setState({ roadName: road });
+        });
+    }
     openDetails() {
         window.location.href =
             DETAIL_PATH +
@@ -35,6 +47,9 @@ export class StationInfo extends React.Component<Props, State> {
                     </Typography>
                     <Typography className="position" color="textSecondary">
                         {station.getPosition().getString()}
+                    </Typography>
+                    <Typography className="position" color="textSecondary">
+                        {this.state.roadName}
                     </Typography>
                     <Divider orientation="horizontal"></Divider>
                     <Grid container direction="row" justify="space-between">
