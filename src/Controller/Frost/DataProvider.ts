@@ -126,7 +126,8 @@ export default class DataProvider {
             frostFactory,
             options
         );*/
-        return res.map((r) => this.handleFrostResult(r)).flat();
+        var rr = res.map((r) => this.handleFrostResult(r));
+        return ([] as Observation[]).concat(...rr);
     }
 
     static async getAddress(pos: Position): Promise<string> {
