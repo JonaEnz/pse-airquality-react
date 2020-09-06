@@ -46,57 +46,6 @@ let ComparisonToLastYearPieChart = new ComparisonToLastMonthPieChartController(
 
 let language = Language.getInstance();
 
-test("getChartType() linechart", () => {
-    expect(historyChart.getChartType()).toBe(ChartType.LINE_CHART);
-});
-
-
-
-test("getID historyLineChart", () => {
-    expect(historyChart.getID()).toBe("FeatureHistoryLineChart");
-});
-
-
-test("isConfigurable() linechart", () => {
-    expect(historyChart.isConfigurable()).toBe(true);
-});
-
-test("getDefaultConfigurationOption() linechart", () => {
-    expect(historyChart.getCurrentConfigurationOption()).toStrictEqual(
-        language.getText("last_24_hours")
-    );
-});
-
-test("getConfigurationOptions() linechart", () => {
-    expect(historyChart.getConfigurationOptions()).toStrictEqual([
-        language.getText("last_24_hours"),
-        language.getText("last_7_days"),
-        language.getText("last_31_days"),
-        language.getText("last_year"),
-    ]);
-});
-
-test("getChartType() piechart", () => {
-    expect(ComparisonToLastYearPieChart.getChartType()).toBe(
-        ChartType.PIE_CHART
-    );
-});
-
-test("isConfigurable() piechart", () => {
-    expect(ComparisonToLastYearPieChart.isConfigurable()).toBe(false);
-});
-
-test("getConfigurationOptions() piechart", () => {
-    expect(
-        ComparisonToLastYearPieChart.getConfigurationOptions()
-    ).toStrictEqual(["default_configuration"]);
-});
-
-test("getDefaultConfigurationOption() piechart", () => {
-    expect(ComparisonToLastYearPieChart.getCurrentConfigurationOption()).toBe(
-        "default_configuration"
-    );
-});
 
 test("create Diagram in  Diagram Factory", () => {
     expect(
