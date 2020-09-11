@@ -39,7 +39,7 @@
         "typeface-roboto": "0.0.75",
         "typescript": "^3.9.7"
     },
-    "homepage": "https://pse-smartaq.azurewebsites.net/",
+    "homepage": "https://kind-wave-08ce2ee03.azurestaticapps.net/pse-airquality-react/",
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
