@@ -1,12 +1,17 @@
 {
     "routes": [
         {
-            "route": "/manifest.json",
-            "serve": "/manifest.json",
+            "route": "/pse-airquality-react/manifest.json",
+            "serve": "/pse-airquality-react/manifest.json",
             "statusCode": 200
         },
         {
-            "route": "/*",
+            "route": "/pse-airquality-react/static/*",
+            "serve": "/pse-airquality-react/static/*",
+            "statusCode": 200
+        },
+        {
+            "route": "/pse-airquality-react/*",
             "serve": "/index.html",
             "statusCode": 200
         }
