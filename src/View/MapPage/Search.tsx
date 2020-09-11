@@ -1,12 +1,5 @@
 import React, { Fragment, SyntheticEvent } from "react";
-import {
-    IconButton,
-    Divider,
-    InputBase,
-    Grid,
-    Card,
-    Box,
-} from "@material-ui/core";
+import { IconButton, InputBase, Card, Box } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import GpsFixedIcon from "@material-ui/icons/GpsFixed";
 import { Position } from "../../Model/Position";
