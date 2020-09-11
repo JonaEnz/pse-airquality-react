@@ -9,7 +9,6 @@ import lightGreen from "@material-ui/core/colors/green";
 import Layout from "./View/Layout/Layout";
 import Configuration from "./Controller/Storage/Configuration";
 
-
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -35,4 +34,4 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();

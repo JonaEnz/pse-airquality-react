@@ -2,5 +2,7 @@
   "editor.formatOnSave": true,
   "cSpell.words": [
     "Delaunator"
-  ]
+  ],
+  "appService.defaultWebAppToDeploy": "/subscriptions/c10c160d-306e-4f04-93f2-bb25a83fc8f6/resourceGroups/PSE_Airquality/providers/Microsoft.Web/sites/pse-smartaq",
+  "appService.deploySubpath": "build"
 }
