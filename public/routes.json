@@ -10,6 +10,11 @@
             "route": "/pse-airquality-react/*",
             "serve": "/index.html",
             "statusCode": 200
+        },
+        {
+            "route": "/",
+            "serve": "/index.html",
+            "statusCode": 200
         }
     ]
 }
