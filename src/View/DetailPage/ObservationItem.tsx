@@ -76,7 +76,7 @@ export default class ObservationItem extends React.Component<
                                         .getUnitOfMeasurement()}
                             </Typography>
                             <Typography
-                                align="right"
+                                className='help'
                                 color="primary">
                                 <a
                                     href={this.props.observation

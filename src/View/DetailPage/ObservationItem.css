@@ -2,10 +2,17 @@
 }
 
 .card-content {
+    position: relative;
     padding: 10px;
 }
 
 .centered-text {
     width: 100%;
     text-align: center;
+}
+
+.help{
+    position: absolute;
+    right: 15px;
+    top: 10px;
 }
