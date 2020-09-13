@@ -7,6 +7,12 @@
             "route": "/pse-airquality-react/static/*"
         },
         {
+            "route": "/pse-airquality-react/js/*"
+        },
+        {
+            "route": "/pse-airquality-react/css/*"
+        },
+        {
             "route": "/pse-airquality-react/*",
             "serve": "/index.html",
             "statusCode": 200
