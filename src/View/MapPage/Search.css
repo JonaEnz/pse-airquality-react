@@ -1,6 +1,6 @@
 .root {
     position: absolute;
-    left: 0px;
+    left: 5px;
     right: 0px;
     top: 0px;
 
@@ -15,7 +15,7 @@
     left: 30px;
     top: 2px;
     bottom: 2px;
-    width: 100%;
+    width: 90%;
 }
 
 .divider {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, Button, MenuItem } from "@material-ui/core";
+import { Menu, Button, MenuItem, Hidden } from "@material-ui/core";
 import { Translate, ExpandMore } from "@material-ui/icons";
 import Language from "../../Controller/Storage/Language";
 
@@ -81,7 +81,9 @@ export default class LanguageMenu extends React.Component<IProps, IState> {
                     aria-controls="simple-menu"
                     aria-haspopup="true"
                 >
-                    {this.state.selectedLang}
+                    <Hidden only={["xs", "sm"]}>
+                        {this.state.selectedLang}
+                    </Hidden>
                 </Button>
                 <Menu
                     open={Boolean(this.state.anchorEl)}
